@@ -15,7 +15,7 @@ public class Main extends Application{
 	public final static Background PLAYERPANE = new Background(new BackgroundFill(Color.BLUE, null, null));
 	public final static Background ENEMYPANE = new Background(new BackgroundFill(Color.RED, null, null));
 	
-	
+	//dikke toeter
 	
 	public static void main(String[] args) {
 		
