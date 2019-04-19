@@ -7,30 +7,30 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
-public class RoundTrackPane extends Pane{
+public class PaystoneHolder extends Pane{
 	
-	//instance
-	private double roundTrackPaneHeight = 100;
+	private double PayStoneHolderHeight = 75;
 	
-	public RoundTrackPane() {
+	public PaystoneHolder() {
 		setUp();
 	}
-	
+
 	private void setUp() {
 		setPaneSize();
-		aanduiding();
+		aanduiding();	
+		
+		
 	}
-	
+
 	private void setPaneSize() {
-		setMinSize(GamePane.windowMaxWidth / 3, roundTrackPaneHeight);
-		setMaxSize(GamePane.windowMaxWidth / 3, roundTrackPaneHeight);
+		setMinSize(GamePane.windowMaxWidth / 6, PayStoneHolderHeight);	
 	}
 	
-	private void aanduiding() { // deze method wordt uiteindelijk verwijderd
+	public void aanduiding() { // deze method wordt uiteindelijk verwijderd
 		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null))); //aanduiding van chatvak
 		setBackground(controller.Main.ENEMYPANE);
 		Label text = new Label();
-		text.setText("RoundTrackPane");
+		text.setText("paystoneholder");
 		getChildren().addAll(text);
 	}
 }

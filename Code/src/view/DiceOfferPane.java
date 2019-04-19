@@ -26,7 +26,7 @@ public class DiceOfferPane extends Pane{
 	private void aanduiding() { // deze method wordt uiteindelijk verwijderd
 		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null))); //aanduiding van chatvak
 		Label text = new Label();
-		text.setText("CHAT");
+		text.setText("DiceOfferPane");
 		getChildren().addAll(text);
 	}
 }
