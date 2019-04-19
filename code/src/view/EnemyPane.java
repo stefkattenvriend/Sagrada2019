@@ -13,7 +13,7 @@ public class EnemyPane extends BorderPane{
 	
 	public EnemyPane() {
 		setBackground(controller.Main.ENEMYPANE); //aanduiding voor pane
-		setUp();
+//		setUp();
 	}
 
 	private void setUp() {
