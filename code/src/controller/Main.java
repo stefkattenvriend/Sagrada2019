@@ -15,11 +15,6 @@ public class Main extends Application{
 	public final static Background PLAYERPANE = new Background(new BackgroundFill(Color.BLUE, null, null));
 	public final static Background ENEMYPANE = new Background(new BackgroundFill(Color.RED, null, null));
 	
-	//dikke toeter
-	//tweede dikke toeter
-	
-	//dunne toeter
-	
 	public static void main(String[] args) {
 		
 		
@@ -39,11 +34,6 @@ public class Main extends Application{
 		MyScene myScene = new MyScene();
 		stage.setScene(myScene);
 		stage.show();		
-	}
-	
-	public void methodetest()
-	{
-		System.out.println("dit is een test 8====D ");
 	}
 
 }
