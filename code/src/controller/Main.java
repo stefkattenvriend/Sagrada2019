@@ -17,6 +17,8 @@ public class Main extends Application{
 	
 	//dikke toeter
 	
+	//dunne toeter
+	
 	public static void main(String[] args) {
 		
 		
