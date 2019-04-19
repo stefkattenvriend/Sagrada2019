@@ -1,10 +1,7 @@
 package view;
 
-<<<<<<< HEAD
-
 import javafx.scene.layout.FlowPane;
-=======
->>>>>>> parent of 5640863... added diceSection
+
 import javafx.scene.layout.VBox;
 
 public class PlayerPane extends VBox{
