@@ -1,30 +1,17 @@
 package view;
 
+<<<<<<< HEAD
 
 import javafx.scene.layout.FlowPane;
+=======
+>>>>>>> parent of 5640863... added diceSection
 import javafx.scene.layout.VBox;
-
 
 public class PlayerPane extends VBox{
 	
-	private FlowPane diceSection;
-	private RoundTrackPane roundTrackPane;
-	private DiceOfferPane diceOfferPane;
-	
 	public PlayerPane() {
-		super();
 		setBackground(controller.Main.PLAYERPANE); // aanduiding voor pane
-		setUp();
-	}
-	
-	private void setUp() {
 		setPaneSize();
-		diceSection = new FlowPane();
-		roundTrackPane = new RoundTrackPane();
-		diceOfferPane = new DiceOfferPane();
-
-		diceSection.getChildren().addAll(roundTrackPane, diceOfferPane);
-		getChildren().add(diceSection);
 	}
 	
 	private void setPaneSize() {
