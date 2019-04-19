@@ -44,6 +44,8 @@ public class Main extends Application{
 	public void methodetest()
 	{
 		System.out.println("dit is een test 8====D ");
+		
+		System.out.println("lololol");
 	}
 
 }
