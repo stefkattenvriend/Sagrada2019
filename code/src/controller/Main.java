@@ -16,6 +16,7 @@ public class Main extends Application{
 	public final static Background ENEMYPANE = new Background(new BackgroundFill(Color.RED, null, null));
 	
 	//dikke toeter
+	//tweede dikke toeter
 	
 	//dunne toeter
 	
