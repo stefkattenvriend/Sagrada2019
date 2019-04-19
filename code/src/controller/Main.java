@@ -40,5 +40,10 @@ public class Main extends Application{
 		stage.setScene(myScene);
 		stage.show();		
 	}
+	
+	public void methodetest()
+	{
+		System.out.println("dit is een test 8====D ");
+	}
 
 }
