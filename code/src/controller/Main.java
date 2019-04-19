@@ -1,5 +1,6 @@
 package controller;
 
+import databeest.DataBaseApplication;
 import javafx.application.Application;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -18,7 +19,15 @@ public class Main extends Application{
 	
 	public static void main(String[] args) {
 		launch(args);
-
+		
+		DataBaseApplication databeest = new DataBaseApplication();
+		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
+				&& (databeest.makeConnection()))
+		{
+			databeest.doSomeQuerying();
+//			databeest.doSomeUpdating();
+		}
+		
 	}
 
 	@Override
