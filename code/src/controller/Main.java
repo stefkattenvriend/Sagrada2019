@@ -18,7 +18,7 @@ public class Main extends Application{
 	
 	
 	public static void main(String[] args) {
-		launch(args);
+		
 		
 		DataBaseApplication databeest = new DataBaseApplication();
 		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
@@ -28,6 +28,7 @@ public class Main extends Application{
 //			databeest.doSomeUpdating();
 		}
 		
+		launch(args);
 	}
 
 	@Override

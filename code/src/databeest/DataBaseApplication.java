@@ -48,15 +48,18 @@ public class DataBaseApplication
 		}
 		return true;
 	}
-
+	
+	//doe een query
 	public void doSomeQuerying()
 	{
 		Statement stmt = null;
-		String query = "SELECT * FROM hemelobject LIMIT 5;";
+		String query = "SELECT * FROM hemelobject LIMIT 3;";
 		try
 		{
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
+			
+			//return string in console
 			while (rs.next())
 			{
 				String name = rs.getString("objectnaam");
