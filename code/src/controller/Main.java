@@ -32,6 +32,7 @@ public class Main extends Application{
 	@Override
 	public void start(Stage stage) throws Exception {
 		MyScene myScene = new MyScene();
+		stage.setResizable(false);
 		stage.setScene(myScene);
 		stage.show();		
 	}
