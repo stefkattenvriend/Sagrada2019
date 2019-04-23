@@ -1,7 +1,7 @@
 package controller;
 
 import view.ToolCard1Pane;
-
+// gemaakt door TESS!!!!!!!!!!
 public class ToolCard {
 
 	public void useCard(int number) {
