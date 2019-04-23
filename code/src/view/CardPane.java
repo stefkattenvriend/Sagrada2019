@@ -12,8 +12,6 @@ import javafx.scene.paint.Color;
 public class CardPane extends Pane{
 
 	
-	
-	
 	public CardPane() {
 		setPicture();
 		setMinSize((GamePane.windowMaxWidth / 6), GamePane.windowMaxHeight / 3);
