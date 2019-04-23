@@ -28,7 +28,6 @@ public class RoundTrackPane extends Pane{
 	
 	private void aanduiding() { // deze method wordt uiteindelijk verwijderd
 		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null))); //aanduiding van chatvak
-		setBackground(controller.Main.ENEMYPANE);
 		Label text = new Label();
 		text.setText("RoundTrackPane");
 		getChildren().addAll(text);
