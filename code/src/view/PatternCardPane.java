@@ -1,5 +1,5 @@
 package view;
-
+//joery
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
@@ -14,11 +14,6 @@ import javafx.scene.paint.Color;
 
 public class PatternCardPane extends Pane{
 	
-	/* INFO */
-	/* met Stackpane is het mogelijk om 
-	 * panes op elkaar te plaatsen.
-	 * Dit moet nog gebeuren.
-	 */
 	private StackPane patternCard;
 	private TilePane patternCardView;
 	private TilePane patternCardDice;
@@ -38,11 +33,8 @@ public class PatternCardPane extends Pane{
 		patternCardView = new TilePane();
 		patternCardView.setMinSize(GamePane.windowMaxWidth / 3, 330);
 		patternCardView.setBackground(new Background(new BackgroundFill(Color.BEIGE, null, null)));
-		
 		patternCardDice = new TilePane();
 		patternCardDice.setMinSize(GamePane.windowMaxWidth / 3, 330);
-//		patternCardDice.getChildren().add(text);
-//		patternCardDice.setBackground(new Background(new BackgroundFill(Color.YELLOW, null, null)));
 		patternCard.getChildren().addAll(patternCardView, patternCardDice);
 		getChildren().add(patternCard);
 	}

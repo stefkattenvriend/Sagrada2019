@@ -3,7 +3,7 @@ package view;
 import javafx.scene.layout.Pane;
 
 public class EndPane extends Pane{
-	
+	//Joery
 	public EndPane() {
 		setUp();
 	}
