@@ -4,14 +4,36 @@ public class DiceHolderModel {
 
 	private DiceModel die;
 	private int size;
-	//Color moet later worden opgehaald uit kaarten
-	//x en y coordinaten?
+	private int x;
+	private int y;
 	//int owner
 	
-	public DiceHolderModel(DiceModel die, int size) {
+	public DiceHolderModel(DiceModel die, int size, int x, int y) {
 		setDie(die);
 		setSize(size);
+		setX(x);
+		setY(y);
 	}
+	
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	
+	
+	
 
 	public DiceModel getDie() {
 		return die;
