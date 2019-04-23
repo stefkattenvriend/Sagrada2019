@@ -13,6 +13,9 @@ public class PlayerPane extends VBox{
 	private DiceOfferPane diceOfferPane;
 	private HBox personalAttributes;
 	private PaystoneHolder paystoneHolder;
+	private Points points;
+	private TargetColor targetColor;
+	private PatternCardPane patternCardPane;
 	
 	public PlayerPane() {
 		setBackground(controller.Main.PLAYERPANE); // aanduiding voor pane
@@ -23,13 +26,20 @@ public class PlayerPane extends VBox{
 		setPaneSize();
 		setDiceSection();
 		setPersonalAttributes();
+		setPatternCard();
 	}
-	
+
+	private void setPatternCard() {
+		patternCardPane = new PatternCardPane();
+		getChildren().add(patternCardPane);
+	}
+
 	private void setPersonalAttributes() {
 		personalAttributes = new HBox();
 		paystoneHolder = new PaystoneHolder();
-		//more personal attributes here
-		personalAttributes.getChildren().addAll(paystoneHolder);
+		points = new Points();
+		targetColor = new TargetColor();
+		personalAttributes.getChildren().addAll(paystoneHolder, points, targetColor);
 		personalAttributes.setMinHeight(75);
 		getChildren().add(personalAttributes);
 	}
