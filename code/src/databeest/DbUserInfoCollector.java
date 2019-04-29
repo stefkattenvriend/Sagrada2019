@@ -2,16 +2,16 @@ package databeest;
 
 //Stef
 public class DbUserInfoCollector {
+	
+	private String query;
 	public DbUserInfoCollector()
 	{
 		
 	}
 	
-	public void CreateAccount(String username, String password)
+	public String CreateAccount(String username, String password)
 	{
-		/// Hier moet de query komen voor de database om een nieuw account aan te maken
-		
-		// "INSERT INTO account (username, password)
-		// VALUES ( " + username + ", " + password" + ");"
+		query = "INSERT INTO mwmastbe_db2.account (username, password) VALUES ('" + username + "', '" + password + "');";
+		return query;
 	}
 }

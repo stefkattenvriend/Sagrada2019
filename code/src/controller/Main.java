@@ -22,7 +22,7 @@ public class Main extends Application{
 		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
 				&& (databeest.makeConnection()))
 		{
-			databeest.doSomeQuerying();
+//			databeest.doSomeQuerying();
 //			databeest.doSomeUpdating();
 		}
 

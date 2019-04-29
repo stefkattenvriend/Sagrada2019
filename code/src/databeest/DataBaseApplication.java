@@ -78,6 +78,11 @@ public class DataBaseApplication
 		Statement stmt = null;
 		String query = "INSERT INTO `reis` (`reisnr`, `vertrekdatum`, `reisduur`, `prijs`) VALUES\r\n" + 
 				"(39, '2006-01-01 00:00:00', 10, 4.50);";
+		
+		// database test met parameters
+		DbUserInfoCollector infoCollector = new DbUserInfoCollector();
+		query = infoCollector.CreateAccount("test15", "klaas");
+		
 		try
 		{
 			stmt = m_Conn.createStatement();
@@ -89,6 +94,9 @@ public class DataBaseApplication
 		{
 			System.out.println(e.getMessage());
 		}
+		
+		
+		
 	}
 	
 }
