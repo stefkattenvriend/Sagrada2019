@@ -22,16 +22,17 @@ public class Main extends Application{
 		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
 				&& (databeest.makeConnection()))
 		{
-			databeest.doSomeQuerying();
+//			databeest.doSomeQuerying();
 //			databeest.doSomeUpdating();
 		}
-		//kleine aanpassing
+
 		launch(args);
 	}
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		MyScene myScene = new MyScene();
+		MyScene myScene = new MyScene(new DiceHolderController(), new PatterncardController());
+		stage.setResizable(false);
 		stage.setScene(myScene);
 		stage.show();		
 	}
