@@ -16,6 +16,8 @@ public class Account {
 	{
 		// username moet voorkomen in de database.
 		
+		
+		
 		// password moet samen met username in de zelfde rij voorkomen.
 		
 		
