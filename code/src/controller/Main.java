@@ -31,7 +31,7 @@ public class Main extends Application{
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		MyScene myScene = new MyScene();
+		MyScene myScene = new MyScene(new DiceHolderController(), new PatterncardController());
 		stage.setResizable(false);
 		stage.setScene(myScene);
 		stage.show();		
