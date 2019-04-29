@@ -25,7 +25,7 @@ public class Main extends Application{
 			databeest.doSomeQuerying();
 //			databeest.doSomeUpdating();
 		}
-		//kleine aanpassing
+
 		launch(args);
 	}
 
