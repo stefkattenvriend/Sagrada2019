@@ -1,5 +1,6 @@
 package view;
 
+import controller.DiceHolderController;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.BorderStroke;
@@ -9,10 +10,16 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
 public class DiceHolderPane extends BorderPane{
+	
+	private DiceHolderController dhc;
 
-	public DiceHolderPane(int size) {
+	public DiceHolderPane(double size, DiceHolderController dhc) {
 		super();
+		this.dhc = dhc;
 		this.setPrefSize(size, size);
-		this.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(0), new BorderWidths(size/40) )));
+		this.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(0), new BorderWidths(3) )));
+		this.setOnMouseClicked(e -> dhc.DiceHolderClick(this));
+		this.setOnMouseEntered(e -> dhc.DiceHolderHover(this));
+		this.setOnMouseExited(e -> dhc.DiceHolderLeaveHover(this));
 	}
 }

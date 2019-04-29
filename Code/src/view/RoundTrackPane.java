@@ -1,18 +1,21 @@
 package view;
+import controller.DiceHolderController;
 //joery
 import javafx.scene.control.Label;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 
-public class RoundTrackPane extends Pane{
+public class RoundTrackPane extends FlowPane{
 	
 	//instance
 	private double roundTrackPaneHeight = 100;
+	private DiceHolderController dhc;
 	
-	public RoundTrackPane() {
+	public RoundTrackPane(DiceHolderController dhc) {
+		this.dhc = dhc;
 		setUp();
 	}
 	

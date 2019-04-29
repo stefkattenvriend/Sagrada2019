@@ -10,14 +10,13 @@ public class DiceModel {
 	private int eyes;
 	private boolean interactable;
 	private boolean selected;
-	private DiceHolderModel dh;
 	
-	public DiceModel(int size, Color paint, int eyes, boolean interactable, DiceHolderModel dh) {
-		setSize(size);
-		setPaint(paint);
-		setEyes(eyes);
-		setInteractable(interactable);
-		setDh(dh);
+	public DiceModel(int size, Color paint, int eyes, boolean interactable) {
+		this.size = size;
+		this.paint = paint;
+		this.eyes = eyes;
+		this.interactable = interactable;
+		this.selected = false;
 	}
 
 	public int getSize() {
@@ -60,11 +59,4 @@ public class DiceModel {
 		this.selected = selected;
 	}
 
-	public DiceHolderModel getDh() {
-		return dh;
-	}
-
-	public void setDh(DiceHolderModel dh) {
-		this.dh = dh;
-	}
 }
