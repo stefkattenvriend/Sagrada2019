@@ -1,6 +1,7 @@
 package controller;
 
 import databeest.DataBaseApplication;
+import databeest.DbUserInfoCollector;
 import javafx.application.Application;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -26,6 +27,19 @@ public class Main extends Application{
 //			databeest.doSomeUpdating();
 		}
 
+		DbUserInfoCollector dbUserInfoCollector = new DbUserInfoCollector(databeest);
+		LoginController loginController = new LoginController(dbUserInfoCollector);
+		
+		
+		
+		// login test
+//		loginController.CheckLogin("bart", "");
+		
+//		loginController.CreateAccount("mooie", "makker");
+		
+		
+		
+		
 		launch(args);
 	}
 
