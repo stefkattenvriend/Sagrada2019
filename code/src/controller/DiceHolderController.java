@@ -19,7 +19,7 @@ public class DiceHolderController {
 	
 	
 	public DiceHolderPane CreateDiceHolder(double size, int x, int y, int  type) {//deze methode maakt de diceHolder model en pane aan en geeft de pane terug aan de view
-		DiceHolderModel model = new DiceHolderModel(null, x, y, type, this);
+		DiceHolderModel model = new DiceHolderModel(null, x, y, type);
 		DiceHolderPane pane = new DiceHolderPane(size, this);
 		dhmodels.add(model);
 		dhpanes.add(pane);
