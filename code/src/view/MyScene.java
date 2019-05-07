@@ -9,12 +9,24 @@ public class MyScene extends Scene{
 	
 	private DiceHolderController dhc;
 	private PatterncardController dcc;
+	private MenuPane menuPane;
+	private GamePane gamePane;
 	
 	public MyScene(DiceHolderController dhc, PatterncardController dcc) {
 		super(new Pane());
 		this.dhc = dhc;
 		this.dcc = dcc;
 		
-		setRoot(new GamePane(dhc, dcc));//de root begint natuurlijk eerst met het menu.
+		gamePane = new GamePane(dhc, dcc);
+		menuPane = new MenuPane(this, gamePane);
+		// hier moeten ook nog de login en registratie panes worden aangemaakt.
+		// daarna is pas de menupane te zien. Er wordt geswitched met de method: setNewRoot.
+		// via de constructor worden de aangemaakte classes doorgegeven.
+		
+		setNewRoot(menuPane);
+	}
+
+	public void setNewRoot(Pane pane) {
+		setRoot(pane);
 	}
 }

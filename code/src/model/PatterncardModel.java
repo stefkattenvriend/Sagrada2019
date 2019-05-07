@@ -13,6 +13,7 @@ public class PatterncardModel {
 		this.patterncardNumber = number;
 		this.x = x;
 		this.y = y;
+		getFromDatabase();
 	}
 	
 	public int getPatterncardNumber() {
@@ -44,6 +45,10 @@ public class PatterncardModel {
 	}
 	public void setColor(Color color) {
 		this.color = color;
+	}
+	
+	public void getFromDatabase() {
+		//gebruik databeest.getPatternCard
 	}
 	
 }
