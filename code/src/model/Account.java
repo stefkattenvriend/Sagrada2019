@@ -4,8 +4,10 @@ package model;
 
 public class Account {
 	
+	// Instance variables
 	private String currentAccount;
 	
+	// Constructor
 	public Account()
 	{
 		currentAccount = null;

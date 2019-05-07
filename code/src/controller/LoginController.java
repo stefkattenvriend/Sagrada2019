@@ -6,10 +6,11 @@ import model.Account;
 //Stef
 public class LoginController {
 	
+	// Instance variables
 	private DbUserInfoCollector dbUserInfoCollector;
-	
 	private Account account;
 
+	// Constructor
 	public LoginController(DbUserInfoCollector dbUserInfoCollector)
 	{
 		this.dbUserInfoCollector = dbUserInfoCollector;
@@ -17,6 +18,7 @@ public class LoginController {
 		account = new Account();
 	}
 	
+	//Als accountgegevens kloppen, moet het inloggen
 	public void login(String username, String password)
 	{
 		if(this.CheckLogin(username, password))
@@ -26,29 +28,46 @@ public class LoginController {
 		
 	}
 
+	
+	// moet kijken of de username en password samen voorkomen in de tabel
+	// TODO password check
 	private boolean CheckLogin(String username, String password)
 	{
 		// username moet voorkomen in de database.
-		if(this.CheckIfExist(username))
+		if(this.CheckIfExist(username) /* && password komt overeen met username */)
 		{
 			// password moet samen met username in de zelfde rij voorkomen.
-			System.out.println("Succes: Username '"+ username + "' does exist");
 			return true;
 		}
 		else 
 		{
-			System.out.println("Error: Username '"+ username + "' does not exist");
 			return false;
 		}
 	}
 
+	
+	// kijkt of username bestaat
 	private boolean CheckIfExist(String username)
 	{
 		return dbUserInfoCollector.CheckUsername(username);
 	}
 	
-	public void CreateAccount(String username, String password) 
+	
+	// moet kijken of de ingevulde username geldig is (bestaat het al? of zitten er gekke tekens in?)
+	// returned true als het gelukt is.
+	// TODO checksysteem
+	public boolean CreateAccount(String username, String password) 
 	{
-		dbUserInfoCollector.CreateAccount(username, password);
+		if (CheckIfExist(username)) 
+		{
+			System.out.println("Username bestaat al!");
+			return false;
+		} else 
+		{
+			dbUserInfoCollector.CreateAccount(username, password);
+			System.out.println("Account aangemaakt");
+			return true;
+		}
+		
 	}
 }
