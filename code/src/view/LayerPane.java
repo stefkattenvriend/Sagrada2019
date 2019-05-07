@@ -2,26 +2,42 @@ package view;
 
 import controller.DiceHolderController;
 import controller.PatterncardController;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 
-public class LayerPane extends StackPane{//deze moet nog voor de gamepane worden aangemaakt(dus in de scene). deze pane geeft de mogelijkheid om "pop-ups" te creëren(voor bijvoorbeeld een pauze menu, patroonkaart keuze en een scorebord op einde van game ~Rens
+public class LayerPane extends StackPane{//deze moet nog voor de gamepane worden aangemaakt(dus in de scene). deze pane geeft de mogelijkheid om "pop-ups" te creï¿½ren(voor bijvoorbeeld een pauze menu, patroonkaart keuze en een scorebord op einde van game ~Rens
+	
+	//constants
+	public final static double windowMaxWidth = 1280;
+	public final static double windowMaxHeight = 800;
 	
 	private GamePane gamePane;
 	private DiceHolderController dhc;
 	private PatterncardController dcc;
 	
-	public LayerPane(DiceHolderController dhc, PatterncardController dcc) {
-		this.dhc = dhc;
-		this.dcc = dcc;
+	
+	public LayerPane() {
+//		this.dhc = dhc;
+//		this.dcc = dcc;
 		setUp();
 		
 	}
 	
 	public void setUp() {
-		gamePane = new GamePane(dhc, dcc);
-		this.getChildren().add(gamePane);
+//		gamePane = new GamePane(dhc, dcc);
+//		this.getChildren().add(gamePane);
+		setLayerSize();
+		setDesign();
+		
 	}
 	
+	private void setDesign() {
+		setBackground(new Background(new BackgroundFill(Color.rgb(255, 255, 255, 0.7), null, null)));
+		
+	}
+
 	public int paternCardChoice() {//aanroepen vanuit gameController
 		int choice;
 		
@@ -33,6 +49,11 @@ public class LayerPane extends StackPane{//deze moet nog voor de gamepane worden
 		choice = 1;//voor testen later weg
 		
 		return choice;
+	}
+	
+	private void setLayerSize() {
+		setMinSize(windowMaxWidth, windowMaxHeight);
+		setMaxSize(windowMaxWidth, windowMaxHeight);
 	}
 	
 }
