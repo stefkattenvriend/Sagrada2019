@@ -62,7 +62,7 @@ public class CardBackgrounds {
 	}
 	
 	//
-	public Integer[] getToolCards() {
-
+	public ImageView[] getToolCards() {
+		return toolCards;
 	}
 }
