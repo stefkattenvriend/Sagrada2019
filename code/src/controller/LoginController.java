@@ -26,8 +26,8 @@ public class LoginController {
 		if(this.CheckLogin(username, password))
 		{
 			account.setCurrentAccount(username);
+			System.out.println("Login gelukt");
 		}
-		
 	}
 
 	
@@ -49,6 +49,12 @@ public class LoginController {
 		}
 	}
 
+	// kijkt of de string alleen uit letters en cijfers bestaat
+	public boolean IsAlphaNumeric(String s)
+	{
+		return s != null && s.toLowerCase().matches("^[a-z0-9]*$");
+	}
+	
 	
 	// kijkt of username bestaat
 	private boolean CheckIfExist(String username)
@@ -56,24 +62,29 @@ public class LoginController {
 		return dbUserInfoCollector.CheckUsername(username);
 	}
 	
-	
-	// moet kijken of de ingevulde username geldig is (bestaat het al? of zitten er gekke tekens in?)
-	// returned true als het gelukt is.
-	// TODO checksysteem
+
+	// maakt een account aan als het aan de eisen voldoet
 	public boolean CreateAccount(String username, String password) 
 	{
-		
-		
-		
-		if (CheckIfExist(username)) 
+		if (username.length() > 2 && password.length() > 2 && IsAlphaNumeric(username) && IsAlphaNumeric(password)) 
 		{
-			System.out.println("Username bestaat al!");
-			return false;
+			if (CheckIfExist(username.toLowerCase())) 
+			{
+				System.out.println("Username bestaat al!");
+				return false;
+			} else 
+			{
+				dbUserInfoCollector.CreateAccount(username.toLowerCase(), password.toLowerCase());
+				System.out.println("Account aangemaakt");
+				
+				// log meteen in
+				login(username, password);
+				return true;
+			}
 		} else 
 		{
-			dbUserInfoCollector.CreateAccount(username, password);
-			System.out.println("Account aangemaakt");
-			return true;
+			System.out.println("Gebruik 3 of meer letters of cijfers");
+			return false;
 		}
 		
 	}

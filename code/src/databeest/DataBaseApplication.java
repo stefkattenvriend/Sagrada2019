@@ -115,9 +115,6 @@ public class DataBaseApplication
 
 	
 	
-	
-	
-	
 	// Alle read query's
 	
 	public String readPassword(String username) 
@@ -144,10 +141,37 @@ public class DataBaseApplication
 		return password;
 	}
 	
-	public String CheckIfUsernameExists()
+	public boolean CheckIfUsernameExists(String username)
 	{
+		String dbUsername = null;
+		String query;
+		Statement stmt = null;
+		query = "SELECT * FROM account WHERE username = '" + username + "';";
+		try
+		{
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while (rs.next())
+			{
+				dbUsername = rs.getString(1);
+			}
+			
+			stmt.close();
+		} catch (SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
 		
-		return null;
+		
+		if (dbUsername != null) 
+		{
+			return true;
+		}
+		else 
+		{
+			return false;
+		}
 		
 	}
 	

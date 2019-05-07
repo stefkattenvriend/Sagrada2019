@@ -16,8 +16,16 @@ public class Main extends Application{
 	public final static Background PLAYERPANE = new Background(new BackgroundFill(Color.BLUE, null, null));
 	public final static Background ENEMYPANE = new Background(new BackgroundFill(Color.RED, null, null));
 	
-	public static void main(String[] args) {
-		
+	//instance variables
+	private DbUserInfoCollector dbUserInfoCollector;
+	
+	public static void main(String[] args) 
+	{
+		launch(args);
+	}
+
+	@Override
+	public void start(Stage stage) throws Exception {
 		
 		DataBaseApplication databeest = new DataBaseApplication();
 		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
@@ -33,25 +41,20 @@ public class Main extends Application{
 		}
 
 		DbUserInfoCollector dbUserInfoCollector = new DbUserInfoCollector(databeest);
-		LoginController loginController = new LoginController(dbUserInfoCollector);
 		
+		DiceHolderController dhc = new DiceHolderController();
+		PatterncardController pcc = new PatterncardController();
+		LoginController lc = new LoginController(dbUserInfoCollector);
 		
-		
+		MyScene myScene = new MyScene(dhc, pcc, lc); //gamecontroller wordt aangemaakt datgeen wat er nu instaat wordt in gamecontroller aangemaakt.
+
 		
 		// login test
-//		loginController.CheckLogin("bart", "");
-		
-//		loginController.CreateAccount("mooie", "makker");
-		
+//		lc.CheckLogin("bart", "");
+//		lc.CreateAccount("kees", "kaas");
 		
 		
-		
-		launch(args);
-	}
-
-	@Override
-	public void start(Stage stage) throws Exception {
-		MyScene myScene = new MyScene(new DiceHolderController(), new PatterncardController()); //gamecontroller wordt aangemaakt datgeen wat er nu instaat wordt in gamecontroller aangemaakt.
+		// Basic stage stuff
 		stage.setResizable(false);
 		stage.setScene(myScene);
 		stage.show();		
