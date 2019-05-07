@@ -1,4 +1,4 @@
-package view;
+package view.GamePanes;
 
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;

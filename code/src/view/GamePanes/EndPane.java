@@ -1,4 +1,4 @@
-package view;
+package view.GamePanes;
 
 import javafx.scene.layout.Pane;
 

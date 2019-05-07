@@ -1,4 +1,4 @@
-package view;
+package view.GamePanes;
 import controller.DiceHolderController;
 //joery
 import javafx.scene.control.Label;

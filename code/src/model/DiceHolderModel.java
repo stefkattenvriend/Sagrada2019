@@ -1,7 +1,5 @@
 package model;
 
-import controller.DiceHolderController;
-
 //Rens
 public class DiceHolderModel {
 

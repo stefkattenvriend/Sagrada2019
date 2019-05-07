@@ -1,6 +1,5 @@
-package view;
+package view.GamePanes;
 
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;

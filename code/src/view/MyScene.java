@@ -5,6 +5,7 @@ import controller.PatterncardController;
 //joery
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import view.GamePanes.GamePane;
 
 public class MyScene extends Scene{
 	

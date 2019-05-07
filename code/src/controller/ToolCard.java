@@ -1,6 +1,6 @@
 package controller;
 
-import view.ToolCard1Pane;
+import view.GamePanes.ToolCard1Pane;
 // gemaakt door TESS!!!!!!!!!!
 public class ToolCard {
 	

@@ -1,10 +1,11 @@
-package view;
+package view.GamePanes;
 import controller.DiceHolderController;
 import controller.PatterncardController;
 //joery
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import view.LayerPane;
 
 public class GamePane extends StackPane {
 	
