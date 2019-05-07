@@ -112,24 +112,43 @@ public class DataBaseApplication
 			System.out.println(e.getMessage());
 		}
 	}
-	
-	// voor een read Query (SELECT FROM ofzo)
-	public ResultSet readQuery(String query)
-	{
-		Statement stmt = null;
-		ResultSet rs = null;
 
+	
+	
+	
+	
+	
+	// Alle read query's
+	
+	public String readPassword(String username) 
+	{
+		String password = null;
+		String query;
+		Statement stmt = null;
+		query = "SELECT * FROM account WHERE username = '" + username + "';";
 		try
 		{
 			stmt = m_Conn.createStatement();
-			rs = stmt.executeQuery(query);
+			ResultSet rs = stmt.executeQuery(query);
+			
+			//return string in console
+			while (rs.next())
+			{
+				password = rs.getString(1);
+			}
 			stmt.close();
 		} catch (SQLException e)
 		{
 			System.out.println(e.getMessage());
 		}
+		return password;
+	}
+	
+	public String CheckIfUsernameExists()
+	{
 		
-		return rs;
+		return null;
+		
 	}
 	
 	public void getPaternCard(int pcnumber, int x, int y) {
