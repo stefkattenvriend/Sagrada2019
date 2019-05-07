@@ -1,7 +1,5 @@
 package view;
 
-import controller.DiceHolderController;
-import controller.PatterncardController;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.StackPane;
@@ -13,21 +11,14 @@ public class LayerPane extends StackPane{//deze moet nog voor de gamepane worden
 	public final static double windowMaxWidth = 1280;
 	public final static double windowMaxHeight = 800;
 	
-	private GamePane gamePane;
-	private DiceHolderController dhc;
-	private PatterncardController dcc;
 	
 	
 	public LayerPane() {
-//		this.dhc = dhc;
-//		this.dcc = dcc;
 		setUp();
 		
 	}
 	
 	public void setUp() {
-//		gamePane = new GamePane(dhc, dcc);
-//		this.getChildren().add(gamePane);
 		setLayerSize();
 		setDesign();
 		
