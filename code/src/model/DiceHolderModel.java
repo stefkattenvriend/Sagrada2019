@@ -10,14 +10,12 @@ public class DiceHolderModel {
 	private int y;
 	private int type; //1=raam speler, 2=rondespoor, 3=aanbod, 4=vijand 1, 5=vijand 2, 6=vijand 4(ofwel geeft aan waar op het scherm van de speler deze zichtbaar zal zijn(verander naar enums(Ger))
 	private boolean selected = false;
-	private DiceHolderController dhc;
 	
-	public DiceHolderModel(DiceModel die, int x, int y, int type, DiceHolderController dhc) {
+	public DiceHolderModel(DiceModel die, int x, int y, int type) {
 		this.die = die;
 		this.x = x;
 		this.y = y;
 		this.type = type;
-		this.dhc = dhc;
 		
 	}
 	
