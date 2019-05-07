@@ -1,6 +1,7 @@
 package controller;
 
 import databeest.DataBaseApplication;
+import databeest.DbUserInfoCollector;
 import javafx.application.Application;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -22,16 +23,29 @@ public class Main extends Application{
 		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
 				&& (databeest.makeConnection()))
 		{
-			databeest.doSomeQuerying();
+//			databeest.doSomeQuerying();
 //			databeest.doSomeUpdating();
 		}
-		//kleine aanpassing
+
+		DbUserInfoCollector dbUserInfoCollector = new DbUserInfoCollector(databeest);
+		LoginController loginController = new LoginController(dbUserInfoCollector);
+		
+		
+		
+		// login test
+//		loginController.CheckLogin("bart", "");
+		
+//		loginController.CreateAccount("mooie", "makker");
+		
+		
+		
+		
 		launch(args);
 	}
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		MyScene myScene = new MyScene();
+		MyScene myScene = new MyScene(new DiceHolderController(), new PatterncardController());
 		stage.setResizable(false);
 		stage.setScene(myScene);
 		stage.show();		

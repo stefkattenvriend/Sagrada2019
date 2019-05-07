@@ -35,7 +35,7 @@ public class DataBaseApplication
 		try
 		{
 			m_Conn = DriverManager
-					.getConnection("jdbc:mysql://localhost/outerspace?user=root&password=");
+					.getConnection("jdbc:mysql://databases.aii.avans.nl/mwmastbe_db2?user=rcaasper&password=Ab12345");
 			System.out.println("So far, so good...");
 		} catch (SQLException ex)
 		{
@@ -53,7 +53,7 @@ public class DataBaseApplication
 	public void doSomeQuerying()
 	{
 		Statement stmt = null;
-		String query = "SELECT * FROM hemelobject LIMIT 3;";
+		String query = "SELECT * FROM color LIMIT 3;";
 		try
 		{
 			stmt = m_Conn.createStatement();
@@ -62,10 +62,9 @@ public class DataBaseApplication
 			//return string in console
 			while (rs.next())
 			{
-				String name = rs.getString("objectnaam");
-				String satOf = rs.getString(2);
-				System.out.println(" - " + name + ", satellite of " + satOf
-						+ ".");
+				String name = rs.getString(1);
+//				String satOf = rs.getString(2);
+				System.out.println(" - " + name);
 			}
 			stmt.close();
 		} catch (SQLException e)
@@ -79,6 +78,7 @@ public class DataBaseApplication
 		Statement stmt = null;
 		String query = "INSERT INTO `reis` (`reisnr`, `vertrekdatum`, `reisduur`, `prijs`) VALUES\r\n" + 
 				"(39, '2006-01-01 00:00:00', 10, 4.50);";
+		
 		try
 		{
 			stmt = m_Conn.createStatement();
@@ -90,6 +90,46 @@ public class DataBaseApplication
 		{
 			System.out.println(e.getMessage());
 		}
+		
+	}
+	
+	
+	//Stef
+	// voor een insert Query
+	public void insertQuery(String query)
+	{
+		Statement stmt = null;
+
+		try
+		{
+			stmt = m_Conn.createStatement();
+			
+			int rs = stmt.executeUpdate(query);
+			System.out.println(rs);
+			stmt.close();
+		} catch (SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	// voor een read Query (SELECT FROM ofzo)
+	public ResultSet readQuery(String query)
+	{
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		try
+		{
+			stmt = m_Conn.createStatement();
+			rs = stmt.executeQuery(query);
+			stmt.close();
+		} catch (SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
+		
+		return rs;
 	}
 	
 }
