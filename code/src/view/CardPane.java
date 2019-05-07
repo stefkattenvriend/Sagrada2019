@@ -15,7 +15,7 @@ public class CardPane extends Pane{
 		this.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null)));
 	}
 
-	private void setPicture() {
-		
+	private void setPicture(ImageView background) {
+		this.getChildren().addAll(background);
 	}
 }
