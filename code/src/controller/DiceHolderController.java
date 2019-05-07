@@ -36,6 +36,9 @@ public class DiceHolderController {
 			}
 		}
 		
+		//if er een gereedschapskaart actief is
+			//welke kaart is actief
+		
 		if(selectedModel.getSelected() == false) {//check of er al een ander vak geselcteerd was
 			for (int i = 0; i < dhmodels.size(); i++) {
 				if(dhmodels.get(i).getSelected() == true) {

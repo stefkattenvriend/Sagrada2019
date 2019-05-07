@@ -3,6 +3,13 @@ package controller;
 import view.ToolCard1Pane;
 // gemaakt door TESS!!!!!!!!!!
 public class ToolCard {
+	
+	private int selectedCard;
+	
+	
+	//maak die selected
+	
+	
 
 	public void useCard(int number) {
 		if(number==1) {
