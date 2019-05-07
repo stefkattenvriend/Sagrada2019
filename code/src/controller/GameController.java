@@ -7,4 +7,4 @@ public class GameController {//deze classe wordt later aangemaakt in de main en 
 		
 	}
 	
-
+}

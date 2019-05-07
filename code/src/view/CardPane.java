@@ -1,5 +1,6 @@
 package view;
 
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
@@ -10,12 +11,12 @@ public class CardPane extends Pane{
 
 	
 	public CardPane() {
-		setPicture();
+//		setPicture();
 		setMinSize((GamePane.windowMaxWidth / 6), GamePane.windowMaxHeight / 3);
 		this.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null)));
 	}
 
-	private void setPicture(ImageView background) {
-		this.getChildren().addAll(background);
-	}
+//	private void setPicture(ImageView background) {
+//		this.getChildren().addAll(background);
+//	}
 }
