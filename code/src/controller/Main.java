@@ -51,7 +51,8 @@ public class Main extends Application{
 		
 		// login test
 //		lc.CreateAccount("kees", "kaas");
-//		lc.login("khes", "keas");
+		lc.login("kareel", "appeel");
+		lc.logout();
 		
 		
 		// Basic stage stuff

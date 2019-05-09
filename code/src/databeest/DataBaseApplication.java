@@ -131,7 +131,7 @@ public class DataBaseApplication
 			//return string in console
 			while (rs.next())
 			{
-				password = rs.getString(1);
+				password = rs.getString(2).toLowerCase();
 			}
 			stmt.close();
 		} catch (SQLException e)

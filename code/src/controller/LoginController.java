@@ -11,7 +11,7 @@ public class LoginController {
 	private DbUserInfoCollector dbUserInfoCollector;
 	private Account account;
 	private LoginPane loginPane;
-
+	
 	// Constructor
 	public LoginController(DbUserInfoCollector dbUserInfoCollector)
 	{
@@ -32,25 +32,43 @@ public class LoginController {
 	
 	// Log uit
 	public void logout()
-	{
-		account.setCurrentAccount(null);
-		System.out.println("Logout gelukt");
+	{	
+		String accountNaam = account.getCurrentAccount();
+		if (accountNaam == null) {
+			System.out.println("Kan niet uitloggen als je niet ingelogd bent");
+		}
+		else 
+		{
+			account.setCurrentAccount(null);
+			System.out.println("Logout gelukt");
+		}
+		
 	}
 
 	
 	// moet kijken of de username en password samen voorkomen in de tabel
 	public boolean CheckLogin(String username, String password)
 	{
+		// vraagt wachtwoord op
+		String getPassword = dbUserInfoCollector.GetPassword(username);
+		
 		// username moet voorkomen in de database.
-		if(this.CheckIfExist(username) && dbUserInfoCollector.GetPassword(username) == password)
+		if(this.CheckIfExist(username))
 		{
-			// password moet samen met username in de zelfde rij voorkomen.
-			System.out.println("Username komt overeen met password");
-			return true;
+			if (password.equals(getPassword) ) {
+				// password moet samen met username in de zelfde rij voorkomen.
+				return true;
+			}
+			else 
+			{
+				System.out.println("Password klopt niet");
+				return false;
+			}
+			
 		}
 		else 
 		{
-			System.out.println("Onjuist gebruikersnaam of password");
+			System.out.println("Username bestaat niet");
 			return false;
 		}
 	}
