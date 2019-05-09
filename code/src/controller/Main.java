@@ -50,9 +50,8 @@ public class Main extends Application{
 
 		
 		// login test
-//		lc.CheckLogin("bart", "");
 //		lc.CreateAccount("kees", "kaas");
-//		lc.login("kees", "kaas");
+//		lc.login("khes", "keas");
 		
 		
 		// Basic stage stuff

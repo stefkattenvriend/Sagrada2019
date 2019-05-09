@@ -29,22 +29,28 @@ public class LoginController {
 			System.out.println("Login gelukt");
 		}
 	}
+	
+	// Log uit
+	public void logout()
+	{
+		account.setCurrentAccount(null);
+		System.out.println("Logout gelukt");
+	}
 
 	
 	// moet kijken of de username en password samen voorkomen in de tabel
-	// TODO password check
 	public boolean CheckLogin(String username, String password)
 	{
 		// username moet voorkomen in de database.
-		if(this.CheckIfExist(username) /* && password komt overeen met username */)
+		if(this.CheckIfExist(username) && dbUserInfoCollector.GetPassword(username) == password)
 		{
 			// password moet samen met username in de zelfde rij voorkomen.
-			System.out.println("jas");
+			System.out.println("Username komt overeen met password");
 			return true;
 		}
 		else 
 		{
-			System.out.println("nop");
+			System.out.println("Onjuist gebruikersnaam of password");
 			return false;
 		}
 	}
