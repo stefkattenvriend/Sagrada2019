@@ -31,12 +31,13 @@ public class Main extends Application{
 		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
 				&& (databeest.makeConnection()))
 		{
-			databeest.doSomeQuerying();
-			databeest.getPaternCard(1, 1, 1);
-			databeest.getPaternCard(1, 2, 1);
-			databeest.getPaternCard(1, 3, 1);
-			databeest.getPaternCard(1, 4, 1);
-			databeest.getPaternCard(1, 5, 1);
+//			databeest.doSomeQuerying();
+//			databeest.getPaternCard(1, 1, 1);
+//			databeest.getPaternCard(1, 2, 1);
+//			databeest.getPaternCard(1, 3, 1);
+//			databeest.getPaternCard(1, 4, 1);
+//			databeest.getPaternCard(1, 5, 1);
+			
 //			databeest.doSomeUpdating();
 		}
 
@@ -51,8 +52,8 @@ public class Main extends Application{
 		
 		// login test
 //		lc.CreateAccount("kees", "kaas");
-		lc.login("kareel", "appeel");
-		lc.logout();
+//		lc.login("kareel", "appeel");
+//		lc.logout();
 		
 		
 		// Basic stage stuff
