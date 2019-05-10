@@ -175,8 +175,9 @@ public class DataBaseApplication
 		
 	}
 	
-	public void getPaternCard(int pcnumber, int x, int y) {
-		{
+	public int getPaternCardValue(int pcnumber, int x, int y) {
+		
+			int value = 0;
 			Statement stmt = null;
 			String query = "SELECT * FROM patterncardfield WHERE patterncard_idpatterncard = " + pcnumber + " AND position_x = " + x + " AND position_y = " +  y + ";";
 			try
@@ -184,24 +185,53 @@ public class DataBaseApplication
 				stmt = m_Conn.createStatement();
 				ResultSet rs = stmt.executeQuery(query);
 				
-				//return string in console
+				//return string in console voor test
 				while (rs.next())
 				{
-					String color = rs.getString(4);
-					String value = rs.getString(5);
-					if(color != null) {
-						System.out.println(" - color: " + color);
-					}
-					if(value != null){
+					int valuedb = rs.getInt(5);
+					if(valuedb != 0){
 						System.out.println(" - value: " + value);
+						value = valuedb;
 					}
 				}
 				stmt.close();
 			} catch (SQLException e)
 			{
 				System.out.println(e.getMessage());
+				return 0;
 			}
-		}
+		
+		return value;
+
 	}
+	
+	public String getPaternCardColor(int pcnumber, int x, int y) {
+			
+			String color = null;
+			Statement stmt = null;
+			String query = "SELECT * FROM patterncardfield WHERE patterncard_idpatterncard = " + pcnumber + " AND position_x = " + x + " AND position_y = " +  y + ";";
+			try
+			{
+				stmt = m_Conn.createStatement();
+				ResultSet rs = stmt.executeQuery(query);
+				
+				//return string in console voor test
+				while (rs.next())
+				{
+					String colordb = rs.getString(4);
+					if(color != null) {
+						System.out.println(" - color: " + colordb);
+						color = colordb;
+					}
+					
+				}
+				stmt.close();
+			} catch (SQLException e)
+			{
+				System.out.println(e.getMessage());
+			}
+			return color;
+		}
+	
 	
 }
