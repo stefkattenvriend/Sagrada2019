@@ -47,14 +47,7 @@ public class Main extends Application{
 		PatterncardController pcc = new PatterncardController();
 		LoginController lc = new LoginController(dbUserInfoCollector);
 		
-		MyScene myScene = new MyScene(dhc, pcc, lc); //gamecontroller wordt aangemaakt datgeen wat er nu instaat wordt in gamecontroller aangemaakt.
-
-		
-		// login test
-//		lc.CreateAccount("kees", "kaas");
-//		lc.login("kareel", "appeel");
-//		lc.logout();
-		
+		MyScene myScene = new MyScene(stage, dhc, pcc, lc); //gamecontroller wordt aangemaakt datgeen wat er nu instaat wordt in gamecontroller aangemaakt.
 		
 		// Basic stage stuff
 		stage.setResizable(false);
