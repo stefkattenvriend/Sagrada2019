@@ -41,13 +41,13 @@ public class GamePane extends StackPane {
 		//eerste ronde? open dan popup in if-statement
 		setNewRoot(pcardChooser);
 		
-//		getChildren().add(gamePane);
+		getChildren().add(gamePane);
 	}
 	
 	private void setNewRoot(Pane pane) {
-		if(true) {//hardcoded -> het is de eerste speelronde
+		/*if(false) {//hardcoded -> het is de eerste speelronde
 			getChildren().addAll(gamePane, pane);	
-		}
+		}*/
 	}
 
 	private void setScreenSize() {

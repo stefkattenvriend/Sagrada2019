@@ -1,5 +1,6 @@
 package view;
 import controller.DiceHolderController;
+import helpers.DiceHolderType;
 //joery
 import javafx.scene.control.Label;
 import javafx.scene.layout.Border;
@@ -41,11 +42,11 @@ public class DiceOfferPane extends FlowPane{
 	private void addDiceHolders() {
 		for (int i = 1; i < 10; i++) {
 			double size = ((GamePane.windowMaxWidth / 3) / 5) - 1; 
-			this.getChildren().add(dhc.CreateDiceHolder(size, i, 0, 3));
+			this.getChildren().add(dhc.CreateDiceHolder(size, i, 0, DiceHolderType.OFFER));
 			}
 	}
 	
 	private void addDie() {//test methode wordt later verwijderdt
-		dhc.addDie(3, 1, 0, 1, 3, true);
+		dhc.addDie(DiceHolderType.OFFER, 1, 0, 1, 3, true);
 	}
 	}

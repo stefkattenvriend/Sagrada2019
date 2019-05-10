@@ -2,6 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 
+import helpers.DiceHolderType;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
@@ -18,7 +19,7 @@ public class DiceHolderController {
 	
 	
 	
-	public DiceHolderPane CreateDiceHolder(double size, int x, int y, int  type) {//deze methode maakt de diceHolder model en pane aan en geeft de pane terug aan de view
+	public DiceHolderPane CreateDiceHolder(double size, int x, int y, DiceHolderType  type) {//deze methode maakt de diceHolder model en pane aan en geeft de pane terug aan de view
 		DiceHolderModel model = new DiceHolderModel(null, x, y, type);
 		DiceHolderPane pane = new DiceHolderPane(size, this);
 		dhmodels.add(model);
@@ -93,7 +94,7 @@ public class DiceHolderController {
 		
 	}
 	
-	public void addDie(int location, int x, int y, int color, int eyes, boolean interactable) {
+	public void addDie(DiceHolderType location, int x, int y, int color, int eyes, boolean interactable) {
 		DiceModel die = dc.createDieModel(color, eyes);
 		for (int i = 0; i < dhmodels.size(); i++) {
 			if(dhmodels.get(i).getType() == location && dhmodels.get(i).getX() == x && dhmodels.get(i).getY() == y) {
