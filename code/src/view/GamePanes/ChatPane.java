@@ -1,4 +1,4 @@
-package view;
+package view.GamePanes;
 //joery
 import javafx.scene.control.Label;
 import javafx.scene.layout.Border;
@@ -7,11 +7,9 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
-public class TargetColor extends Pane{
+public class ChatPane extends Pane{
 	
-	private double personalAttributesHeight = 75;
-	
-	public TargetColor() {
+	public ChatPane() {
 		setUp();
 	}
 
@@ -21,13 +19,18 @@ public class TargetColor extends Pane{
 	}
 	
 	private void setPaneSize() {
-		setMinSize((GamePane.windowMaxWidth / 3) / 3, personalAttributesHeight);
+		setMinSize((GamePane.windowMaxWidth / 3) / 2, GamePane.windowMaxHeight);
+		setMaxSize((GamePane.windowMaxWidth / 3) / 2, GamePane.windowMaxHeight);
 	}
 	
-	public void aanduiding() { // deze method wordt uiteindelijk verwijderd
+	private void aanduiding() { // deze method wordt uiteindelijk verwijderd
 		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null))); //aanduiding van chatvak
 		Label text = new Label();
-		text.setText("TargetColor");
+		text.setText("CHAT");
 		getChildren().addAll(text);
 	}
-}
+	
+	
+	
+	
+}	

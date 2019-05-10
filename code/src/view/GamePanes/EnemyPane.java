@@ -1,4 +1,4 @@
-package view;
+package view.GamePanes;
 
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;

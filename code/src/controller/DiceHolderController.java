@@ -8,7 +8,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
 import model.DiceHolderModel;
 import model.DiceModel;
-import view.DiceHolderPane;
+import view.GamePanes.DiceHolderPane;
 
 
 public class DiceHolderController {

@@ -1,6 +1,7 @@
 package view;
 
 import javafx.scene.layout.BorderPane;
+import view.GamePanes.GamePane;
 import javafx.scene.control.Button;
 
 public class MenuPane extends BorderPane {

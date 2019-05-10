@@ -1,4 +1,4 @@
-package view;
+package view.GamePanes;
 import controller.DiceHolderController;
 import helpers.DiceHolderType;
 //joery
