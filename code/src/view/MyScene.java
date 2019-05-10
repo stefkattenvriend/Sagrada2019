@@ -1,6 +1,7 @@
 package view;
 import controller.DiceHolderController;
 import controller.LoginController;
+import controller.MasterController;
 import controller.PatterncardController;
 //joery
 import javafx.scene.Scene;
@@ -9,20 +10,17 @@ import view.GamePanes.GamePane;
 
 public class MyScene extends Scene{
 	
-	private DiceHolderController dhc;
-	private PatterncardController dcc;
+	private MasterController mc;
 	private LoginController lc;
 	private MenuPane menuPane;
 	private GamePane gamePane;
 	private LoginPane loginPane;
 	
-	public MyScene(DiceHolderController dhc, PatterncardController dcc, LoginController lc) {
+	public MyScene(MasterController mc) {
 		super(new Pane());
-		this.dhc = dhc;
-		this.dcc = dcc;
-		this.lc = lc;
+		this.mc = mc;
 		
-		gamePane = new GamePane(dhc, dcc);
+		gamePane = new GamePane(mc.gm);
 		menuPane = new MenuPane(this, gamePane);
 		loginPane = new LoginPane(lc);
 		// hier moeten ook nog de registratie panes worden aangemaakt.

@@ -17,7 +17,7 @@ public class Main extends Application{
 	public final static Background ENEMYPANE = new Background(new BackgroundFill(Color.RED, null, null));
 	
 	//instance variables
-	private DbUserInfoCollector dbUserInfoCollector;
+	/*private DbUserInfoCollector dbUserInfoCollector;*/
 	
 	public static void main(String[] args) 
 	{
@@ -27,7 +27,7 @@ public class Main extends Application{
 	@Override
 	public void start(Stage stage) throws Exception {
 		
-		DataBaseApplication databeest = new DataBaseApplication();
+		/*DataBaseApplication databeest = new DataBaseApplication();
 		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
 				&& (databeest.makeConnection()))
 		{
@@ -41,13 +41,17 @@ public class Main extends Application{
 //			databeest.doSomeUpdating();
 		}
 
-		DbUserInfoCollector dbUserInfoCollector = new DbUserInfoCollector(databeest);
+		DbUserInfoCollector dbUserInfoCollector = new DbUserInfoCollector(databeest);*/
 		
-		DiceHolderController dhc = new DiceHolderController();
+		//al deze controllers onderbrengen in een masterController? ~Rens
+		
+		/*DiceHolderController dhc = new DiceHolderController();
 		PatterncardController pcc = new PatterncardController();
-		LoginController lc = new LoginController(dbUserInfoCollector);
+		LoginController lc = new LoginController(dbUserInfoCollector);*/
 		
-		MyScene myScene = new MyScene(dhc, pcc, lc); //gamecontroller wordt aangemaakt datgeen wat er nu instaat wordt in gamecontroller aangemaakt.
+		MasterController mc = new MasterController();
+		
+		MyScene myScene = new MyScene(mc); //gamecontroller wordt aangemaakt datgeen wat er nu instaat wordt in gamecontroller aangemaakt.
 
 		
 		// login test
