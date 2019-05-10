@@ -1,5 +1,6 @@
 package view.GamePanes;
 import controller.DiceHolderController;
+import controller.GameController;
 import controller.PatterncardController;
 //joery
 import javafx.scene.layout.BorderPane;
@@ -15,40 +16,42 @@ public class GamePane extends StackPane {
 	
 	//instance
 	private PlayerPane playerPane;
-	private CardDisplayPane cardDisplayPane; 
+	private CardDisplayPane cardDisplayPane;
 	private EnemyPane enemyPane;
+	private GameController gc;
 	private DiceHolderController dhc;
-	private PatterncardController dcc;
+	private PatterncardController pcc;
 	private BorderPane gamePane;
 	
-	public GamePane(DiceHolderController dhc, PatterncardController dcc) {
-		this.dhc = dhc;
-		this.dcc = dcc;
+	public GamePane(GameController gc) {
+		this.gc = gc;
+		this.dhc = gc.dhc;
+		this.pcc = gc.pcc;
 		setScreenSize();
 		setUp();
 	}
 
 	private void setUp() {
 		gamePane = new BorderPane();
-		playerPane = new PlayerPane(dhc, dcc);
+		playerPane = new PlayerPane(dhc, pcc);
 		cardDisplayPane = new CardDisplayPane();
 		enemyPane = new EnemyPane();
 		gamePane.setLeft(cardDisplayPane);
 		gamePane.setCenter(playerPane);
 		gamePane.setRight(enemyPane);
 		
-		LayerPane pcardChooser = new LayerPane();
+		LayerPane pcardChooser = new LayerPane(null);
 		
 		//eerste ronde? open dan popup in if-statement
 		setNewRoot(pcardChooser);
 		
-		getChildren().add(gamePane);
+//		getChildren().add(gamePane);
 	}
 	
 	private void setNewRoot(Pane pane) {
-		/*if(false) {//hardcoded -> het is de eerste speelronde
+		if(true) {//hardcoded -> het is de eerste speelronde
 			getChildren().addAll(gamePane, pane);	
-		}*/
+		}
 	}
 
 	private void setScreenSize() {

@@ -9,13 +9,11 @@ public class LoginController {
 	// Instance variables
 	private DbUserInfoCollector dbUserInfoCollector;
 	private Account account;
-//	private LoginPane loginPane;
 	
 	// Constructor
 	public LoginController(DbUserInfoCollector dbUserInfoCollector)
 	{
 		this.dbUserInfoCollector = dbUserInfoCollector;
-//		loginPane = new LoginPane(this);
 		account = new Account();
 	}
 	

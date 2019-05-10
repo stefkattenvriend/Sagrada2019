@@ -2,6 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 
+import databeest.DBPatternCardInfoCollector;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
@@ -14,15 +15,24 @@ public class PatterncardController {
 	ArrayList<PatterncardModel> pcmodels = new ArrayList<PatterncardModel>();
 	int Patternnumber = 0;
 	
+	DBPatternCardInfoCollector DatabasePTCCollector;
+	
+	
+	public PatterncardController(DBPatternCardInfoCollector DatabasePTCCollector) {
+		this.DatabasePTCCollector = DatabasePTCCollector;
+	}
+	
+	
 	public void CreatePatternCard() {
 		Patternnumber++;
 		
 		for (int i = 1; i < 5; i++) {
 			for (int j = 1; j < 6; j++) {
-				pcmodels.add(new PatterncardModel(Patternnumber, i, j));
+				pcmodels.add(new PatterncardModel(Patternnumber, i, j, DatabasePTCCollector));
 			}	
 		}
 	}
+	
 	
 	public BorderPane PatterncardCreate(int x, int y, int PatterncardNumber, int size) {
 		BorderPane pane = new BorderPane();
