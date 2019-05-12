@@ -1,49 +1,38 @@
 package controller;
 
-import view.LayerPane;
+import java.util.ArrayList;
+import java.util.Collections;
 
+import view.LayerPane;
+//NOTE het random getal dat wordt gegenereerd is uiteindelijk de patroonkaart die wordt weergegeven. - Joery
 public class LayerController {
 	//maakt random ints -> worden uiteindelijk 4 random patroonkaarten.
 	
 	public LayerPane layerPane;
-	private int[] rdmPatternCards;
+	private int totalAmoundOfptrnCards = 10; //deze informatie moet uit de database gehaald worden.
+	private int fourPatternCards = 4;
+	private ArrayList<Integer> patternCards = new ArrayList<Integer>(); //arraylist met alle patroonkaarten in zich.
+	private int[] randomPat = new int[4]; //array met 4 random gekozen patroonkaarten opgeslagen.
 	
 	public LayerController() {
 		layerPane = new LayerPane(this);
-		rdmPatternCards = new int[4];
-		
 	}
 	
 	public void generateRdmPatternCards() { //voor nu alleen een int, later wordt dit verwerkt met een pattroonkaart.
-		int min = 0; //minimaal aantal patroonkaarten.
-		int max = 10; //maximaal aantal patroonkaarten -> wordt geteld uit database.
+		patternCards.clear();
 		
-//		rdmPatternCards[0] = (int) ((Math.random()*((max-min)+1))+min);
-		
-		for(int i = 0; i < rdmPatternCards.length; i++) {
-					
-			rdmPatternCards[i] = (int) ((Math.random()*((max-min)+1))+min);
-			
+		for(int i = 0; i < totalAmoundOfptrnCards; i++) {
+			patternCards.add(i+1);
 		}
-		
-		for(int i = 0; i < rdmPatternCards.length; i++) {
-			
-			for(int x = 1; x < rdmPatternCards.length; x++) {
-				
-				if(rdmPatternCards[i] == rdmPatternCards[x]) {				
-					System.out.println(rdmPatternCards[i] + " deze is gelijk aan " + rdmPatternCards[x]);
-					rdmPatternCards[i] = (int) ((Math.random()*((max-min)+1))+min);
-				}
-			}
-
-		}
-		
-		for(int i = 0; i < rdmPatternCards.length; i++) {
-			System.out.println("Nummer: " + rdmPatternCards[i]);
-		}
-		
-		System.out.println("einde method");
-		return;
+			Collections.shuffle(patternCards);
+		for(int j = 0; j < fourPatternCards; j++)
+		{
+			randomPat[j] = (int) patternCards.get(j);
+		} 	
+	}
+	
+	public int[] getRandomPat() {
+		return randomPat.clone();
 	}
 	
 	
