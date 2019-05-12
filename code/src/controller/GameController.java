@@ -8,11 +8,14 @@ public class GameController {//deze classe wordt aangemaakt in de masterControll
 	public DiceHolderController dhc;
 	public PatterncardController pcc;
 	private DBPatternCardInfoCollector DatabasePTCCollector;
+	public LayerController lc;
 
 	public GameController(DBPatternCardInfoCollector DatabasePTCCollector) {
 		this.DatabasePTCCollector = DatabasePTCCollector;
 		dhc = new DiceHolderController();
 		pcc = new PatterncardController(DatabasePTCCollector);
+		lc = new LayerController();
 	}
+	
 	
 }
