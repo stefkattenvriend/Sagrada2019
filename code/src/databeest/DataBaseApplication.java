@@ -53,7 +53,7 @@ public class DataBaseApplication
 	public void doSomeQuerying()
 	{
 		Statement stmt = null;
-		String query = "SELECT * FROM position LIMIT 3;";
+		String query = "SELECT * FROM account LIMIT 3;";// Je query
 		try
 		{
 			stmt = m_Conn.createStatement();
@@ -62,9 +62,10 @@ public class DataBaseApplication
 			//return string in console
 			while (rs.next())
 			{
-				String name = rs.getString(1);
-				String satOf = rs.getString(2);
-				System.out.println(" - " + name + " " + satOf);
+				String name = rs.getString(1);	// De eerste kolom van de resultaten van jou query.
+				String pw = rs.getString(2);	// De tweede kolom van jouw resultaten.
+//				String drie = rs.getString(3);  // Eventueel de derde kolom.
+				System.out.println("name: 	  - " + name + "\npassword: - " + pw + "\n");
 			}
 			stmt.close();
 		} catch (SQLException e)
@@ -76,8 +77,8 @@ public class DataBaseApplication
 	public void doSomeUpdating()
 	{
 		Statement stmt = null;
-		String query = "INSERT INTO `reis` (`reisnr`, `vertrekdatum`, `reisduur`, `prijs`) VALUES\r\n" + 
-				"(39, '2006-01-01 00:00:00', 10, 4.50);";
+		String query = "INSERT INTO `chatline` (`player_idplayer`, `time`, `message`) VALUES\r\n" + 
+				"(39, '2006-01-01 00:00:00', 'hello');";
 		
 		try
 		{
