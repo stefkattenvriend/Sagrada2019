@@ -13,7 +13,7 @@ public class MenuPane extends BorderPane {
 	//instance 
 	private MyScene myScene;
 	private GamePane gamePane;
-	
+
 	public MenuPane(MyScene myScene, GamePane gamePane) {
 		this.myScene = myScene;
 		this.gamePane = gamePane;
@@ -26,7 +26,7 @@ public class MenuPane extends BorderPane {
 		
 	}
 	
-	private void setScreenSize() {
+	public void setScreenSize() {
 		setMinSize(windowMaxWidth, windowMaxHeight);
 		setMaxSize(windowMaxWidth, windowMaxHeight);
 	}

@@ -2,7 +2,6 @@ package controller;
 
 import databeest.DbUserInfoCollector;
 import model.Account;
-import view.LoginPane;
 
 //Stef
 public class LoginController {
@@ -10,23 +9,25 @@ public class LoginController {
 	// Instance variables
 	private DbUserInfoCollector dbUserInfoCollector;
 	private Account account;
-	private LoginPane loginPane;
 	
 	// Constructor
 	public LoginController(DbUserInfoCollector dbUserInfoCollector)
 	{
 		this.dbUserInfoCollector = dbUserInfoCollector;
-		loginPane = new LoginPane(this);
 		account = new Account();
 	}
 	
 	//Als accountgegevens kloppen, moet het inloggen
-	public void login(String username, String password)
+	public boolean login(String username, String password)
 	{
 		if(this.CheckLogin(username, password))
 		{
 			account.setCurrentAccount(username);
 			System.out.println("Login gelukt");
+			return true;
+		}
+		else {
+			return false;
 		}
 	}
 	
@@ -112,4 +113,10 @@ public class LoginController {
 		}
 		
 	}
+	
+	public String getCurrentAccount()
+	{
+		return account.getCurrentAccount();
+	}
+	
 }

@@ -59,8 +59,7 @@ public class GamePane extends StackPane {
 	}
 
 	private void setScreenSize() {
-		setMinSize(windowMaxWidth, windowMaxHeight);
-		setMaxSize(windowMaxWidth, windowMaxHeight);
+		setPrefSize(windowMaxWidth, windowMaxHeight);
 	}
 
 }

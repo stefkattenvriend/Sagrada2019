@@ -1,7 +1,5 @@
 package controller;
 
-import databeest.DataBaseApplication;
-import databeest.DbUserInfoCollector;
 import javafx.application.Application;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -27,38 +25,9 @@ public class Main extends Application{
 	@Override
 	public void start(Stage stage) throws Exception {
 		
-		/*DataBaseApplication databeest = new DataBaseApplication();
-		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
-				&& (databeest.makeConnection()))
-		{
-//			databeest.doSomeQuerying();
-//			databeest.getPaternCard(1, 1, 1);
-//			databeest.getPaternCard(1, 2, 1);
-//			databeest.getPaternCard(1, 3, 1);
-//			databeest.getPaternCard(1, 4, 1);
-//			databeest.getPaternCard(1, 5, 1);
-			
-//			databeest.doSomeUpdating();
-		}
-
-		DbUserInfoCollector dbUserInfoCollector = new DbUserInfoCollector(databeest);*/
-		
-		//al deze controllers onderbrengen in een masterController? ~Rens
-		
-		/*DiceHolderController dhc = new DiceHolderController();
-		PatterncardController pcc = new PatterncardController();
-		LoginController lc = new LoginController(dbUserInfoCollector);*/
-		
 		MasterController mc = new MasterController();
-		
-		MyScene myScene = new MyScene(mc); //gamecontroller wordt aangemaakt datgeen wat er nu instaat wordt in gamecontroller aangemaakt.
-
-		
-		// login test
-//		lc.CreateAccount("kees", "kaas");
-//		lc.login("kareel", "appeel");
-//		lc.logout();
-		
+	
+		MyScene myScene = new MyScene(stage, mc); //gamecontroller wordt aangemaakt datgeen wat er nu instaat wordt in gamecontroller aangemaakt.
 		
 		// Basic stage stuff
 		stage.setResizable(false);
