@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.Scanner;
+
 import databeest.DataBaseApplication;
 import databeest.DbUserInfoCollector;
 import javafx.application.Application;
@@ -18,6 +20,18 @@ public class Main extends Application{
 	
 	public static void main(String[] args) {
 		
+		Scanner keyboard = new Scanner(System.in);
+		System.out.println("enter an integer");
+		String input = keyboard.toString();
+
+		switch(input) {
+		case "freeze": 
+			GamePane.
+			break;
+		case "test":
+			System.out.println("test");
+			break;
+		}
 		
 		DataBaseApplication databeest = new DataBaseApplication();
 		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
@@ -47,6 +61,9 @@ public class Main extends Application{
 		
 		
 		launch(args);
+		
+		//Debug
+		
 	}
 
 	@Override
