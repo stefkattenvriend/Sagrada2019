@@ -53,7 +53,7 @@ public class DataBaseApplication
 	public void doSomeQuerying()
 	{
 		Statement stmt = null;
-		String query = "SELECT * FROM position LIMIT 3;";
+		String query = "SELECT * FROM account LIMIT 3;";// Je query
 		try
 		{
 			stmt = m_Conn.createStatement();
@@ -62,9 +62,10 @@ public class DataBaseApplication
 			//return string in console
 			while (rs.next())
 			{
-				String name = rs.getString(1);
-				String satOf = rs.getString(2);
-				System.out.println(" - " + name + " " + satOf);
+				String name = rs.getString(1);	// De eerste kolom van de resultaten van jou query.
+				String pw = rs.getString(2);	// De tweede kolom van jouw resultaten.
+//				String drie = rs.getString(3);  // Eventueel de derde kolom.
+				System.out.println("name: 	  - " + name + "\npassword: - " + pw + "\n");
 			}
 			stmt.close();
 		} catch (SQLException e)
@@ -76,8 +77,8 @@ public class DataBaseApplication
 	public void doSomeUpdating()
 	{
 		Statement stmt = null;
-		String query = "INSERT INTO `reis` (`reisnr`, `vertrekdatum`, `reisduur`, `prijs`) VALUES\r\n" + 
-				"(39, '2006-01-01 00:00:00', 10, 4.50);";
+		String query = "INSERT INTO `chatline` (`player_idplayer`, `time`, `message`) VALUES\r\n" + 
+				"(39, '2006-01-01 00:00:00', 'hello');";
 		
 		try
 		{
@@ -115,9 +116,6 @@ public class DataBaseApplication
 
 	
 	
-	
-	
-	
 	// Alle read query's
 	
 	public String readPassword(String username) 
@@ -134,7 +132,7 @@ public class DataBaseApplication
 			//return string in console
 			while (rs.next())
 			{
-				password = rs.getString(1);
+				password = rs.getString(2).toLowerCase();
 			}
 			stmt.close();
 		} catch (SQLException e)
@@ -144,15 +142,43 @@ public class DataBaseApplication
 		return password;
 	}
 	
-	public String CheckIfUsernameExists()
+	public boolean CheckIfUsernameExists(String username)
 	{
+		String dbUsername = null;
+		String query;
+		Statement stmt = null;
+		query = "SELECT * FROM account WHERE username = '" + username + "';";
+		try
+		{
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while (rs.next())
+			{
+				dbUsername = rs.getString(1);
+			}
+			
+			stmt.close();
+		} catch (SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
 		
-		return null;
+		
+		if (dbUsername != null) 
+		{
+			return true;
+		}
+		else 
+		{
+			return false;
+		}
 		
 	}
 	
-	public void getPaternCard(int pcnumber, int x, int y) {
-		{
+	public int getPaternCardValue(int pcnumber, int x, int y) {
+		
+			int value = 0;
 			Statement stmt = null;
 			String query = "SELECT * FROM patterncardfield WHERE patterncard_idpatterncard = " + pcnumber + " AND position_x = " + x + " AND position_y = " +  y + ";";
 			try
@@ -160,24 +186,53 @@ public class DataBaseApplication
 				stmt = m_Conn.createStatement();
 				ResultSet rs = stmt.executeQuery(query);
 				
-				//return string in console
+				//return string in console voor test
 				while (rs.next())
 				{
-					String color = rs.getString(4);
-					String value = rs.getString(5);
-					if(color != null) {
-						System.out.println(" - color: " + color);
-					}
-					if(value != null){
+					int valuedb = rs.getInt(5);
+					if(valuedb != 0){
 						System.out.println(" - value: " + value);
+						value = valuedb;
 					}
 				}
 				stmt.close();
 			} catch (SQLException e)
 			{
 				System.out.println(e.getMessage());
+				return 0;
 			}
-		}
+		
+		return value;
+
 	}
+	
+	public String getPaternCardColor(int pcnumber, int x, int y) {
+			
+			String color = null;
+			Statement stmt = null;
+			String query = "SELECT * FROM patterncardfield WHERE patterncard_idpatterncard = " + pcnumber + " AND position_x = " + x + " AND position_y = " +  y + ";";
+			try
+			{
+				stmt = m_Conn.createStatement();
+				ResultSet rs = stmt.executeQuery(query);
+				
+				//return string in console voor test
+				while (rs.next())
+				{
+					String colordb = rs.getString(4);
+					if(color != null) {
+						System.out.println(" - color: " + colordb);
+						color = colordb;
+					}
+					
+				}
+				stmt.close();
+			} catch (SQLException e)
+			{
+				System.out.println(e.getMessage());
+			}
+			return color;
+		}
+	
 	
 }

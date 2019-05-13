@@ -1,5 +1,6 @@
 package model;
 
+import databeest.DBPatternCardInfoCollector;
 import javafx.scene.paint.Color;
 
 public class PatterncardModel {
@@ -8,11 +9,13 @@ public class PatterncardModel {
 	private int y;
 	private int number;
 	private Color color;
+	private DBPatternCardInfoCollector dbpcif;
 	
-	public PatterncardModel(int number, int x, int y) {
+	public PatterncardModel(int number, int x, int y, DBPatternCardInfoCollector dbpcif) {
 		this.patterncardNumber = number;
 		this.x = x;
 		this.y = y;
+		this.dbpcif = dbpcif;
 		getFromDatabase();
 	}
 	
@@ -48,7 +51,7 @@ public class PatterncardModel {
 	}
 	
 	public void getFromDatabase() {
-		//gebruik databeest.getPatternCard
+		dbpcif.getPatternCardInfo(patterncardNumber, x, y, this);
 	}
 	
 }

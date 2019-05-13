@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import javafx.scene.paint.Color;
 import model.DiceModel;
-import view.DicePane;
+import view.GamePanes.DicePane;
 
 public class DiceController {
 	

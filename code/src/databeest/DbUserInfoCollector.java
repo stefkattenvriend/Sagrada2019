@@ -22,11 +22,11 @@ public class DbUserInfoCollector {
 	
 	public boolean CheckUsername(String username)
 	{
-		if(GetPassword(username) == null)
+		if(dataBaseApplication.CheckIfUsernameExists(username))
 		{
-			return false;
-		} else {
 			return true;
+		} else {
+			return false;
 		}
 	}
 	

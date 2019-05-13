@@ -1,6 +1,5 @@
 package model;
 
-import databeest.DataBaseApplication;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 

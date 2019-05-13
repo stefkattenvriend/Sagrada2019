@@ -1,6 +1,6 @@
 package model;
 
-import controller.DiceHolderController;
+import helpers.DiceHolderType;
 
 //Rens
 public class DiceHolderModel {
@@ -8,10 +8,11 @@ public class DiceHolderModel {
 	private DiceModel die;
 	private int x;
 	private int y;
-	private int type; //1=raam speler, 2=rondespoor, 3=aanbod, 4=vijand 1, 5=vijand 2, 6=vijand 4(ofwel geeft aan waar op het scherm van de speler deze zichtbaar zal zijn(verander naar enums(Ger))
+	//private int type; //1=raam speler, 2=rondespoor, 3=aanbod, 4=vijand 1, 5=vijand 2, 6=vijand 4(ofwel geeft aan waar op het scherm van de speler deze zichtbaar zal zijn(verander naar enums(Ger))
+	private DiceHolderType type;
 	private boolean selected = false;
 	
-	public DiceHolderModel(DiceModel die, int x, int y, int type) {
+	public DiceHolderModel(DiceModel die, int x, int y, DiceHolderType type) {
 		this.die = die;
 		this.x = x;
 		this.y = y;
@@ -47,11 +48,11 @@ public class DiceHolderModel {
 		this.die = die;
 	}
 
-	public int getType() {
+	public DiceHolderType getType() {
 		return type;
 	}
 
-	public void setType(int type) {
+	public void setType(DiceHolderType type) {
 		this.type = type;
 	}
 

@@ -68,7 +68,12 @@ public class Main extends Application{
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		MyScene myScene = new MyScene(new DiceHolderController(), new PatterncardController()); //gamecontroller wordt aangemaakt datgeen wat er nu instaat wordt in gamecontroller aangemaakt.
+		
+		MasterController mc = new MasterController();
+	
+		MyScene myScene = new MyScene(stage, mc); //gamecontroller wordt aangemaakt datgeen wat er nu instaat wordt in gamecontroller aangemaakt.
+		
+		// Basic stage stuff
 		stage.setResizable(false);
 		stage.setScene(myScene);
 		stage.show();		
