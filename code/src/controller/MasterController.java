@@ -1,5 +1,6 @@
 package controller;
 
+import databeest.DBChatCollector;
 import databeest.DBPatternCardInfoCollector;
 import databeest.DataBaseApplication;
 import databeest.DbUserInfoCollector;
@@ -10,17 +11,21 @@ public class MasterController {//een controller die alle andere aanmaakt? ~Rens
 	
 	private DbUserInfoCollector dbUserInfoCollector;
 	private DBPatternCardInfoCollector DatabasePTCCollector;
+	private DBChatCollector dbChatCollector;
 	private DataBaseApplication databeest = new DataBaseApplication();
 	
 	public LoginController lc;//laat de controllers voor nu op public staan. later get en set maken
 	public GameController gm;
+	public ChatController chat;
 	
 	public MasterController() {
 		dbUserInfoCollector = new DbUserInfoCollector(databeest);
 		DatabasePTCCollector = new DBPatternCardInfoCollector(databeest);
+		dbChatCollector = new DBChatCollector(databeest);
 		
 		gm = new GameController(DatabasePTCCollector);
 		lc = new LoginController(dbUserInfoCollector);
+		chat = new ChatController(dbChatCollector);
 		
 		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
 				&& (databeest.makeConnection()))
