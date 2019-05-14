@@ -14,18 +14,18 @@ public class MasterController {//een controller die alle andere aanmaakt? ~Rens
 	private DBChatCollector dbChatCollector;
 	private DataBaseApplication databeest = new DataBaseApplication();
 	
-	public LoginController lc;//laat de controllers voor nu op public staan. later get en set maken
-	public GameController gm;
-	public ChatController chat;
+	private LoginController lc;//laat de controllers voor nu op public staan. later get en set maken
+	private GameController gm;
+	private ChatController chat;
 	
 	public MasterController() {
 		dbUserInfoCollector = new DbUserInfoCollector(databeest);
 		DatabasePTCCollector = new DBPatternCardInfoCollector(databeest);
 		dbChatCollector = new DBChatCollector(databeest);
 		
-		gm = new GameController(DatabasePTCCollector);
-		lc = new LoginController(dbUserInfoCollector);
-		chat = new ChatController(dbChatCollector);
+		this.gm = new GameController(DatabasePTCCollector);
+		this.lc = new LoginController(dbUserInfoCollector);
+		this.chat = new ChatController(dbChatCollector);
 		
 		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
 				&& (databeest.makeConnection()))
@@ -40,7 +40,20 @@ public class MasterController {//een controller die alle andere aanmaakt? ~Rens
 //			databeest.doSomeUpdating();
 		}
 
-		
 	}
-
+	
+	public GameController getGameController()
+	{
+		return this.gm;
+	}
+	
+	public LoginController getLoginController()
+	{
+		return this.lc;
+	}
+	
+	public ChatController getChatController()
+	{
+		return this.chat;
+	}
 }

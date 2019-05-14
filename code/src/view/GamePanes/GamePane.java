@@ -23,13 +23,13 @@ public class GamePane extends StackPane {
 	private DiceHolderController dhc;
 	private PatterncardController pcc;
 	private BorderPane gamePane;
-	private LayerController lc;
+	private LayerController lyc;
 	
 	public GamePane(GameController gc) {
 		this.gc = gc;
-		this.dhc = gc.dhc;
-		this.pcc = gc.pcc;
-		this.lc = gc.lc;
+		this.dhc = gc.getDiceHolderController();
+		this.pcc = gc.getPatterncardController();
+		this.lyc = gc.getLayerController();
 		
 		setScreenSize();
 		setUp();
@@ -44,7 +44,7 @@ public class GamePane extends StackPane {
 		gamePane.setCenter(playerPane);
 		gamePane.setRight(enemyPane);
 		
-		LayerPane pcardChooser = new LayerPane(lc, pcc);
+		LayerPane pcardChooser = new LayerPane(lyc, pcc);
 		
 		//eerste ronde? open dan popup in if-statement
 		setNewRoot(pcardChooser);
