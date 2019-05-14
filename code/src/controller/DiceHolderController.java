@@ -154,7 +154,9 @@ public class DiceHolderController {
 				if(dhmodels.get(i).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(i).getY() == location.getY() && dhmodels.get(i).getX() == (location.getX() -1)) {
 					if (dhmodels.get(i).getDie() != null) {
 						DiceModel leftDie = dhmodels.get(i).getDie();
-							if (leftDie.getEyes() == die.getEyes() || leftDie.getPaint() == die.getPaint()) {
+							if (leftDie == die) {
+								break;
+							}else if (leftDie.getEyes() == die.getEyes() || leftDie.getPaint() == die.getPaint()) {
 								check = false;
 								return check;
 							}
@@ -168,7 +170,9 @@ public class DiceHolderController {
 				if(dhmodels.get(i).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(i).getY() == location.getY() && dhmodels.get(i).getX() == (location.getX() + 1)) {
 					if (dhmodels.get(i).getDie() != null) {
 						DiceModel rightDie = dhmodels.get(i).getDie();
-							if (rightDie.getEyes() == die.getEyes() || rightDie.getPaint() == die.getPaint()) {
+						if (rightDie == die) {
+							break;
+						}else if (rightDie.getEyes() == die.getEyes() || rightDie.getPaint() == die.getPaint()) {
 								check = false;
 								return check;
 							}
@@ -182,7 +186,9 @@ public class DiceHolderController {
 				if(dhmodels.get(i).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(i).getY() == location.getY() - 1 && dhmodels.get(i).getX() == location.getX()) {
 					if (dhmodels.get(i).getDie() != null) {
 						DiceModel topDie = dhmodels.get(i).getDie();
-							if (topDie.getEyes() == die.getEyes() || topDie.getPaint() == die.getPaint()) {
+						if (topDie == die) {
+							break;
+						}else if (topDie.getEyes() == die.getEyes() || topDie.getPaint() == die.getPaint()) {
 								check = false;
 								return check;
 							}
@@ -196,7 +202,9 @@ public class DiceHolderController {
 				if(dhmodels.get(i).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(i).getY() == location.getY() + 1 && dhmodels.get(i).getX() == location.getX()) {
 					if (dhmodels.get(i).getDie() != null) {
 						DiceModel bottomDie = dhmodels.get(i).getDie();
-							if (bottomDie.getEyes() == die.getEyes() || bottomDie.getPaint() == die.getPaint()) {
+						if (bottomDie == die) {
+							break;
+						}else if (bottomDie.getEyes() == die.getEyes() || bottomDie.getPaint() == die.getPaint()) {
 								check = false;
 								return check;
 							}
