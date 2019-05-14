@@ -22,12 +22,12 @@ public class MyScene extends Scene{
 		this.mc = mc;
 		this.stage = stage;
 		
-		lc = mc.lc;
+		lc = mc.getLoginController();
 		
 		root = new Pane();
 		
 		
-		gamePane = new GamePane(mc.gm);
+		gamePane = new GamePane(mc.getGameController());
 		menuPane = new MenuPane(this, gamePane);
 		loginPane = new LoginPane(this, lc);
 		// hier moeten ook nog de registratie panes worden aangemaakt.
