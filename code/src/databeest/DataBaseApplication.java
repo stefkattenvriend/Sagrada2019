@@ -235,4 +235,12 @@ public class DataBaseApplication
 		}
 	
 	
+	//Stef
+	public int getPlayerPayStones()
+	{
+		
+		
+		return 0;
+	}
+	
 }

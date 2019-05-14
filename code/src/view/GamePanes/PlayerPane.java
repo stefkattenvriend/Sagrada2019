@@ -6,6 +6,7 @@ import controller.PatterncardController;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 
 public class PlayerPane extends VBox{
@@ -16,7 +17,7 @@ public class PlayerPane extends VBox{
 	private HBox personalAttributes;
 	private PaystoneHolder paystoneHolder;
 	private Points points;
-	private TargetColor targetColor;
+	private PersonalObjectiveCardPane pocp;
 	private PatternCardPane patternCardPane;
 	private DiceHolderController dhc;
 	private PatterncardController dcc;
@@ -44,8 +45,8 @@ public class PlayerPane extends VBox{
 		personalAttributes = new HBox();
 		paystoneHolder = new PaystoneHolder();
 		points = new Points();
-		targetColor = new TargetColor();
-		personalAttributes.getChildren().addAll(paystoneHolder, points, targetColor);
+		pocp = new PersonalObjectiveCardPane(Color.PURPLE);
+		personalAttributes.getChildren().addAll(paystoneHolder, points, pocp);
 		personalAttributes.setMinHeight(75);
 		getChildren().add(personalAttributes);
 	}

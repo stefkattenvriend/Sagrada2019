@@ -32,4 +32,10 @@ public class GameController {//deze classe wordt aangemaakt in de masterControll
 		return lyc;
 	}
 	
+	
+	public void newGame()
+	{
+		
+	}
+	
 }
