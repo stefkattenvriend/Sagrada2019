@@ -3,15 +3,13 @@ package controller;
 import view.GamePanes.ToolCard1Pane;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import model.DiceModel;
 
 // gemaakt door TESS!!!!!!!!!!
 public class ToolCard {
 
-	private int selectedCard;
-
-	// maak die selected
 
 	public void useCard(int number, ArrayList<DiceModel> dice) {
 		if (number == 1) {
@@ -47,7 +45,9 @@ public class ToolCard {
 		}
 		if (number == 6) {
 			// nadat dobbelsteen kiest opnieuw werpen
-			// [een klasse].werp(dobbelsteen);
+			Random random = new Random();
+			int randomInt = random.nextInt(6) + 1;
+			dice.get(0).setEyes(randomInt);
 		}
 		if (number == 7) {
 			// Werp alle dobbelstenen in het aanbod opnieuw, enkel bij 2e beurt
@@ -60,6 +60,7 @@ public class ToolCard {
 		}
 		if (number == 10) {
 			// nadat dobbelsteen gekozen, mag draaien naar tegenovergestelde zijde
+			dice.get(0).setEyes(7 - dice.get(0).getEyes());
 			// dobbelsteen.waarde = 7 - dobbelsteen.waarde;
 		}
 		if (number == 11) {
