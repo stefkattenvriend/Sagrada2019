@@ -4,8 +4,9 @@ public class GameModel {
 	
 	//instance 
 	private int gameRound = 1; //nu hardcoded, in toekomst wordt dit uit database gehaald.
+	private int gameid;
 	
-	public GameModel() {
+	public GameModel(int gameid) {
 		
 	}
 	

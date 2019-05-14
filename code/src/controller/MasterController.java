@@ -1,6 +1,7 @@
 package controller;
 
 import databeest.DBChatCollector;
+import databeest.DBGameCollector;
 import databeest.DBPatternCardInfoCollector;
 import databeest.DataBaseApplication;
 import databeest.DbUserInfoCollector;
@@ -12,6 +13,7 @@ public class MasterController {//een controller die alle andere aanmaakt? ~Rens
 	private DbUserInfoCollector dbUserInfoCollector;
 	private DBPatternCardInfoCollector DatabasePTCCollector;
 	private DBChatCollector dbChatCollector;
+	private DBGameCollector dbGameCollector;
 	private DataBaseApplication databeest = new DataBaseApplication();
 	
 	private LoginController lc;//laat de controllers voor nu op public staan. later get en set maken
@@ -22,8 +24,9 @@ public class MasterController {//een controller die alle andere aanmaakt? ~Rens
 		dbUserInfoCollector = new DbUserInfoCollector(databeest);
 		DatabasePTCCollector = new DBPatternCardInfoCollector(databeest);
 		dbChatCollector = new DBChatCollector(databeest);
+		dbGameCollector = new DBGameCollector(databeest);
 		
-		this.gm = new GameController(DatabasePTCCollector);
+		this.gm = new GameController(DatabasePTCCollector, dbGameCollector, lc);
 		this.lc = new LoginController(dbUserInfoCollector);
 		this.chat = new ChatController(dbChatCollector);
 		
@@ -39,7 +42,9 @@ public class MasterController {//een controller die alle andere aanmaakt? ~Rens
 			
 //			databeest.doSomeUpdating();
 		}
-
+		
+		// testen game
+//		gm.newGame(); //dit maakt een nieuwe game aan (milan)
 	}
 	
 	public GameController getGameController()
