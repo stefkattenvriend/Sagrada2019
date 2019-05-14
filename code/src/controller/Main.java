@@ -1,6 +1,7 @@
 package controller;
 
-import databeest.DataBaseApplication;
+
+
 import javafx.application.Application;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -15,23 +16,22 @@ public class Main extends Application{
 	public final static Background PLAYERPANE = new Background(new BackgroundFill(Color.BLUE, null, null));
 	public final static Background ENEMYPANE = new Background(new BackgroundFill(Color.RED, null, null));
 	
-	public static void main(String[] args) {
-		
-		
-		DataBaseApplication databeest = new DataBaseApplication();
-		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
-				&& (databeest.makeConnection()))
-		{
-//			databeest.doSomeQuerying();
-//			databeest.doSomeUpdating();
-		}
-
+	//instance variables
+	/*private DbUserInfoCollector dbUserInfoCollector;*/
+	
+	public static void main(String[] args) 
+	{
 		launch(args);
 	}
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		MyScene myScene = new MyScene(new DiceHolderController(), new PatterncardController());
+		
+		MasterController mc = new MasterController();
+	
+		MyScene myScene = new MyScene(stage, mc); //gamecontroller wordt aangemaakt datgeen wat er nu instaat wordt in gamecontroller aangemaakt.
+		
+		// Basic stage stuff
 		stage.setResizable(false);
 		stage.setScene(myScene);
 		stage.show();		

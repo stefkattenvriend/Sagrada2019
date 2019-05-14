@@ -1,33 +1,26 @@
 package model;
 
-
 //Stef
 
 public class Account {
 	
-	private String username;
+	// Instance variables
+	private String currentAccount;
 	
+	// Constructor
 	public Account()
 	{
-		
+		currentAccount = null;
 	}
 	
-	public boolean CheckLogin(String username, String password)
+	public void setCurrentAccount(String username)
 	{
-		// username moet voorkomen in de database.
-		
-		
-		
-		// password moet samen met username in de zelfde rij voorkomen.
-		
-		
-		return true;
-		
+		this.currentAccount = username;
 	}
 	
-	public void CreateAccount(String username, String password) 
+	public String getCurrentAccount()
 	{
-		
+		return currentAccount;
 	}
 	
 	
