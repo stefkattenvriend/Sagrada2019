@@ -234,5 +234,61 @@ public class DataBaseApplication
 			return color;
 		}
 	
+	//milan
+	public int getGameid(String query)
+	{
+		Statement stmt = null;
+		int gameid = 0;
+		try
+		{
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			//return string in console
+			while (rs.next())
+			{
+				gameid = rs.getInt(1);
+				
+			}
+			stmt.close();
+		} catch (SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
+		return gameid;
+	}
+	
+	public String getColor()
+	{
+		Statement stmt = null;
+		String color = null;
+		String query = "SELECT * FROM color";
+		try
+		{
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			//return string in console
+			while (rs.next())
+			{
+				color = rs.getString(1);
+				
+			}
+			stmt.close();
+		} catch (SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
+		return color;
+	}
+	
+	
+	//Stef
+	public int getPlayerPayStones()
+	{
+		
+		
+		return 0;
+	}
 	
 }
