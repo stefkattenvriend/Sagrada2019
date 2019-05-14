@@ -4,75 +4,96 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class CardBackgrounds {
-	private ImageView toolCards[] = new ImageView[3];
-	private ImageView targetCards[] = new ImageView[3];
-	
 	
 	//Jami
-	CardBackgrounds() {
-		//milan voeg aub hier code om de card id's te krijgen toe
+	public ImageView getToolCard(int card) {
 		
-		int firstCard = 3;
-		int secondCard = 2;
-		int thirdCard = 5;
-		
-		switch(firstCard) { //eerste kaart database
+		switch(card) {
 		case 1:
 			ImageView iv1 = new ImageView(new Image("/toolcards/1.png"));
-			toolCards[0] = iv1;
-			break;
+			return iv1;
 		case 2:
 			ImageView iv2 = new ImageView(new Image("/toolcards/2.png"));
-			toolCards[0] = iv2;
-			break;
+			return iv2;
 		case 3:
 			ImageView iv3 = new ImageView(new Image("/toolcards/3.png"));
-			toolCards[0] = iv3;
-			break;
+			return iv3;
 		case 4:
 			ImageView iv4 = new ImageView(new Image("/toolcards/4.png"));
-			toolCards[0] = iv4;
-			break;
+			return iv4;
 		case 5:
 			ImageView iv5 = new ImageView(new Image("/toolcards/5.png"));
-			toolCards[0] = iv5;
-			break;
+			return iv5;
 		case 6:
 			ImageView iv6 = new ImageView(new Image("/toolcards/6.png"));
-			toolCards[0] = iv6;
-			break;
+			return iv6;
 		case 7:
 			ImageView iv7 = new ImageView(new Image("/toolcards/7.png"));
-			toolCards[0] = iv7;
-			break;
+			return iv7;
 		case 8:
 			ImageView iv8 = new ImageView(new Image("/toolcards/8.png"));
-			toolCards[0] = iv8;
-			break;
+			return iv8;
 		case 9:
 			ImageView iv9 = new ImageView(new Image("/toolcards/9.png"));
-			toolCards[0] = iv9;
-			break;
+			return iv9;
 		case 10:
 			ImageView iv10 = new ImageView(new Image("/toolcards/10.png"));
-			toolCards[0] = iv10;
-			break;
+			return iv10;
 		case 11:
 			ImageView iv11 = new ImageView(new Image("/toolcards/11.png"));
-			toolCards[0] = iv11;
-			break;
+			return iv11;
 		case 12:
 			ImageView iv12 = new ImageView(new Image("/toolcards/12.png"));
-			toolCards[0] = iv12;
-			break;
+			return iv12;
 		default:
 			System.out.println("There is no picture");
-			break;
+			ImageView iv13 = new ImageView(new Image("/toolcards/1.png"));
+			return iv13;
 		}
 	}
 	
-	//
-	public ImageView[] getToolCards() {
-		return toolCards;
+	public ImageView getTargetCard(int card) {
+		switch(card) {
+		case 1:
+			ImageView iv1 = new ImageView(new Image("/toolcards/1.png"));
+			return iv1;
+		case 2:
+			ImageView iv2 = new ImageView(new Image("/toolcards/2.png"));
+			return iv2;
+		case 3:
+			ImageView iv3 = new ImageView(new Image("/toolcards/3.png"));
+			return iv3;
+		case 4:
+			ImageView iv4 = new ImageView(new Image("/toolcards/4.png"));
+			return iv4;
+		case 5:
+			ImageView iv5 = new ImageView(new Image("/toolcards/5.png"));
+			return iv5;
+		case 6:
+			ImageView iv6 = new ImageView(new Image("/toolcards/6.png"));
+			return iv6;
+		case 7:
+			ImageView iv7 = new ImageView(new Image("/toolcards/7.png"));
+			return iv7;
+		case 8:
+			ImageView iv8 = new ImageView(new Image("/toolcards/8.png"));
+			return iv8;
+		case 9:
+			ImageView iv9 = new ImageView(new Image("/toolcards/9.png"));
+			return iv9;
+		case 10:
+			ImageView iv10 = new ImageView(new Image("/toolcards/10.png"));
+			return iv10;
+		case 11:
+			ImageView iv11 = new ImageView(new Image("/toolcards/11.png"));
+			return iv11;
+		case 12:
+			ImageView iv12 = new ImageView(new Image("/toolcards/12.png"));
+			return iv12;
+		default:
+			System.out.println("There is no picture");
+			ImageView iv13 = new ImageView(new Image("/toolcards/1.png"));
+			return iv13;
+		}
 	}
 }

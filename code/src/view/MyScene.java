@@ -27,7 +27,6 @@ public class MyScene extends Scene{
 		root = new Pane();
 		
 		
-		gamePane = new GamePane(mc.gm);
 		menuPane = new MenuPane(this, gamePane);
 		loginPane = new LoginPane(this, lc);
 		// hier moeten ook nog de registratie panes worden aangemaakt.

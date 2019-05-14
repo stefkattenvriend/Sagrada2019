@@ -4,6 +4,12 @@ import databeest.DBChatCollector;
 import databeest.DBPatternCardInfoCollector;
 import databeest.DataBaseApplication;
 import databeest.DbUserInfoCollector;
+import javafx.scene.layout.BorderPane;
+import view.LayerPane;
+import view.GamePanes.CardDisplayPane;
+import view.GamePanes.EnemyPane;
+import view.GamePanes.GamePane;
+import view.GamePanes.PlayerPane;
 
 public class MasterController {//een controller die alle andere aanmaakt? ~Rens
 	
@@ -39,7 +45,8 @@ public class MasterController {//een controller die alle andere aanmaakt? ~Rens
 			
 //			databeest.doSomeUpdating();
 		}
-
+		
+		//make the GamePane
 		
 	}
 

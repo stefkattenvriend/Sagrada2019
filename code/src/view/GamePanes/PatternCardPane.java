@@ -32,7 +32,7 @@ public class PatternCardPane extends Pane{//misschien hernoemen naar bord pane? 
 		setPaneSize();
 		setPatternCard();
 		addDiceHolders();
-		addPatternCard(4);
+		//addPatternCard(4);
 		//aanduiding();
 	}
 

@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class DataBaseApplication
 {
@@ -233,6 +234,29 @@ public class DataBaseApplication
 			}
 			return color;
 		}
+	
+	public ArrayList getIdToolcard(int gamenumber) {
+		Statement stmt = null;
+		ArrayList<Integer> idToolcard = new ArrayList<Integer>();
+		String query = "SELECT idtoolcard FROM gametoolcard WHERE idgame = " + gamenumber + ";";
+		try
+		{
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			//return string in console voor test
+			while (rs.next())
+			{
+				idToolcard.add(rs.getInt(1));
+			}
+			stmt.close();
+		} catch (SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
+		return idToolcard;
+	}
+	
 	
 	
 }
