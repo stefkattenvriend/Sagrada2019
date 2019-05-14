@@ -14,7 +14,7 @@ public class GameController {//deze classe wordt aangemaakt in de masterControll
 		this.DatabasePTCCollector = DatabasePTCCollector;
 		dhc = new DiceHolderController();
 		pcc = new PatterncardController(DatabasePTCCollector);
-		lc = new LayerController();
+		lc = new LayerController(pcc);
 	}
 	
 	

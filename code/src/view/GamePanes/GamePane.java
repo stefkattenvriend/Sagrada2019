@@ -44,7 +44,7 @@ public class GamePane extends StackPane {
 		gamePane.setCenter(playerPane);
 		gamePane.setRight(enemyPane);
 		
-		LayerPane pcardChooser = new LayerPane(lc);
+		LayerPane pcardChooser = new LayerPane(lc, pcc);
 		
 		//eerste ronde? open dan popup in if-statement
 		setNewRoot(pcardChooser);

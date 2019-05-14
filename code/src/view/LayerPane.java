@@ -1,6 +1,7 @@
 package view;
 
 import controller.LayerController;
+import controller.PatterncardController;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,8 +13,10 @@ import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import view.GamePanes.GamePane;
 
 
 public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worden aangemaakt(dus in de scene). deze pane geeft de mogelijkheid om "pop-ups" te cre�ren(voor bijvoorbeeld een pauze menu, patroonkaart keuze en een scorebord op einde van game ~Rens
@@ -23,14 +26,16 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 	public final static double windowMaxHeight = 800;
 	
 	public LayerController controller;
+	private PatterncardController pcc;
 	private FlowPane buttonPane;
 	private Button button;
 	private FlowPane chooserPane = new FlowPane();;
 	private int[] randomPat;
 	
-	public LayerPane(LayerController controller) {
+	public LayerPane(LayerController controller, PatterncardController pcc) {
 //		randomPat = controller.getRandomPat();
 		this.controller = controller;
+		this.pcc = pcc;
 		setUp();
 	}
 	
@@ -71,14 +76,23 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 	}
 	
 	private Pane createPatternCard(String rdInt) {
-		FlowPane patternCard = new FlowPane();
+		TilePane patternCard = new TilePane();
 		patternCard.setPrefWidth(500);
 		patternCard.setPrefHeight(400);
 		patternCard.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null)));
 		patternCard.setBackground(new Background(new BackgroundFill(Color.BEIGE, null, null)));
-		Label label = new Label(rdInt);
+		
+		for (int i = 1; i < 5; i++) {
+			for (int j = 1; j < 6; j++) {
+				double size = ((GamePane.windowMaxWidth / 3) / 5) - 1; 
+			patternCard.getChildren().add(pcc.PatterncardCreate(j, i, Integer.parseInt(rdInt), (int)size));
+			}	
+		}
+		
+		
+		/*Label label = new Label(rdInt);
 		label.setFont(new Font("Arial", 80));
-		patternCard.getChildren().add(label);
+		patternCard.getChildren().add(label);*/
 		patternCard.setAlignment(Pos.CENTER);
 //		patternCard.setOnMouseClicked(e ->); // als je op een pattroonkaart klikt wordt deze gebruikt in het spel.
 		return patternCard;

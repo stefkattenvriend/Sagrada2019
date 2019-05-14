@@ -14,8 +14,8 @@ public class LayerController {
 	private ArrayList<Integer> patternCards = new ArrayList<Integer>(); //arraylist met alle patroonkaarten in zich.
 	private int[] randomPat = new int[4]; //array met 4 random gekozen patroonkaarten opgeslagen.
 	
-	public LayerController() {
-		layerPane = new LayerPane(this);
+	public LayerController(PatterncardController pcc) {
+		layerPane = new LayerPane(this, pcc);
 	}
 	
 	public void generateRdmPatternCards() { //voor nu alleen een int, later wordt dit verwerkt met een pattroonkaart.

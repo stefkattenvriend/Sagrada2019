@@ -191,7 +191,7 @@ public class DataBaseApplication
 				{
 					int valuedb = rs.getInt(5);
 					if(valuedb != 0){
-						System.out.println(x + " : " + y + " - value: " + valuedb);
+						//System.out.println(x + " : " + y + " - value: " + valuedb);
 						value = valuedb;
 					}
 				}
@@ -221,7 +221,7 @@ public class DataBaseApplication
 				{
 					String colordb = rs.getString(4);
 					if(colordb != null) {
-						System.out.println(x + " : " + y +  " - color: " + colordb);
+						//System.out.println(x + " : " + y +  " - color: " + colordb);
 						color = colordb;
 					}
 					
