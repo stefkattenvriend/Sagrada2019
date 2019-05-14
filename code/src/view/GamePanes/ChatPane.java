@@ -20,7 +20,8 @@ public class ChatPane extends BorderPane {
 	//constants
 	private double panewidth = (GamePane.windowMaxWidth / 3) / 2;
 	private double paneheight = (GamePane.windowMaxHeight);
-	private int i = 0;
+	private int textareasize = 735;
+
 	
 	//instance variables
 	private DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
@@ -37,22 +38,30 @@ public class ChatPane extends BorderPane {
 		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null))); 
 
 		TextArea textArea = new TextArea();
-		TextField textField = new TextField("Type here...");
+		textArea.setMinHeight(textareasize);
+		TextField textField = new TextField();
+		textField.setPromptText("Type here to chat...");
 		textArea.setDisable(true);
 		textArea.setText("Welcome to Sagrada! \n");
 		HBox buttonBar = new HBox();
 		Button button = new Button("Submit");
 		button.setMinWidth(50);
 
+		
+		//Iedere speler kan 1 bericht per TIMESTAMP sturen
 		button.setOnAction(action -> {
-			i++;
-			textArea.appendText(textField.getText() + " " + i + " : " + dateFormat.format(new Date()));
-			textArea.appendText("\n");
 			
+			String date = dateFormat.format(new Date());
+			String gethighestdatefromdatabase = date;
+			if( date != gethighestdatefromdatabase ){
+			textArea.appendText("(" + date + "): " + textField.getText());
+			textArea.appendText("\n");
+			textField.clear();
+			}
 		});
 		buttonBar.getChildren().addAll(textField, button);
-		setCenter(textArea);
-		setBottom(buttonBar);
+		setTop(textArea);
+		setCenter(buttonBar);
 	}
 
 	private void setPaneSize() {

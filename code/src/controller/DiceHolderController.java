@@ -44,19 +44,21 @@ public class DiceHolderController {
 			for (int i = 0; i < dhmodels.size(); i++) {
 				if (dhmodels.get(i).getSelected() == true) {
 					if (selectedModel.getDie() == null && dhmodels.get(i).getDie() == null) {// switch tussen de
-																								// selected
+																								// selected van 2 lege vakjes
 						dhmodels.get(i).switchSelected();
 						dhpanes.get(i).setBackground(null);// zet background en selected status naar null van de pane
 															// die eerder selected was
 
 						selectedModel.switchSelected();
-						dp.setBackground(new Background(new BackgroundFill(Color.PURPLE, null, null)));
+						dp.setBackground(new Background(new BackgroundFill(Color.rgb(10, 10, 10, 0.8), null, null)));
 
 						return;
 
 					} else if (selectedModel.getDie() == null && dhmodels.get(i).getDie() != null) {// switch een
 																									// dobbelsteen
-						selectedModel.setDie(dhmodels.get(i).getDie());// wiselt de models
+						
+						if(checkDiceMovement(selectedModel, dhmodels.get(i).getDie()) == true) {
+							selectedModel.setDie(dhmodels.get(i).getDie());// wiselt de models
 						dhmodels.get(i).setDie(null);
 
 						dhmodels.get(i).switchSelected();// zet achtergrond en selected naar nul van oude pane
@@ -66,17 +68,53 @@ public class DiceHolderController {
 						dhpanes.get(i).setCenter(null);
 
 						return;
+						}else {
+							dhmodels.get(i).switchSelected();
+							dhpanes.get(i).setBackground(null);// zet background en selected status naar null van de pane
+																// die eerder selected was
+
+							selectedModel.switchSelected();
+							dp.setBackground(new Background(new BackgroundFill(Color.rgb(10, 10, 10, 0.8), null, null)));
+
+							return;
+						}
+						
+						
+					} else if (selectedModel.getDie() != null && dhmodels.get(i).getDie() == null) {
+						
+						dhmodels.get(i).switchSelected();
+						dhpanes.get(i).setBackground(null);// zet background en selected status naar null van de pane
+															// die eerder selected was
+
+						selectedModel.switchSelected();
+						dp.setBackground(new Background(new BackgroundFill(Color.rgb(10, 10, 10, 0.8), null, null)));
+
+						
+						return;
+					} else if (selectedModel.getDie() != null && dhmodels.get(i).getDie() != null) {
+						
+						dhmodels.get(i).switchSelected();
+						dhpanes.get(i).setBackground(null);// zet background en selected status naar null van de pane
+															// die eerder selected was
+
+						selectedModel.switchSelected();
+						dp.setBackground(new Background(new BackgroundFill(Color.rgb(10, 10, 10, 0.8), null, null)));
+
+						
+						return;
 					}
 				}
 			}
 
 			selectedModel.switchSelected();
-			dp.setBackground(new Background(new BackgroundFill(Color.PURPLE, null, null)));
+			dp.setBackground(new Background(new BackgroundFill(Color.rgb(10, 10, 10, 0.8), null, null)));
 
+		} else if(selectedModel.getSelected() == true) {
+			selectedModel.switchSelected();
+			dp.setBackground(null);
 		}
 
-		// dp.setBackground(new Background(new BackgroundFill(Color.PURPLE, null,
-		// null)));
+		
 
 	}
 
@@ -102,7 +140,83 @@ public class DiceHolderController {
 				dhmodels.get(i).setDie(die);
 				dhpanes.get(i).setCenter(dc.createDicePane(die));
 			}
-			;
+			
 		}
+	}
+	
+	public boolean checkDiceMovement(DiceHolderModel location, DiceModel die) {
+		boolean check = true;
+			if(location.getType() == DiceHolderType.PLAYERWINDOW) {
+	
+				//krijg de linker
+		if(location.getX() != 1) {
+			for (int i = 0; i < dhmodels.size(); i++) {
+				if(dhmodels.get(i).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(i).getY() == location.getY() && dhmodels.get(i).getX() == (location.getX() -1)) {
+					if (dhmodels.get(i).getDie() != null) {
+						DiceModel leftDie = dhmodels.get(i).getDie();
+							if (leftDie == die) {
+								break;
+							}else if (leftDie.getEyes() == die.getEyes() || leftDie.getPaint() == die.getPaint()) {
+								check = false;
+								return check;
+							}
+						}
+					}
+				}
+			}
+		//krijg rechter
+		if(location.getX() != 5) {
+			for (int i = 0; i < dhmodels.size(); i++) {
+				if(dhmodels.get(i).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(i).getY() == location.getY() && dhmodels.get(i).getX() == (location.getX() + 1)) {
+					if (dhmodels.get(i).getDie() != null) {
+						DiceModel rightDie = dhmodels.get(i).getDie();
+						if (rightDie == die) {
+							break;
+						}else if (rightDie.getEyes() == die.getEyes() || rightDie.getPaint() == die.getPaint()) {
+								check = false;
+								return check;
+							}
+						}
+					}
+				}
+			}
+		//krijg boven
+		if(location.getY() != 1) {
+			for (int i = 0; i < dhmodels.size(); i++) {
+				if(dhmodels.get(i).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(i).getY() == location.getY() - 1 && dhmodels.get(i).getX() == location.getX()) {
+					if (dhmodels.get(i).getDie() != null) {
+						DiceModel topDie = dhmodels.get(i).getDie();
+						if (topDie == die) {
+							break;
+						}else if (topDie.getEyes() == die.getEyes() || topDie.getPaint() == die.getPaint()) {
+								check = false;
+								return check;
+							}
+						}
+					}
+				}
+			}
+		//krijg onder
+		if(location.getY() != 4) {
+			for (int i = 0; i < dhmodels.size(); i++) {
+				if(dhmodels.get(i).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(i).getY() == location.getY() + 1 && dhmodels.get(i).getX() == location.getX()) {
+					if (dhmodels.get(i).getDie() != null) {
+						DiceModel bottomDie = dhmodels.get(i).getDie();
+						if (bottomDie == die) {
+							break;
+						}else if (bottomDie.getEyes() == die.getEyes() || bottomDie.getPaint() == die.getPaint()) {
+								check = false;
+								return check;
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		
+			
+			
+		return check;
 	}
 }

@@ -25,16 +25,16 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 	public final static double windowMaxWidth = 1280;
 	public final static double windowMaxHeight = 800;
 	
-	public LayerController controller;
+	public LayerController lyc;
 	private PatterncardController pcc;
 	private FlowPane buttonPane;
 	private Button button;
-	private FlowPane chooserPane = new FlowPane();;
+	private FlowPane chooserPane = new FlowPane();
 	private int[] randomPat;
 	
 	public LayerPane(LayerController controller, PatterncardController pcc) {
 //		randomPat = controller.getRandomPat();
-		this.controller = controller;
+		this.lyc = controller;
 		this.pcc = pcc;
 		setUp();
 	}
@@ -45,7 +45,9 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 		setButton();
 		setChooserPane();
 		setLeft(buttonPane);
-		setRight(chooserPane);	
+		setRight(chooserPane);
+		
+		
 	}
 	
 	private void setDesign() {
@@ -65,11 +67,12 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 	
 	private void setChooserPane() {
 		chooserPane.setPrefSize(windowMaxWidth - 120, windowMaxHeight);
+		
 	} 
 	
 	private void viewOffer() {
-		controller.generateRdmPatternCards();
-		randomPat = controller.getRandomPat();
+		lyc.generateRdmPatternCards();
+		randomPat = lyc.getRandomPat();
 		chooserPane.getChildren().clear();
 		chooserPane.getChildren().addAll(createPatternCard(String.valueOf(randomPat[0])), createPatternCard(String.valueOf(randomPat[1])), createPatternCard(String.valueOf(randomPat[2])), createPatternCard(String.valueOf(randomPat[3])));
 		chooserPane.setAlignment(Pos.CENTER_RIGHT);
