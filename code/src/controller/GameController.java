@@ -5,17 +5,31 @@ import databeest.DBPatternCardInfoCollector;
 public class GameController {//deze classe wordt aangemaakt in de masterController en maakt uiteindelijk ook de andere controllers aan ~Rens
 	Cards cards = new Cards();//Jami wat is dit? ~Rens
 	
-	public DiceHolderController dhc;
-	public PatterncardController pcc;
+	private DiceHolderController dhc;
+	private PatterncardController pcc;
 	private DBPatternCardInfoCollector DatabasePTCCollector;
-	public LayerController lc;
+	private LayerController lyc;
 
 	public GameController(DBPatternCardInfoCollector DatabasePTCCollector) {
 		this.DatabasePTCCollector = DatabasePTCCollector;
 		dhc = new DiceHolderController();
 		pcc = new PatterncardController(DatabasePTCCollector);
-		lc = new LayerController(pcc);
+		lyc = new LayerController(pcc);
 	}
 	
+	public DiceHolderController getDiceHolderController()
+	{
+		return dhc;
+	}
+	
+	public PatterncardController getPatterncardController()
+	{
+		return pcc;
+	}
+	
+	public LayerController getLayerController()
+	{
+		return lyc;
+	}
 	
 }
