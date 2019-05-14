@@ -34,6 +34,7 @@ public class Main extends Application{
 		// Basic stage stuff
 		stage.setResizable(false);
 		stage.setScene(myScene);
+		stage.setTitle("Sagrada game");
 		stage.show();		
 	}
 
