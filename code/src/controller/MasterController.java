@@ -4,11 +4,12 @@ import databeest.DBChatCollector;
 import databeest.DBPatternCardInfoCollector;
 import databeest.DataBaseApplication;
 import databeest.DbUserInfoCollector;
+import javafx.application.Application;
+import javafx.stage.Stage;
+import view.MyScene;
 
-public class MasterController {//een controller die alle andere aanmaakt? ~Rens
-	
-	
-	
+public class MasterController extends Application{//een controller die alle andere aanmaakt? ~Rens
+
 	private DbUserInfoCollector dbUserInfoCollector;
 	private DBPatternCardInfoCollector DatabasePTCCollector;
 	private DBChatCollector dbChatCollector;
@@ -17,8 +18,24 @@ public class MasterController {//een controller die alle andere aanmaakt? ~Rens
 	private LoginController lc;//laat de controllers voor nu op public staan. later get en set maken
 	private GameController gm;
 	private ChatController chat;
+	private MyScene myScene;
+	private Stage stage;
 	
-	public MasterController() {
+	public void startup(String[] args) {
+		launch(args);
+	}
+	
+	@Override
+	public void start(Stage stage) throws Exception {
+		this.startMasterController();
+		this.stage = stage;
+		myScene = new MyScene(this);
+		stage.setResizable(false);
+		stage.setScene(myScene);
+		stage.show();
+	}
+	
+	private void startMasterController() {
 		dbUserInfoCollector = new DbUserInfoCollector(databeest);
 		DatabasePTCCollector = new DBPatternCardInfoCollector(databeest);
 		dbChatCollector = new DBChatCollector(databeest);
@@ -26,6 +43,8 @@ public class MasterController {//een controller die alle andere aanmaakt? ~Rens
 		this.gm = new GameController(DatabasePTCCollector);
 		this.lc = new LoginController(dbUserInfoCollector);
 		this.chat = new ChatController(dbChatCollector);
+		
+		
 		
 		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
 				&& (databeest.makeConnection()))
@@ -56,4 +75,9 @@ public class MasterController {//een controller die alle andere aanmaakt? ~Rens
 	{
 		return this.chat;
 	}
+	
+	public Stage getStage() {
+		return this.stage;
+	}
+
 }

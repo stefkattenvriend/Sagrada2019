@@ -15,12 +15,12 @@ public class MyScene extends Scene{
 	private GamePane gamePane;
 	private LoginPane loginPane;
 	private Pane root;
-	private Stage stage;
+//	private Stage stage;
 	
-	public MyScene(Stage stage, MasterController mc) {
+	public MyScene(MasterController mc) {
 		super(new Pane());
 		this.mc = mc;
-		this.stage = stage;
+//		this.stage = stage;
 		
 		lc = mc.getLoginController();
 		
@@ -46,8 +46,8 @@ public class MyScene extends Scene{
 	public void setMenuPane()
 	{
 		setNewRoot(menuPane);
-		stage.setHeight(menuPane.windowMaxHeight);
-		stage.setWidth(menuPane.windowMaxWidth);
-		stage.centerOnScreen();
+		mc.getStage().setHeight(menuPane.windowMaxHeight);
+		mc.getStage().setWidth(menuPane.windowMaxWidth);
+		mc.getStage().centerOnScreen();
 	}
 }
