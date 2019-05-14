@@ -44,13 +44,13 @@ public class DiceHolderController {
 			for (int i = 0; i < dhmodels.size(); i++) {
 				if (dhmodels.get(i).getSelected() == true) {
 					if (selectedModel.getDie() == null && dhmodels.get(i).getDie() == null) {// switch tussen de
-																								// selected
+																								// selected van 2 lege vakjes
 						dhmodels.get(i).switchSelected();
 						dhpanes.get(i).setBackground(null);// zet background en selected status naar null van de pane
 															// die eerder selected was
 
 						selectedModel.switchSelected();
-						dp.setBackground(new Background(new BackgroundFill(Color.PURPLE, null, null)));
+						dp.setBackground(new Background(new BackgroundFill(Color.rgb(10, 10, 10, 0.8), null, null)));
 
 						return;
 
@@ -66,17 +66,41 @@ public class DiceHolderController {
 						dhpanes.get(i).setCenter(null);
 
 						return;
+					} else if (selectedModel.getDie() != null && dhmodels.get(i).getDie() == null) {
+						
+						dhmodels.get(i).switchSelected();
+						dhpanes.get(i).setBackground(null);// zet background en selected status naar null van de pane
+															// die eerder selected was
+
+						selectedModel.switchSelected();
+						dp.setBackground(new Background(new BackgroundFill(Color.rgb(10, 10, 10, 0.8), null, null)));
+
+						
+						return;
+					} else if (selectedModel.getDie() != null && dhmodels.get(i).getDie() != null) {
+						
+						dhmodels.get(i).switchSelected();
+						dhpanes.get(i).setBackground(null);// zet background en selected status naar null van de pane
+															// die eerder selected was
+
+						selectedModel.switchSelected();
+						dp.setBackground(new Background(new BackgroundFill(Color.rgb(10, 10, 10, 0.8), null, null)));
+
+						
+						return;
 					}
 				}
 			}
 
 			selectedModel.switchSelected();
-			dp.setBackground(new Background(new BackgroundFill(Color.PURPLE, null, null)));
+			dp.setBackground(new Background(new BackgroundFill(Color.rgb(10, 10, 10, 0.8), null, null)));
 
+		} else if(selectedModel.getSelected() == true) {
+			selectedModel.switchSelected();
+			dp.setBackground(null);
 		}
 
-		// dp.setBackground(new Background(new BackgroundFill(Color.PURPLE, null,
-		// null)));
+		
 
 	}
 
