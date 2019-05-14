@@ -12,8 +12,8 @@ public class DBPatternCardInfoCollector {
 	}
 	
 	public void getPatternCardInfo(int pcnumber, int x, int y, PatterncardModel pcm) {
-		int value = dataBaseApplication.getPaternCardValue(pcnumber, x, y);
-		String PatternColor = dataBaseApplication.getPaternCardColor(pcnumber, x, y);;
+		int value = dataBaseApplication.getPaternCardValue(pcnumber, x, y);//fout zit in deze denk in ~Rens
+		String PatternColor = dataBaseApplication.getPaternCardColor(pcnumber, x, y);
 		
 		if (value != 0) {
 			pcm.setNumber(value);

@@ -18,13 +18,13 @@ public class PatternCardPane extends Pane{//misschien hernoemen naar bord pane? 
 	
 	private StackPane patternCard;
 	private TilePane patternCardView;
-	private FlowPane patternCardDice;
+	private TilePane patternCardDice;
 	private DiceHolderController dhc;
-	private PatterncardController dcc;
+	private PatterncardController pcc;
 	
-	public PatternCardPane(DiceHolderController dhc, PatterncardController dcc) {
+	public PatternCardPane(DiceHolderController dhc, PatterncardController pcc) {
 		this.dhc = dhc;
-		this.dcc = dcc;
+		this.pcc = pcc;
 		setUp();
 	}
 
@@ -32,7 +32,7 @@ public class PatternCardPane extends Pane{//misschien hernoemen naar bord pane? 
 		setPaneSize();
 		setPatternCard();
 		addDiceHolders();
-		addPatternCard(1);
+		addPatternCard(4);
 		//aanduiding();
 	}
 
@@ -41,7 +41,7 @@ public class PatternCardPane extends Pane{//misschien hernoemen naar bord pane? 
 		patternCardView = new TilePane();
 		patternCardView.setMinSize(GamePane.windowMaxWidth / 3, 330);
 		patternCardView.setBackground(new Background(new BackgroundFill(Color.BEIGE, null, null)));
-		patternCardDice = new FlowPane();
+		patternCardDice = new TilePane();
 		patternCardDice.setMinSize(GamePane.windowMaxWidth / 3, 330);
 		patternCard.getChildren().addAll(patternCardView, patternCardDice);
 		getChildren().add(patternCard);
@@ -64,7 +64,7 @@ public class PatternCardPane extends Pane{//misschien hernoemen naar bord pane? 
 		for (int i = 1; i < 5; i++) {
 			for (int j = 1; j < 6; j++) {
 				double size = ((GamePane.windowMaxWidth / 3) / 5) - 1; 
-			patternCardDice.getChildren().add(dcc.PatterncardCreate(j, i, pcnumber, (int)size));
+			patternCardView.getChildren().add(pcc.PatterncardCreate(j, i, pcnumber, (int)size));
 			}	
 		}
 	}

@@ -191,7 +191,7 @@ public class DataBaseApplication
 				{
 					int valuedb = rs.getInt(5);
 					if(valuedb != 0){
-						System.out.println(" - value: " + value);
+						System.out.println(x + " : " + y + " - value: " + valuedb);
 						value = valuedb;
 					}
 				}
@@ -199,7 +199,7 @@ public class DataBaseApplication
 			} catch (SQLException e)
 			{
 				System.out.println(e.getMessage());
-				return 0;
+				return value;
 			}
 		
 		return value;
@@ -220,8 +220,8 @@ public class DataBaseApplication
 				while (rs.next())
 				{
 					String colordb = rs.getString(4);
-					if(color != null) {
-						System.out.println(" - color: " + colordb);
+					if(colordb != null) {
+						System.out.println(x + " : " + y +  " - color: " + colordb);
 						color = colordb;
 					}
 					
