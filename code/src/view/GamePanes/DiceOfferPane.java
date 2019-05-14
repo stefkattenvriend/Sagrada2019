@@ -49,5 +49,7 @@ public class DiceOfferPane extends FlowPane{
 	private void addDie() {//test methode wordt later verwijderdt
 		dhc.addDie(DiceHolderType.OFFER, 1, 0, 1, 3, true);
 		dhc.addDie(DiceHolderType.OFFER, 2, 0, 3, 6, true);
+		dhc.addDie(DiceHolderType.OFFER, 3, 0, 3, 3, true);
+		dhc.addDie(DiceHolderType.OFFER, 4, 0, 1, 6, true);
 	}
 	}
