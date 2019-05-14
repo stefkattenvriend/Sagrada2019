@@ -1,6 +1,7 @@
 package controller;
 
 import databeest.DBChatCollector;
+import databeest.DBGameCollector;
 import databeest.DBPatternCardInfoCollector;
 import databeest.DataBaseApplication;
 import databeest.DbUserInfoCollector;
@@ -10,28 +11,49 @@ import view.GamePanes.CardDisplayPane;
 import view.GamePanes.EnemyPane;
 import view.GamePanes.GamePane;
 import view.GamePanes.PlayerPane;
+import javafx.application.Application;
+import javafx.stage.Stage;
+import view.MyScene;
 
-public class MasterController {//een controller die alle andere aanmaakt? ~Rens
-	
-	
-	
+public class MasterController extends Application{//een controller die alle andere aanmaakt? ~Rens
+
 	private DbUserInfoCollector dbUserInfoCollector;
 	private DBPatternCardInfoCollector DatabasePTCCollector;
 	private DBChatCollector dbChatCollector;
+	private DBGameCollector dbGameCollector;
 	private DataBaseApplication databeest = new DataBaseApplication();
 	
-	public LoginController lc;//laat de controllers voor nu op public staan. later get en set maken
-	public GameController gm;
-	public ChatController chat;
+	private LoginController lc;//laat de controllers voor nu op public staan. later get en set maken
+	private GameController gm;
+	private ChatController chat;
+	private MyScene myScene;
+	private Stage stage;
 	
-	public MasterController() {
+	public void startup(String[] args) {
+		launch(args);
+	}
+	
+	@Override
+	public void start(Stage stage) throws Exception {
+		this.startMasterController();
+		this.stage = stage;
+		myScene = new MyScene(this);
+		stage.setResizable(false);
+		stage.setScene(myScene);
+		stage.show();
+	}
+	
+	private void startMasterController() {
 		dbUserInfoCollector = new DbUserInfoCollector(databeest);
 		DatabasePTCCollector = new DBPatternCardInfoCollector(databeest);
 		dbChatCollector = new DBChatCollector(databeest);
+		dbGameCollector = new DBGameCollector(databeest);
 		
-		gm = new GameController(DatabasePTCCollector);
-		lc = new LoginController(dbUserInfoCollector);
-		chat = new ChatController(dbChatCollector);
+		this.gm = new GameController(DatabasePTCCollector, dbGameCollector, lc);
+		this.lc = new LoginController(dbUserInfoCollector);
+		this.chat = new ChatController(dbChatCollector);
+		
+		
 		
 		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
 				&& (databeest.makeConnection()))
@@ -48,6 +70,27 @@ public class MasterController {//een controller die alle andere aanmaakt? ~Rens
 		
 		//make the GamePane
 		
+		// testen game
+//		gm.newGame(); //dit maakt een nieuwe game aan (milan)
+	}
+	
+	public GameController getGameController()
+	{
+		return this.gm;
+	}
+	
+	public LoginController getLoginController()
+	{
+		return this.lc;
+	}
+	
+	public ChatController getChatController()
+	{
+		return this.chat;
+	}
+	
+	public Stage getStage() {
+		return this.stage;
 	}
 
 }

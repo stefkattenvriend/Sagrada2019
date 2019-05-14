@@ -32,5 +32,7 @@ public class EnemyPane extends BorderPane{
 		setMinSize(GamePane.windowMaxWidth / 3, GamePane.windowMaxHeight);
 		setMaxSize(GamePane.windowMaxWidth / 3, GamePane.windowMaxHeight);
 	}
+	
+	
 
 }

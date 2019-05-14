@@ -1,24 +1,29 @@
 package controller;
 
+import databeest.DBGameCollector;
 import databeest.DBPatternCardInfoCollector;
 import javafx.scene.layout.BorderPane;
 import view.GamePanes.CardDisplayPane;
 import view.GamePanes.EnemyPane;
 import view.GamePanes.GamePane;
 import view.GamePanes.PlayerPane;
+import databeest.DataBaseApplication;
 
 public class GameController {//deze classe wordt aangemaakt in de masterController en maakt uiteindelijk ook de andere controllers aan ~Rens
 	//Jami wat is dit? ~Rens
 	
-	public DiceHolderController dhc;
-	public PatterncardController pcc;
+	private DiceHolderController dhc;
+	private PatterncardController pcc;
 	private DBPatternCardInfoCollector DatabasePTCCollector;
-	public LayerController lc;
+	private DBGameCollector dbGameCollector;
+	private LayerController lyc;
+	private LoginController lc;
 	
-	//Cards
-
-	public GameController(DBPatternCardInfoCollector DatabasePTCCollector) {
+	private int gameid;
+	
+	public GameController(DBPatternCardInfoCollector DatabasePTCCollector, DBGameCollector dbGamecollector, LoginController lc) {
 		this.DatabasePTCCollector = DatabasePTCCollector;
+		this.lc = lc;
 		dhc = new DiceHolderController();
 		pcc = new PatterncardController(DatabasePTCCollector);
 		lc = new LayerController(pcc);
@@ -37,6 +42,39 @@ public class GameController {//deze classe wordt aangemaakt in de masterControll
 		CardsController cardController = new CardsController();
 		EnemyPaneController enemyPaneController = new EnemyPaneController();
 		PlayerPaneController playerPaneController = new PlayerPaneController();
+		lyc = new LayerController(pcc);
+		this.dbGameCollector = dbGamecollector;
+		
+	}
+	
+	public DiceHolderController getDiceHolderController()
+	{
+		return dhc;
+	}
+	
+	public PatterncardController getPatterncardController()
+	{
+		return pcc;
+	}
+	
+	public LayerController getLayerController()
+	{
+		return lyc;
+	}
+	
+	public void createPrivateObjective() {
+		
+	}
+	
+	public void newGame()
+	{
+		dbGameCollector.pushGame();
+		String username = lc.getCurrentAccount();
+		dbGameCollector.pushFirstPlayer(username);
+	}
+	
+	public int getGameid() {
+		return gameid;
 	}
 	
 }
