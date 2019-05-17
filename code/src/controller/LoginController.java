@@ -14,7 +14,11 @@ public class LoginController {
 	public LoginController(DbUserInfoCollector dbUserInfoCollector)
 	{
 		this.dbUserInfoCollector = dbUserInfoCollector;
+<<<<<<< HEAD
 		account = new Account();
+=======
+		account = new AccountModel();
+>>>>>>> parent of 4da8930... game backbone
 	}
 	
 	//Als accountgegevens kloppen, moet het inloggen

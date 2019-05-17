@@ -45,9 +45,15 @@ public class MasterController extends Application{//een controller die alle ande
 	
 	private void startMasterController() {
 		dbUserInfoCollector = new DbUserInfoCollector(databeest);
+<<<<<<< HEAD
 		DatabasePTCCollector = new DBPatternCardInfoCollector(databeest);
 		dbChatCollector = new DBChatCollector(databeest);
 		dbGameCollector = new DBGameCollector(databeest);
+=======
+		DatabasePTCCollector = new DbPatternCardInfoCollector(databeest);
+		dbChatCollector = new DbChatCollector(databeest);
+		dbGameCollector = new DbGameCollector(databeest);
+>>>>>>> parent of 4da8930... game backbone
 		
 		this.gm = new GameController(DatabasePTCCollector, dbGameCollector, lc);
 		this.lc = new LoginController(dbUserInfoCollector);
