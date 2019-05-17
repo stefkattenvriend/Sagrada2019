@@ -107,7 +107,7 @@ public class DataBaseApplication
 			stmt = m_Conn.createStatement();
 			
 			int rs = stmt.executeUpdate(query);
-			System.out.println(rs);
+			System.out.println(rs);// Deze maakt de 1 in de console :D
 			stmt.close();
 		} catch (SQLException e)
 		{
@@ -235,10 +235,6 @@ public class DataBaseApplication
 			return color;
 		}
 	
-	public ArrayList getIdToolcard(int gamenumber) {
-		Statement stmt = null;
-		ArrayList<Integer> idToolcard = new ArrayList<Integer>();
-		String query = "SELECT idtoolcard FROM gametoolcard WHERE idgame = " + gamenumber + ";";
 	//milan
 	public int getGameid(String query)
 	{
@@ -249,10 +245,6 @@ public class DataBaseApplication
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			
-			//return string in console voor test
-			while (rs.next())
-			{
-				idToolcard.add(rs.getInt(1));
 			//return string in console
 			while (rs.next())
 			{
@@ -264,17 +256,13 @@ public class DataBaseApplication
 		{
 			System.out.println(e.getMessage());
 		}
-		return idToolcard;
-	}
-	
-	
 		return gameid;
 	}
 	
-	public String getColor()
+	public ArrayList<String> getColor()
 	{
 		Statement stmt = null;
-		String color = null;
+		ArrayList<String> colors = new ArrayList<>();
 		String query = "SELECT * FROM color";
 		try
 		{
@@ -284,7 +272,8 @@ public class DataBaseApplication
 			//return string in console
 			while (rs.next())
 			{
-				color = rs.getString(1);
+				
+				colors.add(rs.getString(1));
 				
 			}
 			stmt.close();
@@ -292,7 +281,7 @@ public class DataBaseApplication
 		{
 			System.out.println(e.getMessage());
 		}
-		return color;
+		return colors;
 	}
 	
 	

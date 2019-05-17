@@ -22,7 +22,7 @@ public class CardsController {
 		CardPane targetCard2 = new CardPane();
 		CardPane targetCard3 = new CardPane();
 		
-		cardDisplayPane = new CardDisplayPane(vbox1, vbox2, toolCard1, toolCard2, toolCard3, targetCard1, targetCard2, targetCard3);
+//		cardDisplayPane = new CardDisplayPane(vbox1, vbox2, toolCard1, toolCard2, toolCard3, targetCard1, targetCard2, targetCard3);
 		
 //		DataBaseCardGrab dataBaseCardGrab = new DataBaseCardGrab();
 //		dataBaseCardGrabber = dataBaseCardGrab;

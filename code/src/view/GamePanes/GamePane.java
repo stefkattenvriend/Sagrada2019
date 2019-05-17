@@ -36,8 +36,10 @@ public class GamePane extends StackPane {
 	}
 
 	private void setUp() {
-		setScreenSize();
-		
+		gamePane = new BorderPane();
+		playerPane = new PlayerPane(dhc, pcc);
+		cardDisplayPane = new CardDisplayPane();
+		enemyPane = new EnemyPane();
 		gamePane.setLeft(cardDisplayPane);
 		gamePane.setCenter(playerPane);
 		gamePane.setRight(enemyPane);

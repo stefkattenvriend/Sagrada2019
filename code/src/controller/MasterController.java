@@ -43,14 +43,16 @@ public class MasterController extends Application{//een controller die alle ande
 		dbChatCollector = new DbChatCollector(databeest);
 		dbGameCollector = new DbGameCollector(databeest);
 		
+		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
+				&& (databeest.makeConnection()))
+		
 		this.gm = new GameController(DatabasePTCCollector, dbGameCollector, lc);
 		this.lc = new LoginController(dbUserInfoCollector);
 		this.chat = new ChatController(dbChatCollector);
 		
 		
 		
-		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
-				&& (databeest.makeConnection()))
+		
 		{
 //			databeest.doSomeQuerying();
 //			databeest.getPaternCard(1, 1, 1);
