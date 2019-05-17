@@ -5,11 +5,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 //milan
-public class DBGameCollector {
+public class DbGameCollector {
 
 	private DataBaseApplication dataBaseApplication;
 
-	public DBGameCollector(DataBaseApplication dataBaseApplication) {
+	public DbGameCollector(DataBaseApplication dataBaseApplication) {
 		this.dataBaseApplication = dataBaseApplication;
 	}
 

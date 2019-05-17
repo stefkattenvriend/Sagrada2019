@@ -3,11 +3,11 @@ package databeest;
 import model.PatterncardModel;
 import javafx.scene.paint.Color;
 
-public class DBPatternCardInfoCollector {
+public class DbPatternCardInfoCollector {
 	
 	private DataBaseApplication dataBaseApplication;
 	
-	public DBPatternCardInfoCollector(DataBaseApplication dataBaseApplication) {
+	public DbPatternCardInfoCollector(DataBaseApplication dataBaseApplication) {
 		this.dataBaseApplication = dataBaseApplication;
 	}
 	

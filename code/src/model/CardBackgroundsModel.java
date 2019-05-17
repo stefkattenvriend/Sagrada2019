@@ -3,13 +3,13 @@ package model;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class CardBackgrounds {
+public class CardBackgroundsModel {
 	private ImageView toolCards[] = new ImageView[3];
 	private ImageView targetCards[] = new ImageView[3];
 	
 	
 	//Jami
-	CardBackgrounds() {
+	CardBackgroundsModel() {
 		//milan voeg aub hier code om de card id's te krijgen toe
 		
 		int firstCard = 3;

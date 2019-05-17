@@ -1,22 +1,22 @@
 package controller;
 
-import databeest.DBGameCollector;
-import databeest.DBPatternCardInfoCollector;
+import databeest.DbGameCollector;
+import databeest.DbPatternCardInfoCollector;
 import databeest.DataBaseApplication;
 
 public class GameController {//deze classe wordt aangemaakt in de masterController en maakt uiteindelijk ook de andere controllers aan ~Rens
-	Cards cards = new Cards();//Jami wat is dit? ~Rens
+	CardsController cards = new CardsController();//Jami wat is dit? ~Rens
 	
 	private DiceHolderController dhc;
 	private PatterncardController pcc;
-	private DBPatternCardInfoCollector DatabasePTCCollector;
-	private DBGameCollector dbGameCollector;
+	private DbPatternCardInfoCollector DatabasePTCCollector;
+	private DbGameCollector dbGameCollector;
 	private LayerController lyc;
 	private LoginController lc;
 	
 	private int gameid;
 	
-	public GameController(DBPatternCardInfoCollector DatabasePTCCollector, DBGameCollector dbGamecollector, LoginController lc) {
+	public GameController(DbPatternCardInfoCollector DatabasePTCCollector, DbGameCollector dbGamecollector, LoginController lc) {
 		this.DatabasePTCCollector = DatabasePTCCollector;
 		this.lc = lc;
 		dhc = new DiceHolderController();

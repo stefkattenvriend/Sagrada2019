@@ -8,7 +8,7 @@ import java.util.Random;
 import model.DiceModel;
 
 // gemaakt door TESS!!!!!!!!!!
-public class ToolCard {
+public class ToolCardController {
 
 
 	public void useCard(int number, ArrayList<DiceModel> dice) {
