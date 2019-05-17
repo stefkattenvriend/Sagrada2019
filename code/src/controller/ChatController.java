@@ -1,15 +1,15 @@
 package controller;
 
-import databeest.DBChatCollector;
+import databeest.DbChatCollector;
 import model.ChatModel;
 
 //Gemaakt door milan.
 public class ChatController {
 
-	private DBChatCollector chatdb;
+	private DbChatCollector chatdb;
 	private ChatModel chatMd;
 	
-	public ChatController(DBChatCollector chatDB) {
+	public ChatController(DbChatCollector chatDB) {
 		chatdb = chatDB;
 		chatMd = new ChatModel(chatDB);
 		

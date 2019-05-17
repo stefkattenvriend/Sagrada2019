@@ -25,14 +25,8 @@ public class GamePane extends StackPane {
 	private BorderPane gamePane;
 	private LayerController lyc;
 	
-	public GamePane(BorderPane innerGamePane, CardDisplayPane cardDisplayPane, PlayerPane playerPane, EnemyPane enemyPane, GameController gameController) {
-		this.gamePane = innerGamePane;
-		this.pcc = gameController.pcc;
-		this.lc = gameController.lc;
-		this.cardDisplayPane = cardDisplayPane;
-		this.playerPane = playerPane;
-		this.enemyPane = enemyPane;
-		this.gc = gc;
+	public GamePane(GameController gameController) {
+		this.gc = gameController;
 		this.dhc = gc.getDiceHolderController();
 		this.pcc = gc.getPatterncardController();
 		this.lyc = gc.getLayerController();

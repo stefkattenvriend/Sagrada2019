@@ -1,45 +1,30 @@
 package controller;
 
-<<<<<<< HEAD
-import databeest.DBGameCollector;
-import databeest.DBPatternCardInfoCollector;
+import databeest.DbGameCollector;
+import databeest.DbPatternCardInfoCollector;
 import javafx.scene.layout.BorderPane;
-import view.GamePanes.CardDisplayPane;
 import view.GamePanes.EnemyPane;
 import view.GamePanes.GamePane;
 import view.GamePanes.PlayerPane;
-import databeest.DataBaseApplication;
 
 public class GameController {//deze classe wordt aangemaakt in de masterController en maakt uiteindelijk ook de andere controllers aan ~Rens
-	//Jami wat is dit? ~Rens
-=======
-import databeest.DbGameCollector;
-import databeest.DbPatternCardInfoCollector;
-import databeest.DataBaseApplication;
 
-public class GameController {//deze classe wordt aangemaakt in de masterController en maakt uiteindelijk ook de andere controllers aan ~Rens
-	CardsController cards = new CardsController();//Jami wat is dit? ~Rens
->>>>>>> parent of 4da8930... game backbone
-	
 	private DiceHolderController dhc;
 	private PatterncardController pcc;
-	private DBPatternCardInfoCollector DatabasePTCCollector;
-	private DBGameCollector dbGameCollector;
+	private DbPatternCardInfoCollector DatabasePTCCollector;
+	private DbGameCollector dbGameCollector;
 	private LayerController lyc;
 	private LoginController lc;
 	
 	private int gameid;
 	
-<<<<<<< HEAD
-	public GameController(DBPatternCardInfoCollector DatabasePTCCollector, DBGameCollector dbGamecollector, LoginController lc) {
-=======
 	public GameController(DbPatternCardInfoCollector DatabasePTCCollector, DbGameCollector dbGamecollector, LoginController lc) {
->>>>>>> parent of 4da8930... game backbone
+
 		this.DatabasePTCCollector = DatabasePTCCollector;
 		this.lc = lc;
 		dhc = new DiceHolderController();
 		pcc = new PatterncardController(DatabasePTCCollector);
-		lc = new LayerController(pcc);
+		lyc = new LayerController(pcc);
 		
 		gamePaneMaker();
 	}
@@ -56,7 +41,7 @@ public class GameController {//deze classe wordt aangemaakt in de masterControll
 		EnemyPaneController enemyPaneController = new EnemyPaneController();
 		PlayerPaneController playerPaneController = new PlayerPaneController();
 		lyc = new LayerController(pcc);
-		this.dbGameCollector = dbGamecollector;
+		this.dbGameCollector = dbGameCollector;
 		
 	}
 	

@@ -1,6 +1,6 @@
 package model;
 
-import databeest.DBPatternCardInfoCollector;
+import databeest.DbPatternCardInfoCollector;
 import javafx.scene.paint.Color;
 
 public class PatterncardModel {
@@ -9,9 +9,9 @@ public class PatterncardModel {
 	private int y;
 	private int number;
 	private Color color;
-	private DBPatternCardInfoCollector dbpcif;
+	private DbPatternCardInfoCollector dbpcif;
 	
-	public PatterncardModel(int number, int x, int y, DBPatternCardInfoCollector dbpcif) {
+	public PatterncardModel(int number, int x, int y, DbPatternCardInfoCollector dbpcif) {
 		this.patterncardNumber = number;
 		this.x = x;
 		this.y = y;
