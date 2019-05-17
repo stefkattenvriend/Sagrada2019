@@ -4,7 +4,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import databeest.DBChatCollector;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -53,10 +52,10 @@ public class ChatPane extends BorderPane {
 			
 			String date = dateFormat.format(new Date());
 			String gethighestdatefromdatabase = date;
-			if( date != gethighestdatefromdatabase ){
-			textArea.appendText("(" + date + "): " + textField.getText());
-			textArea.appendText("\n");
-			textField.clear();
+			if( date.equals(gethighestdatefromdatabase)){
+				textArea.appendText("(" + date + "): " + textField.getText());
+				textArea.appendText("\n");
+				textField.clear();
 			}
 		});
 		buttonBar.getChildren().addAll(textField, button);

@@ -2,11 +2,11 @@ package databeest;
 
 import java.sql.Date;
 
-public class DBChatCollector {
+public class DbChatCollector {
 	
 	private DataBaseApplication dataBaseApplication;
 	
-	public DBChatCollector(DataBaseApplication dataBaseApplication) {
+	public DbChatCollector(DataBaseApplication dataBaseApplication) {
 		this.dataBaseApplication = dataBaseApplication;
 	}
 

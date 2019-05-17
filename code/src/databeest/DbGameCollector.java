@@ -5,11 +5,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 //milan
-public class DBGameCollector {
+public class DbGameCollector {
 
 	private DataBaseApplication dataBaseApplication;
 
-	public DBGameCollector(DataBaseApplication dataBaseApplication) {
+	public DbGameCollector(DataBaseApplication dataBaseApplication) {
 		this.dataBaseApplication = dataBaseApplication;
 	}
 
@@ -32,9 +32,27 @@ public class DBGameCollector {
 		int gameid = 0;
 		String query = "SELECT max(idgame) FROM game;";
 		gameid = dataBaseApplication.getGameid(query);
-		System.out.println(gameid);
+//		System.out.println(gameid);
 		return gameid;
 	}
+
+	public void insertPublicObjectiveCards(int x) {
+		
+		int gameid = getGameid();
+		
+		String query = "INSERT INTO `mwmastbe_db2`.`sharedpublic_objectivecard` (`idgame`, `idpublic_objectivecard`) VALUES ('" + gameid + "', '" + x + "');";
+		dataBaseApplication.insertQuery(query);
+	}
+
+	public void insertToolCards(int x) {
+		int gameid = getGameid();
+//		int i = 5;//Hardcoded!!!! IDK?!?!?1?
+		String query = "INSERT INTO `mwmastbe_db2`.`gametoolcard` (`idtoolcard`, `idgame`) VALUES ('" + x + "', '" + gameid + "');";
+		dataBaseApplication.insertQuery(query);
+		
+	}
 	
+	
+
 	
 }

@@ -1,27 +1,31 @@
 package controller;
 
-import databeest.DBGameCollector;
-import databeest.DBPatternCardInfoCollector;
-import javafx.scene.layout.BorderPane;
-import view.GamePanes.CardDisplayPane;
-import view.GamePanes.EnemyPane;
-import view.GamePanes.GamePane;
-import view.GamePanes.PlayerPane;
+import databeest.DbGameCollector;
+import databeest.DbPatternCardInfoCollector;
+
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+
+
 import databeest.DataBaseApplication;
 
-public class GameController {//deze classe wordt aangemaakt in de masterController en maakt uiteindelijk ook de andere controllers aan ~Rens
-	//Jami wat is dit? ~Rens
-	
+public class GameController {// deze classe wordt aangemaakt in de masterController en maakt uiteindelijk ook
+								// de andere controllers aan ~Rens
+	CardsController cards = new CardsController();// Jami wat is dit? ~Rens
+
 	private DiceHolderController dhc;
 	private PatterncardController pcc;
-	private DBPatternCardInfoCollector DatabasePTCCollector;
-	private DBGameCollector dbGameCollector;
+	private DbPatternCardInfoCollector DatabasePTCCollector;
+	private DbGameCollector dbGameCollector;
 	private LayerController lyc;
 	private LoginController lc;
-	
+
 	private int gameid;
-	
-	public GameController(DBPatternCardInfoCollector DatabasePTCCollector, DBGameCollector dbGamecollector, LoginController lc) {
+
+	public GameController(DbPatternCardInfoCollector DatabasePTCCollector, DbGameCollector dbGamecollector,
+			LoginController lc) {
 		this.DatabasePTCCollector = DatabasePTCCollector;
 		this.lc = lc;
 		dhc = new DiceHolderController();
@@ -44,37 +48,73 @@ public class GameController {//deze classe wordt aangemaakt in de masterControll
 		PlayerPaneController playerPaneController = new PlayerPaneController();
 		lyc = new LayerController(pcc);
 		this.dbGameCollector = dbGamecollector;
-		
+
 	}
-	
-	public DiceHolderController getDiceHolderController()
-	{
+
+	public DiceHolderController getDiceHolderController() {
 		return dhc;
 	}
-	
-	public PatterncardController getPatterncardController()
-	{
+
+	public PatterncardController getPatterncardController() {
 		return pcc;
 	}
-	
-	public LayerController getLayerController()
-	{
+
+	public LayerController getLayerController() {
 		return lyc;
 	}
-	
+
 	public void createPrivateObjective() {
-		
+
 	}
-	
-	public void newGame()
-	{
+
+	// milan
+	public void newGame() {
 		dbGameCollector.pushGame();
 		String username = lc.getCurrentAccount();
+//		String username = "123";
 		dbGameCollector.pushFirstPlayer(username);
+		insertPublicObjectiveCards();
+		insertToolCards();
+		
+
 	}
-	
+
+	private void insertToolCards() {
+		ArrayList<Integer> randomkaarten = generateThreeRandomUniqueNumbers(12); // van 12 nummers(aantal toolcards), geef mij er drie at random.
+		for(int i = 0; i < 3; i++) {
+			int x = randomkaarten.get(i);
+			dbGameCollector.insertToolCards(x);
+		}
+	}
+
+	public void insertPublicObjectiveCards() {//set to private later
+		ArrayList<Integer> randomkaarten = generateThreeRandomUniqueNumbers(10); // van 10 nummers, geef mij er drie at random.
+		for(int i = 0; i < 3; i++) {
+			int x = randomkaarten.get(i);
+			dbGameCollector.insertPublicObjectiveCards(x);
+		}
+	}
+
+	private ArrayList<Integer> generateThreeRandomUniqueNumbers(int aantalkaarten) {
+		ArrayList<Integer> list = new ArrayList<>();
+		for (int i = 1; i <= aantalkaarten; i++) {
+			list.add(i);
+
+		}
+
+		Collections.shuffle(list);
+
+		int x = list.size() - 3;
+		for (int i = 0; i < x; i++) {
+			list.remove(0);
+
+		}
+		System.out.println(list);//syso to check which numbers are added to database
+		return list;
+	}
+
 	public int getGameid() {
 		return gameid;
 	}
-	
+
 }
