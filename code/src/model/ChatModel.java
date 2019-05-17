@@ -3,7 +3,7 @@ package model;
 import java.sql.Date;
 import java.util.ArrayList;
 
-import databeest.DbChatCollector;
+import databeest.DBChatCollector;
 
 //milan
 public class ChatModel {
@@ -11,12 +11,12 @@ public class ChatModel {
 	//Instance Variables
 	private String message;
 	private ArrayList<String> messages = new ArrayList<>();
-	private DbChatCollector chatdatabase;
+	private DBChatCollector chatdatabase;
 	
 	//Constants
 	
 	//Constructor
-	public ChatModel(DbChatCollector chatdb) {
+	public ChatModel(DBChatCollector chatdb) {
 		chatdatabase = chatdb;
 	}
 	

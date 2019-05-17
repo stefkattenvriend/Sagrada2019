@@ -2,7 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 
-import databeest.DbPatternCardInfoCollector;
+import databeest.DBPatternCardInfoCollector;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
@@ -15,10 +15,10 @@ public class PatterncardController {
 	ArrayList<PatterncardModel> pcmodels = new ArrayList<PatterncardModel>();
 	int Patternnumber = 0;
 	
-	DbPatternCardInfoCollector DatabasePTCCollector;
+	DBPatternCardInfoCollector DatabasePTCCollector;
 	
 	
-	public PatterncardController(DbPatternCardInfoCollector DatabasePTCCollector) {
+	public PatterncardController(DBPatternCardInfoCollector DatabasePTCCollector) {
 		this.DatabasePTCCollector = DatabasePTCCollector;
 	}
 	

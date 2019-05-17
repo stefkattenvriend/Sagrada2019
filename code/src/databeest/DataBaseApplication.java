@@ -107,7 +107,7 @@ public class DataBaseApplication
 			stmt = m_Conn.createStatement();
 			
 			int rs = stmt.executeUpdate(query);
-			System.out.println(rs);// Deze maakt de 1 in de console :D
+			System.out.println(rs);
 			stmt.close();
 		} catch (SQLException e)
 		{
@@ -271,10 +271,10 @@ public class DataBaseApplication
 		return gameid;
 	}
 	
-	public ArrayList<String> getColor()
+	public String getColor()
 	{
 		Statement stmt = null;
-		ArrayList<String> colors = new ArrayList<>();
+		String color = null;
 		String query = "SELECT * FROM color";
 		try
 		{
@@ -284,8 +284,7 @@ public class DataBaseApplication
 			//return string in console
 			while (rs.next())
 			{
-				
-				colors.add(rs.getString(1));
+				color = rs.getString(1);
 				
 			}
 			stmt.close();
@@ -293,7 +292,7 @@ public class DataBaseApplication
 		{
 			System.out.println(e.getMessage());
 		}
-		return colors;
+		return color;
 	}
 	
 	

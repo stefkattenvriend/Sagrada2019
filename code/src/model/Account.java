@@ -2,13 +2,13 @@ package model;
 
 //Stef
 
-public class AccountModel {
+public class Account {
 	
 	// Instance variables
 	private String currentAccount;
 	
 	// Constructor
-	public AccountModel()
+	public Account()
 	{
 		currentAccount = null;
 	}

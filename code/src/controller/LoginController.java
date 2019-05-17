@@ -1,21 +1,20 @@
 package controller;
 
 import databeest.DbUserInfoCollector;
-import model.AccountModel;
+import model.Account;
 
 //Stef
 public class LoginController {
 	
 	// Instance variables
 	private DbUserInfoCollector dbUserInfoCollector;
-	private AccountModel account;
+	private Account account;
 	
 	// Constructor
 	public LoginController(DbUserInfoCollector dbUserInfoCollector)
 	{
 		this.dbUserInfoCollector = dbUserInfoCollector;
-		account = new AccountModel();
-//		account.setCurrentAccount("joery");
+		account = new Account();
 	}
 	
 	//Als accountgegevens kloppen, moet het inloggen

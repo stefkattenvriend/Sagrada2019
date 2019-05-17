@@ -7,11 +7,11 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
-public class PointsPane extends Pane{
+public class Points extends Pane{
 	
 	private double personalAttributesHeight = 75;
 	
-	public PointsPane() {
+	public Points() {
 		setUp();
 	}
 

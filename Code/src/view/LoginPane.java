@@ -19,52 +19,52 @@ public class LoginPane extends VBox{
 	
 	// instance variables
 	private Button loginButton;
-	private Button registerButton;
+	private Button registreerButton;
 	private LoginController controller;
 	private MyScene myScene;
-	private RegisterPane registerPane;
+	private RegistreerPane registerPane;
 	private TextField accountField;
-	private TextField passwordField;
+	private TextField wachtwoordField;
 	
 	public LoginPane(MyScene myScene, LoginController controller) {
 		this.controller = controller;
 		this.myScene = myScene;
-		registerPane = new RegisterPane(myScene, controller);
+		registerPane = new RegistreerPane(myScene, controller);
 		setMinSize(windowMaxWidth, windowMaxHeight);
 		setMaxSize(windowMaxWidth, windowMaxHeight);
 		setAlignment(Pos.CENTER);
 		setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
 		accountField = new TextField();
-		passwordField = new TextField();
+		wachtwoordField = new TextField();
 		accountField.setMinSize(100, 30);
 		accountField.setMaxSize(100, 30);
-		passwordField.setMinSize(100, 30);
-		passwordField.setMaxSize(100, 30);
+		wachtwoordField.setMinSize(100, 30);
+		wachtwoordField.setMaxSize(100, 30);
 		Label accountLabel = new Label("Account: ");
-		Label passwordLabel = new Label("Wachtwoord: ");
+		Label wachtwoordLabel = new Label("Wachtwoord: ");
 		accountLabel.setTextFill(Color.DARKRED);
 		accountLabel.setFont(Font.font("", FontPosture.ITALIC, 20));
-		passwordLabel.setTextFill(Color.DARKRED);
-		passwordLabel.setFont(Font.font("", FontPosture.ITALIC, 20));
+		wachtwoordLabel.setTextFill(Color.DARKRED);
+		wachtwoordLabel.setFont(Font.font("", FontPosture.ITALIC, 20));
 		createButtons();
-		getChildren().addAll(accountLabel, accountField, passwordLabel, passwordField, loginButton, registerButton);
+		getChildren().addAll(accountLabel, accountField, wachtwoordLabel, wachtwoordField, loginButton, registreerButton);
 	}
 
 
 	private void createButtons() {
 		loginButton = new Button("Inloggen");
-		registerButton = new Button("Registreren");
+		registreerButton = new Button("Registreren");
 		loginButton.setOnAction(e -> login());
 		
 		//TODO
 //		registreerButton.setOnAction();     > Moet naar registreerPane gaan
 		//tijdelijk:
-		registerButton.setOnAction(e -> register());
+		registreerButton.setOnAction(e -> register());
 	}
 	
 	private void login()
 	{
-		if(controller.login(accountField.getText(), passwordField.getText()))
+		if(controller.login(accountField.getText(), wachtwoordField.getText()))
 		{
 			myScene.setMenuPane();
 		}

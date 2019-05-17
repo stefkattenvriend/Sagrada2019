@@ -1,8 +1,8 @@
 package controller;
 
-import databeest.DbChatCollector;
-import databeest.DbGameCollector;
-import databeest.DbPatternCardInfoCollector;
+import databeest.DBChatCollector;
+import databeest.DBGameCollector;
+import databeest.DBPatternCardInfoCollector;
 import databeest.DataBaseApplication;
 import databeest.DbUserInfoCollector;
 import javafx.scene.layout.BorderPane;
@@ -18,9 +18,9 @@ import view.MyScene;
 public class MasterController extends Application{//een controller die alle andere aanmaakt? ~Rens
 
 	private DbUserInfoCollector dbUserInfoCollector;
-	private DbPatternCardInfoCollector DatabasePTCCollector;
-	private DbChatCollector dbChatCollector;
-	private DbGameCollector dbGameCollector;
+	private DBPatternCardInfoCollector DatabasePTCCollector;
+	private DBChatCollector dbChatCollector;
+	private DBGameCollector dbGameCollector;
 	private DataBaseApplication databeest = new DataBaseApplication();
 	
 	private LoginController lc;//laat de controllers voor nu op public staan. later get en set maken
@@ -45,12 +45,9 @@ public class MasterController extends Application{//een controller die alle ande
 	
 	private void startMasterController() {
 		dbUserInfoCollector = new DbUserInfoCollector(databeest);
-		DatabasePTCCollector = new DbPatternCardInfoCollector(databeest);
-		dbChatCollector = new DbChatCollector(databeest);
-		dbGameCollector = new DbGameCollector(databeest);
-		
-		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
-				&& (databeest.makeConnection()))
+		DatabasePTCCollector = new DBPatternCardInfoCollector(databeest);
+		dbChatCollector = new DBChatCollector(databeest);
+		dbGameCollector = new DBGameCollector(databeest);
 		
 		this.gm = new GameController(DatabasePTCCollector, dbGameCollector, lc);
 		this.lc = new LoginController(dbUserInfoCollector);
@@ -58,8 +55,8 @@ public class MasterController extends Application{//een controller die alle ande
 		
 		
 		
-		
-			
+		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
+				&& (databeest.makeConnection()))
 		{
 //			databeest.doSomeQuerying();
 //			databeest.getPaternCard(1, 1, 1);
