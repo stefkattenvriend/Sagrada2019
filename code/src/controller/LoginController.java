@@ -15,6 +15,7 @@ public class LoginController {
 	{
 		this.dbUserInfoCollector = dbUserInfoCollector;
 		account = new AccountModel();
+//		account.setCurrentAccount("joery");
 	}
 	
 	//Als accountgegevens kloppen, moet het inloggen

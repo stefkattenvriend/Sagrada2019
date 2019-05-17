@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class DataBaseApplication
 {
@@ -106,7 +107,7 @@ public class DataBaseApplication
 			stmt = m_Conn.createStatement();
 			
 			int rs = stmt.executeUpdate(query);
-			System.out.println(rs);
+			System.out.println(rs);// Deze maakt de 1 in de console :D
 			stmt.close();
 		} catch (SQLException e)
 		{
@@ -258,10 +259,10 @@ public class DataBaseApplication
 		return gameid;
 	}
 	
-	public String getColor()
+	public ArrayList<String> getColor()
 	{
 		Statement stmt = null;
-		String color = null;
+		ArrayList<String> colors = new ArrayList<>();
 		String query = "SELECT * FROM color";
 		try
 		{
@@ -271,7 +272,8 @@ public class DataBaseApplication
 			//return string in console
 			while (rs.next())
 			{
-				color = rs.getString(1);
+				
+				colors.add(rs.getString(1));
 				
 			}
 			stmt.close();
@@ -279,7 +281,7 @@ public class DataBaseApplication
 		{
 			System.out.println(e.getMessage());
 		}
-		return color;
+		return colors;
 	}
 	
 	
