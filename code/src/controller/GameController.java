@@ -28,8 +28,8 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 			LoginController lc) {
 		this.DatabasePTCCollector = DatabasePTCCollector;
 		this.lc = lc;
-		dhc = new DiceHolderController();
 		pcc = new PatterncardController(DatabasePTCCollector);
+		dhc = new DiceHolderController(pcc);
 		lyc = new LayerController(pcc);
 		this.dbGameCollector = dbGamecollector;
 

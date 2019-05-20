@@ -3,6 +3,7 @@ package controller;
 import java.util.ArrayList;
 
 import helpers.DiceHolderType;
+import helpers.PatterncardType;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
@@ -15,6 +16,11 @@ public class DiceHolderController {
 	private ArrayList<DiceHolderModel> dhmodels = new ArrayList<DiceHolderModel>();
 	private ArrayList<DiceHolderPane> dhpanes = new ArrayList<DiceHolderPane>();
 	private DiceController dc = new DiceController();
+	private PatterncardController pcc;
+	
+	public DiceHolderController(PatterncardController pcc) {
+		this.pcc = pcc;
+	}
 
 	public DiceHolderPane CreateDiceHolder(double size, int x, int y, DiceHolderType type) {// deze methode maakt de
 																							// diceHolder model en pane
@@ -147,6 +153,27 @@ public class DiceHolderController {
 	public boolean checkDiceMovement(DiceHolderModel location, DiceModel die) {
 		boolean check = true;
 			if(location.getType() == DiceHolderType.PLAYERWINDOW) {
+		
+		for (int i = 0; i < pcc.getPcModelsSize(); i++) {//vergelijkt kleur van patroonkaart en die
+			if(location.getX() == pcc.getPcModel(i).getX() && location.getY() == pcc.getPcModel(i).getY() && pcc.getPcModel(i).getPct() == PatterncardType.PLAYER) {
+					if(die.getPaint() == pcc.getPcModel(i).getColor()) {
+						check = false;
+						return check;
+				}
+			}
+			
+			
+		}
+		
+		for (int i = 0; i < pcc.getPcModelsSize(); i++) {//vergelijkt waarde van patroonkaart en die
+			if(location.getX() == pcc.getPcModel(i).getX() && location.getY() == pcc.getPcModel(i).getY() && pcc.getPcModel(i).getPct() == PatterncardType.PLAYER) {
+				if(die.getEyes() == pcc.getPcModel(i).getNumber()) {
+					check = false;
+					return check;
+				}
+			}
+		}
+		
 	
 				//krijg de linker
 		if(location.getX() != 1) {
