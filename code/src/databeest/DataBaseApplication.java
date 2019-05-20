@@ -289,7 +289,7 @@ public class DataBaseApplication
 	{
 		Statement stmt = null;
 		ArrayList<Integer> idToolCards = new ArrayList<>();
-		String query = "SELECT idtoolcard FROM gametoolcard WHERE idgame = " + this.getGameid("SELECT max(idgame) FROM game;");
+		String query = "SELECT idtoolcard FROM gametoolcard WHERE idgame = " + this.getGameid();
 		try
 		{
 			stmt = m_Conn.createStatement();
@@ -308,6 +308,8 @@ public class DataBaseApplication
 			System.out.println(e.getMessage());
 		}
 		return idToolCards;
+	}
+	
 	public ArrayList<String> getPlayer() {
 		Statement stmt = null;
 		ArrayList<String> player = new ArrayList<>();
