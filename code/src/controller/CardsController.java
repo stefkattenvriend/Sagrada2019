@@ -14,7 +14,32 @@ public class CardsController {
 	}
 	
 	public ImageView getTc1(){
-		
-		return ImageView;
+		ImageView imageview = new ImageView();
+		return imageview;
+	}
+	
+	public ImageView getTc2(){
+		ImageView imageview = new ImageView();
+		return imageview;
+		}
+	
+	public ImageView getTc3(){
+		ImageView imageview = new ImageView();
+		return imageview;
+	}
+	
+	public ImageView getTgc1(){
+		ImageView imageview = new ImageView();
+		return imageview;
+	}
+	
+	public ImageView getTgc2(){
+		ImageView imageview = new ImageView();
+		return imageview;
+	}
+	
+	public ImageView getTgc3(){
+		ImageView imageview = new ImageView();
+		return imageview;
 	}
 }

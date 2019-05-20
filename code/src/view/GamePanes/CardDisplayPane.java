@@ -21,8 +21,9 @@ public class CardDisplayPane extends BorderPane{
 	private CardsController cc;
 	
 	public CardDisplayPane(CardsController cc) {
+		this.cc = cc;
 		setUp();
-		cc = this.cc;
+		
 		setBackground(controller.Main.CARDDISPLAYPANE); // aanduiding voor pane
 	}
 

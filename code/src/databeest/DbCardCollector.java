@@ -5,7 +5,7 @@ public class DbCardCollector {
 	
 	DbCardCollector(DataBaseApplication dataBaseApplication) {
 		this.dataBaseApplication = dataBaseApplication;
-		
-		
 	}
+	
+	
 }
