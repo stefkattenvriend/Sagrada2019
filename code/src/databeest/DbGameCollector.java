@@ -30,9 +30,7 @@ public class DbGameCollector {
 	//return highest gameid(van degene die dus net is aangemaakt in gamecontroller)
 	public int getGameid() {
 		int gameid = 0;
-		String query = "SELECT max(idgame) FROM game;";
-		gameid = dataBaseApplication.getGameid(query);
-//		System.out.println(gameid);
+		gameid = dataBaseApplication.getGameid();
 		return gameid;
 	}
 

@@ -236,9 +236,10 @@ public class DataBaseApplication
 		}
 	
 	//milan
-	public int getGameid(String query)
+	public int getGameid()
 	{
 		Statement stmt = null;
+		String query = "SELECT max(idgame) FROM game;";
 		int gameid = 0;
 		try
 		{
