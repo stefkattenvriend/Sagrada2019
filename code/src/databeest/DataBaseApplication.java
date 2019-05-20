@@ -284,6 +284,13 @@ public class DataBaseApplication
 		return colors;
 	}
 	
+	public ArrayList<String> getPlayer() {
+		Statement stmt = null;
+		ArrayList<String> player = new ArrayList<>();
+		//try etc..
+		return player;
+	}
+	
 	
 	//Stef
 	public int getPlayerPayStones()

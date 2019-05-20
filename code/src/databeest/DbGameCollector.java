@@ -46,7 +46,6 @@ public class DbGameCollector {
 
 	public void insertToolCards(int x) {
 		int gameid = getGameid();
-//		int i = 5;//Hardcoded!!!! IDK?!?!?1?
 		String query = "INSERT INTO `mwmastbe_db2`.`gametoolcard` (`idtoolcard`, `idgame`) VALUES ('" + x + "', '" + gameid + "');";
 		dataBaseApplication.insertQuery(query);
 		

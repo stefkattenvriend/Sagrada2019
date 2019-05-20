@@ -24,8 +24,8 @@ public class ChatModel {
 		messages.add(message);
 	}
 	
-	public void pushChat(String message, int playerid, Date time) {
-		chatdatabase.pushChat(message, playerid, time);
-	}
+//	public void pushChat(String message, int playerid, Date time) {
+//		chatdatabase.pushChat(message, playerid, time);
+//	}
 	
 }

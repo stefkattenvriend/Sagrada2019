@@ -10,8 +10,8 @@ public class DbChatCollector {
 		this.dataBaseApplication = dataBaseApplication;
 	}
 
-	public void pushChat(String message, int playerid, Date time) {
-		String query = "INSERT INTO `chatline` (`player_idplayer`, `time`, `message`) VALUES('" + playerid + "', '" + time + "', '" + message + "');";
+	public void sendChat(int playerid, String date, String message) {
+		String query = "INSERT INTO `chatline` (`player_idplayer`, `time`, `message`) VALUES('" + playerid + "', " + date + ", '" + message + "');";
 	dataBaseApplication.insertQuery(query);
 	}
 }

@@ -10,6 +10,7 @@ import java.util.Collections;
 
 
 import databeest.DataBaseApplication;
+import databeest.DbChatCollector;
 
 public class GameController {// deze classe wordt aangemaakt in de masterController en maakt uiteindelijk ook
 								// de andere controllers aan ~Rens
@@ -21,16 +22,19 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private DbGameCollector dbGameCollector;
 	private LayerController lyc;
 	private LoginController lc;
+	private ChatController cc;
 
 	private int gameid;
 
 	public GameController(DbPatternCardInfoCollector DatabasePTCCollector, DbGameCollector dbGamecollector,
-			LoginController lc) {
+			LoginController lc, DbChatCollector dbChat) {
 		this.DatabasePTCCollector = DatabasePTCCollector;
 		this.lc = lc;
+		
 		dhc = new DiceHolderController();
 		pcc = new PatterncardController(DatabasePTCCollector);
 		lyc = new LayerController(pcc);
+		cc = new ChatController(dbChat);
 		this.dbGameCollector = dbGamecollector;
 
 	}
@@ -46,7 +50,10 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	public LayerController getLayerController() {
 		return lyc;
 	}
-
+	
+	public ChatController getChatController() {
+		return cc;
+	}
 	public void createPrivateObjective() {
 
 	}
@@ -54,8 +61,8 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	// milan
 	public void newGame() {
 		dbGameCollector.pushGame();
-		String username = lc.getCurrentAccount();
-//		String username = "123";
+//		String username = lc.getCurrentAccount();
+		String username = "123";
 		dbGameCollector.pushFirstPlayer(username);
 		insertPublicObjectiveCards();
 		insertToolCards();
