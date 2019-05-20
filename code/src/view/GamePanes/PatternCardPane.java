@@ -2,6 +2,7 @@ package view.GamePanes;
 import controller.DiceHolderController;
 import controller.PatterncardController;
 import helpers.DiceHolderType;
+import helpers.PatterncardType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -64,7 +65,7 @@ public class PatternCardPane extends Pane{//misschien hernoemen naar bord pane? 
 		for (int i = 1; i < 5; i++) {
 			for (int j = 1; j < 6; j++) {
 				double size = ((GamePane.windowMaxWidth / 3) / 5) - 1; 
-			patternCardView.getChildren().add(pcc.PatterncardCreate(j, i, pcnumber, (int)size));
+			patternCardView.getChildren().add(pcc.PatterncardCreate(j, i, pcnumber, (int)size, PatterncardType.PLAYER));
 			}	
 		}
 	}
