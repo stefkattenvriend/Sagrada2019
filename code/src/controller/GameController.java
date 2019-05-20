@@ -21,6 +21,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private DbGameCollector dbGameCollector;
 	private LayerController lyc;
 	private LoginController lc;
+	private CardsController cc;
 
 	private int gameid;
 
@@ -31,8 +32,13 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		pcc = new PatterncardController(DatabasePTCCollector);
 		dhc = new DiceHolderController(pcc);
 		lyc = new LayerController(pcc);
+		cc = new CardsController();
 		this.dbGameCollector = dbGamecollector;
 
+	}
+	
+	public CardsController getCardsController() {
+		return cc;
 	}
 
 	public DiceHolderController getDiceHolderController() {

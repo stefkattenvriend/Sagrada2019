@@ -284,6 +284,31 @@ public class DataBaseApplication
 		return colors;
 	}
 	
+	public ArrayList<Integer> getToolCards()
+	{
+		Statement stmt = null;
+		ArrayList<Integer> idToolCards = new ArrayList<>();
+		String query = "SELECT idtoolcard FROM gametoolcard WHERE idgame = " + this.getGameid("SELECT max(idgame) FROM game;");
+		try
+		{
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			//return string in console
+			while (rs.next())
+			{
+				
+				idToolCards.add(rs.getInt(1));
+				
+			}
+			stmt.close();
+		} catch (SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
+		return idToolCards;
+	}
+	
 	
 	//Stef
 	public int getPlayerPayStones()
