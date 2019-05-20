@@ -1,19 +1,37 @@
 package controller;
 
+import java.sql.Date;
+
 import databeest.DbChatCollector;
-import model.ChatModel;
+
 
 //Gemaakt door milan.
 public class ChatController {
 
 	private DbChatCollector chatdb;
-	private ChatModel chatMd;
+
 	
 	public ChatController(DbChatCollector chatDB) {
+		
 		chatdb = chatDB;
-		chatMd = new ChatModel(chatDB);
+
 		
 	}
+	
+	
+
+	public void sendChatToDatabase(int playerid, String date, String message) {
+		chatdb.sendChat(playerid, date, message);
+		
+	}
+
+
+
+	public void getchat() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	
 	//methode om chat te lezen en door te geven naar model. (playerid, time, message)
 	

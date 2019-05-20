@@ -236,9 +236,10 @@ public class DataBaseApplication
 		}
 	
 	//milan
-	public int getGameid(String query)
+	public int getGameid()
 	{
 		Statement stmt = null;
+		String query = "SELECT max(idgame) FROM game;";
 		int gameid = 0;
 		try
 		{
@@ -307,6 +308,11 @@ public class DataBaseApplication
 			System.out.println(e.getMessage());
 		}
 		return idToolCards;
+	public ArrayList<String> getPlayer() {
+		Statement stmt = null;
+		ArrayList<String> player = new ArrayList<>();
+		//try etc..
+		return player;
 	}
 	
 	

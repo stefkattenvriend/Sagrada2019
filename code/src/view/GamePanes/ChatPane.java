@@ -4,6 +4,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
+import controller.ChatController;
 import databeest.DbChatCollector;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -21,15 +23,16 @@ public class ChatPane extends BorderPane {
 	private double panewidth = (GamePane.windowMaxWidth / 3) / 2;
 	private double paneheight = (GamePane.windowMaxHeight);
 	private int textareasize = 735;
-
+	private int playerid = 2; //hoort de id op te halen van de speler die chat...
+	private int buttonwidth = 40;
 	
 	//instance variables
 	private DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-	
+	private ChatController cc;
 	
 	//Gemaakt door milan
-	public ChatPane() {
-		
+	public ChatPane(ChatController cc) {
+		this.cc = cc;
 		setUp();
 	}
 
@@ -44,24 +47,37 @@ public class ChatPane extends BorderPane {
 		textArea.setDisable(true);
 		textArea.setText("Welcome to Sagrada! \n");
 		HBox buttonBar = new HBox();
-		Button button = new Button("Submit");
-		button.setMinWidth(50);
-
+		Button submitbutton = new Button("Submit");
+		submitbutton.setMinWidth(buttonwidth);
 		
-		//Iedere speler kan 1 bericht per TIMESTAMP sturen
-		button.setOnAction(action -> {
-			
-			String date = dateFormat.format(new Date());
-			String gethighestdatefromdatabase = date;
-			if( date != gethighestdatefromdatabase ){
-			textArea.appendText("(" + date + "): " + textField.getText());
-			textArea.appendText("\n");
-			textField.clear();
-			}
-		});
-		buttonBar.getChildren().addAll(textField, button);
+		Button getchatbutton = new Button("get Chat");
+		getchatbutton.setMinWidth(buttonwidth);
+		
+		buttonBar.getChildren().addAll(textField, submitbutton, getchatbutton);
 		setTop(textArea);
 		setCenter(buttonBar);
+		
+		//submit button (puts your message in public chat)
+		submitbutton.setOnAction(action -> {
+			
+			String date = dateFormat.format(new Date());
+			String gethighestdatefromdatabase = date;   //Iedere speler kan 1 bericht per TIMESTAMP sturen
+			if( date == gethighestdatefromdatabase ){
+			
+			textArea.appendText("(" + date + "): " + textField.getText());	//getChatFromDatabase first, 
+			textArea.appendText("\n");
+			cc.sendChatToDatabase(playerid, "NOW()", textField.getText());
+			textField.clear();
+			
+			}
+		});
+		
+		getchatbutton.setOnAction(action -> {
+			cc.getchat();
+		}
+		);
+		
+		
 	}
 
 	private void setPaneSize() {
