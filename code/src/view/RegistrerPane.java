@@ -12,7 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 // door TESSSSSSSSSS!!!!
-public class RegistreerPane extends VBox{
+public class RegistrerPane extends VBox{
 	//constants
 	public final static double windowMaxWidth = 300;
 	public final static double windowMaxHeight = 400;
@@ -23,7 +23,7 @@ public class RegistreerPane extends VBox{
 	private TextField accountField;
 	private TextField wachtwoordField;
 		
-	public RegistreerPane(MyScene myScene, LoginController controller) {
+	public RegistrerPane(MyScene myScene, LoginController controller) {
 		this.myScene = myScene;
 		this.controller = controller;
 		setMinSize(windowMaxWidth, windowMaxHeight);

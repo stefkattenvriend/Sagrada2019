@@ -3,6 +3,7 @@ package view.GamePanes;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 //deze heeft tess gemaakt mooi he
+//Waarom heet deze ToolCard1, moeten er meerdere komen? ~Rens
 public class ToolCard1Pane extends HBox {
 	private Button higher;
 	private Button lower;

@@ -7,29 +7,27 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
-public class Points extends Pane{
+public class PaystoneHolderPane extends Pane{
 	
 	private double personalAttributesHeight = 75;
 	
-	public Points() {
+	public PaystoneHolderPane() {
 		setUp();
 	}
 
 	private void setUp() {
 		setPaneSize();
-		aanduiding();
-		
+		aanduiding();	
 	}
 
 	private void setPaneSize() {
 		setMinSize((GamePane.windowMaxWidth / 3) / 3, personalAttributesHeight);	
-
 	}
 	
 	public void aanduiding() { // deze method wordt uiteindelijk verwijderd
 		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null))); //aanduiding van chatvak
 		Label text = new Label();
-		text.setText("Points");
+		text.setText("paystoneholder");
 		getChildren().addAll(text);
 	}
 }

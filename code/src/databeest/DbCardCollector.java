@@ -1,9 +1,9 @@
 package databeest;
 
-public class DataBaseCardGrab {
+public class DbCardCollector {
 	private DataBaseApplication dataBaseApplication;
 	
-	DataBaseCardGrab(DataBaseApplication dataBaseApplication) {
+	DbCardCollector(DataBaseApplication dataBaseApplication) {
 		this.dataBaseApplication = dataBaseApplication;
 		
 		

@@ -15,8 +15,8 @@ public class PlayerPane extends VBox{
 	private RoundTrackPane roundTrackPane;
 	private DiceOfferPane diceOfferPane;
 	private HBox personalAttributes;
-	private PaystoneHolder paystoneHolder;
-	private Points points;
+	private PaystoneHolderPane paystoneHolder;
+	private PointsPane points;
 	private PersonalObjectiveCardPane pocp;
 	private PatternCardPane patternCardPane;
 	private DiceHolderController dhc;
@@ -43,8 +43,8 @@ public class PlayerPane extends VBox{
 
 	private void setPersonalAttributes() {
 		personalAttributes = new HBox();
-		paystoneHolder = new PaystoneHolder();
-		points = new Points();
+		paystoneHolder = new PaystoneHolderPane();
+		points = new PointsPane();
 		pocp = new PersonalObjectiveCardPane(Color.PURPLE);
 		personalAttributes.getChildren().addAll(paystoneHolder, points, pocp);
 		personalAttributes.setMinHeight(75);

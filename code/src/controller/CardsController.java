@@ -1,14 +1,14 @@
 package controller;
 
 import databeest.DataBaseApplication;
-import databeest.DataBaseCardGrab;
+import databeest.DbCardCollector;
 import javafx.scene.layout.VBox;
 import view.GamePanes.CardDisplayPane;
 import view.GamePanes.CardPane;
 
 public class CardsController {
 	private CardDisplayPane cardDisplayPane;
-	private DataBaseCardGrab dataBaseCardGrabber;
+	private DbCardCollector dataBaseCardGrabber;
 	
 	public CardsController() {
 		VBox vbox1 = new VBox();
