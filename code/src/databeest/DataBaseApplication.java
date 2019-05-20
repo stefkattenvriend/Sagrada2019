@@ -300,5 +300,55 @@ public class DataBaseApplication
 		
 		return 0;
 	}
+
+	public ArrayList<String> getChat(String query)
+	{
+		Statement stmt = null;
+		ArrayList<String> chat = new ArrayList<>();
+		
+		try
+		{
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			//return string in console
+			while (rs.next())
+			{
+				
+				chat.add(rs.getString(3));
+				
+			}
+			stmt.close();
+		} catch (SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
+		return chat;
+	}
+	
+	public ArrayList<String> getChatDate(String query)
+	{
+		Statement stmt = null;
+		ArrayList<String> chat = new ArrayList<>();
+		
+		try
+		{
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			//return string in console
+			while (rs.next())
+			{
+				
+				chat.add(rs.getString(1));
+				
+			}
+			stmt.close();
+		} catch (SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
+		return chat;
+	}
 	
 }
