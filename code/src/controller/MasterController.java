@@ -4,6 +4,7 @@ import databeest.DbChatCollector;
 import databeest.DbGameCollector;
 import databeest.DbPatternCardInfoCollector;
 import databeest.DataBaseApplication;
+import databeest.DbCardCollector;
 import databeest.DbUserInfoCollector;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -13,6 +14,7 @@ public class MasterController extends Application{//een controller die alle ande
 
 	private DbUserInfoCollector dbUserInfoCollector;
 	private DbPatternCardInfoCollector DatabasePTCCollector;
+	private DbCardCollector dbCardCollector;
 	private DbChatCollector dbChatCollector;
 	private DbGameCollector dbGameCollector;
 	private DataBaseApplication databeest = new DataBaseApplication();
@@ -42,11 +44,12 @@ public class MasterController extends Application{//een controller die alle ande
 		DatabasePTCCollector = new DbPatternCardInfoCollector(databeest);
 		dbChatCollector = new DbChatCollector(databeest);
 		dbGameCollector = new DbGameCollector(databeest);
+		dbCardCollector = new DbCardCollector(databeest);
 		
 		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
 				&& (databeest.makeConnection()))
 		
-		this.gm = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector);
+		this.gm = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector, dbCardCollector);
 		this.lc = new LoginController(dbUserInfoCollector);
 		this.chat = new ChatController(dbChatCollector);
 		

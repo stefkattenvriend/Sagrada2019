@@ -310,12 +310,38 @@ public class DataBaseApplication
 		return idToolCards;
 	}
 	
+	public ArrayList<Integer> getObjectiveCards()
+	{
+		Statement stmt = null;
+		ArrayList<Integer> idToolCards = new ArrayList<>();
+		String query = "SELECT idpublic_objectivecard FROM sharedpublic_objectivecard WHERE idgame = " + this.getGameid();
+		try
+		{
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			//return string in console
+			while (rs.next())
+			{
+				
+				idToolCards.add(rs.getInt(1));
+				
+			}
+			stmt.close();
+		} catch (SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
+		return idToolCards;
+	}
+	
 	public ArrayList<String> getPlayer() {
 		Statement stmt = null;
 		ArrayList<String> player = new ArrayList<>();
 		//try etc..
 		return player;
 	}
+
 	
 	
 	//Stef
