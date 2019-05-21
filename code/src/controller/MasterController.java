@@ -22,6 +22,7 @@ public class MasterController extends Application{//een controller die alle ande
 	private ChatController chat;
 	private MyScene myScene;
 	private Stage stage;
+	private MenuController mnController;
 	
 	public void startup(String[] args) {
 		launch(args);
@@ -32,6 +33,7 @@ public class MasterController extends Application{//een controller die alle ande
 		this.startMasterController();
 		this.stage = stage;
 		myScene = new MyScene(this);
+		mnController = new MenuController(myScene);
 		stage.setResizable(false);
 		stage.setScene(myScene);
 		stage.show();
@@ -87,6 +89,11 @@ public class MasterController extends Application{//een controller die alle ande
 	
 	public Stage getStage() {
 		return this.stage;
+	}
+
+	public MenuController getMenuController() {
+	
+		return this.mnController;
 	}
 
 }

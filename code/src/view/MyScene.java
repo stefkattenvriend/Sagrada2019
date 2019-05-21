@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import view.GamePanes.GamePane;
+import view.MenuPanes.MenuPane;
 
 public class MyScene extends Scene{
 	
@@ -26,10 +27,9 @@ public class MyScene extends Scene{
 		
 		root = new Pane();
 		
-		
-		gamePane = new GamePane(mc.getGameController());
-		menuPane = new MenuPane(this, gamePane);
 		loginPane = new LoginPane(this, lc);
+		gamePane = new GamePane(mc.getGameController());
+
 		// hier moeten ook nog de registratie panes worden aangemaakt.
 		// daarna is pas de menupane te zien. Er wordt geswitched met de method: setNewRoot.
 		// via de constructor worden de aangemaakte classes doorgegeven.
@@ -45,9 +45,19 @@ public class MyScene extends Scene{
 	
 	public void setMenuPane()
 	{
+		if(lc.isLoggedIn()) {
+			menuPane = new MenuPane(mc.getMenuController(), lc, this);
+		}
 		setNewRoot(menuPane);
 		mc.getStage().setHeight(menuPane.windowMaxHeight);
 		mc.getStage().setWidth(menuPane.windowMaxWidth);
+		mc.getStage().centerOnScreen();
+	}
+
+	public void setGamePane() {
+		setNewRoot(gamePane);
+		mc.getStage().setHeight(gamePane.windowMaxHeight);
+		mc.getStage().setWidth(gamePane.windowMaxWidth);
 		mc.getStage().centerOnScreen();
 	}
 }
