@@ -21,7 +21,7 @@ public class MasterController extends Application{//een controller die alle ande
 	
 	private LoginController lc;//laat de controllers voor nu op public staan. later get en set maken
 	private GameController gm;
-	private ChatController chat;
+//	private ChatController chat;
 	private MyScene myScene;
 	private Stage stage;
 	private MenuController mnController;
@@ -51,9 +51,9 @@ public class MasterController extends Application{//een controller die alle ande
 		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
 				&& (databeest.makeConnection()))
 		
-		this.gm = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector, dbCardCollector);
 		this.lc = new LoginController(dbUserInfoCollector);
-		this.chat = new ChatController(dbChatCollector);
+		this.gm = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector, dbCardCollector);
+//		this.chat = new ChatController(dbChatCollector);
 		
 		
 		
@@ -85,10 +85,10 @@ public class MasterController extends Application{//een controller die alle ande
 		return this.lc;
 	}
 	
-	public ChatController getChatController()
-	{
-		return this.chat;
-	}
+//	public ChatController getChatController()
+//	{
+//		return this.chat;
+//	}
 	
 	public Stage getStage() {
 		return this.stage;

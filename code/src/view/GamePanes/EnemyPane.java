@@ -17,6 +17,7 @@ public class EnemyPane extends BorderPane{
 	
 	public EnemyPane(GameController gamecontroller) {
 		gameController = gamecontroller;
+		setUp();
 		setBackground(controller.Main.ENEMYPANE); //aanduiding voor pane
 	}
 
