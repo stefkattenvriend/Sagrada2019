@@ -2,18 +2,14 @@ package controller;
 
 import databeest.DbGameCollector;
 import databeest.DbPatternCardInfoCollector;
-
-
 import java.util.ArrayList;
 import java.util.Collections;
-
-
-
 import databeest.DataBaseApplication;
+import databeest.DbCardCollector;
+import databeest.DbChatCollector;
 
 public class GameController {// deze classe wordt aangemaakt in de masterController en maakt uiteindelijk ook
 								// de andere controllers aan ~Rens
-	CardsController cards = new CardsController();// Jami wat is dit? ~Rens
 
 	private DiceHolderController dhc;
 	private PatterncardController pcc;
@@ -21,18 +17,26 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private DbGameCollector dbGameCollector;
 	private LayerController lyc;
 	private LoginController lc;
+	private CardsController crc;
+	private ChatController cc;
 
 	private int gameid;
 
 	public GameController(DbPatternCardInfoCollector DatabasePTCCollector, DbGameCollector dbGamecollector,
-			LoginController lc) {
+			LoginController lc, DbChatCollector dbChat, DbCardCollector dbCardCollector) {
 		this.DatabasePTCCollector = DatabasePTCCollector;
 		this.lc = lc;
-		dhc = new DiceHolderController();
 		pcc = new PatterncardController(DatabasePTCCollector);
+		dhc = new DiceHolderController(pcc);
 		lyc = new LayerController(pcc);
+		crc = new CardsController(dbCardCollector);
+		cc = new ChatController(dbChat);
 		this.dbGameCollector = dbGamecollector;
 
+	}
+	
+	public CardsController getCardsController() {
+		return crc;
 	}
 
 	public DiceHolderController getDiceHolderController() {
@@ -46,7 +50,10 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	public LayerController getLayerController() {
 		return lyc;
 	}
-
+	
+	public ChatController getChatController() {
+		return cc;
+	}
 	public void createPrivateObjective() {
 
 	}
@@ -54,8 +61,8 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	// milan
 	public void newGame() {
 		dbGameCollector.pushGame();
-		String username = lc.getCurrentAccount();
-//		String username = "123";
+//		String username = lc.getCurrentAccount();
+		String username = "123";
 		dbGameCollector.pushFirstPlayer(username);
 		insertPublicObjectiveCards();
 		insertToolCards();

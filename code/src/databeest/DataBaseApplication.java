@@ -236,9 +236,10 @@ public class DataBaseApplication
 		}
 	
 	//milan
-	public int getGameid(String query)
+	public int getGameid()
 	{
 		Statement stmt = null;
+		String query = "SELECT max(idgame) FROM game;";
 		int gameid = 0;
 		try
 		{
@@ -284,6 +285,64 @@ public class DataBaseApplication
 		return colors;
 	}
 	
+	public ArrayList<Integer> getToolCards()
+	{
+		Statement stmt = null;
+		ArrayList<Integer> idToolCards = new ArrayList<>();
+		String query = "SELECT idtoolcard FROM gametoolcard WHERE idgame = " + this.getGameid();
+		try
+		{
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			//return string in console
+			while (rs.next())
+			{
+				
+				idToolCards.add(rs.getInt(1));
+				
+			}
+			stmt.close();
+		} catch (SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
+		return idToolCards;
+	}
+	
+	public ArrayList<Integer> getObjectiveCards()
+	{
+		Statement stmt = null;
+		ArrayList<Integer> idToolCards = new ArrayList<>();
+		String query = "SELECT idpublic_objectivecard FROM sharedpublic_objectivecard WHERE idgame = " + this.getGameid();
+		try
+		{
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			//return string in console
+			while (rs.next())
+			{
+				
+				idToolCards.add(rs.getInt(1));
+				
+			}
+			stmt.close();
+		} catch (SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
+		return idToolCards;
+	}
+	
+	public ArrayList<String> getPlayer() {
+		Statement stmt = null;
+		ArrayList<String> player = new ArrayList<>();
+		//try etc..
+		return player;
+	}
+
+	
 	
 	//Stef
 	public int getPlayerPayStones()
@@ -291,6 +350,56 @@ public class DataBaseApplication
 		
 		
 		return 0;
+	}
+
+	public ArrayList<String> getChat(String query)
+	{
+		Statement stmt = null;
+		ArrayList<String> chat = new ArrayList<>();
+		
+		try
+		{
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			//return string in console
+			while (rs.next())
+			{
+				
+				chat.add(rs.getString(3));
+				
+			}
+			stmt.close();
+		} catch (SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
+		return chat;
+	}
+	
+	public ArrayList<String> getChatDate(String query)
+	{
+		Statement stmt = null;
+		ArrayList<String> chat = new ArrayList<>();
+		
+		try
+		{
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			//return string in console
+			while (rs.next())
+			{
+				
+				chat.add(rs.getString(1));
+				
+			}
+			stmt.close();
+		} catch (SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
+		return chat;
 	}
 	
 }

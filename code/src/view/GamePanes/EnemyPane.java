@@ -1,5 +1,6 @@
 package view.GamePanes;
 
+import controller.GameController;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 
@@ -11,14 +12,18 @@ public class EnemyPane extends BorderPane{
 	private EnemyWindow enemyWindow3;
 	private FlowPane flowPane;
 	
-	public EnemyPane() {
+	private GameController gameController;
+	
+	
+	public EnemyPane(GameController gamecontroller) {
+		gameController = gamecontroller;
 		setBackground(controller.Main.ENEMYPANE); //aanduiding voor pane
-		setUp();
 	}
 
 	private void setUp() {
 		setPaneSize();
-		chatPane = new ChatPane();
+		
+		chatPane = new ChatPane(gameController.getChatController());
 		flowPane = new FlowPane();
 		enemyWindow1 = new EnemyWindow();
 		enemyWindow2 = new EnemyWindow();

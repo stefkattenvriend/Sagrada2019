@@ -3,6 +3,7 @@ package controller;
 import java.util.ArrayList;
 
 import databeest.DbPatternCardInfoCollector;
+import helpers.PatterncardType;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
@@ -12,10 +13,10 @@ import model.PatterncardModel;
 
 public class PatterncardController {
 
-	ArrayList<PatterncardModel> pcmodels = new ArrayList<PatterncardModel>();
-	int Patternnumber = 0;
+	private ArrayList<PatterncardModel> pcmodels = new ArrayList<PatterncardModel>();
+	private int Patternnumber = 0;
 	
-	DbPatternCardInfoCollector DatabasePTCCollector;
+	private DbPatternCardInfoCollector DatabasePTCCollector;
 	
 	
 	public PatterncardController(DbPatternCardInfoCollector DatabasePTCCollector) {
@@ -23,23 +24,34 @@ public class PatterncardController {
 	}
 	
 	
-	public void CreatePatternCard(int Patternnumber) {
+	public PatterncardModel getPcModel(int i) {
+		
+		PatterncardModel model = pcmodels.get(i);
+		
+		return model;
+	}
+	
+	public int getPcModelsSize() {
+		return pcmodels.size();
+	}
+	
+	public void CreatePatternCard(int Patternnumber, PatterncardType pct) {
 		
 		
 		for (int i = 1; i < 6; i++) {
 			for (int j = 1; j < 5; j++) {
-				pcmodels.add(new PatterncardModel(Patternnumber, i, j, DatabasePTCCollector));
+				pcmodels.add(new PatterncardModel(Patternnumber, i, j, pct, DatabasePTCCollector));
 			}	
 		}
 	}
 	
 	
-	public BorderPane PatterncardCreate(int x, int y, int PatterncardNumber, int size) {
+	public BorderPane PatterncardCreate(int x, int y, int PatterncardNumber, int size, PatterncardType pct) {
 		BorderPane pane = new BorderPane();
 		pane.setPrefSize(85, 85);
 		//pane.setPrefSize(arg0, arg1);
 		
-		CreatePatternCard(PatterncardNumber);
+		CreatePatternCard(PatterncardNumber, pct);
 		
 		for (int i = 0; i < pcmodels.size(); i++) {
 			if (pcmodels.get(i).getPatterncardNumber() == PatterncardNumber && pcmodels.get(i).getX() == x && pcmodels.get(i).getY() == y) {

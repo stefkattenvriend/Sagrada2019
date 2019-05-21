@@ -2,8 +2,12 @@ package view.GamePanes;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
+
+
+import controller.ChatController;
 import databeest.DbChatCollector;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -15,27 +19,30 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
+
 public class ChatPane extends BorderPane {
 
-	//constants
+	// constants
 	private double panewidth = (GamePane.windowMaxWidth / 3) / 2;
 	private double paneheight = (GamePane.windowMaxHeight);
 	private int textareasize = 735;
+	private int playerid = 2; // hoort de id op te halen van de speler die chat...
+	private int buttonwidth = 40;
 
-	
-	//instance variables
+	// instance variables
 	private DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-	
-	
-	//Gemaakt door milan
-	public ChatPane() {
-		
+	private ChatController cc;
+	private ArrayList<String> chat;
+	private ArrayList<String> chatdate;
+	// Gemaakt door milan
+	public ChatPane(ChatController cc) {
+		this.cc = cc;
 		setUp();
 	}
 
 	private void setUp() {
 		setPaneSize();
-		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null))); 
+		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null)));
 
 		TextArea textArea = new TextArea();
 		textArea.setMinHeight(textareasize);
@@ -44,30 +51,56 @@ public class ChatPane extends BorderPane {
 		textArea.setDisable(true);
 		textArea.setText("Welcome to Sagrada! \n");
 		HBox buttonBar = new HBox();
-		Button button = new Button("Submit");
-		button.setMinWidth(50);
+		Button submitbutton = new Button("Submit");
+		submitbutton.setMinWidth(buttonwidth);
 
-		
-		//Iedere speler kan 1 bericht per TIMESTAMP sturen
-		button.setOnAction(action -> {
-			
-			String date = dateFormat.format(new Date());
-			String gethighestdatefromdatabase = date;
-			if( date != gethighestdatefromdatabase ){
-			textArea.appendText("(" + date + "): " + textField.getText());
-			textArea.appendText("\n");
-			textField.clear();
-			}
-		});
-		buttonBar.getChildren().addAll(textField, button);
+		Button getchatbutton = new Button("get Chat");
+		getchatbutton.setMinWidth(buttonwidth);
+
+		buttonBar.getChildren().addAll(textField, getchatbutton);
 		setTop(textArea);
 		setCenter(buttonBar);
+
+		// submit button (puts your message in public chat)
+		submitbutton.setOnAction(action -> {
+
+			String message = textField.getText();
+			String date = dateFormat.format(new Date());
+
+			if (message.length() > 0) {
+
+				textArea.appendText("(" + date + "): " + message); // getChatFromDatabase first,
+				textArea.appendText("\n");
+				cc.sendChatToDatabase(playerid, "NOW()", message);
+				textField.clear();
+				buttonBar.getChildren().clear();
+				buttonBar.getChildren().addAll(textField, getchatbutton);
+			}
+		});
+
+		getchatbutton.setOnAction(action -> {
+			
+			chat = cc.getchat();
+			chatdate = cc.getchatDate();
+			for(int i = 0; i < chat.size(); i++) {
+				//playerid.getusername:
+				textArea.appendText("(" + chatdate.get(i) + "): ");
+				textArea.appendText(chat.get(i) + "\n");
+			}
+			buttonBar.getChildren().clear();
+			buttonBar.getChildren().addAll(textField, submitbutton);
+
+		});
+
 	}
 
 	private void setPaneSize() {
 		setMinSize(panewidth, paneheight);
 		setMaxSize(panewidth, paneheight);
 	}
-	
+
+	public boolean IsAlphaNumeric(String s) {
+		return s != null && s.toLowerCase().matches("^[a-z0-9]*$");
+	}
 
 }
