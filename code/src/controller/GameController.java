@@ -5,11 +5,11 @@ import databeest.DbPatternCardInfoCollector;
 import java.util.ArrayList;
 import java.util.Collections;
 import databeest.DataBaseApplication;
+import databeest.DbCardCollector;
 import databeest.DbChatCollector;
 
 public class GameController {// deze classe wordt aangemaakt in de masterController en maakt uiteindelijk ook
 								// de andere controllers aan ~Rens
-	CardsController cards = new CardsController();// Jami wat is dit? ~Rens
 
 	private DiceHolderController dhc;
 	private PatterncardController pcc;
@@ -23,14 +23,14 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private int gameid;
 
 	public GameController(DbPatternCardInfoCollector DatabasePTCCollector, DbGameCollector dbGamecollector,
-			LoginController lc, DbChatCollector dbChat) {
+			LoginController lc, DbChatCollector dbChat, DbCardCollector dbCardCollector) {
 		this.DatabasePTCCollector = DatabasePTCCollector;
 		this.lc = lc;
 		pcc = new PatterncardController(DatabasePTCCollector);
 		dhc = new DiceHolderController(pcc);
 		lyc = new LayerController(pcc);
-		crc = new CardsController();
 		cc = new ChatController(dbChat);
+		crc = new CardsController(dbCardCollector);
 		this.dbGameCollector = dbGamecollector;
 
 	}

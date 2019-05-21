@@ -1,6 +1,8 @@
 package controller;
 
 import databeest.DbUserInfoCollector;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import model.AccountModel;
 
 //Stef
@@ -9,6 +11,7 @@ public class LoginController {
 	// Instance variables
 	private DbUserInfoCollector dbUserInfoCollector;
 	private AccountModel account;
+	private boolean loggedIn = false;
 	
 	// Constructor
 	public LoginController(DbUserInfoCollector dbUserInfoCollector)
@@ -25,6 +28,9 @@ public class LoginController {
 		{
 			account.setCurrentAccount(username);
 			System.out.println("Login gelukt");
+			loggedIn = true;
+			
+			
 			return true;
 		}
 		else {
@@ -118,6 +124,18 @@ public class LoginController {
 	public String getCurrentAccount()
 	{
 		return account.getCurrentAccount();
+	}
+	
+	public AccountModel getAccountModel() {
+		return account;
+	}
+	
+	public String getUsername() {
+		return account.getCurrentAccount();
+	}
+	
+	public boolean isLoggedIn() {
+		return loggedIn;
 	}
 	
 }
