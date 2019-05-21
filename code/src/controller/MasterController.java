@@ -3,6 +3,7 @@ package controller;
 import databeest.DbChatCollector;
 import databeest.DbGameCollector;
 import databeest.DbPatternCardInfoCollector;
+import databeest.DbPlayerCollector;
 import databeest.DataBaseApplication;
 import databeest.DbUserInfoCollector;
 import javafx.application.Application;
@@ -15,9 +16,11 @@ public class MasterController extends Application{//een controller die alle ande
 	private DbPatternCardInfoCollector DatabasePTCCollector;
 	private DbChatCollector dbChatCollector;
 	private DbGameCollector dbGameCollector;
+	private DbPlayerCollector dbPlayerCollector;
 	private DataBaseApplication databeest = new DataBaseApplication();
 	
-	private LoginController lc;//laat de controllers voor nu op public staan. later get en set maken
+	private LoginController lc;
+	private PlayerController pc;
 	private GameController gm;
 	private ChatController chat;
 	private MyScene myScene;
@@ -42,12 +45,14 @@ public class MasterController extends Application{//een controller die alle ande
 		DatabasePTCCollector = new DbPatternCardInfoCollector(databeest);
 		dbChatCollector = new DbChatCollector(databeest);
 		dbGameCollector = new DbGameCollector(databeest);
+		dbPlayerCollector = new DbPlayerCollector(databeest);
 		
 		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
 				&& (databeest.makeConnection()))
 		
 		this.gm = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector);
 		this.lc = new LoginController(dbUserInfoCollector);
+		this.pc = new PlayerController(dbPlayerCollector);
 		this.chat = new ChatController(dbChatCollector);
 		
 		
@@ -68,6 +73,10 @@ public class MasterController extends Application{//een controller die alle ande
 		
 		// testen game
 //		gm.newGame(); //dit maakt een nieuwe game aan (milan)
+		
+		//testen player
+//		pc.setPlayerId(2);
+//		System.out.println("Amount of paystones: " + pc.getPayStones());
 	}
 	
 	public GameController getGameController()

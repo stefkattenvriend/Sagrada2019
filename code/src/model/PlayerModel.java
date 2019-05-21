@@ -16,7 +16,18 @@ public class PlayerModel {
 	
 	public PlayerModel()
 	{
-		this.setPayStones(4); // Dit is om te testen
+		
+	}
+	
+	
+	public int getPlayerId()
+	{
+		return playerid;
+	}
+	
+	public void setPlayerId(int playerid)
+	{
+		this.playerid = playerid;
 	}
 	
 	public void setPayStones(int payStones)
@@ -28,5 +39,21 @@ public class PlayerModel {
 	{
 		return payStones;
 	}
+
+	public boolean isCurrentPlayer() 
+	{
+		return isCurrentPlayer;
+	}
+
+	public void setCurrentPlayer(boolean isCurrentPlayer) 
+	{
+		this.isCurrentPlayer = isCurrentPlayer;
+	}
+	
+	public String getObjectiveColor()
+	{
+		return color;
+	}
+	
 
 }

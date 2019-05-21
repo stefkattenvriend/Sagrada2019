@@ -319,11 +319,26 @@ public class DataBaseApplication
 	
 	
 	//Stef
-	public int getPlayerPayStones()
+	public int getPlayerPayStones(int playerId)
 	{
-		
-		
-		return 0;
+		Statement stmt = null;
+		String query = "SELECT COUNT(idfavortoken) FROM mwmastbe_db2.gamefavortoken WHERE idplayer = " + playerId + ";";
+		int paystones = 0;
+		try
+		{
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next())
+			{
+				paystones = rs.getInt(1);
+			}
+			stmt.close();
+		} catch (SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
+		return paystones;
 	}
 	
 }
