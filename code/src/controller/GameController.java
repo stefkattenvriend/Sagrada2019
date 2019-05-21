@@ -57,6 +57,10 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	public void createPrivateObjective() {
 
 	}
+	
+	public LoginController getLoginController() {
+		return lc;
+	}
 
 	// milan
 	public void newGame() {

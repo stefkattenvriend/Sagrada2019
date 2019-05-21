@@ -8,6 +8,7 @@ import java.util.Date;
 
 
 import controller.ChatController;
+import controller.LoginController;
 import databeest.DbChatCollector;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -34,8 +35,10 @@ public class ChatPane extends BorderPane {
 	private ChatController cc;
 	private ArrayList<String> chat;
 	private ArrayList<String> chatdate;
+	private LoginController loginController;
 	// Gemaakt door milan
-	public ChatPane(ChatController cc) {
+	public ChatPane(ChatController cc, LoginController loginController) {
+		this.loginController = loginController;
 		this.cc = cc;
 		setUp();
 	}

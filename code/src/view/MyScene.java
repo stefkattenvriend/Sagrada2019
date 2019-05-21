@@ -28,7 +28,8 @@ public class MyScene extends Scene{
 		root = new Pane();
 		
 		loginPane = new LoginPane(this, lc);
-
+		
+		
 
 		// hier moeten ook nog de registratie panes worden aangemaakt.
 		// daarna is pas de menupane te zien. Er wordt geswitched met de method: setNewRoot.
@@ -36,6 +37,7 @@ public class MyScene extends Scene{
 		
 		setRoot(root);
 		setNewRoot(loginPane);
+		gamePane = new GamePane(mc.getGameController(), this);
 	}
 
 	public void setNewRoot(Pane pane) {
@@ -55,7 +57,7 @@ public class MyScene extends Scene{
 	}
 
 	public void setGamePane() {
-		gamePane = new GamePane(mc.getGameController());
+		
 		setNewRoot(gamePane);
 		mc.getStage().setHeight(gamePane.windowMaxHeight);
 		mc.getStage().setWidth(gamePane.windowMaxWidth);
