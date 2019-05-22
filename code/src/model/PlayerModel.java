@@ -54,6 +54,66 @@ public class PlayerModel {
 	{
 		return color;
 	}
+
+
+	public int getSeqnr() {
+		return seqnr;
+	}
+
+
+	public void setSeqnr(int seqnr) {
+		this.seqnr = seqnr;
+	}
+
+
+	public String getUsername() {
+		return username;
+	}
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
+	public int getGameid() {
+		return gameid;
+	}
+
+
+	public void setGameid(int gameid) {
+		this.gameid = gameid;
+	}
+
+
+	public String getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+
+	public int getPatid() {
+		return patid;
+	}
+
+
+	public void setPatid(int patid) {
+		this.patid = patid;
+	}
+
+
+	public int getScore() {
+		return score;
+	}
+
+
+	public void setScore(int score) {
+		this.score = score;
+	}
 	
 
 }
