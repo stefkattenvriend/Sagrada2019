@@ -1,43 +1,40 @@
 package controller;
 
-import databeest.DataBaseApplication;
 import databeest.DbCardCollector;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
 import model.CardBackgroundModel;
-import view.GamePanes.CardDisplayPane;
-import view.GamePanes.CardPane;
 
 public class CardsController {
 	
-	DbCardCollector dbCardCollector;
-	private CardBackgroundModel cardBackgroundModel = new CardBackgroundModel(dbCardCollector);
+	private DbCardCollector dbCardCollector;
+	private CardBackgroundModel cardBackgroundModel;
 	
 	CardsController(DbCardCollector dbCardCollector){
 		this.dbCardCollector = dbCardCollector;
+		cardBackgroundModel = new CardBackgroundModel(this.dbCardCollector);
 	}
 	
 	public ImageView getTc1(){
-		return cardBackgroundModel.getToolCardBg(1);
+		return cardBackgroundModel.getToolCardBg(cardBackgroundModel.getToolCard1());
 	}
 	
 	public ImageView getTc2(){
-		return cardBackgroundModel.getToolCardBg(2);
+		return cardBackgroundModel.getToolCardBg(cardBackgroundModel.getToolCard2());
 		}
 	
 	public ImageView getTc3(){
-		return cardBackgroundModel.getToolCardBg(6);
+		return cardBackgroundModel.getToolCardBg(cardBackgroundModel.getToolCard3());
 	}
 	
 	public ImageView getTgc1(){
-		return cardBackgroundModel.getTargetCardbg(3);
+		return cardBackgroundModel.getTargetCardbg(cardBackgroundModel.TargetCard1());
 	}
 	
 	public ImageView getTgc2(){
-		return cardBackgroundModel.getTargetCardbg(8);
+		return cardBackgroundModel.getTargetCardbg(cardBackgroundModel.TargetCard2());
 	}
 	
 	public ImageView getTgc3(){
-		return cardBackgroundModel.getTargetCardbg(9);
+		return cardBackgroundModel.getTargetCardbg(cardBackgroundModel.TargetCard3());
 	}
 }
