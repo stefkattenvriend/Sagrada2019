@@ -299,6 +299,7 @@ public class DataBaseApplication
 			while (rs.next())
 			{
 				System.out.println(rs.getInt(1));
+				idToolCards.add(rs.getInt(1));
 			}
 			stmt.close();
 		} catch (SQLException e)
@@ -322,6 +323,7 @@ public class DataBaseApplication
 			while (rs.next())
 			{
 				System.out.println(rs.getInt(1));
+				idToolCards.add(rs.getInt(1));
 			}
 			stmt.close();
 		} catch (SQLException e)
