@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 import databeest.DataBaseApplication;
 import databeest.DbCardCollector;
 import javafx.scene.image.Image;
@@ -17,13 +19,15 @@ public class CardBackgroundModel {
 	private int TargetCard3;
 	
 	public CardBackgroundModel(DbCardCollector dbCardCollector) {
-//		ToolCard1 = dbCardCollector.getToolcards().get(0);
-//		ToolCard2 = dbCardCollector.getToolcards().get(1);
-//		ToolCard3 = dbCardCollector.getToolcards().get(2);
-//		
-//		TargetCard1 = dbCardCollector.getObjectivecards().get(0);
-//		TargetCard2 = dbCardCollector.getObjectivecards().get(1);
-//		TargetCard3 = dbCardCollector.getObjectivecards().get(2);
+		this.dbCardCollector = dbCardCollector;
+		
+		ToolCard1 = dbCardCollector.getToolcards().get(0);
+		ToolCard2 = dbCardCollector.getToolcards().get(1);
+		ToolCard3 = dbCardCollector.getToolcards().get(2);
+		
+		TargetCard1 = dbCardCollector.getObjectivecards().get(0);
+		TargetCard2 = dbCardCollector.getObjectivecards().get(1);
+		TargetCard3 = dbCardCollector.getObjectivecards().get(2);
 	}
 	
 	public int getToolCard1() {

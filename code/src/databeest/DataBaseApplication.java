@@ -289,7 +289,7 @@ public class DataBaseApplication
 	{
 		Statement stmt = null;
 		ArrayList<Integer> idToolCards = new ArrayList<>();
-		String query = "SELECT idtoolcard FROM gametoolcard WHERE idgame = " + this.getGameid();
+		String query = "SELECT idtoolcard FROM gametoolcard WHERE idgame = " + this.getGameid() + ";";
 		try
 		{
 			stmt = m_Conn.createStatement();
@@ -298,9 +298,7 @@ public class DataBaseApplication
 			//return string in console
 			while (rs.next())
 			{
-				
-				idToolCards.add(rs.getInt(1));
-				
+				System.out.println(rs.getInt(1));
 			}
 			stmt.close();
 		} catch (SQLException e)
@@ -323,9 +321,7 @@ public class DataBaseApplication
 			//return string in console
 			while (rs.next())
 			{
-				
-				idToolCards.add(rs.getInt(1));
-				
+				System.out.println(rs.getInt(1));
 			}
 			stmt.close();
 		} catch (SQLException e)
