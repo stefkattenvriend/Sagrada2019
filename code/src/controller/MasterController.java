@@ -25,12 +25,14 @@ public class MasterController extends Application{//een controller die alle ande
 	
 	private LoginController lc;
 	private PlayerController pc;
-	private GameController gm;
+	private GameController gc;
 //	private ChatController chat;
 	private MyScene myScene;
 	private Stage stage;
 	private MenuController mnController;
 	private StatsController sc;
+	private UpdateTimerController utc;
+	private GameUpdateController guc;
 	
 	public void startup(String[] args) {
 		launch(args);
@@ -61,20 +63,19 @@ public class MasterController extends Application{//een controller die alle ande
 		
 		this.lc = new LoginController(dbUserInfoCollector);
 		this.pc = new PlayerController(dbPlayerCollector);
-		this.gm = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector, dbCardCollector);
+		this.gc = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector, dbCardCollector);
 		this.sc = new StatsController(dbPlayerStatsCollector);
 //		this.chat = new ChatController(dbChatCollector);
+		
+		//Game refresher/checker
+		this.guc = new GameUpdateController();
+		this.utc = new UpdateTimerController(guc);
+		
+				
+		Thread t1 = new Thread(utc);
+		t1.start();
 
-		{
-//			databeest.doSomeQuerying();
-//			databeest.getPaternCard(1, 1, 1);
-//			databeest.getPaternCard(1, 2, 1);
-//			databeest.getPaternCard(1, 3, 1);
-//			databeest.getPaternCard(1, 4, 1);
-//			databeest.getPaternCard(1, 5, 1);
-			
-//			databeest.doSomeUpdating();
-		}
+		
 		
 		//make the GamePane
 		
@@ -88,7 +89,7 @@ public class MasterController extends Application{//een controller die alle ande
 	
 	public GameController getGameController()
 	{
-		return this.gm;
+		return this.gc;
 	}
 	
 	public LoginController getLoginController()

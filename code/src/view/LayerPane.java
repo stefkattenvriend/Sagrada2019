@@ -5,7 +5,6 @@ import controller.PatterncardController;
 import helpers.PatterncardType;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -16,7 +15,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import view.GamePanes.GamePane;
 
 

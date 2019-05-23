@@ -1,12 +1,12 @@
 package controller;
 
-import databeest.DbGameCollector;
-import databeest.DbPatternCardInfoCollector;
 import java.util.ArrayList;
 import java.util.Collections;
-import databeest.DataBaseApplication;
+
 import databeest.DbCardCollector;
 import databeest.DbChatCollector;
+import databeest.DbGameCollector;
+import databeest.DbPatternCardInfoCollector;
 
 public class GameController {// deze classe wordt aangemaakt in de masterController en maakt uiteindelijk ook
 								// de andere controllers aan ~Rens
@@ -31,10 +31,14 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		dhc = new DiceHolderController(pcc);
 		lyc = new LayerController(pcc);
 		cc = new ChatController(dbChat);
-		crc = new CardsController(dbCardCollector, dhc.getDiceController().getDMAL());
+		//crc = new CardsController(dbCardCollector, dhc.getDiceController().getDMAL());
 		this.dbGameCollector = dbGamecollector;
 		colors = getColors();
+		
+		
 	}
+	
+	
 	
 	public CardsController getCardsController() {
 		return crc;
