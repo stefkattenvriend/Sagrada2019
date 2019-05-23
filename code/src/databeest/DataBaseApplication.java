@@ -415,4 +415,33 @@ public class DataBaseApplication
 		return chat;
 	}
 	
+	//Rens ~ playerstats
+	
+	public int getPlayerHighscore(String username) {
+		
+		int highscore = 0;
+		Statement stmt = null;
+		String query = "SELECT MAX(score) FROM player WHERE username = " + username + ";";
+		try
+		{
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			//return string in console voor test
+			while (rs.next())
+			{
+				int highscoredb = rs.getInt(1);
+				if(highscoredb != 0) {
+					highscore = highscoredb;
+				}
+				
+			}
+			stmt.close();
+		} catch (SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
+		return highscore;
+	}
+	
 }
