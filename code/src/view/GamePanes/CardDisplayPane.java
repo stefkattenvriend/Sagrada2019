@@ -33,13 +33,13 @@ public class CardDisplayPane extends BorderPane{
 		vbox1 = new VBox();
 		vbox2 = new VBox();
 		
-		toolCard1 = new CardPane(cc.getTc1());	//toolcards
-		toolCard2 = new CardPane(cc.getTc2());
-		toolCard3 = new CardPane(cc.getTc3());
+		toolCard1 = new CardPane(cc.getTc1(), true, cc, cc.getTc1Nr());	//toolcards
+		toolCard2 = new CardPane(cc.getTc2(), true, cc, cc.getTc2Nr());
+		toolCard3 = new CardPane(cc.getTc3(), true, cc, cc.getTc3Nr());
 		
-		targetCard1 = new CardPane(cc.getTgc1()); //targetcards
-		targetCard2 = new CardPane(cc.getTgc2());
-		targetCard3 = new CardPane(cc.getTgc3());
+		targetCard1 = new CardPane(cc.getTgc1(), false, cc, cc.getTgc1Nr()); //targetcards
+		targetCard2 = new CardPane(cc.getTgc2(), false, cc, cc.getTgc2Nr());
+		targetCard3 = new CardPane(cc.getTgc3(), false, cc, cc.getTgc3Nr());
 		
 		
 		vbox1.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null)));

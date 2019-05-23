@@ -4,6 +4,7 @@ import databeest.DbChatCollector;
 import databeest.DbGameCollector;
 import databeest.DbPatternCardInfoCollector;
 import databeest.DbPlayerCollector;
+import databeest.DbPlayerStatsCollector;
 import databeest.DataBaseApplication;
 import databeest.DbCardCollector;
 import databeest.DbUserInfoCollector;
@@ -19,15 +20,19 @@ public class MasterController extends Application{//een controller die alle ande
 	private DbChatCollector dbChatCollector;
 	private DbGameCollector dbGameCollector;
 	private DbPlayerCollector dbPlayerCollector;
+	private DbPlayerStatsCollector dbPlayerStatsCollector;
 	private DataBaseApplication databeest = new DataBaseApplication();
 	
 	private LoginController lc;
 	private PlayerController pc;
-	private GameController gm;
+	private GameController gc;
 //	private ChatController chat;
 	private MyScene myScene;
 	private Stage stage;
 	private MenuController mnController;
+	private StatsController sc;
+	private UpdateTimerController utc;
+	private GameUpdateController guc;
 	
 	public void startup(String[] args) {
 		launch(args);
@@ -38,7 +43,7 @@ public class MasterController extends Application{//een controller die alle ande
 		this.startMasterController();
 		this.stage = stage;
 		myScene = new MyScene(this);
-		mnController = new MenuController(myScene);
+		mnController = new MenuController(myScene, this);
 		stage.setResizable(false);
 		stage.setScene(myScene);
 		stage.show();
@@ -51,30 +56,31 @@ public class MasterController extends Application{//een controller die alle ande
 		dbGameCollector = new DbGameCollector(databeest);
 		dbPlayerCollector = new DbPlayerCollector(databeest);
 		dbCardCollector = new DbCardCollector(databeest);
+		dbPlayerStatsCollector = new DbPlayerStatsCollector(databeest);
 		
 		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
 				&& (databeest.makeConnection()))
 		
+			//Game refresher/checker
+		this.guc = new GameUpdateController(this);
+		this.utc = new UpdateTimerController(guc);
+		
+				
+		Thread t1 = new Thread(utc);
+		t1.start();
+		
 		this.lc = new LoginController(dbUserInfoCollector);
 		this.pc = new PlayerController(dbPlayerCollector);
-		this.gm = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector, dbCardCollector);
+		this.gc = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector, dbCardCollector, guc);
+		this.sc = new StatsController(dbPlayerStatsCollector);
 //		this.chat = new ChatController(dbChatCollector);
-
-		{
-//			databeest.doSomeQuerying();
-//			databeest.getPaternCard(1, 1, 1);
-//			databeest.getPaternCard(1, 2, 1);
-//			databeest.getPaternCard(1, 3, 1);
-//			databeest.getPaternCard(1, 4, 1);
-//			databeest.getPaternCard(1, 5, 1);
-			
-//			databeest.doSomeUpdating();
-		}
+		
+		
 		
 		//make the GamePane
 		
 		// testen game
-//		gm.newGame(); //dit maakt een nieuwe game aan (milan)
+//		gc.newGame(); //dit maakt een nieuwe game aan (milan)
 		
 		//testen player
 //		pc.setPlayerId(2);
@@ -83,7 +89,7 @@ public class MasterController extends Application{//een controller die alle ande
 	
 	public GameController getGameController()
 	{
-		return this.gm;
+		return this.gc;
 	}
 	
 	public LoginController getLoginController()
@@ -103,6 +109,16 @@ public class MasterController extends Application{//een controller die alle ande
 	public MenuController getMenuController() {
 	
 		return this.mnController;
+	}
+	
+	public GameUpdateController getGameUpdateController() {
+		
+		return this.guc;
+	}
+	
+	public MenuUpdateController getMenuUpdateController() {
+		
+		return null;//moet de menuopdate controller in komen
 	}
 
 }

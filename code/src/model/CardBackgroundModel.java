@@ -1,6 +1,7 @@
 package model;
 
-import databeest.DataBaseApplication;
+import java.util.ArrayList;
+
 import databeest.DbCardCollector;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,19 +12,23 @@ public class CardBackgroundModel {
 	private int ToolCard1;
 	private int ToolCard2;
 	private int ToolCard3;
+	private ArrayList<Integer> ToolCards;
 	
 	private int TargetCard1;
 	private int TargetCard2;
 	private int TargetCard3;
+	private ArrayList<Integer> TargetCards;
 	
 	public CardBackgroundModel(DbCardCollector dbCardCollector) {
-//		ToolCard1 = dbCardCollector.getToolcards().get(0);
-//		ToolCard2 = dbCardCollector.getToolcards().get(1);
-//		ToolCard3 = dbCardCollector.getToolcards().get(2);
-//		
-//		TargetCard1 = dbCardCollector.getObjectivecards().get(0);
-//		TargetCard2 = dbCardCollector.getObjectivecards().get(1);
-//		TargetCard3 = dbCardCollector.getObjectivecards().get(2);
+		this.dbCardCollector = dbCardCollector;
+		
+		ToolCard1 = this.dbCardCollector.getToolcards().get(0);
+		ToolCard2 = this.dbCardCollector.getToolcards().get(1);
+		ToolCard3 = this.dbCardCollector.getToolcards().get(2);
+		
+		TargetCard1 = this.dbCardCollector.getObjectivecards().get(0);
+		TargetCard2 = this.dbCardCollector.getObjectivecards().get(1);
+		TargetCard3 = this.dbCardCollector.getObjectivecards().get(2);
 	}
 	
 	public int getToolCard1() {
@@ -126,6 +131,9 @@ public class CardBackgroundModel {
 		case 9:
 			ImageView iv9 = new ImageView(new Image("/objectivecards/9.png"));
 			return iv9;
+		case 10:
+			ImageView iv10 = new ImageView(new Image("/objectivecards/10.png"));
+			return iv10;
 		default:
 			System.out.println("There is no picture");
 			ImageView iv13 = new ImageView(new Image("toolcards/1.png"));

@@ -20,6 +20,7 @@ public class PatterncardModel {
 		this.y = y;
 		this.pct = pct;
 		this.dbpcif = dbpcif;
+		this.number = 0;
 		getFromDatabase();
 	}
 	

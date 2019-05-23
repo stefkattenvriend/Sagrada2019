@@ -289,7 +289,7 @@ public class DataBaseApplication
 	{
 		Statement stmt = null;
 		ArrayList<Integer> idToolCards = new ArrayList<>();
-		String query = "SELECT idtoolcard FROM gametoolcard WHERE idgame = " + this.getGameid();
+		String query = "SELECT idtoolcard FROM gametoolcard WHERE idgame = " + this.getGameid() + ";";
 		try
 		{
 			stmt = m_Conn.createStatement();
@@ -298,9 +298,8 @@ public class DataBaseApplication
 			//return string in console
 			while (rs.next())
 			{
-				
+				System.out.println(rs.getInt(1));
 				idToolCards.add(rs.getInt(1));
-				
 			}
 			stmt.close();
 		} catch (SQLException e)
@@ -323,9 +322,8 @@ public class DataBaseApplication
 			//return string in console
 			while (rs.next())
 			{
-				
+				System.out.println(rs.getInt(1));
 				idToolCards.add(rs.getInt(1));
-				
 			}
 			stmt.close();
 		} catch (SQLException e)
@@ -415,6 +413,60 @@ public class DataBaseApplication
 			System.out.println(e.getMessage());
 		}
 		return chat;
+	}
+	
+	//Rens ~ playerstats
+	
+	public int getPlayerHighscore(String username) {
+		
+		int highscore = 0;
+		Statement stmt = null;
+		String query = "SELECT MAX(score) FROM player WHERE username = " + username + ";";
+		try
+		{
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			//return string in console voor test
+			while (rs.next())
+			{
+				int highscoredb = rs.getInt(1);
+				if(highscoredb != 0) {
+					highscore = highscoredb;
+				}
+				
+			}
+			stmt.close();
+		} catch (SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
+		return highscore;
+	}
+	
+	public int getRoundNumber(int idgame)
+	{
+		Statement stmt = null;
+		String query = "SELECT MAX(roundtrack) FROM gamedie WHERE idgame = " + idgame + ";";
+		int round = 0;
+		try
+		{
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			
+			while (rs.next())
+			{
+				round = rs.getInt(1) + 1;
+				
+				
+			}
+			stmt.close();
+		} catch (SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
+		return round;
 	}
 	
 }

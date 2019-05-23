@@ -1,6 +1,5 @@
 package databeest;
 
-import java.sql.Date;
 import java.util.ArrayList;
 
 public class DbChatCollector {
