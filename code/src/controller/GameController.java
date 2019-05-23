@@ -70,8 +70,8 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	// milan
 	public void newGame() {
 		dbGameCollector.pushGame();
-		String username = lc.getCurrentAccount();
-//		String username = "123";
+//		String username = lc.getCurrentAccount();
+		String username = "123";
 		dbGameCollector.pushFirstPlayer(username, colors.get(0));
 		insertPublicObjectiveCards();
 		insertToolCards();

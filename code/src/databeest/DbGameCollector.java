@@ -1,5 +1,7 @@
 package databeest;
 
+import java.util.ArrayList;
+
 //milan
 public class DbGameCollector {
 
