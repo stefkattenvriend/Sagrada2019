@@ -36,42 +36,53 @@ public class ToolCardController {
 				dice.get(0).setEyes(dice.get(0).getEyes() + 1);
 			}
 		}
+		
 		if (number == 2) {
 			// verplaats dobbelsteen in raam. kleur voorwaardes negeren
 		}
+		
 		if (number == 3) {
 			// verplaats dobbelsteen in raam voorwaarde voor waardes negeren
 		}
+		
 		if (number == 4) {
 			// verplaats 2 dobbelstenen
 		}
+		
 		if (number == 5) {
 			// dobbelsteen kiezen daarna wisselen met eentje van roundtrack
 		}
+		
 		if (number == 6) {
 			// nadat dobbelsteen kiest opnieuw werpen
 			Random random = new Random();
 			int randomInt = random.nextInt(6) + 1;
 			dice.get(0).setEyes(randomInt);
 		}
+		
 		if (number == 7) {
 			// Werp alle dobbelstenen in het aanbod opnieuw, enkel bij 2e beurt
 		}
+		
 		if (number == 8) {
 			// na eerste beurt gelijk nieuwe dobbelsteen kiezen tweede beurt overslaan.
 		}
+		
 		if (number == 9) {
 			// nadat dobbelsteen gekozen, leggen in een vak dat niet grenst aan andere steen
 		}
+		
 		if (number == 10) {
 			// nadat dobbelsteen gekozen, mag draaien naar tegenovergestelde zijde
 			dice.get(0).setEyes(7 - dice.get(0).getEyes());
 			// dobbelsteen.waarde = 7 - dobbelsteen.waarde;
 		}
+		
 		if (number == 11) {
 			// nadat dobbelsteen gekozen, nieuwe dobbelsteen pakken uit zak en waarde kiezen
 			// op je bord of in het aanbodleggen
 		}
+		
 		if (number == 12) {
 			// verplaats 2 dobbelstenen van dezelfde kleur die overeenkomen met een steen op
 			// het rondespoor

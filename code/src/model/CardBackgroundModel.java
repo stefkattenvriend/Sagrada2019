@@ -2,7 +2,6 @@ package model;
 
 import java.util.ArrayList;
 
-import databeest.DataBaseApplication;
 import databeest.DbCardCollector;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
