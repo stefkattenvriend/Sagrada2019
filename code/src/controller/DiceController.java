@@ -59,4 +59,8 @@ public class DiceController {
 		
 		return dp;
 	}
+	
+	public ArrayList<DiceModel> getDMAL() {
+		return dmodels;
+	}
 }

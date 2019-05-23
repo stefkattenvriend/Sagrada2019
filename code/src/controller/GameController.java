@@ -30,7 +30,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		dhc = new DiceHolderController(pcc);
 		lyc = new LayerController(pcc);
 		cc = new ChatController(dbChat);
-		crc = new CardsController(dbCardCollector);
+		crc = new CardsController(dbCardCollector, dhc.getDiceController().getDMAL());
 		this.dbGameCollector = dbGamecollector;
 
 	}
@@ -70,8 +70,6 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		dbGameCollector.pushFirstPlayer(username);
 		insertPublicObjectiveCards();
 		insertToolCards();
-		
-
 	}
 
 	private void insertToolCards() {

@@ -246,4 +246,8 @@ public class DiceHolderController {
 			
 		return check;
 	}
+	
+	public DiceController getDiceController() {
+		return dc;
+	}
 }
