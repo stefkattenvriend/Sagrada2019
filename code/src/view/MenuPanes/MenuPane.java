@@ -1,12 +1,11 @@
 package view.MenuPanes;
 
 
-import javafx.scene.layout.BorderPane;
-import model.AccountModel;
-import view.MyScene;
 import controller.LoginController;
 import controller.MenuController;
 import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
+import view.MyScene;
 
 public class MenuPane extends BorderPane {
 	

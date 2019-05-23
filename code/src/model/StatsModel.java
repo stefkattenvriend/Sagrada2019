@@ -1,6 +1,5 @@
 package model;
 
-import controller.MasterController;
 import databeest.DbPlayerStatsCollector;
 import javafx.scene.paint.Color;
 
