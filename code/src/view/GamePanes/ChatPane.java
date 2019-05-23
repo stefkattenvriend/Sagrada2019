@@ -28,7 +28,7 @@ public class ChatPane extends BorderPane {
 	private double paneheight = (GamePane.windowMaxHeight);
 	private int textareasize = 735;
 	private int playerid = 2; // hoort de id op te halen van de speler die chat...
-	private int buttonwidth = 40;
+	private int buttonwidth = 35;
 
 	// instance variables
 	private DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
@@ -57,7 +57,7 @@ public class ChatPane extends BorderPane {
 		Button submitbutton = new Button("Submit");
 		submitbutton.setMinWidth(buttonwidth);
 
-		Button getchatbutton = new Button("get Chat");
+		Button getchatbutton = new Button("update");
 		getchatbutton.setMinWidth(buttonwidth);
 
 		buttonBar.getChildren().addAll(textField, getchatbutton);
@@ -76,9 +76,10 @@ public class ChatPane extends BorderPane {
 				textArea.appendText("\n");
 				cc.sendChatToDatabase(playerid, "NOW()", message);
 				textField.clear();
-				buttonBar.getChildren().clear();
-				buttonBar.getChildren().addAll(textField, getchatbutton);
+				
 			}
+			buttonBar.getChildren().clear();
+			buttonBar.getChildren().addAll(textField, getchatbutton);
 		});
 
 		getchatbutton.setOnAction(action -> {
