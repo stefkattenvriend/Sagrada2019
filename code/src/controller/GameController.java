@@ -21,6 +21,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private ChatController cc;
 
 	private int gameid;
+	private ArrayList<String> colors; 
 
 	public GameController(DbPatternCardInfoCollector DatabasePTCCollector, DbGameCollector dbGamecollector,
 			LoginController lc, DbChatCollector dbChat, DbCardCollector dbCardCollector) {
@@ -32,6 +33,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		cc = new ChatController(dbChat);
 		crc = new CardsController(dbCardCollector, dhc.getDiceController().getDMAL());
 		this.dbGameCollector = dbGamecollector;
+		colors = getColors();
 		
 		
 	}
@@ -70,9 +72,21 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		dbGameCollector.pushGame();
 //		String username = lc.getCurrentAccount();
 		String username = "123";
-		dbGameCollector.pushFirstPlayer(username);
+		dbGameCollector.pushFirstPlayer(username, colors.get(0));
 		insertPublicObjectiveCards();
 		insertToolCards();
+		getPlayer();//deze actie wordt uitgevoerd door 
+	}
+	
+	public void getPlayer() {
+		String username = "kees"; //getusername
+		gameid = getGameid(); //getgameid van de game waaraan je hem wil toevoegen
+		int i = (int)(Math.random() * ((4 - 1) + 1)) + 1;
+		addPlayer(username, gameid, colors.get(i));
+	}
+	
+	public void addPlayer(String username, int gameid, String color) {
+		dbGameCollector.addPlayer(username, gameid, color);
 	}
 
 	private void insertToolCards() {
@@ -108,8 +122,17 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		System.out.println(list);//syso to check which numbers are added to database
 		return list;
 	}
-
+	
+	private ArrayList<String> getColors() {
+		ArrayList<String> colors = new ArrayList<>(); 
+		colors = dbGameCollector.getColors();
+		Collections.shuffle(colors);
+		return colors;
+	}
+	
+	
 	public int getGameid() {
+		gameid = dbGameCollector.getGameid();
 		return gameid;
 	}
 

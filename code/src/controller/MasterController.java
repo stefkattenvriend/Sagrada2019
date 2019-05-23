@@ -80,7 +80,7 @@ public class MasterController extends Application{//een controller die alle ande
 		//make the GamePane
 		
 		// testen game
-//		gm.newGame(); //dit maakt een nieuwe game aan (milan)
+//		gc.newGame(); //dit maakt een nieuwe game aan (milan)
 		
 		//testen player
 //		pc.setPlayerId(2);

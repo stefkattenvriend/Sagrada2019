@@ -1,5 +1,7 @@
 package databeest;
 
+import java.util.ArrayList;
+
 //milan
 public class DbGameCollector {
 
@@ -16,13 +18,21 @@ public class DbGameCollector {
 			
 	}
 	
-	public void pushFirstPlayer(String username) {
+	public void pushFirstPlayer(String username, String color) {
 		//voeg user toe aan game
 		int gameid = getGameid();
-		String query = "INSERT INTO `mwmastbe_db2`.`player` (`username`, `game_idgame`, `playstatus_playstatus`, `isCurrentPlayer`, `private_objectivecard_color`) VALUES ('" + username + "', '" + gameid + "', 'uitdager', '1', 'rood');";
+		String query = "INSERT INTO `mwmastbe_db2`.`player` (`username`, `game_idgame`, `playstatus_playstatus`, `isCurrentPlayer`, `private_objectivecard_color`) VALUES ('" + username + "', '" + gameid + "', 'uitdager', '1', '" + color + "');";
 		dataBaseApplication.insertQuery(query);	
 		
 	}
+	
+	//voegt player toe aan een game
+	public void addPlayer(String username, int idgame, String color) {
+		int gameid = getGameid();//idgame
+		String query = "INSERT INTO `mwmastbe_db2`.`player` (`username`, `game_idgame`, `playstatus_playstatus`, `isCurrentPlayer`, `private_objectivecard_color`) VALUES ('" + username + "', '" + gameid + "', 'uitgedaagde', '0', '" + color + "');";
+		dataBaseApplication.insertQuery(query);
+	}
+	
 	//return highest gameid(van degene die dus net is aangemaakt in gamecontroller)
 	public int getGameid() {
 		int gameid = 0;
@@ -45,7 +55,11 @@ public class DbGameCollector {
 		
 	}
 	
-	
+	public ArrayList<String> getColors() {
+		ArrayList<String> colors = new ArrayList<>(); 
+		colors = dataBaseApplication.getColor();
+		return colors;
+	}
 
 	
 }
