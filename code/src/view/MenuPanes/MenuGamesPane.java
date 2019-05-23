@@ -2,6 +2,7 @@ package view.MenuPanes;
 
 import java.util.ArrayList;
 
+import controller.MenuController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Orientation;
@@ -25,17 +26,15 @@ import view.GamePanes.GamePane;
 public class MenuGamesPane extends FlowPane{
 	
 	private ScrollPane gamesList;
-	private ScrollBar scrollBar;
-	private Pane listInput;
+	
 	private MyScene myScene;
-	private Button openGameInfo;
-	private Button closeGameInfo;
-	private Pane gameInfoPane;
 	private VBox list;
 	private boolean clicked = false;
+	private MenuController menuController;
 	
-	public MenuGamesPane(MyScene myScene) {
+	public MenuGamesPane(MyScene myScene, MenuController menuController) {
 		this.myScene = myScene;
+		this.menuController = menuController;
 		setPaneSize();
 		createActiveGamesList();
 		setBackground(new Background(new BackgroundFill(Color.RED, null, null))); //tijdelijk
@@ -60,7 +59,7 @@ public class MenuGamesPane extends FlowPane{
 		ArrayList<MenuDropdown> games = new ArrayList<MenuDropdown>();
 		
 		for(int i = 0; i < 10; i++) {// vult verzameling met alle knoppen
-			games.add(new MenuDropdown("Game " + Integer.toString(i)));
+			games.add(new MenuDropdown("Game " + Integer.toString(i), menuController));
 			
 		}
 		

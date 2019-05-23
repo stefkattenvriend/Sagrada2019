@@ -38,7 +38,7 @@ public class MenuPane extends BorderPane {
 	private void createPanes() {
 		menuLeftPane = new MenuLeftPane();
 		menuCenterPane = new MenuCenterPane(loginController);
-		menuRightPane = new MenuRightPane(myScene);
+		menuRightPane = new MenuRightPane(myScene, menuController);
 		setLeft(menuLeftPane);
 		setCenter(menuCenterPane);
 		setRight(menuRightPane);
