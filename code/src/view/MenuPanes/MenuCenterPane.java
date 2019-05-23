@@ -8,7 +8,6 @@ import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import model.AccountModel;
 import view.GamePanes.GamePane;
 
 public class MenuCenterPane extends VBox{

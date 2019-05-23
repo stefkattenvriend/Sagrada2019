@@ -4,7 +4,6 @@ import controller.MasterController;
 //joery
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import view.GamePanes.GamePane;
 import view.MenuPanes.MenuPane;
 
