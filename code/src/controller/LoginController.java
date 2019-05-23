@@ -96,7 +96,7 @@ public class LoginController {
 	// maakt een account aan als het aan de eisen voldoet
 	public boolean CreateAccount(String username, String password) 
 	{
-		if (username.length() > 2 && password.length() > 2 && IsAlphaNumeric(username) && IsAlphaNumeric(password)) 
+		if (username.length() > 2 && username.length() < 26 && password.length() > 2 && password.length() < 26 && IsAlphaNumeric(username) && IsAlphaNumeric(password)) 
 		{
 			if (CheckIfExist(username.toLowerCase())) 
 			{

@@ -46,9 +46,16 @@ public class MasterController extends Application{//een controller die alle ande
 		mnController = new MenuController(myScene, this);
 		stage.setResizable(false);
 		stage.setScene(myScene);
+		
+		stage.setOnCloseRequest(e -> closeApp());
 		stage.show();
 	}
 	
+	private void closeApp() {
+		System.out.println("Program stopped!");
+		System.exit(0);
+	}
+
 	private void startMasterController() {
 		dbUserInfoCollector = new DbUserInfoCollector(databeest);
 		DatabasePTCCollector = new DbPatternCardInfoCollector(databeest);
@@ -119,6 +126,11 @@ public class MasterController extends Application{//een controller die alle ande
 	public MenuUpdateController getMenuUpdateController() {
 		
 		return null;//moet de menuopdate controller in komen
+	}
+	
+	public PlayerController getPlayerController()
+	{
+		return this.pc;
 	}
 
 }
