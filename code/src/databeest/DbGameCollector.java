@@ -1,9 +1,5 @@
 package databeest;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 //milan
 public class DbGameCollector {
 
