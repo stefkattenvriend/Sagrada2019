@@ -78,7 +78,7 @@ public class MasterController extends Application{//een controller die alle ande
 		
 		this.lc = new LoginController(dbUserInfoCollector);
 		this.pc = new PlayerController(dbPlayerCollector);
-		this.gc = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector, dbCardCollector, guc);
+		this.gc = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector, dbCardCollector, guc, dbPlayerCollector);
 		this.sc = new StatsController(dbPlayerStatsCollector);
 //		this.chat = new ChatController(dbChatCollector);
 		

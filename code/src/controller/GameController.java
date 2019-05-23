@@ -7,6 +7,7 @@ import databeest.DbCardCollector;
 import databeest.DbChatCollector;
 import databeest.DbGameCollector;
 import databeest.DbPatternCardInfoCollector;
+import databeest.DbPlayerCollector;
 import model.GameModel;
 
 public class GameController {// deze classe wordt aangemaakt in de masterController en maakt uiteindelijk ook
@@ -16,6 +17,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private PatterncardController pcc;
 	private DbPatternCardInfoCollector DatabasePTCCollector;
 	private DbGameCollector dbGameCollector;
+	private DbPlayerCollector dpc;
 	private LayerController lyc;
 	private LoginController lc;
 	private CardsController crc;
@@ -26,8 +28,9 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private ArrayList<String> colors; 
 
 	public GameController(DbPatternCardInfoCollector DatabasePTCCollector, DbGameCollector dbGamecollector,
-			LoginController lc, DbChatCollector dbChat, DbCardCollector dbCardCollector, GameUpdateController guc) {
+			LoginController lc, DbChatCollector dbChat, DbCardCollector dbCardCollector, GameUpdateController guc, DbPlayerCollector dpc) {
 		this.DatabasePTCCollector = DatabasePTCCollector;
+		this.dpc = dpc;
 		this.lc = lc;
 		pcc = new PatterncardController(DatabasePTCCollector);
 		dhc = new DiceHolderController(pcc);
@@ -149,7 +152,8 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 
 
 	public void createGameModel(int i) {
-		GameModel gm = new GameModel(i, dbGameCollector);
+		String username = lc.getCurrentAccount();
+		GameModel gm = new GameModel(i, dbGameCollector, username, dpc);
 		guc.setGameModel(gm);
 		
 	}

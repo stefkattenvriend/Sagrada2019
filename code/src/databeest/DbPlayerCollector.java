@@ -18,5 +18,40 @@ public class DbPlayerCollector {
 		
 		return amount;
 	}
+
+	public int getPlayerID(String username, int gameID) {
+		int PlayerID = dbApplication.getPlayerID(username, gameID);
+		return PlayerID;
+	}
+
+	public int getSeqnr(int playerID) {
+		int seqnr = dbApplication.getSeqnr(playerID);
+		return seqnr;
+	}
+
+	public String getStatus(int playerID) {
+		String status = dbApplication.getStatus(playerID);
+		return status;
+		
+	}
+
+	public boolean getIfCurrentPlayer(int playerID) {
+		boolean isCurrentPlayer = false;
+		int getCurrentPlayer = dbApplication.getIsCurrentPlayer(playerID);
+		if(getCurrentPlayer == 1) {
+			isCurrentPlayer = true;
+		}
+		return isCurrentPlayer;
+	}
+
+	public int getPatternCardID(int playerID) {
+		int pcid = dbApplication.getPaternCardNumber(playerID);
+		return pcid;
+	}
+
+	public int getScore(int playerID) {
+		int score = dbApplication.getScore(playerID);
+		return score;
+	}
 	
 }

@@ -468,5 +468,149 @@ public class DataBaseApplication
 		}
 		return round;
 	}
+
+	public int getPlayerID(String username, int gameID) {
+		Statement stmt = null;
+		String query = "SELECT idplayer FROM player WHERE game_idgame = " + gameID + " AND username = " + username + ";";
+		int PlayerID = 0;
+		try
+		{
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			
+			while (rs.next())
+			{
+				PlayerID = rs.getInt(1);
+				
+				
+			}
+			stmt.close();
+		} catch (SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
+		return PlayerID;
+	}
+
+	public int getSeqnr(int playerID) {
+		Statement stmt = null;
+		String query = "SELECT seqnr FROM player WHERE idplayer = " + playerID + ";";
+		int seqnr = 0;
+		try
+		{
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			
+			while (rs.next())
+			{
+				seqnr = rs.getInt(1);
+				
+				
+			}
+			stmt.close();
+		} catch (SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
+		return seqnr;
+	}
+
+	public String getStatus(int playerID) {
+		Statement stmt = null;
+		String query = "SELECT playstatus_playstatus FROM player WHERE idplayer = " + playerID + ";";
+		String status = null;
+		try
+		{
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			
+			while (rs.next())
+			{
+				status = rs.getString(1);
+				
+				
+			}
+			stmt.close();
+		} catch (SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
+		return status;
+	}
+
+	public int getIsCurrentPlayer(int playerID) {
+		Statement stmt = null;
+		String query = "SELECT isCurrentPlayer FROM player WHERE idplayer = " + playerID + ";";
+		int icp = 0;
+		try
+		{
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			
+			while (rs.next())
+			{
+				icp = rs.getInt(1);
+				
+				
+			}
+			stmt.close();
+		} catch (SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
+		return icp;
+	}
+
+	public int getPaternCardNumber(int playerID) {
+		Statement stmt = null;
+		String query = "SELECT patterncard_idpatterncard FROM player WHERE idplayer = " + playerID + ";";
+		int pcid = 0;
+		try
+		{
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			
+			while (rs.next())
+			{
+				pcid= rs.getInt(1);
+				
+				
+			}
+			stmt.close();
+		} catch (SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
+		return pcid;
+	}
+
+	public int getScore(int playerID) {
+		Statement stmt = null;
+		String query = "SELECT score FROM player WHERE idplayer = " + playerID + ";";
+		int score = 0;
+		try
+		{
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			
+			while (rs.next())
+			{
+				score = rs.getInt(1);
+				
+				
+			}
+			stmt.close();
+		} catch (SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
+		return score;
+	}
 	
 }

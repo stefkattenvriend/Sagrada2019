@@ -1,6 +1,8 @@
 package model;
 
 import databeest.DbGameCollector;
+import databeest.DbPlayerCollector;
+import helpers.DiceHolderType;
 
 public class GameModel {
 	
@@ -9,11 +11,17 @@ public class GameModel {
 	private int gameid;
 	private boolean inGame;
 	private DbGameCollector dgc;
+	private DbPlayerCollector dpc;
+	private PlayerModel[] pma;
 	
-	public GameModel(int gameid, DbGameCollector dgc) {
+	public GameModel(int gameid, DbGameCollector dgc, String username, DbPlayerCollector dpc) {
 		this.gameid = gameid;
 		this.dgc = dgc;
+		this.dpc = dpc;
 		inGame = true;
+		pma = new PlayerModel[4];
+		addPlayerModelP1(username);
+
 	}
 	
 	public void leaveGame() {
@@ -28,5 +36,13 @@ public class GameModel {
 		System.out.println("gameID: " + gameid);
 		dgc.getRoundNumber(gameid);
 		
+	}
+	
+	public void addPlayerModelP1(String username) {
+		pma[0] = new PlayerModel();
+		pma[0].setDht(DiceHolderType.PLAYERWINDOW);
+		pma[0].setUsername(username);
+		pma[0].setGameid(gameid);
+		pma[0].getDatabaseInfo(dpc);
 	}
 }

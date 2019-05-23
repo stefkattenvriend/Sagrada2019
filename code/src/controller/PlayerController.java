@@ -1,6 +1,7 @@
 package controller;
 
 import databeest.DbPlayerCollector;
+import javafx.scene.paint.Color;
 import model.PlayerModel;
 
 public class PlayerController {
@@ -30,7 +31,7 @@ public class PlayerController {
 		return playerModel.isCurrentPlayer();
 	}
 	
-	public String getPersonalObjective()
+	public Color getPersonalObjective()
 	{
 		return playerModel.getObjectiveColor();
 	}

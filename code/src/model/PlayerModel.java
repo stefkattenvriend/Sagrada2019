@@ -1,5 +1,9 @@
 package model;
 
+import databeest.DbPlayerCollector;
+import helpers.DiceHolderType;
+import javafx.scene.paint.Color;
+
 public class PlayerModel {
 	
 	// instance variables
@@ -10,16 +14,33 @@ public class PlayerModel {
 	private int gameid;
 	private String status;
 	private boolean isCurrentPlayer;
-	private int payStones;
+	private int payStones;//moeten wss paystone models worden ~ Rens
 	private int patid; //patterncard_idpatterncard
-	private String color;
+	private Color color;//maak hier nog de get uit database voor aan ~ Rens
 	private int score;
+	private DiceHolderType dht;//welke diceholder er bij deze speler hoort dus welke speler is het ~ Rens
+	
+
+
 	public PlayerModel()
 	{
 		
 	}
 	
 	
+	public void getDatabaseInfo(DbPlayerCollector dpc) {
+		playerid = dpc.getPlayerID(username, gameid);
+		seqnr = dpc.getSeqnr(playerid);
+		status = dpc.getStatus(playerid);
+		isCurrentPlayer = dpc.getIfCurrentPlayer(playerid);
+		patid = dpc.getPatternCardID(playerid);
+		score = dpc.getScore(playerid);
+		
+		
+		
+	}
+
+
 	public int getPlayerId()
 	{
 		return playerid;
@@ -50,7 +71,7 @@ public class PlayerModel {
 		this.isCurrentPlayer = isCurrentPlayer;
 	}
 	
-	public String getObjectiveColor()
+	public Color getObjectiveColor()
 	{
 		return color;
 	}
@@ -95,6 +116,14 @@ public class PlayerModel {
 		this.status = status;
 	}
 
+	public DiceHolderType getDht() {
+		return dht;
+	}
+
+
+	public void setDht(DiceHolderType dht) {
+		this.dht = dht;
+	}
 
 	public int getPatid() {
 		return patid;
