@@ -1,45 +1,75 @@
 package controller;
 
-import databeest.DataBaseApplication;
+import java.util.ArrayList;
+
 import databeest.DbCardCollector;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
-import view.GamePanes.CardDisplayPane;
-import view.GamePanes.CardPane;
+import model.CardBackgroundModel;
+import model.DiceModel;
 
 public class CardsController {
 	
-	CardsController() {
-		
+	private DbCardCollector dbCardCollector;
+	private CardBackgroundModel cardBackgroundModel;
+	private ToolCardController tcc;
+	
+	CardsController(DbCardCollector dbCardCollector, ArrayList<DiceModel> DMAL){
+		this.dbCardCollector = dbCardCollector;
+		cardBackgroundModel = new CardBackgroundModel(this.dbCardCollector);
+		tcc = new ToolCardController(DMAL);
 	}
 	
+	
+	public void useCard(int CardNr) {
+		tcc.useCard(CardNr);
+	}
+	
+	
 	public ImageView getTc1(){
-		ImageView imageview = new ImageView();
-		return imageview;
+		return cardBackgroundModel.getToolCardBg(cardBackgroundModel.getToolCard1());
 	}
 	
 	public ImageView getTc2(){
-		ImageView imageview = new ImageView();
-		return imageview;
-		}
+		return cardBackgroundModel.getToolCardBg(cardBackgroundModel.getToolCard2());
+	}
 	
 	public ImageView getTc3(){
-		ImageView imageview = new ImageView();
-		return imageview;
+		return cardBackgroundModel.getToolCardBg(cardBackgroundModel.getToolCard3());
 	}
 	
 	public ImageView getTgc1(){
-		ImageView imageview = new ImageView();
-		return imageview;
+		return cardBackgroundModel.getTargetCardbg(cardBackgroundModel.TargetCard1());
 	}
 	
 	public ImageView getTgc2(){
-		ImageView imageview = new ImageView();
-		return imageview;
+		return cardBackgroundModel.getTargetCardbg(cardBackgroundModel.TargetCard2());
 	}
 	
 	public ImageView getTgc3(){
-		ImageView imageview = new ImageView();
-		return imageview;
+		return cardBackgroundModel.getTargetCardbg(cardBackgroundModel.TargetCard3());
+	}
+	
+	public Integer getTc1Nr() {
+		return cardBackgroundModel.getToolCard1();
+	}
+	
+	public Integer getTc2Nr() {
+		return cardBackgroundModel.getToolCard2();
+	}
+	
+	public Integer getTc3Nr() {
+		return cardBackgroundModel.getToolCard3();
+	}
+	
+	public Integer getTgc1Nr() {
+		return cardBackgroundModel.TargetCard1();
+	}
+	
+	public Integer getTgc2Nr() {
+		return cardBackgroundModel.TargetCard2();
+	}
+	
+	public Integer getTgc3Nr() {
+		return cardBackgroundModel.TargetCard3();
 	}
 }

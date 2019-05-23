@@ -3,10 +3,15 @@ package view.GamePanes;
 
 import controller.DiceHolderController;
 import controller.PatterncardController;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import view.MyScene;
 
 
 public class PlayerPane extends VBox{
@@ -21,10 +26,12 @@ public class PlayerPane extends VBox{
 	private PatternCardPane patternCardPane;
 	private DiceHolderController dhc;
 	private PatterncardController dcc;
+	private MyScene myScene;
 	
-	public PlayerPane(DiceHolderController dhc, PatterncardController dcc) {
+	public PlayerPane(DiceHolderController dhc, PatterncardController dcc, MyScene myScene) {
 		this.dhc = dhc;
 		this.dcc = dcc;
+		this.myScene = myScene;
 		setBackground(controller.Main.PLAYERPANE); // aanduiding voor pane
 		setUp();
 	}
@@ -34,6 +41,27 @@ public class PlayerPane extends VBox{
 		setDiceSection();
 		setPersonalAttributes();
 		setPatternCard();
+		setTinyButtonSection();
+	}
+
+	private void setTinyButtonSection() {
+		BorderPane section = new BorderPane();
+		
+		Button pass = new Button("Pass");
+		pass.setMinSize(60, 30);
+		pass.setMaxSize(60, 30);
+		
+		Button menu = new Button("Menu");
+		menu.setMinSize(60, 30);
+		menu.setMaxSize(60, 30);
+		menu.setOnAction(e -> myScene.setMenuPane());
+		
+		pass.setAlignment(Pos.CENTER_LEFT);
+		menu.setAlignment(Pos.CENTER_RIGHT);
+		
+		section.setLeft(pass);
+		section.setRight(menu);
+		getChildren().add(section);
 	}
 
 	private void setPatternCard() {

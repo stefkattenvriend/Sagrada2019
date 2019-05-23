@@ -156,7 +156,7 @@ public class DiceHolderController {
 		
 		for (int i = 0; i < pcc.getPcModelsSize(); i++) {//vergelijkt kleur van patroonkaart en die
 			if(location.getX() == pcc.getPcModel(i).getX() && location.getY() == pcc.getPcModel(i).getY() && pcc.getPcModel(i).getPct() == PatterncardType.PLAYER) {
-					if(die.getPaint() == pcc.getPcModel(i).getColor()) {
+					if(die.getPaint() != pcc.getPcModel(i).getColor() && pcc.getPcModel(i).getColor() != Color.WHITE) {
 						check = false;
 						return check;
 				}
@@ -167,7 +167,7 @@ public class DiceHolderController {
 		
 		for (int i = 0; i < pcc.getPcModelsSize(); i++) {//vergelijkt waarde van patroonkaart en die
 			if(location.getX() == pcc.getPcModel(i).getX() && location.getY() == pcc.getPcModel(i).getY() && pcc.getPcModel(i).getPct() == PatterncardType.PLAYER) {
-				if(die.getEyes() == pcc.getPcModel(i).getNumber()) {
+				if(die.getEyes() != pcc.getPcModel(i).getNumber() && pcc.getPcModel(i).getNumber() != 0) {
 					check = false;
 					return check;
 				}
@@ -245,5 +245,9 @@ public class DiceHolderController {
 			
 			
 		return check;
+	}
+	
+	public DiceController getDiceController() {
+		return dc;
 	}
 }

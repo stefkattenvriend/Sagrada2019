@@ -289,7 +289,7 @@ public class DataBaseApplication
 	{
 		Statement stmt = null;
 		ArrayList<Integer> idToolCards = new ArrayList<>();
-		String query = "SELECT idtoolcard FROM gametoolcard WHERE idgame = " + this.getGameid();
+		String query = "SELECT idtoolcard FROM gametoolcard WHERE idgame = " + this.getGameid() + ";";
 		try
 		{
 			stmt = m_Conn.createStatement();
@@ -298,9 +298,32 @@ public class DataBaseApplication
 			//return string in console
 			while (rs.next())
 			{
-				
+				System.out.println(rs.getInt(1));
 				idToolCards.add(rs.getInt(1));
-				
+			}
+			stmt.close();
+		} catch (SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
+		return idToolCards;
+	}
+	
+	public ArrayList<Integer> getObjectiveCards()
+	{
+		Statement stmt = null;
+		ArrayList<Integer> idToolCards = new ArrayList<>();
+		String query = "SELECT idpublic_objectivecard FROM sharedpublic_objectivecard WHERE idgame = " + this.getGameid();
+		try
+		{
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			//return string in console
+			while (rs.next())
+			{
+				System.out.println(rs.getInt(1));
+				idToolCards.add(rs.getInt(1));
 			}
 			stmt.close();
 		} catch (SQLException e)
@@ -316,14 +339,30 @@ public class DataBaseApplication
 		//try etc..
 		return player;
 	}
+
 	
 	
 	//Stef
-	public int getPlayerPayStones()
+	public int getPlayerPayStones(int playerId)
 	{
-		
-		
-		return 0;
+		Statement stmt = null;
+		String query = "SELECT COUNT(idfavortoken) FROM mwmastbe_db2.gamefavortoken WHERE idplayer = " + playerId + ";";
+		int paystones = 0;
+		try
+		{
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next())
+			{
+				paystones = rs.getInt(1);
+			}
+			stmt.close();
+		} catch (SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
+		return paystones;
 	}
 
 	public ArrayList<String> getChat(String query)
@@ -374,6 +413,35 @@ public class DataBaseApplication
 			System.out.println(e.getMessage());
 		}
 		return chat;
+	}
+	
+	//Rens ~ playerstats
+	
+	public int getPlayerHighscore(String username) {
+		
+		int highscore = 0;
+		Statement stmt = null;
+		String query = "SELECT MAX(score) FROM player WHERE username = " + username + ";";
+		try
+		{
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			//return string in console voor test
+			while (rs.next())
+			{
+				int highscoredb = rs.getInt(1);
+				if(highscoredb != 0) {
+					highscore = highscoredb;
+				}
+				
+			}
+			stmt.close();
+		} catch (SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
+		return highscore;
 	}
 	
 }

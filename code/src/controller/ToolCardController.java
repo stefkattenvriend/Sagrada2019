@@ -9,9 +9,14 @@ import model.DiceModel;
 
 // gemaakt door TESS!!!!!!!!!!
 public class ToolCardController {
+	ArrayList<DiceModel> dice;
 
-
-	public void useCard(int number, ArrayList<DiceModel> dice) {
+	public ToolCardController(ArrayList<DiceModel> dice) {
+		this.dice = dice;
+	}
+	
+	public void useCard(int number) {
+		
 		if (number == 1) {
 			// na het kiezen dobbelsteen, waarde 1 verhogen of verlagen (bij 1 niet -1 bij 6
 			// niet +1)

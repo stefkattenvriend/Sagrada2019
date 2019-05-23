@@ -17,14 +17,14 @@ public class EnemyPane extends BorderPane{
 	
 	public EnemyPane(GameController gamecontroller) {
 		gameController = gamecontroller;
-		setBackground(controller.Main.ENEMYPANE); //aanduiding voor pane
 		setUp();
+		setBackground(controller.Main.ENEMYPANE); //aanduiding voor pane
 	}
 
 	private void setUp() {
 		setPaneSize();
 		
-		chatPane = new ChatPane(gameController.getChatController());
+		chatPane = new ChatPane(gameController.getChatController(), gameController.getLoginController());
 		flowPane = new FlowPane();
 		enemyWindow1 = new EnemyWindow();
 		enemyWindow2 = new EnemyWindow();

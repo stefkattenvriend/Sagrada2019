@@ -3,7 +3,10 @@ package controller;
 import databeest.DbChatCollector;
 import databeest.DbGameCollector;
 import databeest.DbPatternCardInfoCollector;
+import databeest.DbPlayerCollector;
+import databeest.DbPlayerStatsCollector;
 import databeest.DataBaseApplication;
+import databeest.DbCardCollector;
 import databeest.DbUserInfoCollector;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -13,15 +16,21 @@ public class MasterController extends Application{//een controller die alle ande
 
 	private DbUserInfoCollector dbUserInfoCollector;
 	private DbPatternCardInfoCollector DatabasePTCCollector;
+	private DbCardCollector dbCardCollector;
 	private DbChatCollector dbChatCollector;
 	private DbGameCollector dbGameCollector;
+	private DbPlayerCollector dbPlayerCollector;
+	private DbPlayerStatsCollector dbPlayerStatsCollector;
 	private DataBaseApplication databeest = new DataBaseApplication();
 	
-	private LoginController lc;//laat de controllers voor nu op public staan. later get en set maken
+	private LoginController lc;
+	private PlayerController pc;
 	private GameController gm;
-	private ChatController chat;
+//	private ChatController chat;
 	private MyScene myScene;
 	private Stage stage;
+	private MenuController mnController;
+	private StatsController sc;
 	
 	public void startup(String[] args) {
 		launch(args);
@@ -32,6 +41,7 @@ public class MasterController extends Application{//een controller die alle ande
 		this.startMasterController();
 		this.stage = stage;
 		myScene = new MyScene(this);
+		mnController = new MenuController(myScene);
 		stage.setResizable(false);
 		stage.setScene(myScene);
 		stage.show();
@@ -42,17 +52,19 @@ public class MasterController extends Application{//een controller die alle ande
 		DatabasePTCCollector = new DbPatternCardInfoCollector(databeest);
 		dbChatCollector = new DbChatCollector(databeest);
 		dbGameCollector = new DbGameCollector(databeest);
+		dbPlayerCollector = new DbPlayerCollector(databeest);
+		dbCardCollector = new DbCardCollector(databeest);
+		dbPlayerStatsCollector = new DbPlayerStatsCollector(databeest);
 		
 		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
 				&& (databeest.makeConnection()))
 		
-		this.gm = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector);
 		this.lc = new LoginController(dbUserInfoCollector);
-		this.chat = new ChatController(dbChatCollector);
-		
-		
-		
-		
+		this.pc = new PlayerController(dbPlayerCollector);
+		this.gm = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector, dbCardCollector);
+		this.sc = new StatsController(dbPlayerStatsCollector);
+//		this.chat = new ChatController(dbChatCollector);
+
 		{
 //			databeest.doSomeQuerying();
 //			databeest.getPaternCard(1, 1, 1);
@@ -68,6 +80,10 @@ public class MasterController extends Application{//een controller die alle ande
 		
 		// testen game
 //		gm.newGame(); //dit maakt een nieuwe game aan (milan)
+		
+		//testen player
+//		pc.setPlayerId(2);
+//		System.out.println("Amount of paystones: " + pc.getPayStones());
 	}
 	
 	public GameController getGameController()
@@ -80,13 +96,18 @@ public class MasterController extends Application{//een controller die alle ande
 		return this.lc;
 	}
 	
-	public ChatController getChatController()
-	{
-		return this.chat;
-	}
+//	public ChatController getChatController()
+//	{
+//		return this.chat;
+//	}
 	
 	public Stage getStage() {
 		return this.stage;
+	}
+
+	public MenuController getMenuController() {
+	
+		return this.mnController;
 	}
 
 }
