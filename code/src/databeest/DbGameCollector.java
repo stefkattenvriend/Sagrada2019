@@ -55,6 +55,17 @@ public class DbGameCollector {
 		
 	}
 	
+	public int getRoundNumber(int gameID) {
+		int round;
+		
+		round = dataBaseApplication.getRoundNumber(gameID);
+		
+		System.out.println(round);
+		
+		return round;
+	}
+	
+	
 	public ArrayList<String> getColors() {
 		ArrayList<String> colors = new ArrayList<>(); 
 		colors = dataBaseApplication.getColor();
