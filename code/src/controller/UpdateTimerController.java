@@ -7,7 +7,7 @@ public class UpdateTimerController implements Runnable {
 		while(true) {
 			System.out.println("test");
 			try {
-				Thread.sleep(10000);
+				Thread.sleep(3000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
