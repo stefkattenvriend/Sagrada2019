@@ -1,5 +1,6 @@
 package view.MenuPanes;
 
+import controller.MenuController;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,8 +13,10 @@ public class MenuDropdown extends VBox{
 	private Button btn;
 	private boolean clicked = false;
 	private FlowPane gameInfoPane;
+	private MenuController menuController;
 	
-	public MenuDropdown(String nr) {
+	public MenuDropdown(String nr, MenuController menuController) {
+		this.menuController = menuController;
 		createInfoPane();
 		createButton(nr);
 		getChildren().addAll(btn);
@@ -43,6 +46,7 @@ public class MenuDropdown extends VBox{
 		Button loadGame = new Button("Load game");
 		loadGame.setMinSize(160, 40);
 		loadGame.setMaxSize(160, 40);
+		loadGame.setOnAction(e -> menuController.setNewRoot());
 //		Label text = new Label("test text");
 		gameInfoPane = new FlowPane();
 		gameInfoPane.setMinSize(MenuPane.paneWidth - 60, 60);
