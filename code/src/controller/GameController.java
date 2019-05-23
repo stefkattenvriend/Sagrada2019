@@ -33,7 +33,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		cc = new ChatController(dbChat);
 		//crc = new CardsController(dbCardCollector, dhc.getDiceController().getDMAL());
 		this.dbGameCollector = dbGamecollector;
-		colors = getColors();
+		
 		
 		
 	}
@@ -69,20 +69,25 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 
 	// milan
 	public void newGame() {
+		colors = getColors(); //maakt 5 kleuren
 		dbGameCollector.pushGame();
 //		String username = lc.getCurrentAccount();
 		String username = "123";
 		dbGameCollector.pushFirstPlayer(username, colors.get(0));
 		insertPublicObjectiveCards();
 		insertToolCards();
+		
 		getPlayer();//deze actie wordt uitgevoerd door 
 	}
 	
 	public void getPlayer() {
 		String username = "kees"; //getusername
 		gameid = getGameid(); //getgameid van de game waaraan je hem wil toevoegen
-		int i = (int)(Math.random() * ((4 - 1) + 1)) + 1;
+		int x = 4;
+		int i = (int)(Math.random() * ((x - 1) + 1)) + 1;
 		addPlayer(username, gameid, colors.get(i));
+		colors.remove(i);
+		x--;
 	}
 	
 	public void addPlayer(String username, int gameid, String color) {
