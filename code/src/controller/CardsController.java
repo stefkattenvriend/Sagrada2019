@@ -13,7 +13,7 @@ public class CardsController {
 	private CardBackgroundModel cardBackgroundModel;
 	private ToolCardController tcc;
 	
-	CardsController(DbCardCollector dbCardCollector, ArrayList<DiceModel> DMAL){
+	public CardsController(DbCardCollector dbCardCollector, ArrayList<DiceModel> DMAL){
 		this.dbCardCollector = dbCardCollector;
 		cardBackgroundModel = new CardBackgroundModel(this.dbCardCollector);
 		tcc = new ToolCardController(DMAL);
