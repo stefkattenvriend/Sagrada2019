@@ -30,14 +30,10 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		dhc = new DiceHolderController(pcc);
 		lyc = new LayerController(pcc);
 		cc = new ChatController(dbChat);
-		crc = new CardsController(dbCardCollector, dhc.getDiceController().getDMAL());
+		//crc = new CardsController(dbCardCollector, dhc.getDiceController().getDMAL());
 		this.dbGameCollector = dbGamecollector;
 		
-		//Game refresher/checker
-		UpdateTimerController checker = new UpdateTimerController();
 		
-		Thread t1 = new Thread(checker);
-		t1.start();
 	}
 	
 	
