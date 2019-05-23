@@ -52,6 +52,7 @@ public class MasterController extends Application{//een controller die alle ande
 	}
 	
 	private void closeApp() {
+		System.out.println("Program stopped!");
 		System.exit(0);
 	}
 
