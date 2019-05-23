@@ -3,6 +3,7 @@ package view.GamePanes;
 
 import controller.DiceHolderController;
 import controller.PatterncardController;
+import controller.PointsController;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -27,11 +28,13 @@ public class PlayerPane extends VBox{
 	private DiceHolderController dhc;
 	private PatterncardController dcc;
 	private MyScene myScene;
+	private PointsController pc;
 	
-	public PlayerPane(DiceHolderController dhc, PatterncardController dcc, MyScene myScene) {
+	public PlayerPane(DiceHolderController dhc, PatterncardController dcc, MyScene myScene, PointsController pc) {
 		this.dhc = dhc;
 		this.dcc = dcc;
 		this.myScene = myScene;
+		this.pc = pc;
 		setBackground(controller.Main.PLAYERPANE); // aanduiding voor pane
 		setUp();
 	}
@@ -72,7 +75,7 @@ public class PlayerPane extends VBox{
 	private void setPersonalAttributes() {
 		personalAttributes = new HBox();
 		paystoneHolder = new PaystoneHolderPane();
-		points = new PointsPane();
+		points = new PointsPane(pc);
 		pocp = new PersonalObjectiveCardPane(Color.PURPLE);
 		personalAttributes.getChildren().addAll(paystoneHolder, points, pocp);
 		personalAttributes.setMinHeight(75);
@@ -90,6 +93,10 @@ public class PlayerPane extends VBox{
 	private void setPaneSize() {
 		setMinSize(GamePane.windowMaxWidth / 3, GamePane.windowMaxHeight);
 		setMaxSize(GamePane.windowMaxWidth / 3, GamePane.windowMaxHeight);
+	}
+	
+	public PersonalObjectiveCardPane getPOCP() {
+		return pocp;
 	}
 
 }

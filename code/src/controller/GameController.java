@@ -2,6 +2,8 @@ package controller;
 
 import databeest.DbGameCollector;
 import databeest.DbPatternCardInfoCollector;
+import view.GamePanes.PlayerPane;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import databeest.DataBaseApplication;
@@ -19,6 +21,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private LoginController lc;
 	private CardsController crc;
 	private ChatController cc;
+	private PointsController pc;
 
 	private int gameid;
 
@@ -31,6 +34,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		lyc = new LayerController(pcc);
 		cc = new ChatController(dbChat);
 		crc = new CardsController(dbCardCollector, dhc.getDiceController().getDMAL());
+		pc = new PointsController(dhc.getPlayerWindowDice());
 		this.dbGameCollector = dbGamecollector;
 
 	}
@@ -60,6 +64,10 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	
 	public LoginController getLoginController() {
 		return lc;
+	}
+	
+	public PointsController getPointsController() {
+		return pc;
 	}
 
 	// milan

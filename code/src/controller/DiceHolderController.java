@@ -250,4 +250,14 @@ public class DiceHolderController {
 	public DiceController getDiceController() {
 		return dc;
 	}
+	
+	public ArrayList<DiceHolderModel> getPlayerWindowDice(){
+		ArrayList<DiceHolderModel> playerWindowDice = new ArrayList<DiceHolderModel>();
+		for(int i=0; i < dhmodels.size(); i++) {
+			if(dhmodels.get(i).getType() == DiceHolderType.PLAYERWINDOW) {
+				playerWindowDice.add(dhmodels.get(i));
+			}
+		}
+		return playerWindowDice;
+	}
 }

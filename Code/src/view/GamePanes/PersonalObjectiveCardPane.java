@@ -9,7 +9,6 @@ import javafx.scene.shape.Rectangle;
 public class PersonalObjectiveCardPane extends VBox{
 	private Label label;
 	private Color myColor;
-	public String colorName;
 	private double personalAttributesHeight = 75;
 	
 	public PersonalObjectiveCardPane(Color color) {
@@ -26,5 +25,9 @@ public class PersonalObjectiveCardPane extends VBox{
 	
 	private void setPaneSize() {
 		setMinSize((GamePane.windowMaxWidth / 3) / 3, personalAttributesHeight);
+	}
+	
+	public Color getColor() {
+		return myColor;
 	}
 }
