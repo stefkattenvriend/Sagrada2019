@@ -34,7 +34,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		this.dbGameCollector = dbGamecollector;
 		
 		//Game refresher/checker
-		Checker checker = new Checker();
+		UpdateTimerController checker = new UpdateTimerController();
 		
 		Thread t1 = new Thread(checker);
 		t1.start();

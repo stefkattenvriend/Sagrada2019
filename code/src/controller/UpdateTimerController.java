@@ -1,6 +1,6 @@
 package controller;
 
-public class Checker implements Runnable {
+public class UpdateTimerController implements Runnable {
 
 	@Override
 	public void run() {
