@@ -21,7 +21,7 @@ public class CardsController {
 	
 	
 	public void useCard(int CardNr) {
-		
+		tcc.useCard(CardNr);
 	}
 	
 	
