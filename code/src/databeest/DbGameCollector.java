@@ -45,6 +45,16 @@ public class DbGameCollector {
 		
 	}
 	
+	public int getRoundNumber(int gameID) {
+		int round;
+		
+		round = dataBaseApplication.getRoundNumber(gameID);
+		
+		System.out.println(round);
+		
+		return round;
+	}
+	
 	
 
 	

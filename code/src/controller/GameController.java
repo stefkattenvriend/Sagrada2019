@@ -7,6 +7,7 @@ import databeest.DbCardCollector;
 import databeest.DbChatCollector;
 import databeest.DbGameCollector;
 import databeest.DbPatternCardInfoCollector;
+import model.GameModel;
 
 public class GameController {// deze classe wordt aangemaakt in de masterController en maakt uiteindelijk ook
 								// de andere controllers aan ~Rens
@@ -19,17 +20,20 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private LoginController lc;
 	private CardsController crc;
 	private ChatController cc;
-
+	private GameUpdateController guc;
+	
 	private int gameid;
 
 	public GameController(DbPatternCardInfoCollector DatabasePTCCollector, DbGameCollector dbGamecollector,
-			LoginController lc, DbChatCollector dbChat, DbCardCollector dbCardCollector) {
+			LoginController lc, DbChatCollector dbChat, DbCardCollector dbCardCollector, GameUpdateController guc) {
 		this.DatabasePTCCollector = DatabasePTCCollector;
 		this.lc = lc;
 		pcc = new PatterncardController(DatabasePTCCollector);
 		dhc = new DiceHolderController(pcc);
 		lyc = new LayerController(pcc);
 		cc = new ChatController(dbChat);
+		this.guc = guc;
+		
 		//crc = new CardsController(dbCardCollector, dhc.getDiceController().getDMAL());
 		this.dbGameCollector = dbGamecollector;
 		
@@ -111,6 +115,14 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 
 	public int getGameid() {
 		return gameid;
+	}
+
+
+
+	public void createGameModel(int i) {
+		GameModel gm = new GameModel(i, dbGameCollector);
+		guc.setGameModel(gm);
+		
 	}
 
 }

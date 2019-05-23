@@ -444,4 +444,29 @@ public class DataBaseApplication
 		return highscore;
 	}
 	
+	public int getRoundNumber(int idgame)
+	{
+		Statement stmt = null;
+		String query = "SELECT MAX(roundtrack) FROM gamedie WHERE idgame = " + idgame + ";";
+		int round = 0;
+		try
+		{
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			
+			while (rs.next())
+			{
+				round = rs.getInt(1) + 1;
+				
+				
+			}
+			stmt.close();
+		} catch (SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
+		return round;
+	}
+	
 }

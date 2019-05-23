@@ -32,7 +32,7 @@ public class MenuPane extends BorderPane {
 	private void setUp() {
 		setScreenSize();
 		createPanes();
-//		setStartButton();
+		setStartButton();
 	}
 	
 	private void createPanes() {

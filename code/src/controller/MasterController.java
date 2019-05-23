@@ -43,7 +43,7 @@ public class MasterController extends Application{//een controller die alle ande
 		this.startMasterController();
 		this.stage = stage;
 		myScene = new MyScene(this);
-		mnController = new MenuController(myScene);
+		mnController = new MenuController(myScene, this);
 		stage.setResizable(false);
 		stage.setScene(myScene);
 		stage.show();
@@ -61,20 +61,20 @@ public class MasterController extends Application{//een controller die alle ande
 		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
 				&& (databeest.makeConnection()))
 		
-		this.lc = new LoginController(dbUserInfoCollector);
-		this.pc = new PlayerController(dbPlayerCollector);
-		this.gc = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector, dbCardCollector);
-		this.sc = new StatsController(dbPlayerStatsCollector);
-//		this.chat = new ChatController(dbChatCollector);
-		
-		//Game refresher/checker
-		this.guc = new GameUpdateController();
+			//Game refresher/checker
+		this.guc = new GameUpdateController(this);
 		this.utc = new UpdateTimerController(guc);
 		
 				
 		Thread t1 = new Thread(utc);
 		t1.start();
-
+		
+		this.lc = new LoginController(dbUserInfoCollector);
+		this.pc = new PlayerController(dbPlayerCollector);
+		this.gc = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector, dbCardCollector, guc);
+		this.sc = new StatsController(dbPlayerStatsCollector);
+//		this.chat = new ChatController(dbChatCollector);
+		
 		
 		
 		//make the GamePane
@@ -109,6 +109,16 @@ public class MasterController extends Application{//een controller die alle ande
 	public MenuController getMenuController() {
 	
 		return this.mnController;
+	}
+	
+	public GameUpdateController getGameUpdateController() {
+		
+		return this.guc;
+	}
+	
+	public MenuUpdateController getMenuUpdateController() {
+		
+		return null;//moet de menuopdate controller in komen
 	}
 
 }
