@@ -220,6 +220,26 @@ public class DataBaseApplication
 		return gameid;
 	}
 
+	public ArrayList<String> getPlayers() {
+		Statement stmt = null;
+		ArrayList<String> players = new ArrayList<>();
+		String query = "SELECT username FROM account";
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while (rs.next()) {
+
+				players.add(rs.getString(1));
+
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return players;
+	}
+	
 	public ArrayList<String> getColor() {
 		Statement stmt = null;
 		ArrayList<String> colors = new ArrayList<>();
