@@ -59,7 +59,7 @@ public class MenuGamesPane extends FlowPane{
 		ArrayList<MenuDropdown> games = new ArrayList<MenuDropdown>();
 		
 		for(int i = 0; i < 10; i++) {// vult verzameling met alle knoppen
-			games.add(new MenuDropdown("Game " + Integer.toString(i), menuController));
+			games.add(new MenuDropdown(menuController, true, "Sagrada " + i, false));
 			
 		}
 		
@@ -67,8 +67,8 @@ public class MenuGamesPane extends FlowPane{
 			list.getChildren().add(games.get(x));
 		}
 		
-		list.setMinSize(MenuPane.paneWidth - 80, (games.size() * 100)); // hoogte van lijst moet automatisch bijgewerkt worden met binding of listner.
-		list.setMaxSize(MenuPane.paneWidth - 80, (games.size() * 100));
+		list.setMinWidth(MenuPane.paneWidth - 80); // hoogte van lijst moet automatisch bijgewerkt worden met binding of listner.
+		list.setMaxWidth(MenuPane.paneWidth - 80);
 		
 		gamesList.setContent(list);
 		

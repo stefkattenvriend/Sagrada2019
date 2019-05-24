@@ -13,37 +13,12 @@ public class DiceController {
 	
 	
 	
-	public DiceModel createDieModel(int color, int eyes) {
-		Color paint;
+	public DiceModel createDieModel(Color color, int eyes, int size) {
 		DiceModel dm;
 		
-		switch(color) {
-		case 1:
-			paint = Color.RED;
-			break;
-			
-		case 2:
-			paint = Color.BLUE;
-			break;
-			
-		case 3:
-			paint = Color.GREEN;
-			break;
-			
-		case 4:
-			paint = Color.YELLOW;
-			break;
-			
-		case 5:
-			paint = Color.PURPLE;
-			break;
-			
-		default:
-			paint = Color.WHITE;
-			
-		}
 		
-		dm = new DiceModel(40, paint, eyes, false);
+		
+		dm = new DiceModel(size, color, eyes);
 		
 		dmodels.add(dm);
 		
