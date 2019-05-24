@@ -41,4 +41,12 @@ public class PlayerController {
 		playerModel.setPayStones(dbPlayerCollector.amountOfPaystones(playerModel.getPlayerId()));
 		return playerModel.getPayStones();
 	}
+	
+	public int getPlayerID() {
+		return playerModel.getPlayerId();
+	}
+	
+	public String getPlayerName() {
+		return playerModel.getUsername();
+	}
 }

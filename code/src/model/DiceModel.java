@@ -9,14 +9,12 @@ public class DiceModel {
 	private Color paint;
 	private int eyes;
 	private boolean interactable;
-	private boolean selected;
 	
 	public DiceModel(int size, Color paint, int eyes, boolean interactable) {
 		this.size = size;
 		this.paint = paint;
 		this.eyes = eyes;
 		this.interactable = interactable;
-		this.selected = false;
 	}
 
 	public int getSize() {
@@ -49,14 +47,6 @@ public class DiceModel {
 
 	public void setInteractable(boolean interactable) {
 		this.interactable = interactable;
-	}
-
-	public boolean isSelected() {
-		return selected;
-	}
-
-	public void setSelected(boolean selected) {
-		this.selected = selected;
 	}
 
 }

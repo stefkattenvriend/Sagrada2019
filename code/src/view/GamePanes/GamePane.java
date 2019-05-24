@@ -40,7 +40,7 @@ public class GamePane extends StackPane {
 
 	private void setUp() {
 		gamePane = new BorderPane();
-		playerPane = new PlayerPane(dhc, pcc, myScene);
+		playerPane = new PlayerPane(dhc, pcc, myScene, gc);
 		cardDisplayPane = new CardDisplayPane(gc.getCardsController());
 		enemyPane = new EnemyPane(gc);
 		gamePane.setLeft(cardDisplayPane);
