@@ -90,7 +90,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		insertPublicObjectiveCards();
 		insertToolCards();
 		createGameDie();
-		getPlayer();//deze actie wordt uitgevoerd door 
+		getPlayer("kees", gameid);//deze actie wordt uitgevoerd wanneer uitnodiging geaccepteerd is
 		
 	}
 	
@@ -100,10 +100,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 
 
 
-	public void getPlayer() {
-		//TODO getusername ofzo!!!
-		String username = "kees"; //getusername
-		gameid = getGameid(); //getgameid van de game waaraan je hem wil toevoegen
+	public void getPlayer(String username, int gameid) {
 		int x = 4;
 		int i = (int)(Math.random() * ((x - 1) + 1)) + 1;
 		addPlayer(username, gameid, colors.get(i));
