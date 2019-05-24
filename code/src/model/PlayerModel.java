@@ -26,7 +26,8 @@ public class PlayerModel {
 	}
 
 	public void getDatabaseInfo(DbPlayerCollector dpc) {
-		playerid = dpc.getPlayerID(username, gameid);
+//		playerid = dpc.getPlayerID(username, gameid);
+		username = dpc.getUsername(playerid);
 		seqnr = dpc.getSeqnr(playerid);
 		status = dpc.getStatus(playerid);
 		isCurrentPlayer = dpc.getIfCurrentPlayer(playerid);

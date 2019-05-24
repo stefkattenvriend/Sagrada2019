@@ -17,15 +17,17 @@ public class GameModel {
 	private PlayerModel[] pma;
 	private DiceController dc;
 	private DiceModel[] dm;
+	private int enemies = 1;
 	
 	public GameModel(int gameid, DbGameCollector dgc, String username, DbPlayerCollector dpc, int amountOfPlayers) {
 		this.gameid = gameid;
 		this.dgc = dgc;
 		this.dpc = dpc;
 		this.amountOfPlayers = amountOfPlayers;
+		
 		inGame = true;
 		pma = new PlayerModel[amountOfPlayers];
-		//addPlayerModel(username);
+//		addPlayerModel(username);
 
 		//TODO add enemies
 		
@@ -43,25 +45,32 @@ public class GameModel {
 		dgc.getRoundNumber(gameid);
 	}
 	
-	public void addPlayer(int i, String username)
+	public void addPlayer(int i, int playerID, String username)
 	{
-		pma[i-1] = new PlayerModel();
-		if(i == 1) {
-			pma[i-1].setDht(DiceHolderType.PLAYERWINDOW);
+		System.out.println("i=" + i);
+		pma[i] = new PlayerModel();
+		pma[i].setGameid(gameid);
+		pma[i].setPlayerId(playerID);
+		pma[i].getDatabaseInfo(dpc);
+		
+		
+		if(pma[i].getUsername().equals(username)) { // username is gelijk
+			pma[i].setDht(DiceHolderType.PLAYERWINDOW);
 		}
-		if(i == 2) {
-			pma[i-1].setDht(DiceHolderType.ENEMY1);
+		else if(enemies == 1) {
+			pma[i].setDht(DiceHolderType.ENEMY1);
+			enemies++;
 		}
-		if(i == 3) {
-			pma[i-1].setDht(DiceHolderType.ENEMY2);
+		else if(enemies == 2) {
+			pma[i].setDht(DiceHolderType.ENEMY2);
+			enemies++;
 		}
-		if(i == 4) {
-			pma[i-1].setDht(DiceHolderType.ENEMY3);
+		else if(enemies == 3){
+			pma[i].setDht(DiceHolderType.ENEMY3);
 		}
-		pma[i-1].setUsername(username);
-		pma[i-1].setGameid(gameid);
-		pma[i-1].getDatabaseInfo(dpc);
-
+		else {
+			System.out.println("kan niet meer dan ");
+		}
 	}
 	
 	public PlayerModel getPlayerModel(DiceHolderType type) {
