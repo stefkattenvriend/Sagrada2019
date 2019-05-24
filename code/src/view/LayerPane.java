@@ -2,9 +2,9 @@ package view;
 
 import controller.LayerController;
 import controller.PatterncardController;
+import helpers.PatterncardType;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -15,7 +15,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import view.GamePanes.GamePane;
 
 
@@ -88,7 +87,7 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 		for (int i = 1; i < 5; i++) {
 			for (int j = 1; j < 6; j++) {
 				double size = ((GamePane.windowMaxWidth / 3) / 5) - 1; 
-			patternCard.getChildren().add(pcc.PatterncardCreate(j, i, Integer.parseInt(rdInt), (int)size));
+			patternCard.getChildren().add(pcc.PatterncardCreate(j, i, Integer.parseInt(rdInt), (int)size, PatterncardType.CHOICE));
 			}	
 		}
 		
