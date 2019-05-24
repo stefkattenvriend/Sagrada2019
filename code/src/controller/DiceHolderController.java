@@ -139,8 +139,8 @@ public class DiceHolderController {
 
 	}
 
-	public void addDie(DiceHolderType location, int x, int y, int color, int eyes, boolean interactable) {
-		DiceModel die = dc.createDieModel(color, eyes);
+	public void addDie(DiceHolderType location, int x, int y, Color color, int eyes, boolean interactable) {
+		DiceModel die = dc.createDieModel(color, eyes, 40);
 		for (int i = 0; i < dhmodels.size(); i++) {
 			if (dhmodels.get(i).getType() == location && dhmodels.get(i).getX() == x && dhmodels.get(i).getY() == y) {
 				dhmodels.get(i).setDie(die);

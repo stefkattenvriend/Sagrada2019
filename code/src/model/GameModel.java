@@ -1,5 +1,6 @@
 package model;
 
+import controller.DiceController;
 import databeest.DbGameCollector;
 import databeest.DbPlayerCollector;
 import helpers.DiceHolderType;
@@ -13,6 +14,8 @@ public class GameModel {
 	private DbGameCollector dgc;
 	private DbPlayerCollector dpc;
 	private PlayerModel[] pma;
+	private DiceController dc;
+	private DiceModel[] dm;
 	
 	public GameModel(int gameid, DbGameCollector dgc, String username, DbPlayerCollector dpc) {
 		this.gameid = gameid;
@@ -20,8 +23,10 @@ public class GameModel {
 		this.dpc = dpc;
 		inGame = true;
 		pma = new PlayerModel[4];
+		dm = new DiceModel[90];
 		addPlayerModelP1(username);
-		//todo add enemies
+		addDiceModels();
+		
 
 	}
 	
@@ -56,5 +61,11 @@ public class GameModel {
 		pma[0].setUsername(username);
 		pma[0].setGameid(gameid);
 		pma[0].getDatabaseInfo(dpc);
+	}
+	
+	public void addDiceModels() {
+		for (int i = 1; i < 91; i++) {
+			
+		}
 	}
 }
