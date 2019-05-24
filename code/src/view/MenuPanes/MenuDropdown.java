@@ -2,6 +2,7 @@ package view.MenuPanes;
 
 import controller.MenuController;
 import javafx.beans.value.ChangeListener;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -20,14 +21,18 @@ public class MenuDropdown extends VBox {
 	private MenuController menuController;
 	private boolean yesOrNo;
 	private String username;
+	private int totalPlayers;
+	private boolean isChecked = false;
+	private MenuPlayersPane menuPlayersPane;
 
-	public MenuDropdown(MenuController menuController, boolean loadbutton, String btnName, boolean yesOrNo) {
+	public MenuDropdown(MenuController menuController, boolean loadbutton, String btnName, boolean yesOrNo, MenuPlayersPane menuPlayersPane) {
 		this.menuController = menuController;
 		username = btnName;
+		this.menuPlayersPane = menuPlayersPane;
 		createInfoPane(loadbutton, yesOrNo);
 		createButton(btnName);
 		getChildren().add(btn);
-		
+
 		if (yesOrNo) {
 			getChildren().clear();
 			getChildren().addAll(btn, gameInfoPane);
@@ -68,18 +73,39 @@ public class MenuDropdown extends VBox {
 			loadGame.setOnAction(e -> menuController.loadGame());
 			gameInfoPane.setRight(loadGame);
 		}
-		
-		if(yesOrNo) {
+
+		if (yesOrNo) {
 			CheckBox inviteBtn = new CheckBox("kies");
-			inviteBtn.setPrefSize(20, 20);
+			inviteBtn.setPrefSize(40, 20);
 			inviteBtn.setUserData("Selecteer");
-			
+			inviteBtn.setOnAction(e -> selectPlayer());
+
 //			inviteBtn.selectedProperty().addListener(new ChangeListener<T>hange);
-//			if(inviteBtn.property) {
-//				System.out.println(username);
-//			}
 			gameInfoPane.setLeft(inviteBtn);
 		}
 
 	}
+
+	public void selectPlayer() {
+
+		if (!isChecked) {
+//			System.out.println(username + " is in!");
+			menuPlayersPane.addPlayer(username);
+			isChecked = true;
+		} else if (isChecked) {
+			//remove from arraylist
+//			System.out.println(username + " is out..");
+			menuPlayersPane.removePlayer(username);
+			isChecked = false;
+		}
+	}
+
+	public String getSelectedPlayer() {
+		return username;
+	}
+
+	public boolean isClicked() {
+		return isChecked;
+	}
+
 }
