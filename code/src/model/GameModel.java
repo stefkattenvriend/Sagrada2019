@@ -69,4 +69,8 @@ public class GameModel {
 		return pm;
 	}
 	
+	public int getGameId() {
+		return gameid;
+	}
+	
 }

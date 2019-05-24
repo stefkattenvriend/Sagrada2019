@@ -8,12 +8,13 @@ public class DbCardCollector {
 	public DbCardCollector(DataBaseApplication dataBaseApplication) {
 		this.dataBaseApplication = dataBaseApplication;
 	}
-	
-	public ArrayList<Integer> getToolcards() {
-		return dataBaseApplication.getToolCards();
+
+
+	public ArrayList<Integer> getToolcards(int gameId) {
+		return dataBaseApplication.getToolCards(gameId);
 	}
 	
-	public ArrayList<Integer> getObjectivecards() {
-		return dataBaseApplication.getObjectiveCards();
+	public ArrayList<Integer> getObjectivecards(int gameId) {
+		return dataBaseApplication.getObjectiveCards(gameId);
 	}
 }
