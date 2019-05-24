@@ -2,6 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 
 import databeest.DbCardCollector;
 import databeest.DbChatCollector;
@@ -9,6 +10,7 @@ import databeest.DbGameCollector;
 import databeest.DbPatternCardInfoCollector;
 import databeest.DbPlayerCollector;
 import model.GameModel;
+import model.PlayerModel;
 
 public class GameController {// deze classe wordt aangemaakt in de masterController en maakt uiteindelijk ook
 								// de andere controllers aan ~Rens
@@ -25,10 +27,8 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private GameUpdateController guc;
 	private GameModel gm;
 	
+	private PlayerController pc;
 	
-
-
-
 	private int gameid;
 	private ArrayList<String> colors; 
 
@@ -42,17 +42,12 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		lyc = new LayerController(pcc);
 		cc = new ChatController(dbChat);
 		this.guc = guc;
-		
-		//crc = new CardsController(dbCardCollector, dhc.getDiceController().getDMAL());
+		pc = new PlayerController(dpc);
 		crc = new CardsController(dbCardCollector, dhc.getDiceController().getDMAL());
 		this.dbGameCollector = dbGamecollector;
-		
-		
-		
+
 	}
-	
-	
-	
+
 	public CardsController getCardsController() {
 		return crc;
 	}
@@ -88,13 +83,13 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	public void newGame() {
 		colors = getColors(); //maakt 5 kleuren
 		dbGameCollector.pushGame();
-//		String username = lc.getCurrentAccount();
-		String username = "123";
+		String username = lc.getCurrentAccount();
+//		String username = "123";
 		dbGameCollector.pushFirstPlayer(username, colors.get(0));
 		insertPublicObjectiveCards();
 		insertToolCards();
 		createGameDie();
-		getPlayer();//deze actie wordt uitgevoerd door 
+		getPlayer("kees", gameid);//deze actie wordt uitgevoerd wanneer uitnodiging geaccepteerd is
 		
 	}
 	
@@ -104,9 +99,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 
 
 
-	public void getPlayer() {
-		String username = "kees"; //getusername
-		gameid = getGameid(); //getgameid van de game waaraan je hem wil toevoegen
+	public void getPlayer(String username, int gameid) {
 		int x = 4;
 		int i = (int)(Math.random() * ((x - 1) + 1)) + 1;
 		addPlayer(username, gameid, colors.get(i));
@@ -148,7 +141,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 			list.remove(0);
 
 		}
-		System.out.println(list);//syso to check which numbers are added to database
+//		System.out.println(list);//syso to check which numbers are added to database
 		return list;
 	}
 	
@@ -165,13 +158,20 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		return gameid;
 	}
 
-
-
 	public void createGameModel(int gameID) {
 		String username = lc.getCurrentAccount();
-		GameModel gm = new GameModel(gameID, dbGameCollector, username, dpc);
+		int amountOfPlayers = dbGameCollector.getAmountOfPlayers(gameID);
+		GameModel gm = new GameModel(gameID, dbGameCollector, username, dpc, amountOfPlayers);
 		this.gm = gm;
 		guc.setGameModel(gm);
+		Integer[] playerIDs = dbGameCollector.getPlayers(gameID);
+
+		for (int i = 0; i < amountOfPlayers; i++) {
+			//kijk welke spelers er meedoen en maak ze
+
+			pc.setPlayerId(playerIDs[i]);
+			gm.addPlayer(playerIDs[i], pc.getPlayerName());
+		}
 		
 	}
 

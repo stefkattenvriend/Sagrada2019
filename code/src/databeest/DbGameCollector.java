@@ -76,9 +76,7 @@ public class DbGameCollector {
 
 	public int getRoundNumber(int gameID) {
 		int round;
-
 		round = dataBaseApplication.getRoundNumber(gameID);
-
 		return round;
 	}
 
@@ -86,6 +84,16 @@ public class DbGameCollector {
 		ArrayList<String> colors = new ArrayList<>();
 		colors = dataBaseApplication.getColor();
 		return colors;
+	}
+	
+	public int getAmountOfPlayers(int gameID)
+	{
+		int amount = dataBaseApplication.getAmountOfPlayers(gameID);
+		return amount;
+	}
+	
+	public Integer[] getPlayers(int gameID) {
+		return dataBaseApplication.GetPlayerIDs(gameID);
 	}
 
 }
