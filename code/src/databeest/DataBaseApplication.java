@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import controller.PlayerController;
-import model.PlayerModel;
 
 public class DataBaseApplication
 {
@@ -537,19 +535,18 @@ public class DataBaseApplication
 	public Integer[] GetPlayerIDs(int gameID)
 	{
 		Statement stmt = null;
-		Integer[] playerIDs = new Integer[4];
-		
+		Integer[] playerIDs = new Integer[this.getAmountOfPlayers(gameID)];
+		String query = "SELECT idplayer FROM mwmastbe_db2.player WHERE game_idgame = " + gameID + ";";
 		try
 		{
 			stmt = m_Conn.createStatement();
-			String query = "SELECT idplayer FROM mwmastbe_db2.player WHERE game_idgame = " + gameID + ";";
 			ResultSet rs = stmt.executeQuery(query);
-			
 			int i = 0;
 			//return string in console
 			while (rs.next())
 			{
-				playerIDs[i] = rs.getInt(i);
+				playerIDs[i] = rs.getInt(1);
+				i++;
 			}
 			stmt.close();
 		} catch (SQLException e)

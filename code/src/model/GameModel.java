@@ -15,13 +15,13 @@ public class GameModel {
 	private DbPlayerCollector dpc;
 	private PlayerModel[] pma;
 	
-	public GameModel(int gameid, DbGameCollector dgc, String username, DbPlayerCollector dpc) {
+	public GameModel(int gameid, DbGameCollector dgc, String username, DbPlayerCollector dpc, int amountOfPlayers) {
 		this.gameid = gameid;
 		this.dgc = dgc;
 		this.dpc = dpc;
 		this.amountOfPlayers = amountOfPlayers;
 		inGame = true;
-		pma = new PlayerModel[4];
+		pma = new PlayerModel[amountOfPlayers];
 //		addPlayerModelP1(username);
 		//TODO add enemies
 		
@@ -49,11 +49,11 @@ public class GameModel {
 	
 	public void addPlayer(int i, String username)
 	{
-		pma[i] = new PlayerModel();
-		pma[i].setDht(DiceHolderType.PLAYERWINDOW);
-		pma[i].setUsername(username);
-		pma[i].setGameid(gameid);
-		pma[i].getDatabaseInfo(dpc);
+		pma[i-1] = new PlayerModel();
+		pma[i-1].setDht(DiceHolderType.PLAYERWINDOW);
+		pma[i-1].setUsername(username);
+		pma[i-1].setGameid(gameid);
+		pma[i-1].getDatabaseInfo(dpc);
 
 	}
 	

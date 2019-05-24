@@ -10,6 +10,7 @@ import databeest.DbGameCollector;
 import databeest.DbPatternCardInfoCollector;
 import databeest.DbPlayerCollector;
 import model.GameModel;
+import model.PlayerModel;
 
 public class GameController {// deze classe wordt aangemaakt in de masterController en maakt uiteindelijk ook
 								// de andere controllers aan ~Rens
@@ -26,8 +27,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private GameUpdateController guc;
 	private GameModel gm;
 	
-	//elke player heeft z'n eigen controller
-	private PlayerController[] playerControllers;
+	private PlayerController pc;
 	
 	private int gameid;
 	private ArrayList<String> colors; 
@@ -41,9 +41,8 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		dhc = new DiceHolderController(pcc);
 		lyc = new LayerController(pcc);
 		cc = new ChatController(dbChat);
-		playerControllers = new PlayerController[4];
 		this.guc = guc;
-		
+		pc = new PlayerController(dpc);
 		crc = new CardsController(dbCardCollector, dhc.getDiceController().getDMAL());
 		this.dbGameCollector = dbGamecollector;
 
@@ -162,17 +161,16 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	public void createGameModel(int gameID) {
 		String username = lc.getCurrentAccount();
 		int amountOfPlayers = dbGameCollector.getAmountOfPlayers(gameID);
-		GameModel gm = new GameModel(gameID, dbGameCollector, username, dpc);
+		GameModel gm = new GameModel(gameID, dbGameCollector, username, dpc, amountOfPlayers);
 		this.gm = gm;
 		guc.setGameModel(gm);
 		Integer[] playerIDs = dbGameCollector.getPlayers(gameID);
-		
+
 		for (int i = 0; i < amountOfPlayers; i++) {
 			//kijk welke spelers er meedoen en maak ze
-			playerControllers[i] = new PlayerController(dpc);
-			playerControllers[i].setPlayerId(playerIDs[i]);
-			
-			gm.addPlayer(i, playerControllers[i].getPlayerName());
+
+			pc.setPlayerId(playerIDs[i]);
+			gm.addPlayer(playerIDs[i], pc.getPlayerName());
 		}
 		
 	}
