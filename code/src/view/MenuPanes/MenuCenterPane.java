@@ -1,6 +1,7 @@
 package view.MenuPanes;
 
 import controller.LoginController;
+import controller.MenuController;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -15,9 +16,11 @@ public class MenuCenterPane extends VBox{
 	private MenuWelcomePane welcomePane;
 	private MenuPlayersPane playersPane;
 	private LoginController loginController;
+	private MenuController menuController;
 	
-	public MenuCenterPane(LoginController loginController) {
+	public MenuCenterPane(LoginController loginController, MenuController menuController) {
 		this.loginController = loginController;
+		this.menuController = menuController;
 		setUp();
 	}
 	
@@ -29,7 +32,7 @@ public class MenuCenterPane extends VBox{
 	
 	private void createPanes() {
 		welcomePane = new MenuWelcomePane(loginController);
-		playersPane = new MenuPlayersPane();
+		playersPane = new MenuPlayersPane(menuController);
 		
 		getChildren().addAll(welcomePane, playersPane);
 	}
