@@ -24,6 +24,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private CardsController crc;
 	private ChatController cc;
 	private GameUpdateController guc;
+	private GameModel gm;
 	
 	//elke player heeft z'n eigen controller
 	private PlayerController[] playerControllers;
@@ -74,6 +75,10 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	public LoginController getLoginController() {
 		return lc;
 	}
+	
+	public GameModel getGm() {
+		return gm;
+	}
 
 	// milan
 	public void newGame() {
@@ -84,10 +89,17 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		dbGameCollector.pushFirstPlayer(username, colors.get(0));
 		insertPublicObjectiveCards();
 		insertToolCards();
-		
+		createGameDie();
 		getPlayer();//deze actie wordt uitgevoerd door 
+		
 	}
 	
+	private void createGameDie() {
+		dbGameCollector.addGameDie();
+	}
+
+
+
 	public void getPlayer() {
 		//TODO getusername ofzo!!!
 		String username = "kees"; //getusername
@@ -146,7 +158,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	
 	
 	public int getGameid() {
-		gameid = dbGameCollector.getGameid();
+		gameid = dbGameCollector.getHighestGameID();
 		return gameid;
 	}
 
@@ -154,6 +166,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		String username = lc.getCurrentAccount();
 		int amountOfPlayers = dbGameCollector.getAmountOfPlayers(gameID);
 		GameModel gm = new GameModel(gameID, dbGameCollector, username, dpc);
+		this.gm = gm;
 		guc.setGameModel(gm);
 		Integer[] playerIDs = dbGameCollector.getPlayers(gameID);
 		

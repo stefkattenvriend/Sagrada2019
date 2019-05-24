@@ -54,6 +54,19 @@ public class GameModel {
 		pma[i].setUsername(username);
 		pma[i].setGameid(gameid);
 		pma[i].getDatabaseInfo(dpc);
+
+	}
+	
+	public PlayerModel getPlayerModel(DiceHolderType type) {
+		PlayerModel pm = null;
+		for (int i = 0; i < pma.length; i++) {
+			if(pma[i].getDht() == type) {
+				pm = pma[i];
+				return pm;
+			}
+		}
+		
+		return pm;
 	}
 	
 }
