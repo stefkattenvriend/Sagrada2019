@@ -1,5 +1,6 @@
 package view.MenuPanes;
 
+import controller.MenuController;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -15,9 +16,11 @@ public class MenuRightPane extends VBox{
 	private MenuGamesPane menuGamesPane;
 	private MenuWaitingPane menuWaitingPane;
 	private MyScene myScene;
+	private MenuController menuController;
 	
-	public MenuRightPane(MyScene myScene) {
+	public MenuRightPane(MyScene myScene, MenuController menuController) {
 		this.myScene = myScene;
+		this.menuController = menuController;
 		setUp();
 	}
 	
@@ -28,7 +31,7 @@ public class MenuRightPane extends VBox{
 	}
 	
 	private void createPanes() {
-		menuGamesPane = new MenuGamesPane(myScene);
+		menuGamesPane = new MenuGamesPane(myScene, menuController);
 		
 		menuWaitingPane = new MenuWaitingPane();
 		

@@ -2,11 +2,15 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 
 import databeest.DbCardCollector;
 import databeest.DbChatCollector;
 import databeest.DbGameCollector;
 import databeest.DbPatternCardInfoCollector;
+import databeest.DbPlayerCollector;
+import model.GameModel;
+import model.PlayerModel;
 
 public class GameController {// deze classe wordt aangemaakt in de masterController en maakt uiteindelijk ook
 								// de andere controllers aan ~Rens
@@ -15,31 +19,35 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private PatterncardController pcc;
 	private DbPatternCardInfoCollector DatabasePTCCollector;
 	private DbGameCollector dbGameCollector;
+	private DbPlayerCollector dpc;
 	private LayerController lyc;
 	private LoginController lc;
 	private CardsController crc;
 	private ChatController cc;
-
+	private GameUpdateController guc;
+	private GameModel gm;
+	
+	private PlayerController pc;
+	
 	private int gameid;
 	private ArrayList<String> colors; 
 
 	public GameController(DbPatternCardInfoCollector DatabasePTCCollector, DbGameCollector dbGamecollector,
-			LoginController lc, DbChatCollector dbChat, DbCardCollector dbCardCollector) {
+			LoginController lc, DbChatCollector dbChat, DbCardCollector dbCardCollector, GameUpdateController guc, DbPlayerCollector dpc) {
 		this.DatabasePTCCollector = DatabasePTCCollector;
+		this.dpc = dpc;
 		this.lc = lc;
 		pcc = new PatterncardController(DatabasePTCCollector);
 		dhc = new DiceHolderController(pcc);
 		lyc = new LayerController(pcc);
 		cc = new ChatController(dbChat);
+		this.guc = guc;
+		pc = new PlayerController(dpc);
 		crc = new CardsController(dbCardCollector, dhc.getDiceController().getDMAL());
 		this.dbGameCollector = dbGamecollector;
-		colors = getColors();
-		
-		
+
 	}
-	
-	
-	
+
 	public CardsController getCardsController() {
 		return crc;
 	}
@@ -66,23 +74,37 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	public LoginController getLoginController() {
 		return lc;
 	}
+	
+	public GameModel getGm() {
+		return gm;
+	}
 
 	// milan
 	public void newGame() {
+		colors = getColors(); //maakt 5 kleuren
 		dbGameCollector.pushGame();
-//		String username = lc.getCurrentAccount();
-		String username = "123";
+		String username = lc.getCurrentAccount();
+//		String username = "123";
 		dbGameCollector.pushFirstPlayer(username, colors.get(0));
 		insertPublicObjectiveCards();
 		insertToolCards();
-		getPlayer();//deze actie wordt uitgevoerd door 
+		createGameDie();
+		getPlayer("kees", gameid);//deze actie wordt uitgevoerd wanneer uitnodiging geaccepteerd is
+		
 	}
 	
-	public void getPlayer() {
-		String username = "kees"; //getusername
-		gameid = getGameid(); //getgameid van de game waaraan je hem wil toevoegen
-		int i = (int)(Math.random() * ((4 - 1) + 1)) + 1;
+	private void createGameDie() {
+		dbGameCollector.addGameDie();
+	}
+
+
+
+	public void getPlayer(String username, int gameid) {
+		int x = 4;
+		int i = (int)(Math.random() * ((x - 1) + 1)) + 1;
 		addPlayer(username, gameid, colors.get(i));
+		colors.remove(i);
+		x--;
 	}
 	
 	public void addPlayer(String username, int gameid, String color) {
@@ -119,7 +141,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 			list.remove(0);
 
 		}
-		System.out.println(list);//syso to check which numbers are added to database
+//		System.out.println(list);//syso to check which numbers are added to database
 		return list;
 	}
 	
@@ -132,8 +154,25 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	
 	
 	public int getGameid() {
-		gameid = dbGameCollector.getGameid();
+		gameid = dbGameCollector.getHighestGameID();
 		return gameid;
+	}
+
+	public void createGameModel(int gameID) {
+		String username = lc.getCurrentAccount();
+		int amountOfPlayers = dbGameCollector.getAmountOfPlayers(gameID);
+		GameModel gm = new GameModel(gameID, dbGameCollector, username, dpc, amountOfPlayers);
+		this.gm = gm;
+		guc.setGameModel(gm);
+		Integer[] playerIDs = dbGameCollector.getPlayers(gameID);
+
+		for (int i = 0; i < amountOfPlayers; i++) {
+			//kijk welke spelers er meedoen en maak ze
+
+			pc.setPlayerId(playerIDs[i]);
+			gm.addPlayer(playerIDs[i], pc.getPlayerName());
+		}
+		
 	}
 
 }

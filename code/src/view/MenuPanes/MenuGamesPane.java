@@ -1,10 +1,17 @@
 package view.MenuPanes;
 
+import java.util.ArrayList;
+
+import controller.MenuController;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.FlowPane;
@@ -19,12 +26,15 @@ import view.GamePanes.GamePane;
 public class MenuGamesPane extends FlowPane{
 	
 	private ScrollPane gamesList;
-	private ScrollBar scrollBar;
-	private Pane listInput;
-	private MyScene myScene;
 	
-	public MenuGamesPane(MyScene myScene) {
+	private MyScene myScene;
+	private VBox list;
+	private boolean clicked = false;
+	private MenuController menuController;
+	
+	public MenuGamesPane(MyScene myScene, MenuController menuController) {
 		this.myScene = myScene;
+		this.menuController = menuController;
 		setPaneSize();
 		createActiveGamesList();
 		setBackground(new Background(new BackgroundFill(Color.RED, null, null))); //tijdelijk
@@ -39,32 +49,35 @@ public class MenuGamesPane extends FlowPane{
 		gamesList.setMinSize(MenuPane.paneWidth - 60, (MenuPane.windowMaxHeight / 2) - 60);
 		gamesList.setMaxSize(MenuPane.paneWidth - 60, (MenuPane.windowMaxHeight / 2) - 60);
 		gamesList.setBackground(new Background(new BackgroundFill(Color.AQUA, null, null)));
+		gamesList.setFitToWidth(true);
+		gamesList.setFitToHeight(true);
+	
+		list = new VBox();
+//		list.setMinSize(MenuPane.paneWidth - 80, 100);
+//		list.setMaxSize(MenuPane.paneWidth - 80, 100);//hiermee wordt de hoogte van de pane bepaald. dit moet automatisch bijgewerkt worden.
 		
-		Button startgame = new Button("Start game");
-		startgame.setMinSize(MenuPane.paneWidth - 60, 40);
-		startgame.setMaxSize(MenuPane.paneWidth - 60, 40);
-		startgame.setOnAction(e -> myScene.setGamePane());
+		ArrayList<MenuDropdown> games = new ArrayList<MenuDropdown>();
 		
-		VBox list = new VBox();
-		list.setMinSize(MenuPane.paneWidth - 60, (MenuPane.windowMaxHeight / 2) - 60);
-		list.setMaxSize(MenuPane.paneWidth - 60, (MenuPane.windowMaxHeight / 2) - 60);
-//		list.setBackground(new Background(new BackgroundFill(Color.AQUA, null, null)));
-		list.getChildren().addAll(startgame, gamesList);
+		for(int i = 0; i < 10; i++) {// vult verzameling met alle knoppen
+			games.add(new MenuDropdown("Game " + Integer.toString(i), menuController));
+			
+		}
+		
+		for(int x = 0; x < games.size(); x++) { //voegt alle knoppen toe aan de lijst
+			list.getChildren().add(games.get(x));
+		}
+		
+		list.setMinSize(MenuPane.paneWidth - 80, (games.size() * 100)); // hoogte van lijst moet automatisch bijgewerkt worden met binding of listner.
+		list.setMaxSize(MenuPane.paneWidth - 80, (games.size() * 100));
+		
 		gamesList.setContent(list);
 		
-
-		
-		
-		
-		
-		
-//		gamesList.setCenter(listInput);
 		
 		setAlignment(Pos.CENTER);
 		getChildren().addAll(title, gamesList);
 		
 	}
-	
+
 	private void setPaneSize() {
 		setMinSize(GamePane.windowMaxWidth / 3, GamePane.windowMaxHeight / 2);
 		setMaxSize(GamePane.windowMaxWidth / 3, GamePane.windowMaxHeight / 2);
