@@ -27,7 +27,6 @@ public class GameModel {
 		pma = new PlayerModel[amountOfPlayers];
 		//addPlayerModel(username);
 
-
 		//TODO add enemies
 		
 	}
@@ -46,22 +45,22 @@ public class GameModel {
 	
 	public void addPlayer(int i, String username)
 	{
-		pma[i] = new PlayerModel();
-		if(i == 0) {
-			pma[i].setDht(DiceHolderType.PLAYERWINDOW);
-		}
+		pma[i-1] = new PlayerModel();
 		if(i == 1) {
-			pma[i].setDht(DiceHolderType.ENEMY1);
+			pma[i-1].setDht(DiceHolderType.PLAYERWINDOW);
 		}
 		if(i == 2) {
-			pma[i].setDht(DiceHolderType.ENEMY2);
+			pma[i-1].setDht(DiceHolderType.ENEMY1);
 		}
 		if(i == 3) {
-			pma[i].setDht(DiceHolderType.ENEMY3);
+			pma[i-1].setDht(DiceHolderType.ENEMY2);
 		}
-		pma[i].setUsername(username);
-		pma[i].setGameid(gameid);
-		pma[i].getDatabaseInfo(dpc);
+		if(i == 4) {
+			pma[i-1].setDht(DiceHolderType.ENEMY3);
+		}
+		pma[i-1].setUsername(username);
+		pma[i-1].setGameid(gameid);
+		pma[i-1].getDatabaseInfo(dpc);
 
 	}
 	

@@ -170,7 +170,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 			//kijk welke spelers er meedoen en maak ze
 
 			pc.setPlayerId(playerIDs[i]);
-			gm.addPlayer(i, pc.getPlayerName());
+			gm.addPlayer(playerIDs[i], pc.getPlayerName());
 		}
 		this.createCardsController();
 	}
