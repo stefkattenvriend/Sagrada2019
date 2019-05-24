@@ -93,10 +93,17 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		dbGameCollector.pushFirstPlayer(username, colors.get(0));
 		insertPublicObjectiveCards();
 		insertToolCards();
-		
+		createGameDie();
 		getPlayer();//deze actie wordt uitgevoerd door 
+		
 	}
 	
+	private void createGameDie() {
+		dbGameCollector.addGameDie();
+	}
+
+
+
 	public void getPlayer() {
 		String username = "kees"; //getusername
 		gameid = getGameid(); //getgameid van de game waaraan je hem wil toevoegen
