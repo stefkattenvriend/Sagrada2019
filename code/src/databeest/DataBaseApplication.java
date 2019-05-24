@@ -236,7 +236,7 @@ public class DataBaseApplication
 		}
 	
 	//milan
-	public int getGameid()
+	public int getHighestGameID()
 	{
 		Statement stmt = null;
 		String query = "SELECT max(idgame) FROM game;";
@@ -289,7 +289,7 @@ public class DataBaseApplication
 	{
 		Statement stmt = null;
 		ArrayList<Integer> idToolCards = new ArrayList<>();
-		String query = "SELECT idtoolcard FROM gametoolcard WHERE idgame = " + this.getGameid() + ";";
+		String query = "SELECT idtoolcard FROM gametoolcard WHERE idgame = " + this.getHighestGameID() + ";";
 		try
 		{
 			stmt = m_Conn.createStatement();
@@ -313,7 +313,7 @@ public class DataBaseApplication
 	{
 		Statement stmt = null;
 		ArrayList<Integer> idToolCards = new ArrayList<>();
-		String query = "SELECT idpublic_objectivecard FROM sharedpublic_objectivecard WHERE idgame = " + this.getGameid();
+		String query = "SELECT idpublic_objectivecard FROM sharedpublic_objectivecard WHERE idgame = " + this.getHighestGameID();
 		try
 		{
 			stmt = m_Conn.createStatement();
@@ -471,7 +471,7 @@ public class DataBaseApplication
 
 	public int getPlayerID(String username, int gameID) {
 		Statement stmt = null;
-		String query = "SELECT idplayer FROM player WHERE game_idgame = " + gameID + " AND username = " + username + ";";
+		String query = "SELECT idplayer FROM player WHERE game_idgame = " + gameID + " AND username = '" + username + "';";
 		int PlayerID = 0;
 		try
 		{

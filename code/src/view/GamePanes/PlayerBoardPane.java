@@ -21,8 +21,10 @@ public class PlayerBoardPane extends Pane{//misschien hernoemen naar bord pane? 
 	private TilePane patternCardDice;
 	private DiceHolderController dhc;
 	private PatterncardController pcc;
+	private int patID;
 	
-	public PlayerBoardPane(DiceHolderController dhc, PatterncardController pcc) {
+	public PlayerBoardPane(DiceHolderController dhc, PatterncardController pcc, int patID) {
+		this.patID = patID;
 		this.dhc = dhc;
 		this.pcc = pcc;
 		setUp();
@@ -32,7 +34,7 @@ public class PlayerBoardPane extends Pane{//misschien hernoemen naar bord pane? 
 		setPaneSize();
 		setPatternCard();
 		addDiceHolders();
-		addPatternCard(4);
+		addPatternCard();
 		//aanduiding();
 	}
 
@@ -60,7 +62,12 @@ public class PlayerBoardPane extends Pane{//misschien hernoemen naar bord pane? 
 		}
 	}
 	
-	private void addPatternCard(int pcnumber) {
+	private void addPatternCard() {
+		
+		int pcnumber = patID;
+		
+		
+		
 		for (int i = 1; i < 5; i++) {
 			for (int j = 1; j < 6; j++) {
 				double size = ((GamePane.windowMaxWidth / 3) / 5) - 1; 

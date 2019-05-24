@@ -20,7 +20,7 @@ public class DbGameCollector {
 	
 	public void pushFirstPlayer(String username, String color) {
 		//voeg user toe aan game
-		int gameid = getGameid();
+		int gameid = getHighestGameID();
 		String query = "INSERT INTO `mwmastbe_db2`.`player` (`username`, `game_idgame`, `playstatus_playstatus`, `isCurrentPlayer`, `private_objectivecard_color`) VALUES ('" + username + "', '" + gameid + "', 'uitdager', '1', '" + color + "');";
 		dataBaseApplication.insertQuery(query);	
 		
@@ -28,28 +28,28 @@ public class DbGameCollector {
 	
 	//voegt player toe aan een game
 	public void addPlayer(String username, int idgame, String color) {
-		int gameid = getGameid();//idgame
+		int gameid = getHighestGameID();//idgame
 		String query = "INSERT INTO `mwmastbe_db2`.`player` (`username`, `game_idgame`, `playstatus_playstatus`, `isCurrentPlayer`, `private_objectivecard_color`) VALUES ('" + username + "', '" + gameid + "', 'uitgedaagde', '0', '" + color + "');";
 		dataBaseApplication.insertQuery(query);
 	}
 	
 	//return highest gameid(van degene die dus net is aangemaakt in gamecontroller)
-	public int getGameid() {
+	public int getHighestGameID() {
 		int gameid = 0;
-		gameid = dataBaseApplication.getGameid();
+		gameid = dataBaseApplication.getHighestGameID();
 		return gameid;
 	}
 
 	public void insertPublicObjectiveCards(int x) {
 		
-		int gameid = getGameid();
+		int gameid = getHighestGameID();
 		
 		String query = "INSERT INTO `mwmastbe_db2`.`sharedpublic_objectivecard` (`idgame`, `idpublic_objectivecard`) VALUES ('" + gameid + "', '" + x + "');";
 		dataBaseApplication.insertQuery(query);
 	}
 
 	public void insertToolCards(int x) {
-		int gameid = getGameid();
+		int gameid = getHighestGameID();
 		String query = "INSERT INTO `mwmastbe_db2`.`gametoolcard` (`idtoolcard`, `idgame`) VALUES ('" + x + "', '" + gameid + "');";
 		dataBaseApplication.insertQuery(query);
 		

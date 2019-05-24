@@ -23,7 +23,12 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private CardsController crc;
 	private ChatController cc;
 	private GameUpdateController guc;
+	private GameModel gm;
 	
+	
+
+
+
 	private int gameid;
 	private ArrayList<String> colors; 
 
@@ -73,6 +78,10 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	
 	public LoginController getLoginController() {
 		return lc;
+	}
+	
+	public GameModel getGm() {
+		return gm;
 	}
 
 	// milan
@@ -145,7 +154,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	
 	
 	public int getGameid() {
-		gameid = dbGameCollector.getGameid();
+		gameid = dbGameCollector.getHighestGameID();
 		return gameid;
 	}
 
@@ -154,6 +163,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	public void createGameModel(int gameID) {
 		String username = lc.getCurrentAccount();
 		GameModel gm = new GameModel(gameID, dbGameCollector, username, dpc);
+		this.gm = gm;
 		guc.setGameModel(gm);
 		
 	}

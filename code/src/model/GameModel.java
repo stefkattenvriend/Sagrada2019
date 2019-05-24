@@ -38,6 +38,18 @@ public class GameModel {
 		
 	}
 	
+	public PlayerModel getPlayerModel(DiceHolderType type) {
+		PlayerModel pm = null;
+		for (int i = 0; i < pma.length; i++) {
+			if(pma[i].getDht() == type) {
+				pm = pma[i];
+				return pm;
+			}
+		}
+		
+		return pm;
+	}
+	
 	public void addPlayerModelP1(String username) {
 		pma[0] = new PlayerModel();
 		pma[0].setDht(DiceHolderType.PLAYERWINDOW);
