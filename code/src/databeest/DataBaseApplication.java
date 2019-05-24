@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import controller.PlayerController;
+import model.PlayerModel;
+
 public class DataBaseApplication
 {
 	private Connection m_Conn;
@@ -333,12 +336,13 @@ public class DataBaseApplication
 		return idToolCards;
 	}
 	
-	public ArrayList<String> getPlayer() {
-		Statement stmt = null;
-		ArrayList<String> player = new ArrayList<>();
-		//try etc..
-		return player;
-	}
+	//TODO verwijder dit ofzo
+//	public ArrayList<String> getPlayer() {
+//		Statement stmt = null;
+//		ArrayList<String> player = new ArrayList<>();
+//		//try etc..
+//		return player;
+//	}
 
 	
 	
@@ -378,9 +382,7 @@ public class DataBaseApplication
 			//return string in console
 			while (rs.next())
 			{
-				
 				chat.add(rs.getString(3));
-				
 			}
 			stmt.close();
 		} catch (SQLException e)
@@ -403,9 +405,7 @@ public class DataBaseApplication
 			//return string in console
 			while (rs.next())
 			{
-				
 				chat.add(rs.getString(1));
-				
 			}
 			stmt.close();
 		} catch (SQLException e)
@@ -434,7 +434,6 @@ public class DataBaseApplication
 				if(highscoredb != 0) {
 					highscore = highscoredb;
 				}
-				
 			}
 			stmt.close();
 		} catch (SQLException e)
@@ -454,12 +453,9 @@ public class DataBaseApplication
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			
-			
 			while (rs.next())
 			{
 				round = rs.getInt(1) + 1;
-				
-				
 			}
 			stmt.close();
 		} catch (SQLException e)
@@ -478,12 +474,9 @@ public class DataBaseApplication
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			
-			
 			while (rs.next())
 			{
 				PlayerID = rs.getInt(1);
-				
-				
 			}
 			stmt.close();
 		} catch (SQLException e)
@@ -502,12 +495,9 @@ public class DataBaseApplication
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			
-			
 			while (rs.next())
 			{
 				seqnr = rs.getInt(1);
-				
-				
 			}
 			stmt.close();
 		} catch (SQLException e)
@@ -526,11 +516,9 @@ public class DataBaseApplication
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			
-			
 			while (rs.next())
 			{
 				status = rs.getString(1);
-				
 				
 			}
 			stmt.close();
@@ -550,12 +538,9 @@ public class DataBaseApplication
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			
-			
 			while (rs.next())
 			{
 				icp = rs.getInt(1);
-				
-				
 			}
 			stmt.close();
 		} catch (SQLException e)
@@ -574,12 +559,9 @@ public class DataBaseApplication
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			
-			
 			while (rs.next())
 			{
 				pcid= rs.getInt(1);
-				
-				
 			}
 			stmt.close();
 		} catch (SQLException e)
@@ -598,12 +580,9 @@ public class DataBaseApplication
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			
-			
 			while (rs.next())
 			{
 				score = rs.getInt(1);
-				
-				
 			}
 			stmt.close();
 		} catch (SQLException e)
@@ -611,6 +590,53 @@ public class DataBaseApplication
 			System.out.println(e.getMessage());
 		}
 		return score;
+	}
+	
+	public int getAmountOfPlayers(int gameID)
+	{
+		Statement stmt = null;
+		String query = "SELECT COUNT(idplayer) FROM mwmastbe_db2.player WHERE game_idgame = " + gameID + ";";
+		int amount = 0;
+		try
+		{
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while (rs.next())
+			{
+				amount = rs.getInt(1);
+			}
+			stmt.close();
+		} catch (SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
+		return amount;
+	}
+	
+	public Integer[] GetPlayerIDs(int gameID)
+	{
+		Statement stmt = null;
+		Integer[] playerIDs = new Integer[4];
+		
+		try
+		{
+			stmt = m_Conn.createStatement();
+			String query = "SELECT idplayer FROM mwmastbe_db2.player WHERE game_idgame = " + gameID + ";";
+			ResultSet rs = stmt.executeQuery(query);
+			
+			int i = 0;
+			//return string in console
+			while (rs.next())
+			{
+				playerIDs[i] = rs.getInt(i);
+			}
+			stmt.close();
+		} catch (SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
+		return playerIDs;
 	}
 	
 }

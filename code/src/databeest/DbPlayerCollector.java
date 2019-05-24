@@ -1,5 +1,9 @@
 package databeest;
 
+import java.util.ArrayList;
+
+import model.PlayerModel;
+
 //Stef
 public class DbPlayerCollector {
 	

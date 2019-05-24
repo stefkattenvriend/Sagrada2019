@@ -2,6 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 
 import databeest.DbCardCollector;
 import databeest.DbChatCollector;
@@ -24,6 +25,9 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private ChatController cc;
 	private GameUpdateController guc;
 	
+	//elke player heeft z'n eigen controller
+	private PlayerController[] playerControllers;
+	
 	private int gameid;
 	private ArrayList<String> colors; 
 
@@ -36,18 +40,14 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		dhc = new DiceHolderController(pcc);
 		lyc = new LayerController(pcc);
 		cc = new ChatController(dbChat);
+		playerControllers = new PlayerController[4];
 		this.guc = guc;
 		
-		//crc = new CardsController(dbCardCollector, dhc.getDiceController().getDMAL());
 		crc = new CardsController(dbCardCollector, dhc.getDiceController().getDMAL());
 		this.dbGameCollector = dbGamecollector;
-		
-		
-		
+
 	}
-	
-	
-	
+
 	public CardsController getCardsController() {
 		return crc;
 	}
@@ -79,8 +79,8 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	public void newGame() {
 		colors = getColors(); //maakt 5 kleuren
 		dbGameCollector.pushGame();
-//		String username = lc.getCurrentAccount();
-		String username = "123";
+		String username = lc.getCurrentAccount();
+//		String username = "123";
 		dbGameCollector.pushFirstPlayer(username, colors.get(0));
 		insertPublicObjectiveCards();
 		insertToolCards();
@@ -89,6 +89,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	}
 	
 	public void getPlayer() {
+		//TODO getusername ofzo!!!
 		String username = "kees"; //getusername
 		gameid = getGameid(); //getgameid van de game waaraan je hem wil toevoegen
 		int x = 4;
@@ -132,7 +133,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 			list.remove(0);
 
 		}
-		System.out.println(list);//syso to check which numbers are added to database
+//		System.out.println(list);//syso to check which numbers are added to database
 		return list;
 	}
 	
@@ -149,12 +150,20 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		return gameid;
 	}
 
-
-
 	public void createGameModel(int gameID) {
 		String username = lc.getCurrentAccount();
+		int amountOfPlayers = dbGameCollector.getAmountOfPlayers(gameID);
 		GameModel gm = new GameModel(gameID, dbGameCollector, username, dpc);
 		guc.setGameModel(gm);
+		Integer[] playerIDs = dbGameCollector.getPlayers(gameID);
+		
+		for (int i = 0; i < amountOfPlayers; i++) {
+			//kijk welke spelers er meedoen en maak ze
+			playerControllers[i] = new PlayerController(dpc);
+			playerControllers[i].setPlayerId(playerIDs[i]);
+			
+			gm.addPlayer(i, playerControllers[i].getPlayerName());
+		}
 		
 	}
 
