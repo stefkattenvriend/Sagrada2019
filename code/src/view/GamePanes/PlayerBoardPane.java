@@ -14,7 +14,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 
-public class PatternCardPane extends Pane{//misschien hernoemen naar bord pane? pattern card moet zich op het bord bevinden toch? ~Rens
+public class PlayerBoardPane extends Pane{//misschien hernoemen naar bord pane? pattern card moet zich op het bord bevinden toch? ~Rens
 	
 	private StackPane patternCard;
 	private TilePane patternCardView;
@@ -22,7 +22,7 @@ public class PatternCardPane extends Pane{//misschien hernoemen naar bord pane? 
 	private DiceHolderController dhc;
 	private PatterncardController pcc;
 	
-	public PatternCardPane(DiceHolderController dhc, PatterncardController pcc) {
+	public PlayerBoardPane(DiceHolderController dhc, PatterncardController pcc) {
 		this.dhc = dhc;
 		this.pcc = pcc;
 		setUp();

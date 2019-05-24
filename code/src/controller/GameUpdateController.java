@@ -15,7 +15,6 @@ public class GameUpdateController {
 	}
 
 	public void testRun() {
-		System.out.println("test");
 		if(gm != null) {
 			gm.updateRound();
 		}

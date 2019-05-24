@@ -151,9 +151,9 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 
 
 
-	public void createGameModel(int i) {
+	public void createGameModel(int gameID) {
 		String username = lc.getCurrentAccount();
-		GameModel gm = new GameModel(i, dbGameCollector, username, dpc);
+		GameModel gm = new GameModel(gameID, dbGameCollector, username, dpc);
 		guc.setGameModel(gm);
 		
 	}

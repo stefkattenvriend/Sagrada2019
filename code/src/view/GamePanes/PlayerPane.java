@@ -22,7 +22,7 @@ public class PlayerPane extends VBox{
 	private PaystoneHolderPane paystoneHolder;
 	private PointsPane points;
 	private PersonalObjectiveCardPane pocp;
-	private PatternCardPane patternCardPane;
+	private PlayerBoardPane patternCardPane;
 	private DiceHolderController dhc;
 	private PatterncardController dcc;
 	private MyScene myScene;
@@ -64,7 +64,7 @@ public class PlayerPane extends VBox{
 	}
 
 	private void setPatternCard() {
-		patternCardPane = new PatternCardPane(dhc, dcc);
+		patternCardPane = new PlayerBoardPane(dhc, dcc);
 		getChildren().add(patternCardPane);
 	}
 

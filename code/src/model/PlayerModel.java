@@ -35,9 +35,6 @@ public class PlayerModel {
 		isCurrentPlayer = dpc.getIfCurrentPlayer(playerid);
 		patid = dpc.getPatternCardID(playerid);
 		score = dpc.getScore(playerid);
-		
-		
-		
 	}
 
 

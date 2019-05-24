@@ -21,6 +21,7 @@ public class GameModel {
 		inGame = true;
 		pma = new PlayerModel[4];
 		addPlayerModelP1(username);
+		//todo add enemies
 
 	}
 	
@@ -33,7 +34,6 @@ public class GameModel {
 	}
 
 	public void updateRound() {
-		System.out.println("gameID: " + gameid);
 		dgc.getRoundNumber(gameid);
 		
 	}
