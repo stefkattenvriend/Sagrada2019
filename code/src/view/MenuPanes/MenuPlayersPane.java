@@ -60,7 +60,7 @@ public class MenuPlayersPane extends VBox {
 		players = new ArrayList<MenuDropdown>();
 		
 		for (int i = 0; i < 10; i++) {// vult verzameling met alle knoppen
-			players.add(new MenuDropdown(menuController, false, "[spelersnaam]", false)); // spelersnaam moet uit database komen
+			players.add(new MenuDropdown(menuController, false, arraylListName.get(i), false)); // spelersnaam moet uit database komen
 		}
 
 		for (int x = 0; x < players.size(); x++) { // voegt alle knoppen toe aan de lijst
