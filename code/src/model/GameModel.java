@@ -90,4 +90,10 @@ public class GameModel {
 			
 		}
 	}
+	
+	
+
+	public int getGameId() {
+		return gameid;
+	}
 }
