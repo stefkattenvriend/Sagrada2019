@@ -15,7 +15,7 @@ public class MenuController {
 	}
 	
 	public void setNewRoot() {
-		mc.getGameController().createGameModel(6);//gehardcode, moet later anders zijn aan game ID gebonden aan button
+		mc.getGameController().createGameModel(1);//gehardcode, moet later anders zijn aan game ID gebonden aan button
 		myScene.setGamePane();
 	}
 }
