@@ -1,5 +1,7 @@
 package databeest;
 
+import javafx.scene.paint.Color;
+
 //Stef
 public class DbPlayerCollector {
 	
@@ -52,6 +54,11 @@ public class DbPlayerCollector {
 	public int getScore(int playerID) {
 		int score = dbApplication.getScore(playerID);
 		return score;
+	}
+
+	public String getColor(int playerID) {
+		String color = dbApplication.getPlayerColor(playerID);
+		return color;
 	}
 	
 }
