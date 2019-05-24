@@ -1,6 +1,7 @@
 package view.MenuPanes;
 
 import controller.MenuController;
+import javafx.beans.value.ChangeListener;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -65,14 +66,15 @@ public class MenuDropdown extends VBox {
 			loadGame.setMinSize(160, 40);
 			loadGame.setMaxSize(160, 40);
 			loadGame.setOnAction(e -> menuController.loadGame());
-			gameInfoPane.getChildren().add(loadGame);
+			gameInfoPane.setRight(loadGame);
 		}
 		
 		if(yesOrNo) {
 			CheckBox inviteBtn = new CheckBox("kies");
 			inviteBtn.setPrefSize(20, 20);
-
 			inviteBtn.setUserData("Selecteer");
+			
+//			inviteBtn.selectedProperty().addListener(new ChangeListener<T>hange);
 //			if(inviteBtn.property) {
 //				System.out.println(username);
 //			}
