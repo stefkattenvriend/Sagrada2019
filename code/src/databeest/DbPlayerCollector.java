@@ -63,5 +63,10 @@ public class DbPlayerCollector {
 		String color = dbApplication.getPlayerColor(playerID);
 		return color;
 	}
+
+	public String getUsername(int playerid) {
+		String username = dbApplication.getplayerUsername(playerid);
+		return username;
+	}
 	
 }

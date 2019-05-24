@@ -578,4 +578,24 @@ public class DataBaseApplication
 
 	}
 
+	public String getplayerUsername(int playerID) {
+		Statement stmt = null;
+		String query = "SELECT username FROM player WHERE idplayer = " + playerID + ";";
+		String username = null;
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+				username = rs.getString(1);
+
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return username;
+	}
+
 }
