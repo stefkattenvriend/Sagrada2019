@@ -21,7 +21,7 @@ public class MasterController extends Application{//een controller die alle ande
 	private DbGameCollector dbGameCollector;
 	private DbPlayerCollector dbPlayerCollector;
 	private DbPlayerStatsCollector dbPlayerStatsCollector;
-	private DataBaseApplication databeest = new DataBaseApplication();
+	private DataBaseApplication databeest;
 	
 	private LoginController lc;
 	private PlayerController pc;
@@ -57,6 +57,7 @@ public class MasterController extends Application{//een controller die alle ande
 	}
 
 	private void startMasterController() {
+		databeest = new DataBaseApplication();
 		dbUserInfoCollector = new DbUserInfoCollector(databeest);
 		DatabasePTCCollector = new DbPatternCardInfoCollector(databeest);
 		dbChatCollector = new DbChatCollector(databeest);
@@ -131,6 +132,10 @@ public class MasterController extends Application{//een controller die alle ande
 	public PlayerController getPlayerController()
 	{
 		return this.pc;
+	}
+	
+	public DataBaseApplication getDatabaseApplication() {
+		return databeest;
 	}
 	
 	

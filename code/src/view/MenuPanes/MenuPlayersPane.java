@@ -1,7 +1,10 @@
 package view.MenuPanes;
 
 import java.util.ArrayList;
+
+import controller.DatabaseController;
 import controller.MenuController;
+import databeest.DataBaseApplication;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -21,14 +24,18 @@ public class MenuPlayersPane extends VBox {
 	private MenuController menuController;
 	private boolean loadbutton;
 	private boolean turnOn;
-	private ArrayList<MenuDropdown> players;
+	private ArrayList<MenuDropdown> menuItems;
 	private Button cancel;
 	private Button createGame;
 	private Label title;
 	private FlowPane btnPane;
+	private DataBaseApplication databeest;
+	private ArrayList<String> players;
 
 	public MenuPlayersPane(MenuController menuController) {
 		this.menuController = menuController;
+		databeest = menuController.getDataBaseApplication();
+		players = databeest.getPlayers();
 		setPaneSize();
 		createPlayersList(false);
 		setBackground(new Background(new BackgroundFill(Color.DARKORANGE, null, null))); // tijdelijk
@@ -57,14 +64,16 @@ public class MenuPlayersPane extends VBox {
 		listInput.setMinWidth(MenuPane.paneWidth - 80); 														// binding of listner.
 		listInput.setMaxWidth(MenuPane.paneWidth - 80);
 		playersList.setContent(listInput);
-		players = new ArrayList<MenuDropdown>();
+		menuItems = new ArrayList<MenuDropdown>();
 		
-		for (int i = 0; i < 10; i++) {// vult verzameling met alle knoppen
-			players.add(new MenuDropdown(menuController, false, arraylListName.get(i), false)); // spelersnaam moet uit database komen
+		databeest.getPlayers();
+		
+		for (int i = 0; i < players.size(); i++) {// vult verzameling met alle knoppen
+			menuItems.add(new MenuDropdown(menuController, false, players.get(i), false)); // spelersnaam moet uit database komen
 		}
 
-		for (int x = 0; x < players.size(); x++) { // voegt alle knoppen toe aan de lijst
-			listInput.getChildren().add(players.get(x));
+		for (int x = 0; x < menuItems.size(); x++) { // voegt alle knoppen toe aan de lijst
+			listInput.getChildren().add(menuItems.get(x));
 		}
 
 		setAlignment(Pos.TOP_CENTER);
@@ -81,15 +90,15 @@ public class MenuPlayersPane extends VBox {
 		btnPane.getChildren().addAll(cancel);
 		btnPane.setAlignment(Pos.CENTER);
 		getChildren().addAll(title, btnPane, playersList);
-		players.clear();
+		menuItems.clear();
 		listInput.getChildren().clear();
 
-		for (int i = 0; i < 10; i++) {// vult verzameling met alle knoppen
-			players.add(new MenuDropdown(menuController, false, "[spelersnaam]", true)); // spelersnaam moet uit database worden getrokken
+		for (int i = 0; i < players.size(); i++) {// vult verzameling met alle knoppen
+			menuItems.add(new MenuDropdown(menuController, false, players.get(i), true)); // spelersnaam moet uit database worden getrokken
 		}
 
-		for (int x = 0; x < players.size(); x++) { // voegt alle knoppen toe aan de lijst
-			listInput.getChildren().add(players.get(x));
+		for (int x = 0; x < menuItems.size(); x++) { // voegt alle knoppen toe aan de lijst
+			listInput.getChildren().add(menuItems.get(x));
 		}
 	}
 
@@ -98,15 +107,15 @@ public class MenuPlayersPane extends VBox {
 		btnPane.getChildren().clear();
 		btnPane.getChildren().add(createGame);
 		getChildren().addAll(title, btnPane, playersList);
-		players.clear();
+		menuItems.clear();
 		listInput.getChildren().clear();
 
-		for (int i = 0; i < 10; i++) {// vult verzameling met alle knoppen
-			players.add(new MenuDropdown(menuController, false, "[spelersnaam]", false)); // spelersnaam moet uit database worden getrokken
+		for (int i = 0; i < players.size(); i++) {// vult verzameling met alle knoppen
+			menuItems.add(new MenuDropdown(menuController, false, players.get(i), false)); // spelersnaam moet uit database worden getrokken
 		}
 
-		for (int x = 0; x < players.size(); x++) { // voegt alle knoppen toe aan de lijst
-			listInput.getChildren().add(players.get(x));
+		for (int x = 0; x < menuItems.size(); x++) { // voegt alle knoppen toe aan de lijst
+			listInput.getChildren().add(menuItems.get(x));
 		}
 	}
 

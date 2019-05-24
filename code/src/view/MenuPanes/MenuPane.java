@@ -52,7 +52,7 @@ public class MenuPane extends BorderPane {
 	private void setStartButton() {
 		Button button = new Button("start");
 		button.setPrefSize(80, 40);
-		button.setOnAction(e -> menuController.setNewRoot());
+		button.setOnAction(e -> menuController.loadGame());
 		setCenter(button);
 	}
 
