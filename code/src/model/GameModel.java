@@ -25,7 +25,9 @@ public class GameModel {
 		this.amountOfPlayers = amountOfPlayers;
 		inGame = true;
 		pma = new PlayerModel[amountOfPlayers];
-//		addPlayerModelP1(username);
+		//addPlayerModel(username);
+
+
 		//TODO add enemies
 		
 	}
@@ -42,21 +44,24 @@ public class GameModel {
 		dgc.getRoundNumber(gameid);
 	}
 	
-//	public void addPlayerModelP1(String username) {
-//		pma[0] = new PlayerModel();
-//		pma[0].setDht(DiceHolderType.PLAYERWINDOW);
-//		pma[0].setUsername(username);
-//		pma[0].setGameid(gameid);
-//		pma[0].getDatabaseInfo(dpc);
-//	}
-	
 	public void addPlayer(int i, String username)
 	{
-		pma[i-1] = new PlayerModel();
-		pma[i-1].setDht(DiceHolderType.PLAYERWINDOW);
-		pma[i-1].setUsername(username);
-		pma[i-1].setGameid(gameid);
-		pma[i-1].getDatabaseInfo(dpc);
+		pma[i] = new PlayerModel();
+		if(i == 0) {
+			pma[i].setDht(DiceHolderType.PLAYERWINDOW);
+		}
+		if(i == 1) {
+			pma[i].setDht(DiceHolderType.ENEMY1);
+		}
+		if(i == 2) {
+			pma[i].setDht(DiceHolderType.ENEMY2);
+		}
+		if(i == 3) {
+			pma[i].setDht(DiceHolderType.ENEMY3);
+		}
+		pma[i].setUsername(username);
+		pma[i].setGameid(gameid);
+		pma[i].getDatabaseInfo(dpc);
 
 	}
 	
@@ -72,7 +77,7 @@ public class GameModel {
 		return pm;
 	}
 	
-	public void addPlayerModelP1(String username) {
+	public void addPlayerModel(String username) {
 		pma[0] = new PlayerModel();
 		pma[0].setDht(DiceHolderType.PLAYERWINDOW);
 		pma[0].setUsername(username);
