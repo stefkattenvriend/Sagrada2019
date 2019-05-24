@@ -17,6 +17,8 @@ public class ToolCardController {
 	
 	public void useCard(int number) {
 		
+		
+		
 		if (number == 1) {
 			// na het kiezen dobbelsteen, waarde 1 verhogen of verlagen (bij 1 niet -1 bij 6
 			// niet +1)

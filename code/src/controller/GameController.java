@@ -18,6 +18,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private DiceHolderController dhc;
 	private PatterncardController pcc;
 	private DbPatternCardInfoCollector DatabasePTCCollector;
+	private DbCardCollector dbCardCollector;
 	private DbGameCollector dbGameCollector;
 	private DbPlayerCollector dpc;
 	private LayerController lyc;
@@ -26,7 +27,6 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private ChatController cc;
 	private GameUpdateController guc;
 	private GameModel gm;
-	private DbCardCollector dbCardCollector;
 	
 	private PlayerController pc;
 	
@@ -38,6 +38,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		this.DatabasePTCCollector = DatabasePTCCollector;
 		this.dpc = dpc;
 		this.lc = lc;
+		this.dbCardCollector = dbCardCollector;
 		pcc = new PatterncardController(DatabasePTCCollector);
 		dhc = new DiceHolderController(pcc);
 		lyc = new LayerController(pcc);
@@ -45,14 +46,8 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		this.guc = guc;
 		pc = new PlayerController(dpc);
 		this.dbGameCollector = dbGamecollector;
-		this.dbCardCollector = dbCardCollector;
-
 	}
 	
-	public void createCardsController() {
-        crc = new CardsController(dbCardCollector, dhc.getDiceController().getDMAL(), gm.getGameId());
-    }
-
 	public CardsController getCardsController() {
 		return crc;
 	}
@@ -178,6 +173,10 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 			gm.addPlayer(playerIDs[i], pc.getPlayerName());
 		}
 		this.createCardsController();
+	}
+	
+	public void createCardsController() {
+		crc = new CardsController(dbCardCollector, dhc.getDiceController().getDMAL(), gm.getGameId());
 	}
 
 }
