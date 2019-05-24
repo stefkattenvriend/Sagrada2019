@@ -1,11 +1,7 @@
 package view.GamePanes;
 import controller.CardsController;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 
 public class CardDisplayPane extends BorderPane{
@@ -42,8 +38,7 @@ public class CardDisplayPane extends BorderPane{
 		targetCard3 = new CardPane(cc.getTgc3(), false, cc, cc.getTgc3Nr());
 		
 		
-		vbox1.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null)));
-		vbox2.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null)));
+
 		vbox1.setPrefSize((GamePane.windowMaxWidth / 6), GamePane.windowMaxHeight);
 		vbox2.setPrefSize((GamePane.windowMaxWidth / 6), GamePane.windowMaxHeight);
 		vbox1.getChildren().addAll(toolCard1, toolCard2, toolCard3);

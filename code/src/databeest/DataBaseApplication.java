@@ -251,7 +251,7 @@ public class DataBaseApplication
 
 			// return string in console
 			while (rs.next()) {
-				// System.out.println(rs.getInt(1));
+				System.out.println(rs.getInt(1));
 				idToolCards.add(rs.getInt(1));
 			}
 			stmt.close();
@@ -272,7 +272,7 @@ public class DataBaseApplication
 
 			// return string in console
 			while (rs.next()) {
-				// System.out.println(rs.getInt(1));
+				System.out.println(rs.getInt(1));
 				idToolCards.add(rs.getInt(1));
 			}
 			stmt.close();

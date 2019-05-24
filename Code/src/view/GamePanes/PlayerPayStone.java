@@ -8,9 +8,9 @@ public class PlayerPayStone extends Pane {
 	
 	PlayerPayStone(CardPane cp) {
 		ImageView bg = new ImageView(new Image("/PlayerPayStones/0.png"));
-		setPrefSize(cp.getWidth() / 4,cp.getWidth() / 4);
+		setPrefSize(50, 50);
 		this.getChildren().addAll(bg);
-		bg.fitHeightProperty().bind(this.heightProperty());
-		bg.fitWidthProperty().bind(this.widthProperty());
+		bg.fitHeightProperty().bind(this.prefWidthProperty());
+		bg.fitWidthProperty().bind(this.prefHeightProperty());
 	}
 }

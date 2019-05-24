@@ -27,7 +27,6 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private ChatController cc;
 	private GameUpdateController guc;
 	private GameModel gm;
-	private DbCardCollector dbCardCollector;
 	
 	private PlayerController pc;
 	
@@ -49,10 +48,6 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		this.dbGameCollector = dbGamecollector;
 	}
 	
-	public void createCardsController() {
-        crc = new CardsController(dbCardCollector, dhc.getDiceController().getDMAL(), gm.getGameId());
-    }
-
 	public CardsController getCardsController() {
 		return crc;
 	}
