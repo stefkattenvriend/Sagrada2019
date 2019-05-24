@@ -241,10 +241,10 @@ public class DataBaseApplication
 		return colors;
 	}
 
-	public ArrayList<Integer> getToolCards() {
+	public ArrayList<Integer> getToolCards(int gameId) {
 		Statement stmt = null;
 		ArrayList<Integer> idToolCards = new ArrayList<>();
-		String query = "SELECT idtoolcard FROM gametoolcard WHERE idgame = " + this.getHighestGameID() + ";";
+		String query = "SELECT idtoolcard FROM gametoolcard WHERE idgame = " + gameId + ";";
 		try {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
@@ -261,11 +261,11 @@ public class DataBaseApplication
 		return idToolCards;
 	}
 
-	public ArrayList<Integer> getObjectiveCards() {
+	public ArrayList<Integer> getObjectiveCards(int gameId) {
 		Statement stmt = null;
 		ArrayList<Integer> idToolCards = new ArrayList<>();
 		String query = "SELECT idpublic_objectivecard FROM sharedpublic_objectivecard WHERE idgame = "
-				+ this.getHighestGameID();
+				+ gameId;
 		try {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);

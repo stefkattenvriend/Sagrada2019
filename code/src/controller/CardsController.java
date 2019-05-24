@@ -13,9 +13,9 @@ public class CardsController {
 	private CardBackgroundModel cardBackgroundModel;
 	private ToolCardController tcc;
 	
-	public CardsController(DbCardCollector dbCardCollector, ArrayList<DiceModel> DMAL){
+	public CardsController(DbCardCollector dbCardCollector, ArrayList<DiceModel> DMAL, int gameId){
 		this.dbCardCollector = dbCardCollector;
-		cardBackgroundModel = new CardBackgroundModel(this.dbCardCollector);
+		cardBackgroundModel = new CardBackgroundModel(this.dbCardCollector, gameId);
 		tcc = new ToolCardController(DMAL);
 	}
 	

@@ -43,7 +43,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		cc = new ChatController(dbChat);
 		this.guc = guc;
 		pc = new PlayerController(dpc);
-		crc = new CardsController(dbCardCollector, dhc.getDiceController().getDMAL());
+		crc = new CardsController(dbCardCollector, dhc.getDiceController().getDMAL(), gm.getGameId());
 		this.dbGameCollector = dbGamecollector;
 
 	}
