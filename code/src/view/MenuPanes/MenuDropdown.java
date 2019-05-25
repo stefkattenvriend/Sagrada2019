@@ -1,6 +1,8 @@
 package view.MenuPanes;
 
 import controller.MenuController;
+import javafx.beans.value.ChangeListener;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -19,14 +21,18 @@ public class MenuDropdown extends VBox {
 	private MenuController menuController;
 	private boolean yesOrNo;
 	private String username;
+	private int totalPlayers;
+	private boolean isChecked = false;
+	private MenuPlayersPane menuPlayersPane;
 
-	public MenuDropdown(MenuController menuController, boolean loadbutton, String btnName, boolean yesOrNo) {
+	public MenuDropdown(MenuController menuController, boolean loadbutton, String btnName, boolean yesOrNo, MenuPlayersPane menuPlayersPane) {
 		this.menuController = menuController;
 		username = btnName;
+		this.menuPlayersPane = menuPlayersPane;
 		createInfoPane(loadbutton, yesOrNo);
 		createButton(btnName);
 		getChildren().add(btn);
-		
+
 		if (yesOrNo) {
 			getChildren().clear();
 			getChildren().addAll(btn, gameInfoPane);
@@ -65,19 +71,41 @@ public class MenuDropdown extends VBox {
 			loadGame.setMinSize(160, 40);
 			loadGame.setMaxSize(160, 40);
 			loadGame.setOnAction(e -> menuController.loadGame());
-			gameInfoPane.getChildren().add(loadGame);
+			gameInfoPane.setRight(loadGame);
 		}
-		
-		if(yesOrNo) {
-			CheckBox inviteBtn = new CheckBox("kies");
-			inviteBtn.setPrefSize(20, 20);
 
+		if (yesOrNo) {
+			CheckBox inviteBtn = new CheckBox("kies");
+			inviteBtn.setPrefSize(40, 20);
 			inviteBtn.setUserData("Selecteer");
-//			if(inviteBtn.property) {
-//				System.out.println(username);
-//			}
+			inviteBtn.setOnAction(e -> selectPlayer());
+
+//			inviteBtn.selectedProperty().addListener(new ChangeListener<T>hange);
 			gameInfoPane.setLeft(inviteBtn);
 		}
 
 	}
+
+	public void selectPlayer() {
+
+		if (!isChecked) {
+//			System.out.println(username + " is in!");
+			menuPlayersPane.addPlayer(username);
+			isChecked = true;
+		} else if (isChecked) {
+			//remove from arraylist
+//			System.out.println(username + " is out..");
+			menuPlayersPane.removePlayer(username);
+			isChecked = false;
+		}
+	}
+
+	public String getSelectedPlayer() {
+		return username;
+	}
+
+	public boolean isClicked() {
+		return isChecked;
+	}
+
 }

@@ -59,7 +59,7 @@ public class MenuGamesPane extends FlowPane{
 		ArrayList<MenuDropdown> games = new ArrayList<MenuDropdown>();
 		
 		for(int i = 0; i < 10; i++) {// vult verzameling met alle knoppen
-			games.add(new MenuDropdown(menuController, true, "Sagrada " + i, false));
+			games.add(new MenuDropdown(menuController, true, "Sagrada " + i, false, null));
 			
 		}
 		
