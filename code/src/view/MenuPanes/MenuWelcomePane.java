@@ -21,7 +21,7 @@ public class MenuWelcomePane extends FlowPane{
 		this.loginController = loginController;
 		setPaneSize();
 		setLabels();
-		setBackground(new Background(new BackgroundFill(Color.ORANGE, null, null))); //tijdelijk
+//		setBackground(new Background(new BackgroundFill(Color.BLACK, null, null))); //tijdelijk
 	}
 	
 	private void setLabels() {
@@ -32,9 +32,11 @@ public class MenuWelcomePane extends FlowPane{
 		
 		label1.setText("Welkom terug,");
 		label1.setFont(Font.font ("Verdana", FontWeight.BOLD, 40));
+		label1.setTextFill(Color.DARKMAGENTA);
 		
 		label2.setText(loginController.getCurrentAccount());
 		label2.setFont(Font.font ("Verdana", 30));
+		label2.setTextFill(Color.BLACK);
 		
 		text.getChildren().addAll(label1, label2);
 		text.setAlignment(Pos.CENTER);

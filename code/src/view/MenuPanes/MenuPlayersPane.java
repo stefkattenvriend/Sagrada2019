@@ -40,7 +40,7 @@ public class MenuPlayersPane extends VBox {// door joery
 		players = databeest.getPlayers();
 		setPaneSize();
 		createPlayersList(false);
-		setBackground(new Background(new BackgroundFill(Color.DARKORANGE, null, null))); // tijdelijk
+		setBackground(new Background(new BackgroundFill(Color.rgb(208, 215, 206), null, null))); // tijdelijk
 	}
 
 	private void createPlayersList(boolean turnon) {
@@ -51,6 +51,7 @@ public class MenuPlayersPane extends VBox {// door joery
 		title = new Label();
 		title.setText("Spelers");
 		title.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
+		title.setTextFill(Color.GREEN);
 
 		//buttons
 		btnPane = new FlowPane();
@@ -70,7 +71,7 @@ public class MenuPlayersPane extends VBox {// door joery
 				(MenuPane.windowMaxHeight - (MenuPane.windowMaxHeight / 3)) - 150);
 		playersList.setMaxSize(MenuPane.paneWidth - 60,
 				(MenuPane.windowMaxHeight - (MenuPane.windowMaxHeight / 3)) - 150);
-		playersList.setBackground(new Background(new BackgroundFill(Color.AQUA, null, null)));
+//		playersList.setBackground(new Background(new BackgroundFill(Color.AQUA, null, null)));
 		playersList.setFitToWidth(true);
 		playersList.setFitToHeight(true);
 		listInput = new VBox();
@@ -204,7 +205,7 @@ public class MenuPlayersPane extends VBox {// door joery
 	}
 
 	private void setPaneSize() {
-		setMinSize(MenuPane.paneWidth, MenuPane.windowMaxHeight - (MenuPane.windowMaxHeight / 3));
-		setMaxSize(MenuPane.paneWidth, MenuPane.windowMaxHeight - (MenuPane.windowMaxHeight / 3));
+		setMinSize(MenuPane.paneWidth - 40, MenuPane.windowMaxHeight - (MenuPane.windowMaxHeight / 3) - 40);
+		setMaxSize(MenuPane.paneWidth - 40, MenuPane.windowMaxHeight - (MenuPane.windowMaxHeight / 3) - 40);
 	}
 }
