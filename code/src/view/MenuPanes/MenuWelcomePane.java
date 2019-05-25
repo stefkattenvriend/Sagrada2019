@@ -3,9 +3,12 @@ package view.MenuPanes;
 import controller.LoginController;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -40,7 +43,12 @@ public class MenuWelcomePane extends FlowPane{
 		
 		text.getChildren().addAll(label1, label2);
 		text.setAlignment(Pos.CENTER);
-		getChildren().addAll(text);
+		
+		Image image = new Image("layout_images/sagradalogo.png");
+		ImageView imageView = new ImageView(image);
+		
+		
+		getChildren().addAll(imageView, text);
 		setAlignment(Pos.CENTER);
 	}
 	
