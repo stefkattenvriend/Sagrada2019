@@ -15,6 +15,10 @@ public class GameModel {
 	private DbGameCollector dgc;
 	private DbPlayerCollector dpc;
 	private PlayerModel[] pma;
+	
+
+
+
 	private DiceController dc;
 	private DiceModel[] dm;
 	private int enemies = 1;
@@ -43,6 +47,10 @@ public class GameModel {
 
 	public void updateRound() {
 		dgc.getRoundNumber(gameid);
+	}
+	
+	public PlayerModel[] getPma() {
+		return pma;
 	}
 	
 	public void addPlayer(int i, int playerID, String username)
