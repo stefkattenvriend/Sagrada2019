@@ -1,12 +1,19 @@
 package view.MenuPanes;
 
 import controller.MenuController;
+import javafx.beans.value.ChangeListener;
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
-public class MenuDropdown extends VBox {// door joery
+public class MenuDropdown extends VBox {
 
 	private Button btn;
 	private boolean clicked = false;
@@ -18,8 +25,7 @@ public class MenuDropdown extends VBox {// door joery
 	private boolean isChecked = false;
 	private MenuPlayersPane menuPlayersPane;
 
-	public MenuDropdown(MenuController menuController, boolean loadbutton, String btnName, boolean yesOrNo,
-		MenuPlayersPane menuPlayersPane) {
+	public MenuDropdown(MenuController menuController, boolean loadbutton, String btnName, boolean yesOrNo, MenuPlayersPane menuPlayersPane) {
 		this.menuController = menuController;
 		username = btnName;
 		this.menuPlayersPane = menuPlayersPane;
@@ -73,6 +79,8 @@ public class MenuDropdown extends VBox {// door joery
 			inviteBtn.setPrefSize(40, 20);
 			inviteBtn.setUserData("Selecteer");
 			inviteBtn.setOnAction(e -> selectPlayer());
+
+//			inviteBtn.selectedProperty().addListener(new ChangeListener<T>hange);
 			gameInfoPane.setLeft(inviteBtn);
 		}
 
@@ -80,10 +88,13 @@ public class MenuDropdown extends VBox {// door joery
 
 	public void selectPlayer() {
 
-		if (!isChecked) { //add selected player to arraylist
+		if (!isChecked) {
+//			System.out.println(username + " is in!");
 			menuPlayersPane.addPlayer(username);
 			isChecked = true;
-		} else if (isChecked) {//remove deselected player from arraylist
+		} else if (isChecked) {
+			//remove from arraylist
+//			System.out.println(username + " is out..");
 			menuPlayersPane.removePlayer(username);
 			isChecked = false;
 		}
