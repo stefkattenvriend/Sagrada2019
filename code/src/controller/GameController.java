@@ -47,7 +47,6 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		this.dpc = dpc;
 		this.lc = lc;
 		this.dbCardCollector = dbCardCollector;
-		pcc = new PatterncardController(DatabasePTCCollector);
 		lyc = new LayerController(pcc);
 		cc = new ChatController(dbChat);
 		this.dbDieCollector = ddc;
@@ -183,6 +182,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 			gm.addPlayer(i, playerIDs[i], username);
 		}
 		this.dhc = new DiceHolderController(pcc, dbDieCollector, gm.getGameId());
+		pcc = new PatterncardController(DatabasePTCCollector, gm);
 		this.createCardsController();
 	}
 	

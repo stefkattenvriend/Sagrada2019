@@ -9,6 +9,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import model.GameModel;
 import model.PatterncardModel;
 
 public class PatterncardController {
@@ -19,10 +20,37 @@ public class PatterncardController {
 	private DbPatternCardInfoCollector DatabasePTCCollector;
 	
 	
-	public PatterncardController(DbPatternCardInfoCollector DatabasePTCCollector) {
+	public PatterncardController(DbPatternCardInfoCollector DatabasePTCCollector, GameModel gm) {
 		this.DatabasePTCCollector = DatabasePTCCollector;
+		setup(gm);
 	}
 	
+	
+	private void setup(GameModel gm) {
+		getPcModels(gm);
+	}	
+	
+
+	private void getPcModels(GameModel gm) {
+		
+		for (int i = 0; i < gm.getPma().length; i++) {
+			if (gm.getPma()[i] != null) {
+				if (gm.getPma()[i].getPatid() != 0) {
+					ArrayList<PatterncardModel> newPC = DatabasePTCCollector.getPatternCard(gm.getPma()[i].getPatid());
+					for (int j = 0; j < newPC.size(); j++) {
+						pcmodels.add(newPC.get(j));
+						if(newPC.get(j).getNumber() != 0) {
+							System.out.println(newPC.get(j).getX() + newPC.get(j).getY() + newPC.get(j).getNumber());
+						}
+						
+					}
+				}
+			}
+		}
+		
+		
+		
+	}
 	
 	public PatterncardModel getPcModel(int i) {
 		
@@ -35,15 +63,6 @@ public class PatterncardController {
 		return pcmodels.size();
 	}
 	
-	public void CreatePatternCard(int Patternnumber, PatterncardType pct) {
-		
-		
-		for (int i = 1; i < 6; i++) {
-			for (int j = 1; j < 5; j++) {
-				pcmodels.add(new PatterncardModel(Patternnumber, i, j, pct, DatabasePTCCollector));
-			}	
-		}
-	}
 	
 	
 	public BorderPane PatterncardCreate(int x, int y, int PatterncardNumber, int size, PatterncardType pct) {
@@ -56,7 +75,7 @@ public class PatterncardController {
 		
 		//pane.setPrefSize(arg0, arg1);
 		
-		CreatePatternCard(PatterncardNumber, pct);
+		
 		
 		for (int i = 0; i < pcmodels.size(); i++) {
 			if (pcmodels.get(i).getPatterncardNumber() == PatterncardNumber && pcmodels.get(i).getX() == x && pcmodels.get(i).getY() == y) {
