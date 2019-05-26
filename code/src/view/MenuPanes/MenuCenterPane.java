@@ -2,6 +2,7 @@ package view.MenuPanes;
 
 import controller.LoginController;
 import controller.MenuController;
+import javafx.geometry.Pos;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -32,8 +33,8 @@ public class MenuCenterPane extends VBox{
 	
 	private void createPanes() {
 		welcomePane = new MenuWelcomePane(loginController);
-		playersPane = new MenuPlayersPane(menuController);
-		
+		playersPane = new MenuPlayersPane(menuController, loginController);
+		setAlignment(Pos.CENTER);
 		getChildren().addAll(welcomePane, playersPane);
 	}
 

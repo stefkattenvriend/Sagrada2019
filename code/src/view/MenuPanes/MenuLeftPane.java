@@ -1,5 +1,6 @@
 package view.MenuPanes;
 
+import javafx.geometry.Pos;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -31,7 +32,7 @@ public class MenuLeftPane extends VBox{
 		resultsPane = new MenuInvitePane();
 		invitePane = new MenuResultsPane();
 		
-		
+		setAlignment(Pos.CENTER);
 		getChildren().addAll(invitePane, resultsPane);
 	}
 

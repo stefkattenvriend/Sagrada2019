@@ -3,6 +3,7 @@ import controller.DiceHolderController;
 import controller.GameController;
 import controller.LayerController;
 import controller.PatterncardController;
+import controller.PointsController;
 //joery
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -26,6 +27,7 @@ public class GamePane extends StackPane {
 	private BorderPane gamePane;
 	private LayerController lyc;
 	private MyScene myScene;
+	private PointsController pc;
 	
 	public GamePane(GameController gameController, MyScene myScene) {
 		this.gc = gameController;
@@ -33,6 +35,8 @@ public class GamePane extends StackPane {
 		this.dhc = gc.getDiceHolderController();
 		this.pcc = gc.getPatterncardController();
 		this.lyc = gc.getLayerController();
+		this.pc = gc.getPointsController();
+		
 		
 		setScreenSize();
 		setUp();
@@ -40,7 +44,7 @@ public class GamePane extends StackPane {
 
 	private void setUp() {
 		gamePane = new BorderPane();
-		playerPane = new PlayerPane(dhc, pcc, myScene, gc);
+		playerPane = new PlayerPane(dhc, pcc, myScene, gc, pc);
 		cardDisplayPane = new CardDisplayPane(gc.getCardsController());
 		enemyPane = new EnemyPane(gc);
 		gamePane.setLeft(cardDisplayPane);
@@ -59,6 +63,10 @@ public class GamePane extends StackPane {
 		if(false) {//hardcoded -> het is de eerste speelronde
 			getChildren().addAll(gamePane, pane);	
 		}
+	}
+	
+	public PlayerPane getPlayerPane() {
+		return playerPane;
 	}
 
 	private void setScreenSize() {
