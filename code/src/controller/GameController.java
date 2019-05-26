@@ -29,7 +29,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private LoginController lc;
 	private CardsController crc;
 	private ChatController cc;
-	private PointsController pc;
+	private PointsController ptsc;
 
 	private GameUpdateController guc;
 	private GameModel gm;
@@ -82,7 +82,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	}
 	
 	public PointsController getPointsController() {
-		return pc;
+		return ptsc; }
 	public GameModel getGm() {
 		return gm;
 	}
