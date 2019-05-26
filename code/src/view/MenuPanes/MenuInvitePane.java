@@ -9,7 +9,7 @@ public class MenuInvitePane extends Pane{
 	
 	public MenuInvitePane() {
 		setPaneSize();
-		setBackground(new Background(new BackgroundFill(Color.DARKGREEN, null, null))); //tijdelijk
+//		setBackground(new Background(new BackgroundFill(Color.DARKGREEN, null, null))); //tijdelijk
 	}
 
 	private void setPaneSize() {
