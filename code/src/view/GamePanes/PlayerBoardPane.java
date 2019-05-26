@@ -14,15 +14,17 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 
-public class PatternCardPane extends Pane{//misschien hernoemen naar bord pane? pattern card moet zich op het bord bevinden toch? ~Rens
+public class PlayerBoardPane extends Pane{//misschien hernoemen naar bord pane? pattern card moet zich op het bord bevinden toch? ~Rens
 	
 	private StackPane patternCard;
 	private TilePane patternCardView;
 	private TilePane patternCardDice;
 	private DiceHolderController dhc;
 	private PatterncardController pcc;
+	private int patID;
 	
-	public PatternCardPane(DiceHolderController dhc, PatterncardController pcc) {
+	public PlayerBoardPane(DiceHolderController dhc, PatterncardController pcc, int patID) {
+		this.patID = patID;
 		this.dhc = dhc;
 		this.pcc = pcc;
 		setUp();
@@ -32,7 +34,7 @@ public class PatternCardPane extends Pane{//misschien hernoemen naar bord pane? 
 		setPaneSize();
 		setPatternCard();
 		addDiceHolders();
-		addPatternCard(4);
+		addPatternCard();
 		//aanduiding();
 	}
 
@@ -60,7 +62,12 @@ public class PatternCardPane extends Pane{//misschien hernoemen naar bord pane? 
 		}
 	}
 	
-	private void addPatternCard(int pcnumber) {
+	private void addPatternCard() {
+		
+		int pcnumber = patID;
+		
+		
+		
 		for (int i = 1; i < 5; i++) {
 			for (int j = 1; j < 6; j++) {
 				double size = ((GamePane.windowMaxWidth / 3) / 5) - 1; 

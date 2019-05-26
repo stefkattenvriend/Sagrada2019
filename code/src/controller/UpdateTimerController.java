@@ -12,7 +12,7 @@ public class UpdateTimerController implements Runnable {
 	public void run() {
 		while(true) {
 			guc.testRun();
-			try {
+			try {//3 seconden
 				Thread.sleep(3000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();

@@ -2,8 +2,10 @@ package view.GamePanes;
 //joery
 
 import controller.DiceHolderController;
+import controller.GameController;
 import controller.PatterncardController;
 import controller.PointsController;
+import helpers.DiceHolderType;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -23,15 +25,17 @@ public class PlayerPane extends VBox{
 	private PaystoneHolderPane paystoneHolder;
 	private PointsPane points;
 	private PersonalObjectiveCardPane pocp;
-	private PatternCardPane patternCardPane;
+	private PlayerBoardPane patternCardPane;
 	private DiceHolderController dhc;
 	private PatterncardController dcc;
+	private GameController gc;
 	private MyScene myScene;
 	private PointsController pc;
 	
-	public PlayerPane(DiceHolderController dhc, PatterncardController dcc, MyScene myScene, PointsController pc) {
+	public PlayerPane(DiceHolderController dhc, PatterncardController dcc, MyScene myScene, GameController gc, PointsController pc) {
 		this.dhc = dhc;
 		this.dcc = dcc;
+		this.gc = gc;
 		this.myScene = myScene;
 		this.pc = pc;
 		setBackground(controller.Main.PLAYERPANE); // aanduiding voor pane
@@ -42,7 +46,7 @@ public class PlayerPane extends VBox{
 		setPaneSize();
 		setDiceSection();
 		setPersonalAttributes();
-		setPatternCard();
+		setPlayerBoardPane();
 		setTinyButtonSection();
 	}
 
@@ -66,8 +70,9 @@ public class PlayerPane extends VBox{
 		getChildren().add(section);
 	}
 
-	private void setPatternCard() {
-		patternCardPane = new PatternCardPane(dhc, dcc);
+	private void setPlayerBoardPane() {
+		int patID = gc.getGm().getPlayerModel(DiceHolderType.PLAYERWINDOW).getPatid();
+		patternCardPane = new PlayerBoardPane(dhc, dcc, patID);
 		getChildren().add(patternCardPane);
 	}
 

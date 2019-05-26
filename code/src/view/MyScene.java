@@ -36,7 +36,7 @@ public class MyScene extends Scene{
 		
 		setRoot(root);
 		setNewRoot(loginPane);
-		gamePane = new GamePane(mc.getGameController(), this);
+		
 	}
 
 	public void setNewRoot(Pane pane) {
@@ -56,7 +56,7 @@ public class MyScene extends Scene{
 	}
 
 	public void setGamePane() {
-		
+		gamePane = new GamePane(mc.getGameController(), this);
 		setNewRoot(gamePane);
 		mc.getStage().setHeight(gamePane.windowMaxHeight);
 		mc.getStage().setWidth(gamePane.windowMaxWidth);

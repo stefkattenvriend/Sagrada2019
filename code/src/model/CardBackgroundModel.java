@@ -1,7 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-
 import databeest.DbCardCollector;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -12,23 +10,21 @@ public class CardBackgroundModel {
 	private int ToolCard1;
 	private int ToolCard2;
 	private int ToolCard3;
-	private ArrayList<Integer> ToolCards;
 	
 	private int TargetCard1;
 	private int TargetCard2;
 	private int TargetCard3;
-	private ArrayList<Integer> TargetCards;
 	
-	public CardBackgroundModel(DbCardCollector dbCardCollector) {
+	public CardBackgroundModel(DbCardCollector dbCardCollector, int gameId) {
 		this.dbCardCollector = dbCardCollector;
 		
-		ToolCard1 = this.dbCardCollector.getToolcards().get(0);
-		ToolCard2 = this.dbCardCollector.getToolcards().get(1);
-		ToolCard3 = this.dbCardCollector.getToolcards().get(2);
+		ToolCard1 = this.dbCardCollector.getToolcards(gameId).get(0);
+		ToolCard2 = this.dbCardCollector.getToolcards(gameId).get(1);
+		ToolCard3 = this.dbCardCollector.getToolcards(gameId).get(2);
 		
-		TargetCard1 = this.dbCardCollector.getObjectivecards().get(0);
-		TargetCard2 = this.dbCardCollector.getObjectivecards().get(1);
-		TargetCard3 = this.dbCardCollector.getObjectivecards().get(2);
+		TargetCard1 = this.dbCardCollector.getObjectivecards(gameId).get(0);
+		TargetCard2 = this.dbCardCollector.getObjectivecards(gameId).get(1);
+		TargetCard3 = this.dbCardCollector.getObjectivecards(gameId).get(2);
 	}
 	
 	public int getToolCard1() {
