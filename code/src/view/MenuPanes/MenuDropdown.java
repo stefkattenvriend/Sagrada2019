@@ -65,7 +65,7 @@ public class MenuDropdown extends VBox {// door joery
 		gameInfoPane.setMaxSize(MenuPane.paneWidth - 60, 60);
 
 		if (gamePane) {
-			Button loadGame = new Button("Load game");
+			Button loadGame = new Button("Open game");
 			loadGame.setMinSize(160, 40);
 			loadGame.setMaxSize(160, 40);
 			loadGame.setOnAction(e -> menuController.loadGame());
@@ -73,9 +73,9 @@ public class MenuDropdown extends VBox {// door joery
 		}
 
 		if (playersPane) {
-			CheckBox inviteBtn = new CheckBox("kies");
+			CheckBox inviteBtn = new CheckBox("Kies");
 			inviteBtn.setPrefSize(40, 20);
-			inviteBtn.setUserData("Selecteer");
+//			inviteBtn.setUserData("kies");
 			inviteBtn.setOnAction(e -> selectPlayer());
 			gameInfoPane.setLeft(inviteBtn);
 		}
