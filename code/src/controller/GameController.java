@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 import databeest.DbCardCollector;
 import databeest.DbChatCollector;
+import databeest.DbDieCollector;
 import databeest.DbGameCollector;
 import databeest.DbPatternCardInfoCollector;
 import databeest.DbPlayerCollector;
@@ -20,6 +21,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private DbPatternCardInfoCollector DatabasePTCCollector;
 	private DbCardCollector dbCardCollector;
 	private DbGameCollector dbGameCollector;
+	private DbDieCollector dbDieCollector;
 	private DbPlayerCollector dpc;
 	private LayerController lyc;
 	private LoginController lc;
@@ -34,15 +36,15 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private ArrayList<String> colors; 
 
 	public GameController(DbPatternCardInfoCollector DatabasePTCCollector, DbGameCollector dbGamecollector,
-			LoginController lc, DbChatCollector dbChat, DbCardCollector dbCardCollector, GameUpdateController guc, DbPlayerCollector dpc) {
+			LoginController lc, DbChatCollector dbChat, DbCardCollector dbCardCollector, GameUpdateController guc, DbPlayerCollector dpc, DbDieCollector ddc) {
 		this.DatabasePTCCollector = DatabasePTCCollector;
 		this.dpc = dpc;
 		this.lc = lc;
 		this.dbCardCollector = dbCardCollector;
 		pcc = new PatterncardController(DatabasePTCCollector);
-		dhc = new DiceHolderController(pcc);
 		lyc = new LayerController(pcc);
 		cc = new ChatController(dbChat);
+		this.dbDieCollector = ddc;
 		this.guc = guc;
 		pc = new PlayerController(dpc);
 		this.dbGameCollector = dbGamecollector;
@@ -172,6 +174,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 			pc.setPlayerId(playerIDs[i]);
 			gm.addPlayer(i, playerIDs[i], username);
 		}
+		this.dhc = new DiceHolderController(pcc, dbDieCollector, gm.getGameId());
 		this.createCardsController();
 	}
 	
