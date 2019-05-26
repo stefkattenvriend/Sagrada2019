@@ -10,7 +10,7 @@ public class MenuWaitingPane extends Pane{
 	
 	public MenuWaitingPane() {
 		setPaneSize();
-//		setBackground(new Background(new BackgroundFill(Color.DARKRED, null, null))); //tijdelijk
+		setBackground(new Background(new BackgroundFill(Color.DARKRED, null, null))); //tijdelijk
 	}
 	
 	private void setPaneSize() {

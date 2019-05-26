@@ -1,7 +1,6 @@
 package view.MenuPanes;
 
 import controller.MenuController;
-import javafx.geometry.Pos;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -35,7 +34,7 @@ public class MenuRightPane extends VBox{
 		menuGamesPane = new MenuGamesPane(myScene, menuController);
 		
 		menuWaitingPane = new MenuWaitingPane();
-		setAlignment(Pos.CENTER);
+		
 		getChildren().addAll(menuGamesPane, menuWaitingPane);
 		
 	}
@@ -46,7 +45,7 @@ public class MenuRightPane extends VBox{
 	}
 	
 	private void tijdelijkAanduiding() {
-//		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null)));
-		setBackground(new Background(new BackgroundFill(Color.rgb(255, 255, 255, 0.7), null, null)));
+		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null)));
+		setBackground(new Background(new BackgroundFill(Color.RED, null, null)));
 	}
 }

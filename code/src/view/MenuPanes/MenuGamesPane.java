@@ -37,19 +37,18 @@ public class MenuGamesPane extends FlowPane{
 		this.menuController = menuController;
 		setPaneSize();
 		createActiveGamesList();
-		setBackground(new Background(new BackgroundFill(Color.rgb(183, 215, 225), null, null))); //tijdelijk
+		setBackground(new Background(new BackgroundFill(Color.RED, null, null))); //tijdelijk
 	}
 	
 	private void createActiveGamesList() {
 		Label title = new Label();
 		title.setText("Games");
 		title.setFont(Font.font ("Verdana", FontWeight.BOLD, 30));
-		title.setTextFill(Color.BLUE);
 		
 		gamesList = new ScrollPane();
 		gamesList.setMinSize(MenuPane.paneWidth - 60, (MenuPane.windowMaxHeight / 2) - 60);
 		gamesList.setMaxSize(MenuPane.paneWidth - 60, (MenuPane.windowMaxHeight / 2) - 60);
-//		gamesList.setBackground(new Background(new BackgroundFill(Color.AQUA, null, null)));
+		gamesList.setBackground(new Background(new BackgroundFill(Color.AQUA, null, null)));
 		gamesList.setFitToWidth(true);
 		gamesList.setFitToHeight(true);
 	
@@ -73,13 +72,14 @@ public class MenuGamesPane extends FlowPane{
 		
 		gamesList.setContent(list);
 		
+		
 		setAlignment(Pos.CENTER);
 		getChildren().addAll(title, gamesList);
 		
 	}
 
 	private void setPaneSize() {
-		setMinSize((GamePane.windowMaxWidth / 3) - 40, (GamePane.windowMaxHeight / 2));
-		setMaxSize((GamePane.windowMaxWidth / 3) - 40, (GamePane.windowMaxHeight / 2));
+		setMinSize(GamePane.windowMaxWidth / 3, GamePane.windowMaxHeight / 2);
+		setMaxSize(GamePane.windowMaxWidth / 3, GamePane.windowMaxHeight / 2);
 	}
 }
