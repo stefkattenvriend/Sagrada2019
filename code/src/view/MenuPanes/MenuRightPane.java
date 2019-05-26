@@ -4,9 +4,6 @@ import controller.MenuController;
 import javafx.geometry.Pos;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import view.MyScene;
@@ -29,12 +26,13 @@ public class MenuRightPane extends VBox{
 		setPaneSize();
 		tijdelijkAanduiding();
 		createPanes();
+		setAlignment(Pos.CENTER);
 	}
 	
 	private void createPanes() {
 		menuGamesPane = new MenuGamesPane(myScene, menuController);
-		
 		menuWaitingPane = new MenuWaitingPane();
+		
 		setAlignment(Pos.CENTER);
 		getChildren().addAll(menuGamesPane, menuWaitingPane);
 		
@@ -46,7 +44,6 @@ public class MenuRightPane extends VBox{
 	}
 	
 	private void tijdelijkAanduiding() {
-//		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null)));
 		setBackground(new Background(new BackgroundFill(Color.rgb(255, 255, 255, 0.7), null, null)));
 	}
 }
