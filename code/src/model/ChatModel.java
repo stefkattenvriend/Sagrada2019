@@ -1,9 +1,8 @@
 package model;
 
-import java.sql.Date;
 import java.util.ArrayList;
 
-import databeest.DBChatCollector;
+import databeest.DbChatCollector;
 
 //milan
 public class ChatModel {
@@ -11,12 +10,12 @@ public class ChatModel {
 	//Instance Variables
 	private String message;
 	private ArrayList<String> messages = new ArrayList<>();
-	private DBChatCollector chatdatabase;
+	private DbChatCollector chatdatabase;
 	
 	//Constants
 	
 	//Constructor
-	public ChatModel(DBChatCollector chatdb) {
+	public ChatModel(DbChatCollector chatdb) {
 		chatdatabase = chatdb;
 	}
 	
@@ -24,8 +23,8 @@ public class ChatModel {
 		messages.add(message);
 	}
 	
-	public void pushChat(String message, int playerid, Date time) {
-		chatdatabase.pushChat(message, playerid, time);
-	}
+//	public void pushChat(String message, int playerid, Date time) {
+//		chatdatabase.pushChat(message, playerid, time);
+//	}
 	
 }

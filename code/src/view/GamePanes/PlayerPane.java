@@ -2,11 +2,17 @@ package view.GamePanes;
 //joery
 
 import controller.DiceHolderController;
+import controller.GameController;
 import controller.PatterncardController;
+import helpers.DiceHolderType;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import view.MyScene;
 
 
 public class PlayerPane extends VBox{
@@ -15,16 +21,20 @@ public class PlayerPane extends VBox{
 	private RoundTrackPane roundTrackPane;
 	private DiceOfferPane diceOfferPane;
 	private HBox personalAttributes;
-	private PaystoneHolder paystoneHolder;
-	private Points points;
+	private PaystoneHolderPane paystoneHolder;
+	private PointsPane points;
 	private PersonalObjectiveCardPane pocp;
-	private PatternCardPane patternCardPane;
+	private PlayerBoardPane patternCardPane;
 	private DiceHolderController dhc;
 	private PatterncardController dcc;
+	private GameController gc;
+	private MyScene myScene;
 	
-	public PlayerPane(DiceHolderController dhc, PatterncardController dcc) {
+	public PlayerPane(DiceHolderController dhc, PatterncardController dcc, MyScene myScene, GameController gc) {
 		this.dhc = dhc;
 		this.dcc = dcc;
+		this.gc = gc;
+		this.myScene = myScene;
 		setBackground(controller.Main.PLAYERPANE); // aanduiding voor pane
 		setUp();
 	}
@@ -33,18 +43,40 @@ public class PlayerPane extends VBox{
 		setPaneSize();
 		setDiceSection();
 		setPersonalAttributes();
-		setPatternCard();
+		setPlayerBoardPane();
+		setTinyButtonSection();
 	}
 
-	private void setPatternCard() {
-		patternCardPane = new PatternCardPane(dhc, dcc);
+	private void setTinyButtonSection() {
+		BorderPane section = new BorderPane();
+		
+		Button pass = new Button("Pass");
+		pass.setMinSize(60, 30);
+		pass.setMaxSize(60, 30);
+		
+		Button menu = new Button("Menu");
+		menu.setMinSize(60, 30);
+		menu.setMaxSize(60, 30);
+		menu.setOnAction(e -> myScene.setMenuPane());
+		
+		pass.setAlignment(Pos.CENTER_LEFT);
+		menu.setAlignment(Pos.CENTER_RIGHT);
+		
+		section.setLeft(pass);
+		section.setRight(menu);
+		getChildren().add(section);
+	}
+
+	private void setPlayerBoardPane() {
+		int patID = gc.getGm().getPlayerModel(DiceHolderType.PLAYERWINDOW).getPatid();
+		patternCardPane = new PlayerBoardPane(dhc, dcc, patID);
 		getChildren().add(patternCardPane);
 	}
 
 	private void setPersonalAttributes() {
 		personalAttributes = new HBox();
-		paystoneHolder = new PaystoneHolder();
-		points = new Points();
+		paystoneHolder = new PaystoneHolderPane();
+		points = new PointsPane();
 		pocp = new PersonalObjectiveCardPane(Color.PURPLE);
 		personalAttributes.getChildren().addAll(paystoneHolder, points, pocp);
 		personalAttributes.setMinHeight(75);

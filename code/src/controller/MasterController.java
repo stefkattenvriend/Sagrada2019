@@ -1,9 +1,12 @@
 package controller;
 
-import databeest.DBChatCollector;
-import databeest.DBGameCollector;
-import databeest.DBPatternCardInfoCollector;
+import databeest.DbChatCollector;
+import databeest.DbGameCollector;
+import databeest.DbPatternCardInfoCollector;
+import databeest.DbPlayerCollector;
+import databeest.DbPlayerStatsCollector;
 import databeest.DataBaseApplication;
+import databeest.DbCardCollector;
 import databeest.DbUserInfoCollector;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -12,16 +15,24 @@ import view.MyScene;
 public class MasterController extends Application{//een controller die alle andere aanmaakt? ~Rens
 
 	private DbUserInfoCollector dbUserInfoCollector;
-	private DBPatternCardInfoCollector DatabasePTCCollector;
-	private DBChatCollector dbChatCollector;
-	private DBGameCollector dbGameCollector;
-	private DataBaseApplication databeest = new DataBaseApplication();
+	private DbPatternCardInfoCollector DatabasePTCCollector;
+	private DbCardCollector dbCardCollector;
+	private DbChatCollector dbChatCollector;
+	private DbGameCollector dbGameCollector;
+	private DbPlayerCollector dbPlayerCollector;
+	private DbPlayerStatsCollector dbPlayerStatsCollector;
+	private DataBaseApplication databeest;
 	
-	private LoginController lc;//laat de controllers voor nu op public staan. later get en set maken
-	private GameController gm;
-	private ChatController chat;
+	private LoginController lc;
+	private PlayerController pc;
+	private GameController gc;
+//	private ChatController chat;
 	private MyScene myScene;
 	private Stage stage;
+	private MenuController mnController;
+	private StatsController sc;
+	private UpdateTimerController utc;
+	private GameUpdateController guc;
 	
 	public void startup(String[] args) {
 		launch(args);
@@ -32,43 +43,61 @@ public class MasterController extends Application{//een controller die alle ande
 		this.startMasterController();
 		this.stage = stage;
 		myScene = new MyScene(this);
+		mnController = new MenuController(myScene, this);
 		stage.setResizable(false);
 		stage.setScene(myScene);
+		
+		stage.setOnCloseRequest(e -> closeApp());
 		stage.show();
 	}
 	
+	private void closeApp() {
+		System.out.println("Program stopped!");
+		System.exit(0);
+	}
+
 	private void startMasterController() {
+		databeest = new DataBaseApplication();
 		dbUserInfoCollector = new DbUserInfoCollector(databeest);
-		DatabasePTCCollector = new DBPatternCardInfoCollector(databeest);
-		dbChatCollector = new DBChatCollector(databeest);
-		dbGameCollector = new DBGameCollector(databeest);
-		
-		this.gm = new GameController(DatabasePTCCollector, dbGameCollector, lc);
-		this.lc = new LoginController(dbUserInfoCollector);
-		this.chat = new ChatController(dbChatCollector);
-		
-		
+		DatabasePTCCollector = new DbPatternCardInfoCollector(databeest);
+		dbChatCollector = new DbChatCollector(databeest);
+		dbGameCollector = new DbGameCollector(databeest);
+		dbPlayerCollector = new DbPlayerCollector(databeest);
+		dbCardCollector = new DbCardCollector(databeest);
+		dbPlayerStatsCollector = new DbPlayerStatsCollector(databeest);
 		
 		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
 				&& (databeest.makeConnection()))
-		{
-//			databeest.doSomeQuerying();
-//			databeest.getPaternCard(1, 1, 1);
-//			databeest.getPaternCard(1, 2, 1);
-//			databeest.getPaternCard(1, 3, 1);
-//			databeest.getPaternCard(1, 4, 1);
-//			databeest.getPaternCard(1, 5, 1);
-			
-//			databeest.doSomeUpdating();
-		}
+		
+			//Game refresher/checker
+		this.guc = new GameUpdateController(this);
+		this.utc = new UpdateTimerController(guc);
+		
+				
+		Thread t1 = new Thread(utc);
+		t1.start();
+		
+		this.lc = new LoginController(dbUserInfoCollector);
+		this.pc = new PlayerController(dbPlayerCollector);
+		this.gc = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector, dbCardCollector, guc, dbPlayerCollector);
+		this.sc = new StatsController(dbPlayerStatsCollector);
+//		this.chat = new ChatController(dbChatCollector);
+		
+		
+		
+		//make the GamePane
 		
 		// testen game
-//		gm.newGame(); //dit maakt een nieuwe game aan (milan)
+//		gc.newGame(); //dit maakt een nieuwe game aan (milan)
+		
+		//testen player
+//		pc.setPlayerId(2);
+//		System.out.println("Amount of paystones: " + pc.getPayStones());
 	}
 	
 	public GameController getGameController()
 	{
-		return this.gm;
+		return this.gc;
 	}
 	
 	public LoginController getLoginController()
@@ -76,13 +105,39 @@ public class MasterController extends Application{//een controller die alle ande
 		return this.lc;
 	}
 	
-	public ChatController getChatController()
-	{
-		return this.chat;
-	}
+//	public ChatController getChatController()
+//	{
+//		return this.chat;
+//	}
 	
 	public Stage getStage() {
 		return this.stage;
 	}
+
+	public MenuController getMenuController() {
+	
+		return this.mnController;
+	}
+	
+	public GameUpdateController getGameUpdateController() {
+		
+		return this.guc;
+	}
+	
+	public MenuUpdateController getMenuUpdateController() {
+		
+		return null;//moet de menuopdate controller in komen
+	}
+	
+	public PlayerController getPlayerController()
+	{
+		return this.pc;
+	}
+	
+	public DataBaseApplication getDatabaseApplication() {
+		return databeest;
+	}
+	
+	
 
 }

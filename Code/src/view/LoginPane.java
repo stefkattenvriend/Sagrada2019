@@ -22,14 +22,14 @@ public class LoginPane extends VBox{
 	private Button registreerButton;
 	private LoginController controller;
 	private MyScene myScene;
-	private RegistreerPane registerPane;
+	private RegistrerPane registerPane;
 	private TextField accountField;
 	private TextField wachtwoordField;
 	
 	public LoginPane(MyScene myScene, LoginController controller) {
 		this.controller = controller;
 		this.myScene = myScene;
-		registerPane = new RegistreerPane(myScene, controller);
+		registerPane = new RegistrerPane(myScene, controller);
 		setMinSize(windowMaxWidth, windowMaxHeight);
 		setMaxSize(windowMaxWidth, windowMaxHeight);
 		setAlignment(Pos.CENTER);

@@ -1,20 +1,22 @@
 package controller;
 
 import databeest.DbUserInfoCollector;
-import model.Account;
+import model.AccountModel;
 
 //Stef
 public class LoginController {
 	
 	// Instance variables
 	private DbUserInfoCollector dbUserInfoCollector;
-	private Account account;
+	private AccountModel account;
+	private boolean loggedIn = false;
 	
 	// Constructor
 	public LoginController(DbUserInfoCollector dbUserInfoCollector)
 	{
 		this.dbUserInfoCollector = dbUserInfoCollector;
-		account = new Account();
+
+		account = new AccountModel();
 	}
 	
 	//Als accountgegevens kloppen, moet het inloggen
@@ -24,6 +26,9 @@ public class LoginController {
 		{
 			account.setCurrentAccount(username);
 			System.out.println("Login gelukt");
+			loggedIn = true;
+			
+			
 			return true;
 		}
 		else {
@@ -91,7 +96,7 @@ public class LoginController {
 	// maakt een account aan als het aan de eisen voldoet
 	public boolean CreateAccount(String username, String password) 
 	{
-		if (username.length() > 2 && password.length() > 2 && IsAlphaNumeric(username) && IsAlphaNumeric(password)) 
+		if (username.length() > 2 && username.length() < 26 && password.length() > 2 && password.length() < 26 && IsAlphaNumeric(username) && IsAlphaNumeric(password)) 
 		{
 			if (CheckIfExist(username.toLowerCase())) 
 			{
@@ -117,6 +122,18 @@ public class LoginController {
 	public String getCurrentAccount()
 	{
 		return account.getCurrentAccount();
+	}
+	
+	public AccountModel getAccountModel() {
+		return account;
+	}
+	
+	public String getUsername() {
+		return account.getCurrentAccount();
+	}
+	
+	public boolean isLoggedIn() {
+		return loggedIn;
 	}
 	
 }

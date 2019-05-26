@@ -1,5 +1,7 @@
 package view.GamePanes;
 
+import controller.GameController;
+import helpers.DiceHolderType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 
@@ -11,18 +13,23 @@ public class EnemyPane extends BorderPane{
 	private EnemyWindow enemyWindow3;
 	private FlowPane flowPane;
 	
-	public EnemyPane() {
-		setBackground(controller.Main.ENEMYPANE); //aanduiding voor pane
+	private GameController gameController;
+	
+	
+	public EnemyPane(GameController gamecontroller) {
+		gameController = gamecontroller;
 		setUp();
+		setBackground(controller.Main.ENEMYPANE); //aanduiding voor pane
 	}
 
 	private void setUp() {
 		setPaneSize();
-		chatPane = new ChatPane();
+		
+		chatPane = new ChatPane(gameController.getChatController(), gameController.getLoginController());
 		flowPane = new FlowPane();
-		enemyWindow1 = new EnemyWindow();
-		enemyWindow2 = new EnemyWindow();
-		enemyWindow3 = new EnemyWindow();
+		enemyWindow1 = new EnemyWindow(DiceHolderType.ENEMY1, gameController);
+		enemyWindow2 = new EnemyWindow(DiceHolderType.ENEMY2, gameController);
+		enemyWindow3 = new EnemyWindow(DiceHolderType.ENEMY3, gameController);
 		flowPane.getChildren().addAll(enemyWindow1, enemyWindow2, enemyWindow3);
 		setLeft(flowPane);
 		setRight(chatPane);
