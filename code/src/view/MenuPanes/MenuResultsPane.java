@@ -13,6 +13,7 @@ import model.StatsModel;
 public class MenuResultsPane extends VBox{
 	private HBox won;
 	private HBox lost;
+import javafx.scene.layout.Pane;
 
 	public MenuResultsPane() {
 		

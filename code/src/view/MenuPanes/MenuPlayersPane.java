@@ -2,6 +2,7 @@ package view.MenuPanes;
 
 import java.util.ArrayList;
 
+import controller.LoginController;
 import controller.MenuController;
 import databeest.DataBaseApplication;
 import javafx.geometry.Pos;
@@ -33,9 +34,11 @@ public class MenuPlayersPane extends VBox {// door joery
 	private ArrayList<String> selectedPlayers;
 	private Label message;
 	private Button createGame;
+	private LoginController loginController;
 
-	public MenuPlayersPane(MenuController menuController) {
+	public MenuPlayersPane(MenuController menuController, LoginController loginController) {
 		this.menuController = menuController;
+		this.loginController = loginController;
 		databeest = menuController.getDataBaseApplication();
 		players = databeest.getPlayers();
 		setPaneSize();
@@ -44,16 +47,17 @@ public class MenuPlayersPane extends VBox {// door joery
 	}
 
 	private void createPlayersList(boolean turnon) {
-		selectedPlayers = new ArrayList<String>(); //heeft de invited players in zich
+		selectedPlayers = new ArrayList<String>(); // heeft de invited players in zich
+		selectedPlayers.add(loginController.getCurrentAccount());
 		this.turnOn = turnon;
-		
-		//title
+
+		// title
 		title = new Label();
 		title.setText("Spelers");
 		title.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
 		title.setTextFill(Color.GREEN);
 
-		//buttons
+		// buttons
 		btnPane = new FlowPane();
 		btnPane.setPrefSize(200, 40);
 		btnPane.setAlignment(Pos.CENTER);
@@ -62,16 +66,15 @@ public class MenuPlayersPane extends VBox {// door joery
 		invitePlayer.setOnAction(e -> turnOn());
 		btnPane.getChildren().add(invitePlayer);
 
-		//update message
-		message = new Label(); 
-		
-		//the list with buttons
+		// update message
+		message = new Label();
+
+		// the list with buttons
 		playersList = new ScrollPane();
 		playersList.setMinSize(MenuPane.paneWidth - 60,
 				(MenuPane.windowMaxHeight - (MenuPane.windowMaxHeight / 3)) - 150);
 		playersList.setMaxSize(MenuPane.paneWidth - 60,
 				(MenuPane.windowMaxHeight - (MenuPane.windowMaxHeight / 3)) - 150);
-//		playersList.setBackground(new Background(new BackgroundFill(Color.AQUA, null, null)));
 		playersList.setFitToWidth(true);
 		playersList.setFitToHeight(true);
 		listInput = new VBox();
@@ -82,9 +85,15 @@ public class MenuPlayersPane extends VBox {// door joery
 
 		databeest.getPlayers();
 
+		for (int i = 0; i < players.size(); i++) {// check of eigen gebruikersnaam er tussen staat
+			if (players.get(i).equals(loginController.getCurrentAccount())) {
+				players.remove(i);
+			}
+		}
+
 		for (int i = 0; i < players.size(); i++) {// vult verzameling met alle knoppen met bijbehorende username
-			menuItems.add(new MenuDropdown(menuController, false, players.get(i), false, this)); // spelersnaam moet uit
-			
+			menuItems.add(new MenuDropdown(menuController, false, players.get(i), false, this, false, false)); // spelersnaam moet uit
+
 		}
 
 		for (int x = 0; x < menuItems.size(); x++) { // voegt alle knoppen toe aan de lijst
@@ -95,7 +104,7 @@ public class MenuPlayersPane extends VBox {// door joery
 		getChildren().addAll(title, btnPane, message, playersList);
 	}
 
-	private void turnOn() { //verandert zicht om te inviten
+	private void turnOn() { // verandert zicht om te inviten
 		getChildren().clear();
 		cancel = new Button("afbreken");
 		cancel.setPrefSize(100, 30);
@@ -113,7 +122,7 @@ public class MenuPlayersPane extends VBox {// door joery
 		listInput.getChildren().clear();
 		message.setText(" ");
 		for (int i = 0; i < players.size(); i++) {// vult verzameling met alle knoppen
-			menuItems.add(new MenuDropdown(menuController, false, players.get(i), true, this)); // spelersnaam moet uit
+			menuItems.add(new MenuDropdown(menuController, false, players.get(i), true, this, false, false)); // spelersnaam moet uit
 			// database worden getrokken
 		}
 
@@ -121,18 +130,16 @@ public class MenuPlayersPane extends VBox {// door joery
 			listInput.getChildren().add(menuItems.get(x));
 		}
 
-		
-
 	}
 
-	private void getUsernames() { //checkt of er niet te weinig of te veel spelers zijn geselecteerd.
+	private void getUsernames() { // checkt of er niet te weinig of te veel spelers zijn geselecteerd.
 
-		if (selectedPlayers.size() == 0) {
+		if (selectedPlayers.size() == 1) {
 			message.setText("Je hebt geen spelers geselecteerd.");
 			message.setTextFill(Color.RED);
-		} else if (selectedPlayers.size() > 0 && selectedPlayers.size() <= 3) {
+		} else if (selectedPlayers.size() > 0 && selectedPlayers.size() <= 4) {
 
-			if (selectedPlayers.size() == 1) {
+			if (selectedPlayers.size() == 2) {
 				message.setText("Uitnodiging is verzonden!");
 				message.setTextFill(Color.GREEN);
 			} else {
@@ -148,7 +155,7 @@ public class MenuPlayersPane extends VBox {// door joery
 			}
 			// [END] testing in console
 			turnOff();
-		} else if (selectedPlayers.size() > 3) {
+		} else if (selectedPlayers.size() > 4) {
 			message.setText("Je hebt te veel spelers geselecteerd.");
 			message.setTextFill(Color.RED);
 		}
@@ -166,7 +173,7 @@ public class MenuPlayersPane extends VBox {// door joery
 		listInput.getChildren().clear();
 
 		for (int i = 0; i < players.size(); i++) {// vult verzameling met alle knoppen
-			menuItems.add(new MenuDropdown(menuController, false, players.get(i), false, this)); // spelersnaam moet uit
+			menuItems.add(new MenuDropdown(menuController, false, players.get(i), false, this, false, false)); // spelersnaam moet uit
 			// database worden getrokken
 		}
 
@@ -175,6 +182,7 @@ public class MenuPlayersPane extends VBox {// door joery
 		}
 
 		selectedPlayers.clear();
+		selectedPlayers.add(loginController.getCurrentAccount());
 //		message.setText(" ");
 	}
 
@@ -182,8 +190,8 @@ public class MenuPlayersPane extends VBox {// door joery
 
 		selectedPlayers.add(username);
 		System.out.println("added " + username);
-	
-		if (selectedPlayers.size() > 3) {
+
+		if (selectedPlayers.size() > 4) {
 			message.setText("Je kunt niet meer dan 3 spelers uitnodigen");
 			message.setTextFill(Color.RED);
 		}
@@ -196,7 +204,7 @@ public class MenuPlayersPane extends VBox {// door joery
 				System.out.println("removed " + selectedPlayers.get(i));
 				selectedPlayers.remove(i);
 
-				if (selectedPlayers.size() <= 3) {
+				if (selectedPlayers.size() <= 4) {
 					message.setText(" ");
 				}
 
