@@ -175,7 +175,7 @@ public class MenuPlayersPane extends VBox {// door joery
 		}
 
 		selectedPlayers.clear();
-		message.setText(" ");
+//		message.setText(" ");
 	}
 
 	public final void addPlayer(String username) { // voegt speler toe in arraylist
