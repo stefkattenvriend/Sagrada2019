@@ -9,7 +9,7 @@ public class MenuResultsPane extends Pane{
 	
 	public MenuResultsPane() {
 		setPaneSize();
-//		setBackground(new Background(new BackgroundFill(Color.GREEN, null, null))); //tijdelijk
+		setBackground(new Background(new BackgroundFill(Color.GREEN, null, null))); //tijdelijk
 	}
 
 	private void setPaneSize() {

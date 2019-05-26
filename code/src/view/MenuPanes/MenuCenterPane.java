@@ -43,7 +43,7 @@ public class MenuCenterPane extends VBox{
 	}
 	
 	private void tijdelijkAanduiding() {
-//		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null)));
-		setBackground(new Background(new BackgroundFill(Color.rgb(255, 255, 255, 0.7), null, null)));
+		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null)));
+		setBackground(new Background(new BackgroundFill(Color.GREEN, null, null)));
 	}
 }
