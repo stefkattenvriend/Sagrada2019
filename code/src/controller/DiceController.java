@@ -30,6 +30,7 @@ public class DiceController {
 		
 		dp = new DicePane(dm.getSize(), dm.getPaint(), dm.getEyes());
 		
+		
 		dpanes.add(dp);
 		
 		return dp;

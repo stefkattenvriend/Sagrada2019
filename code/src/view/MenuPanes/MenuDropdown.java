@@ -1,18 +1,12 @@
 package view.MenuPanes;
 
 import controller.MenuController;
-import javafx.beans.value.ChangeListener;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
-public class MenuDropdown extends VBox {
+public class MenuDropdown extends VBox {// door joery
 
 	private Button btn;
 	private boolean clicked = false;
@@ -20,14 +14,19 @@ public class MenuDropdown extends VBox {
 	private MenuController menuController;
 	private boolean yesOrNo;
 	private String username;
+	private int totalPlayers;
+	private boolean isChecked = false;
+	private MenuPlayersPane menuPlayersPane;
 
-	public MenuDropdown(MenuController menuController, boolean loadbutton, String btnName, boolean yesOrNo) {
+	public MenuDropdown(MenuController menuController, boolean loadbutton, String btnName, boolean yesOrNo,
+		MenuPlayersPane menuPlayersPane) {
 		this.menuController = menuController;
 		username = btnName;
+		this.menuPlayersPane = menuPlayersPane;
 		createInfoPane(loadbutton, yesOrNo);
 		createButton(btnName);
 		getChildren().add(btn);
-		
+
 		if (yesOrNo) {
 			getChildren().clear();
 			getChildren().addAll(btn, gameInfoPane);
@@ -68,18 +67,34 @@ public class MenuDropdown extends VBox {
 			loadGame.setOnAction(e -> menuController.loadGame());
 			gameInfoPane.setRight(loadGame);
 		}
-		
-		if(yesOrNo) {
+
+		if (yesOrNo) {
 			CheckBox inviteBtn = new CheckBox("kies");
-			inviteBtn.setPrefSize(20, 20);
+			inviteBtn.setPrefSize(40, 20);
 			inviteBtn.setUserData("Selecteer");
-			
-//			inviteBtn.selectedProperty().addListener(new ChangeListener<T>hange);
-//			if(inviteBtn.property) {
-//				System.out.println(username);
-//			}
+			inviteBtn.setOnAction(e -> selectPlayer());
 			gameInfoPane.setLeft(inviteBtn);
 		}
 
 	}
+
+	public void selectPlayer() {
+
+		if (!isChecked) { //add selected player to arraylist
+			menuPlayersPane.addPlayer(username);
+			isChecked = true;
+		} else if (isChecked) {//remove deselected player from arraylist
+			menuPlayersPane.removePlayer(username);
+			isChecked = false;
+		}
+	}
+
+	public String getSelectedPlayer() {
+		return username;
+	}
+
+	public boolean isClicked() {
+		return isChecked;
+	}
+
 }

@@ -3,9 +3,12 @@ package view.MenuPanes;
 import controller.LoginController;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -21,7 +24,7 @@ public class MenuWelcomePane extends FlowPane{
 		this.loginController = loginController;
 		setPaneSize();
 		setLabels();
-		setBackground(new Background(new BackgroundFill(Color.ORANGE, null, null))); //tijdelijk
+//		setBackground(new Background(new BackgroundFill(Color.BLACK, null, null))); //tijdelijk
 	}
 	
 	private void setLabels() {
@@ -32,13 +35,20 @@ public class MenuWelcomePane extends FlowPane{
 		
 		label1.setText("Welkom terug,");
 		label1.setFont(Font.font ("Verdana", FontWeight.BOLD, 40));
+		label1.setTextFill(Color.DARKMAGENTA);
 		
 		label2.setText(loginController.getCurrentAccount());
 		label2.setFont(Font.font ("Verdana", 30));
+		label2.setTextFill(Color.BLACK);
 		
 		text.getChildren().addAll(label1, label2);
 		text.setAlignment(Pos.CENTER);
-		getChildren().addAll(text);
+		
+		Image image = new Image("layout_images/sagradalogo.png");
+		ImageView imageView = new ImageView(image);
+		
+		
+		getChildren().addAll(imageView, text);
 		setAlignment(Pos.CENTER);
 	}
 	

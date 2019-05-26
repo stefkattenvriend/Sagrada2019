@@ -27,6 +27,14 @@ public class DiceHolderController {
 																							// aan en geeft de pane
 																							// terug aan de view
 		DiceHolderModel model = new DiceHolderModel(null, x, y, type);
+		
+		if(type == DiceHolderType.ENEMY1 || type == DiceHolderType.ENEMY2 || type == DiceHolderType.ENEMY3) {
+			model.setInteractable(false);
+		}
+		else {
+			model.setInteractable(true);
+		}
+		
 		DiceHolderPane pane = new DiceHolderPane(size, this);
 		dhmodels.add(model);
 		dhpanes.add(pane);
@@ -45,6 +53,10 @@ public class DiceHolderController {
 
 		// if er een gereedschapskaart actief is
 		// welke kaart is actief
+		
+		if (selectedModel.isInteractable() == false) {
+			return;
+		}
 
 		if (selectedModel.getSelected() == false) {// check of er al een ander vak geselcteerd was
 			for (int i = 0; i < dhmodels.size(); i++) {

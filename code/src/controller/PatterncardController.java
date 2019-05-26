@@ -48,7 +48,12 @@ public class PatterncardController {
 	
 	public BorderPane PatterncardCreate(int x, int y, int PatterncardNumber, int size, PatterncardType pct) {
 		BorderPane pane = new BorderPane();
-		pane.setPrefSize(85, 85);
+		if(pct == PatterncardType.CHOICE || pct == PatterncardType.PLAYER) {
+			pane.setPrefSize(85, 85);
+		}else {
+			pane.setPrefSize(42, 42);
+		}
+		
 		//pane.setPrefSize(arg0, arg1);
 		
 		CreatePatternCard(PatterncardNumber, pct);
@@ -57,8 +62,14 @@ public class PatterncardController {
 			if (pcmodels.get(i).getPatterncardNumber() == PatterncardNumber && pcmodels.get(i).getX() == x && pcmodels.get(i).getY() == y) {
 				if(pcmodels.get(i).getNumber() >= 1 && pcmodels.get(i).getNumber() <= 6) {
 					Text center = new Text(Integer.toString(pcmodels.get(i).getNumber()));
-					center.setScaleX(7);
-					center.setScaleY(7);
+					if(pct == PatterncardType.CHOICE || pct == PatterncardType.PLAYER) {
+						center.setScaleX(7);
+						center.setScaleY(7);
+					}else {
+						center.setScaleX(3.5);
+						center.setScaleY(3.5);	
+					}
+					
 					pane.setCenter(center);
 					break;
 				}
