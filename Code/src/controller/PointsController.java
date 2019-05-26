@@ -26,11 +26,11 @@ public class PointsController {
 	
 //	private void getPersonalObjectivePoints(ArrayList<DiceModel> dice) {
 //		for(int i = 0; i<dice.size(); i++) {
-////			if(dice.get(i).getPaint().equals(pocp.getColor())) {
-////				personalObjectivePoints = personalObjectivePoints + dice.get(i).getEyes();
-////			}
+//			if(dice.get(i).getPaint().equals(pocp.getColor())) {
+//				personalObjectivePoints = personalObjectivePoints + dice.get(i).getEyes();
+//			}
 //		}
-		
+//		
 //	}
 	
 	private void getSharedObjectivePoints() {
