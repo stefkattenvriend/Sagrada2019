@@ -1,5 +1,9 @@
 package controller;
 
+import databeest.DbGameCollector;
+import databeest.DbPatternCardInfoCollector;
+import view.GamePanes.PlayerPane;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -25,6 +29,8 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private LoginController lc;
 	private CardsController crc;
 	private ChatController cc;
+	private PointsController ptsc;
+
 	private GameUpdateController guc;
 	private GameModel gm;
 	
@@ -75,6 +81,8 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		return lc;
 	}
 	
+	public PointsController getPointsController() {
+		return ptsc; }
 	public GameModel getGm() {
 		return gm;
 	}
