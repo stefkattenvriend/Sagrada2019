@@ -2,6 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 
+
 import databeest.DbChatCollector;
 
 
@@ -25,7 +26,10 @@ public class ChatController {
 		
 	}
 
-
+	public String getUsername(int playerID) {
+		String name = chatdb.getUsername(playerID);
+		return name;
+	}
 
 	public ArrayList<String> getchat() {
 		ArrayList<String> chat = chatdb.getChat();
@@ -35,6 +39,14 @@ public class ChatController {
 	public ArrayList<String> getchatDate() {
 		ArrayList<String> chatdate = chatdb.getChatDate();
 		return chatdate;
+	}
+
+
+
+	public ArrayList<Integer> getPlayerIDs() {
+		
+		ArrayList<Integer> iDs = chatdb.getPlayerIDs();		
+		return iDs;
 	}
 	
 	//methode om chat te lezen en door te geven naar model. (playerid, time, message)

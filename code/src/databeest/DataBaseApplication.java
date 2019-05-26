@@ -654,4 +654,26 @@ public class DataBaseApplication {
 		return diceList;
 	}
 
+	
+	
+	public ArrayList<Integer> getChatIDs(String query) {
+		Statement stmt = null;
+		ArrayList<Integer> chatID = new ArrayList<>();
+
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			// return string in console
+			while (rs.next()) {
+
+				chatID.add(rs.getInt(1));
+
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return chatID;
+	}
 }

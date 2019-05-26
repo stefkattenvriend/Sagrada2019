@@ -14,6 +14,12 @@ public class DbChatCollector {
 		String query = "INSERT INTO `chatline` (`player_idplayer`, `time`, `message`) VALUES('" + playerid + "', " + date + ", '" + message + "');";
 	dataBaseApplication.insertQuery(query);
 	}
+	
+	public String getUsername(int playerID) {
+		String name = dataBaseApplication.getplayerUsername(playerID);
+		
+		return name;
+	}
 
 	public ArrayList<String> getChat() {
 		String query = "SELECT * FROM `chatline`;";
@@ -24,5 +30,11 @@ public class DbChatCollector {
 		String query = "SELECT RIGHT(time, 8) FROM chatline;";
 		ArrayList<String> chatdate = dataBaseApplication.getChatDate(query);
 		return chatdate;
+	}
+
+	public ArrayList<Integer> getPlayerIDs() {
+		String query = "SELECT player_idplayer FROM chatline;";
+		ArrayList<Integer> chatIDs = dataBaseApplication.getChatIDs(query); 
+		return chatIDs;
 	}
 }
