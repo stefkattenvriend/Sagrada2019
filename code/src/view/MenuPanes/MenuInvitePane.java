@@ -44,7 +44,7 @@ public class MenuInvitePane extends FlowPane{
 		ArrayList<MenuDropdown> games = new ArrayList<MenuDropdown>();
 		
 		for(int i = 0; i < 1; i++) {// vult verzameling met alle knoppen
-			games.add(new MenuDropdown(null, false, "Sagrada " + i, false, null, false, true));
+			games.add(new MenuDropdown(null, false, "Uitnodiging van [username]" + i, false, null, false, true));
 			
 		}
 		
@@ -60,5 +60,9 @@ public class MenuInvitePane extends FlowPane{
 	private void setPaneSize() {
 		setMinSize(MenuPane.paneWidth - 40, MenuPane.windowMaxHeight - (MenuPane.windowMaxHeight / 3) - 80);
 		setMaxSize(MenuPane.paneWidth - 40, MenuPane.windowMaxHeight - (MenuPane.windowMaxHeight / 3) - 80);
+	}
+	
+	private void update() {
+		
 	}
 }

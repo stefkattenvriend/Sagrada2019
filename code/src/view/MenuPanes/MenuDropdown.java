@@ -90,7 +90,12 @@ public class MenuDropdown extends VBox {// door joery
 		}
 	
 		if(invitesPane) {
-		
+			HBox choicePane = new HBox();
+			choicePane.setPrefSize(MenuPane.paneWidth - 60, 60);
+//			Button accept
+//			Button ignore
+//			statuspane.getChildren().addAll();
+			gameInfoPane.setCenter(choicePane);
 		}
 
 	}
