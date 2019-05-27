@@ -39,7 +39,6 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private PlayerController pc;
 	
 	private int gameid;
-	private ArrayList<String> colors; 
 
 	public GameController(DbPatternCardInfoCollector DatabasePTCCollector, DbGameCollector dbGamecollector,
 			LoginController lc, DbChatCollector dbChat, DbCardCollector dbCardCollector, GameUpdateController guc, DbPlayerCollector dpc, DbDieCollector ddc) {
@@ -86,85 +85,6 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		return ptsc; }
 	public GameModel getGm() {
 		return gm;
-	}
-
-	// milan
-	public void newGame() {
-		colors = getColors(); //maakt 5 kleuren
-		dbGameCollector.pushGame();
-		String username = lc.getCurrentAccount();
-//		String username = "123";
-		dbGameCollector.pushFirstPlayer(username, colors.get(0));
-		insertPublicObjectiveCards();
-		insertToolCards();
-		createGameDie();
-		getPlayer("kees", gameid);//deze actie wordt uitgevoerd wanneer uitnodiging geaccepteerd is
-		
-	}
-	
-	private void createGameDie() {
-		dbGameCollector.addGameDie();
-	}
-
-
-
-	public void getPlayer(String username, int gameid) {
-		int x = 4;
-		int i = (int)(Math.random() * ((x - 1) + 1)) + 1;
-		addPlayer(username, gameid, colors.get(i));
-		colors.remove(i);
-		x--;
-	}
-	
-	public void addPlayer(String username, int gameid, String color) {
-		dbGameCollector.addPlayer(username, gameid, color);
-	}
-
-	private void insertToolCards() {
-		ArrayList<Integer> randomkaarten = generateThreeRandomUniqueNumbers(12); // van 12 nummers(aantal toolcards), geef mij er drie at random.
-		for(int i = 0; i < 3; i++) {
-			int x = randomkaarten.get(i);
-			dbGameCollector.insertToolCards(x);
-		}
-	}
-
-	public void insertPublicObjectiveCards() {//set to private later
-		ArrayList<Integer> randomkaarten = generateThreeRandomUniqueNumbers(10); // van 10 nummers, geef mij er drie at random.
-		for(int i = 0; i < 3; i++) {
-			int x = randomkaarten.get(i);
-			dbGameCollector.insertPublicObjectiveCards(x);
-		}
-	}
-
-	private ArrayList<Integer> generateThreeRandomUniqueNumbers(int aantalkaarten) {
-		ArrayList<Integer> list = new ArrayList<>();
-		for (int i = 1; i <= aantalkaarten; i++) {
-			list.add(i);
-
-		}
-
-		Collections.shuffle(list);
-
-		int x = list.size() - 3;
-		for (int i = 0; i < x; i++) {
-			list.remove(0);
-
-		}
-//		System.out.println(list);//syso to check which numbers are added to database
-		return list;
-	}
-	
-	private ArrayList<String> getColors() {
-		ArrayList<String> colors = new ArrayList<>(); 
-		colors = dbGameCollector.getColors();
-		Collections.shuffle(colors);
-		return colors;
-	}
-	
-	
-	public int getGameid() {
-		gameid = dbGameCollector.getHighestGameID();
-		return gameid;
 	}
 
 	public void createGameModel(int gameID) {
