@@ -146,7 +146,8 @@ public class MenuPlayersPane extends VBox {// door joery
 				message.setText("Uitnodigingen zijn verzonden!");
 				message.setTextFill(Color.GREEN);
 			}
-
+			menuController.newGame(selectedPlayers);
+			
 			// [START] testing in console
 			System.out.println("send invite to:");
 
@@ -162,6 +163,7 @@ public class MenuPlayersPane extends VBox {// door joery
 
 		// de array 'selectedPlayers' is nu gevuld met de uitgenodigde spelers.
 
+		
 	}
 
 	private void turnOff() { // na 'uitnodigen' of 'afbreken' wordt de normale spelerslijst weergegeven.

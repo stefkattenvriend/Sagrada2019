@@ -45,7 +45,7 @@ public class MasterController extends Application{//een controller die alle ande
 		this.startMasterController();
 		this.stage = stage;
 		myScene = new MyScene(this);
-		mnController = new MenuController(myScene, this);
+		mnController = new MenuController(myScene, this, dbGameCollector);
 		stage.setResizable(false);
 		stage.setScene(myScene);
 		

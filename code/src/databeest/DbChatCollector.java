@@ -22,18 +22,18 @@ public class DbChatCollector {
 	}
 
 	public ArrayList<String> getChat() {
-		String query = "SELECT * FROM `chatline`;";
+		String query = "SELECT * FROM `chatline` ORDER BY time;";
 		ArrayList<String> chat = dataBaseApplication.getChat(query);
 		return chat;
 	}
 	public ArrayList<String> getChatDate() {
-		String query = "SELECT RIGHT(time, 8) FROM chatline;";
+		String query = "SELECT RIGHT(time, 8) FROM chatline ORDER BY time;";
 		ArrayList<String> chatdate = dataBaseApplication.getChatDate(query);
 		return chatdate;
 	}
 
 	public ArrayList<Integer> getPlayerIDs() {
-		String query = "SELECT player_idplayer FROM chatline;";
+		String query = "SELECT player_idplayer FROM chatline ORDER BY time;";
 		ArrayList<Integer> chatIDs = dataBaseApplication.getChatIDs(query); 
 		return chatIDs;
 	}
