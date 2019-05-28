@@ -32,6 +32,14 @@ public class MenuController {
 		//neemt username mee
 	}
 	
+	public void acceptInvite(int playerid) {
+		dbGameCollector.updateStatusAccept(playerid);
+	}
+	
+	public void declineInvite(int playerid) {
+		dbGameCollector.updateStatusIgnore(playerid);
+	}
+	
 	public DataBaseApplication getDataBaseApplication() {
 		return mc.getDatabaseApplication();
 	}

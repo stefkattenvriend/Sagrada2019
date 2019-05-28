@@ -46,43 +46,6 @@ public class DataBaseApplication {
 		return true;
 	}
 
-	// doe een query
-	public void doSomeQuerying() {
-		Statement stmt = null;
-		String query = "SELECT * FROM account LIMIT 3;";// Je query
-		try {
-			stmt = m_Conn.createStatement();
-			ResultSet rs = stmt.executeQuery(query);
-
-			// return string in console
-			while (rs.next()) {
-				String name = rs.getString(1); // De eerste kolom van de resultaten van jou query.
-				String pw = rs.getString(2); // De tweede kolom van jouw resultaten.
-				// String drie = rs.getString(3); // Eventueel de derde kolom.
-				System.out.println("name: 	  - " + name + "\npassword: - " + pw + "\n");
-			}
-			stmt.close();
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-	}
-
-	public void doSomeUpdating() {
-		Statement stmt = null;
-		String query = "INSERT INTO `chatline` (`player_idplayer`, `time`, `message`) VALUES\r\n"
-				+ "(39, '2006-01-01 00:00:00', 'hello');";
-
-		try {
-			stmt = m_Conn.createStatement();
-
-			int rs = stmt.executeUpdate(query);
-			System.out.println(rs);
-			stmt.close();
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-
-	}
 
 	// Stef
 	// voor een insert Query
