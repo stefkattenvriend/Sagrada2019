@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import model.DiceHolderModel;
 import model.DiceModel;
-import view.GamePanes.PersonalObjectiveCardPane;
 
 //Tjess Wjest
 public class PointsController {

@@ -2,14 +2,9 @@ package view.MenuPanes;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import model.StatsModel;
-import javafx.scene.layout.Pane;
 
 //Tesssss
 public class MenuResultsPane extends VBox{

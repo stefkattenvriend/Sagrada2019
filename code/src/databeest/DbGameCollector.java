@@ -2,8 +2,6 @@ package databeest;
 
 import java.util.ArrayList;
 
-import javafx.scene.paint.Color;
-
 //milan
 public class DbGameCollector {
 

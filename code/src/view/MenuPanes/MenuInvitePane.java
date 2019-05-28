@@ -74,6 +74,6 @@ public class MenuInvitePane extends FlowPane{
 	}
 	
 	private void update() {
-		
+		//TODO
 	}
 }

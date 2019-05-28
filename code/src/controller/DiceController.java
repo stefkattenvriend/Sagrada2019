@@ -3,7 +3,6 @@ package controller;
 import java.util.ArrayList;
 
 import databeest.DbDieCollector;
-import javafx.scene.paint.Color;
 import model.DiceModel;
 import view.GamePanes.DicePane;
 
