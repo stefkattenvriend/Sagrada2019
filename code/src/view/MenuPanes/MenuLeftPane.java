@@ -1,5 +1,7 @@
 package view.MenuPanes;
 
+import controller.LoginController;
+import controller.MenuController;
 import javafx.geometry.Pos;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -16,8 +18,12 @@ public class MenuLeftPane extends VBox{
 	
 	private MenuInvitePane resultsPane;
 	private MenuResultsPane invitePane;
+	private MenuController menuController;
+	private LoginController loginController;
 	
-	public MenuLeftPane() {
+	public MenuLeftPane(MenuController menuController, LoginController loginController) {
+		this.menuController = menuController;
+		this.loginController = loginController;
 		setUp();
 	}
 
@@ -29,7 +35,7 @@ public class MenuLeftPane extends VBox{
 	}
 	
 	private void createPanes() {		
-		resultsPane = new MenuInvitePane();
+		resultsPane = new MenuInvitePane(menuController, loginController);
 		invitePane = new MenuResultsPane();
 		
 		setAlignment(Pos.CENTER);

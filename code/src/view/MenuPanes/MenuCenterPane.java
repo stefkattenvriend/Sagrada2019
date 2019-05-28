@@ -18,10 +18,12 @@ public class MenuCenterPane extends VBox{
 	private MenuPlayersPane playersPane;
 	private LoginController loginController;
 	private MenuController menuController;
+	private MenuWaitingPane menuWaitingPane;
 	
-	public MenuCenterPane(LoginController loginController, MenuController menuController) {
+	public MenuCenterPane(LoginController loginController, MenuController menuController, MenuWaitingPane menuWaitingPane) {
 		this.loginController = loginController;
 		this.menuController = menuController;
+		this.menuWaitingPane = menuWaitingPane;
 		setUp();
 	}
 	
@@ -33,7 +35,7 @@ public class MenuCenterPane extends VBox{
 	
 	private void createPanes() {
 		welcomePane = new MenuWelcomePane(loginController);
-		playersPane = new MenuPlayersPane(menuController, loginController);
+		playersPane = new MenuPlayersPane(menuController, loginController, menuWaitingPane);
 		setAlignment(Pos.CENTER);
 		getChildren().addAll(welcomePane, playersPane);
 	}

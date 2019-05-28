@@ -4,6 +4,7 @@ import controller.LoginController;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -24,7 +25,7 @@ public class LoginPane extends VBox{
 	private MyScene myScene;
 	private RegistrerPane registerPane;
 	private TextField accountField;
-	private TextField wachtwoordField;
+	private PasswordField wachtwoordField;
 	
 	public LoginPane(MyScene myScene, LoginController controller) {
 		this.controller = controller;
@@ -35,7 +36,7 @@ public class LoginPane extends VBox{
 		setAlignment(Pos.CENTER);
 		setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
 		accountField = new TextField();
-		wachtwoordField = new TextField();
+		wachtwoordField = new PasswordField();
 		accountField.setMinSize(100, 30);
 		accountField.setMaxSize(100, 30);
 		wachtwoordField.setMinSize(100, 30);

@@ -37,6 +37,7 @@ public class MasterController extends Application{//een controller die alle ande
 	private StatsController sc;
 	private UpdateTimerController utc;
 	private GameUpdateController guc;
+	private MenuUpdateController muc;
 	
 	public void startup(String[] args) {
 		launch(args);
@@ -78,7 +79,8 @@ public class MasterController extends Application{//een controller die alle ande
 		
 			//Game refresher/checker
 		this.guc = new GameUpdateController(this);
-		this.utc = new UpdateTimerController(guc);
+		this.muc = new MenuUpdateController(this);
+		this.utc = new UpdateTimerController(guc, muc);
 		
 				
 		Thread t1 = new Thread(utc);
@@ -129,11 +131,6 @@ public class MasterController extends Application{//een controller die alle ande
 	public GameUpdateController getGameUpdateController() {
 		
 		return this.guc;
-	}
-	
-	public MenuUpdateController getMenuUpdateController() {
-		
-		return null;//moet de menuopdate controller in komen
 	}
 	
 	public PlayerController getPlayerController()

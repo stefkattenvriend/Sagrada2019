@@ -35,12 +35,15 @@ public class MenuPlayersPane extends VBox {// door joery
 	private Label message;
 	private Button createGame;
 	private LoginController loginController;
+	private MenuWaitingPane menuWaitingPane;
 
-	public MenuPlayersPane(MenuController menuController, LoginController loginController) {
+	public MenuPlayersPane(MenuController menuController, LoginController loginController, MenuWaitingPane menuWaitingPane) {
 		this.menuController = menuController;
 		this.loginController = loginController;
+		this.menuWaitingPane = menuWaitingPane;
 		databeest = menuController.getDataBaseApplication();
 		players = databeest.getPlayers();
+
 		setPaneSize();
 		createPlayersList(false);
 		setBackground(new Background(new BackgroundFill(Color.rgb(208, 215, 206), null, null))); // tijdelijk
@@ -92,7 +95,7 @@ public class MenuPlayersPane extends VBox {// door joery
 		}
 
 		for (int i = 0; i < players.size(); i++) {// vult verzameling met alle knoppen met bijbehorende username
-			menuItems.add(new MenuDropdown(menuController, false, players.get(i), false, this, false, false)); // spelersnaam moet uit
+			menuItems.add(new MenuDropdown(menuController, false, players.get(i), false, this, false, false, null, loginController)); // spelersnaam moet uit
 
 		}
 
@@ -122,7 +125,7 @@ public class MenuPlayersPane extends VBox {// door joery
 		listInput.getChildren().clear();
 		message.setText(" ");
 		for (int i = 0; i < players.size(); i++) {// vult verzameling met alle knoppen
-			menuItems.add(new MenuDropdown(menuController, false, players.get(i), true, this, false, false)); // spelersnaam moet uit
+			menuItems.add(new MenuDropdown(menuController, false, players.get(i), true, this, false, false, null, loginController)); // spelersnaam moet uit
 			// database worden getrokken
 		}
 
@@ -149,11 +152,11 @@ public class MenuPlayersPane extends VBox {// door joery
 			menuController.newGame(selectedPlayers);
 			
 			// [START] testing in console
-			System.out.println("send invite to:");
-
-			for (int i = 0; i < selectedPlayers.size(); i++) {
-				System.out.println("- " + selectedPlayers.get(i));
-			}
+//			System.out.println("send invite to:");
+//
+//			for (int i = 0; i < selectedPlayers.size(); i++) {
+//				System.out.println("- " + selectedPlayers.get(i));
+//			}
 			// [END] testing in console
 			turnOff();
 		} else if (selectedPlayers.size() > 4) {
@@ -162,9 +165,11 @@ public class MenuPlayersPane extends VBox {// door joery
 		}
 
 		// de array 'selectedPlayers' is nu gevuld met de uitgenodigde spelers.
+		menuWaitingPane.updateWaitingPane();
 
-		
 	}
+
+	
 
 	private void turnOff() { // na 'uitnodigen' of 'afbreken' wordt de normale spelerslijst weergegeven.
 		getChildren().clear();
@@ -175,8 +180,7 @@ public class MenuPlayersPane extends VBox {// door joery
 		listInput.getChildren().clear();
 
 		for (int i = 0; i < players.size(); i++) {// vult verzameling met alle knoppen
-			menuItems.add(new MenuDropdown(menuController, false, players.get(i), false, this, false, false)); // spelersnaam moet uit
-			// database worden getrokken
+			menuItems.add(new MenuDropdown(menuController, false, players.get(i), false, this, false, false, null, loginController));
 		}
 
 		for (int x = 0; x < menuItems.size(); x++) { // voegt alle knoppen toe aan de lijst
@@ -185,13 +189,12 @@ public class MenuPlayersPane extends VBox {// door joery
 
 		selectedPlayers.clear();
 		selectedPlayers.add(loginController.getCurrentAccount());
-//		message.setText(" ");
 	}
 
 	public final void addPlayer(String username) { // voegt speler toe in arraylist
 
 		selectedPlayers.add(username);
-		System.out.println("added " + username);
+//		System.out.println("added " + username);
 
 		if (selectedPlayers.size() > 4) {
 			message.setText("Je kunt niet meer dan 3 spelers uitnodigen");
@@ -203,7 +206,7 @@ public class MenuPlayersPane extends VBox {// door joery
 	public final void removePlayer(String username) { // verwijderd speler uit arraylist
 		for (int i = 0; i < selectedPlayers.size(); i++) {
 			if (selectedPlayers.get(i).equals(username)) {
-				System.out.println("removed " + selectedPlayers.get(i));
+//				System.out.println("removed " + selectedPlayers.get(i));
 				selectedPlayers.remove(i);
 
 				if (selectedPlayers.size() <= 4) {

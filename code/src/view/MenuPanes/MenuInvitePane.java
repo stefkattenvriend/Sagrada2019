@@ -2,6 +2,9 @@ package view.MenuPanes;
 
 import java.util.ArrayList;
 
+import controller.LoginController;
+import controller.MenuController;
+import databeest.DataBaseApplication;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -17,8 +20,16 @@ public class MenuInvitePane extends FlowPane{
 	
 	private ScrollPane inviteList;
 	private VBox list;
+	private DataBaseApplication databeest;
+	private ArrayList<String> challengers;
+	private LoginController lc;
+	private MenuController menuController;
 	
-	public MenuInvitePane() {
+	public MenuInvitePane(MenuController menuController, LoginController lc) {
+		databeest = menuController.getDataBaseApplication();
+		this.lc = lc;
+		this.menuController = menuController;
+		challengers = databeest.getChallenger(lc.getCurrentAccount());
 		setPaneSize();
 		createActiveGamesList();
 		setBackground(new Background(new BackgroundFill(Color.rgb(254, 255, 209, 0.8), null, null))); //tijdelijk
@@ -43,8 +54,8 @@ public class MenuInvitePane extends FlowPane{
 		
 		ArrayList<MenuDropdown> games = new ArrayList<MenuDropdown>();
 		
-		for(int i = 0; i < 1; i++) {// vult verzameling met alle knoppen
-			games.add(new MenuDropdown(null, false, "Sagrada " + i, false, null, false, true));
+		for(int i = 0; i < challengers.size(); i++) {// vult verzameling met alle knoppen
+			games.add(new MenuDropdown(menuController, false, "Uitnodiging van " + challengers.get(i), false, null, false, true, null, lc));
 			
 		}
 		
@@ -60,5 +71,9 @@ public class MenuInvitePane extends FlowPane{
 	private void setPaneSize() {
 		setMinSize(MenuPane.paneWidth - 40, MenuPane.windowMaxHeight - (MenuPane.windowMaxHeight / 3) - 80);
 		setMaxSize(MenuPane.paneWidth - 40, MenuPane.windowMaxHeight - (MenuPane.windowMaxHeight / 3) - 80);
+	}
+	
+	private void update() {
+		
 	}
 }
