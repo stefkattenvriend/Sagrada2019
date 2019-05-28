@@ -54,9 +54,9 @@ public class ChatPane extends BorderPane {
 		TextArea textArea = new TextArea();
 		scrollPane = new ScrollPane();
 		scrollPane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
-//		scrollPane.setFitToWidth(true);
 		scrollPane.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
 		scrollPane.setMinHeight(textareasize);
+		scrollPane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null)));
 		textArea.setMinHeight(textareasize);
 		TextField textField = new TextField();
 		textField.setPromptText("Type here to chat...");
