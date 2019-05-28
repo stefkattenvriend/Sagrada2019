@@ -5,13 +5,17 @@ import java.util.ArrayList;
 import controller.LoginController;
 import controller.MenuController;
 import databeest.DataBaseApplication;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 public class MenuDropdown extends VBox {// door joery
 
@@ -146,14 +150,17 @@ public class MenuDropdown extends VBox {// door joery
 		}
 	
 		if(invitesPane) {
-			FlowPane choicePane = new FlowPane();
+			HBox choicePane = new HBox();
 			choicePane.setPrefSize(MenuPane.paneWidth - 60, 60);
 			Button accept = new Button("accepteer");
-			accept.setPrefSize(80, 30);
+			accept.setPrefSize((MenuPane.paneWidth - 60) / 2, 60);
+			accept.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, null, null)));
+			
 			Button ignore = new Button("weiger");
-			ignore.setPrefSize(80, 30);
-//			Button accept
-//			Button ignore
+			ignore.setPrefSize((MenuPane.paneWidth - 60) / 2, 60);
+			ignore.setBackground(new Background(new BackgroundFill(Color.INDIANRED, null, null)));
+
+//			choicePane.setAlignment(Pos.CENTER);
 			choicePane.getChildren().addAll(accept, ignore);
 			gameInfoPane.setCenter(choicePane);
 		}

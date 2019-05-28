@@ -269,6 +269,28 @@ public class DataBaseApplication {
 		}
 		return playerStatus;
 	}
+	
+	public ArrayList<String> getPlayerID(String gameID, String currentAccount){ //alle afwachtend op reactie games van de ingelogde speler #joery
+		Statement stmt = null;
+		ArrayList<String> playerID = new ArrayList<>();
+		String query = "";
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while (rs.next()) {
+
+				playerID.add(rs.getString(1));
+
+			}
+			stmt.close();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return playerID;
+	}
+	
+	
 
 	public ArrayList<String> getColor() {
 		Statement stmt = null;
