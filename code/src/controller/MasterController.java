@@ -1,6 +1,7 @@
 package controller;
 
 import databeest.DbChatCollector;
+import databeest.DbDieCollector;
 import databeest.DbGameCollector;
 import databeest.DbPatternCardInfoCollector;
 import databeest.DbPlayerCollector;
@@ -21,6 +22,7 @@ public class MasterController extends Application{//een controller die alle ande
 	private DbGameCollector dbGameCollector;
 	private DbPlayerCollector dbPlayerCollector;
 	private DbPlayerStatsCollector dbPlayerStatsCollector;
+	private DbDieCollector dbDieCollector;
 	private DataBaseApplication databeest;
 	
 	private LoginController lc;
@@ -43,7 +45,7 @@ public class MasterController extends Application{//een controller die alle ande
 		this.startMasterController();
 		this.stage = stage;
 		myScene = new MyScene(this);
-		mnController = new MenuController(myScene, this);
+		mnController = new MenuController(myScene, this, dbGameCollector);
 		stage.setResizable(false);
 		stage.setScene(myScene);
 		
@@ -64,7 +66,9 @@ public class MasterController extends Application{//een controller die alle ande
 		dbGameCollector = new DbGameCollector(databeest);
 		dbPlayerCollector = new DbPlayerCollector(databeest);
 		dbCardCollector = new DbCardCollector(databeest);
+		dbDieCollector = new DbDieCollector(databeest);
 		dbPlayerStatsCollector = new DbPlayerStatsCollector(databeest);
+		
 		
 		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
 				&& (databeest.makeConnection()))
@@ -79,7 +83,7 @@ public class MasterController extends Application{//een controller die alle ande
 		
 		this.lc = new LoginController(dbUserInfoCollector);
 		this.pc = new PlayerController(dbPlayerCollector);
-		this.gc = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector, dbCardCollector, guc, dbPlayerCollector);
+		this.gc = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector, dbCardCollector, guc, dbPlayerCollector, dbDieCollector);
 		this.sc = new StatsController(dbPlayerStatsCollector);
 //		this.chat = new ChatController(dbChatCollector);
 		

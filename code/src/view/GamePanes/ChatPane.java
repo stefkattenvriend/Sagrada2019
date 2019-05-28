@@ -28,7 +28,7 @@ public class ChatPane extends BorderPane {
 	private double panewidth = (GamePane.windowMaxWidth / 3) / 2;
 	private double paneheight = (GamePane.windowMaxHeight);
 	private int textareasize = 735;
-	private int playerid = 2; // hoort de id op te halen van de speler die chat...
+	private int playerid; // hoort de id op te halen van de speler die chat...
 	private int buttonwidth = 35;
 
 	// instance variables
@@ -44,6 +44,7 @@ public class ChatPane extends BorderPane {
 		this.loginController = loginController;
 		this.cc = cc;
 		setUp();
+		playerid = 1;//waar haal je playerid!?
 	}
 
 	private void setUp() {
@@ -79,8 +80,8 @@ public class ChatPane extends BorderPane {
 			String date = dateFormat.format(new Date());
 
 			if (message.length() > 0) {
-
-				textArea.appendText("(" + date + "): " + message); // getChatFromDatabase first,
+				String name = loginController.getUsername();
+				textArea.appendText("(" + date + ") " + name + ": " + message); // getChatFromDatabase first,
 				textArea.appendText("\n");
 				cc.sendChatToDatabase(playerid, "NOW()", message);
 				textField.clear();
@@ -95,10 +96,12 @@ public class ChatPane extends BorderPane {
 			
 			chat = cc.getchat();
 			chatdate = cc.getchatDate();
+			ArrayList<Integer> idchat = cc.getPlayerIDs();
 			textArea.clear();
 			for(int i = 0; i < chat.size(); i++) {
-				//playerid.getusername:
-				textArea.appendText("(" + chatdate.get(i) + "): ");
+				
+				String name = cc.getUsername(idchat.get(i));
+				textArea.appendText("(" + chatdate.get(i) + ") " + name + ": ");
 				textArea.appendText(chat.get(i) + "\n");
 			}
 			buttonBar.getChildren().clear();
