@@ -114,5 +114,24 @@ public class MenuController {
 //		System.out.println(list);//syso to check which numbers are added to database
 		return list;
 	}
+	
+	public ArrayList<Integer> getActivePlayerGames(String username)
+	{
+		ArrayList<Integer> activeGames = new ArrayList<>();
+		
+		for (int i = 0; i < dbGameCollector.startedGames().size(); i++) {
+			
+			int gameid = dbGameCollector.startedGames().get(i);
+			for (int j = 0; j < dbGameCollector.getPlayers(gameid).length; j++) {
+				
+				if (dbGameCollector.getUsername(dbGameCollector.getPlayers(gameid)[j]).equals(username)) {
+					activeGames.add(dbGameCollector.startedGames().get(i));
+					System.out.println("active game: " + dbGameCollector.startedGames().get(i));
+				}
+			}
+		}
+		return activeGames;
+	}
+	
 }
 

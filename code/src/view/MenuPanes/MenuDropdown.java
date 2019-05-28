@@ -1,13 +1,10 @@
 package view.MenuPanes;
 
-import java.security.KeyStore.PrivateKeyEntry;
 import java.util.ArrayList;
 
 import controller.LoginController;
 import controller.MenuController;
 import databeest.DataBaseApplication;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
