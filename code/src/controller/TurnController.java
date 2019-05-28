@@ -4,12 +4,14 @@ import databeest.DbDieUpdater;
 import helpers.DiceHolderType;
 import model.DiceHolderModel;
 import model.GameModel;
+import model.PlayerModel;
 
 public class TurnController {
 
 	DiceHolderController dhc;
 	DbDieUpdater ddu;
 	GameModel gm;
+	PlayerModel currentplayer;
 
 	public TurnController(DiceHolderController dhc, DbDieUpdater ddu, GameModel gm) {
 		this.dhc = dhc;
@@ -33,10 +35,65 @@ public class TurnController {
 
 					ddu.updateDieLocation(x, y, dhc.getMovedDice().get(i),
 							gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getPlayerId(), gm.getGameId());
+					dm = null;
 
 				}
 			}
 
+		}
+		updateSeqnr();
+	}
+	
+	//milan
+	private void updateSeqnr() {
+		PlayerModel[] players = gm.getPma();
+		int amountOfPlayers = players.length;
+		int seqnr = 8;
+		if (amountOfPlayers == 4) {
+			for (int i = 0; i < players.length; i++) {
+				int x = players[i].getSeqnr();
+				if (x < seqnr) {
+					seqnr = x; // pakt de laagste seqnr, deze is van de huidige speler die op pass drukt.
+					currentplayer = players[i]; // slaat op welke speler uit players[] de huidige speler is
+				}
+			}
+			switch (seqnr) {
+			case 1:
+				currentplayer.setSeqnr(8); // eerste aan de beurt, laatste aan de beurt
+				break;
+			case 2:
+				currentplayer.setSeqnr(7);
+				break;
+			case 3: 
+				currentplayer.setSeqnr(6);
+				break;
+			case 4:
+				currentplayer.setSeqnr(5);
+				break;
+			case 8:
+				if (currentplayer == players[0]) { //verandert de volgorde van startspeler wanner de laatste persoon past.
+					players[0].setSeqnr(4);
+					players[1].setSeqnr(1);
+					players[2].setSeqnr(2);
+					players[3].setSeqnr(3);
+				} else if (currentplayer == players[1]) {
+					players[0].setSeqnr(3);
+					players[1].setSeqnr(4);
+					players[2].setSeqnr(1);
+					players[3].setSeqnr(2);
+				} else if (currentplayer == players[2]) {
+					players[0].setSeqnr(2);
+					players[1].setSeqnr(3);
+					players[2].setSeqnr(4);
+					players[3].setSeqnr(1);
+				} else if (currentplayer == players[3]) {
+					players[0].setSeqnr(1);
+					players[1].setSeqnr(2);
+					players[2].setSeqnr(3);
+					players[3].setSeqnr(4);
+				} 
+				break;
+			}
 		}
 	}
 

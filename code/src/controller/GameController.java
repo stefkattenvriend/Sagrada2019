@@ -91,7 +91,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		GameModel gm = new GameModel(gameID, dbGameCollector, username, dpc, amountOfPlayers);
 		this.gm = gm;
 		guc.setGameModel(gm);
-		Integer[] playerIDs = dbGameCollector.getPlayers(gameID);
+		int[] playerIDs = dbGameCollector.getPlayers(gameID);
 
 		for (int i = 0; i < amountOfPlayers; i++) {
 			//kijk welke spelers er meedoen en maak ze

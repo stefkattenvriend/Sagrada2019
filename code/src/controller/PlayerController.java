@@ -12,7 +12,7 @@ public class PlayerController {
 	
 	public PlayerController(DbPlayerCollector dbPlayerCollector)
 	{
-		playerModel = new PlayerModel();
+		playerModel = new PlayerModel(dbPlayerCollector);
 		this.dbPlayerCollector = dbPlayerCollector;
 	}
 	

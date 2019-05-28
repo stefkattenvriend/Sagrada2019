@@ -294,10 +294,6 @@ public class DataBaseApplication {
 		return playerStatus;
 	}
 	
-	
-	
-	
-	
 	public int getPlayerID(String gameID, String currentAccount){ //alle afwachtend op reactie games van de ingelogde speler #joery
 		Statement stmt = null;
 		String query = "SELECT idplayer FROM player WHERE game_idgame = '" + gameID + "' AND username = '" + currentAccount + "';";
@@ -659,9 +655,9 @@ public class DataBaseApplication {
 		return amount;
 	}
 
-	public Integer[] GetPlayerIDs(int gameID) {
+	public int[] GetPlayerIDs(int gameID) {
 		Statement stmt = null;
-		Integer[] playerIDs = new Integer[this.getAmountOfPlayers(gameID)];
+		int[] playerIDs = new int[this.getAmountOfPlayers(gameID)];
 		String query = "SELECT idplayer FROM mwmastbe_db2.player WHERE game_idgame = " + gameID + ";";
 		try {
 			stmt = m_Conn.createStatement();
@@ -812,11 +808,33 @@ public class DataBaseApplication {
 		try {
 			stmt = m_Conn.createStatement();
 			int rs = stmt.executeUpdate(query);
-			System.out.println(rs);
 			stmt.close();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
+	}
+	
+	//Haalt op welke games gestart zijn (iedereen heeft het verzoek geaccepteerd)
+	public ArrayList<Integer> getStartedGames(){
+		
+		Statement stmt = null;
+		ArrayList<Integer> startedGames = new ArrayList<>();
+		String query = "SELECT game_idgame AS gameid, COUNT(idplayer) AS geaccepteerd, (SELECT COUNT(idplayer) FROM player WHERE game_idgame = gameid) AS totaal_spelers FROM player WHERE playstatus_playstatus = 'geaccepteerd' OR playstatus_playstatus = 'uitdager' GROUP BY game_idgame;"; 
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+				if (rs.getInt(2) == rs.getInt(3)) {
+					startedGames.add(rs.getInt(1));
+				}
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return startedGames;
 	}
 
 }
