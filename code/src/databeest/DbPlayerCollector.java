@@ -1,10 +1,5 @@
 package databeest;
 
-import java.util.ArrayList;
-
-import model.PlayerModel;
-import javafx.scene.paint.Color;
-
 //Stef
 public class DbPlayerCollector {
 	

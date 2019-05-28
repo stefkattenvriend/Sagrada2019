@@ -4,6 +4,7 @@ import controller.GameController;
 import controller.LayerController;
 import controller.PatterncardController;
 import controller.PointsController;
+import controller.TurnController;
 //joery
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -28,6 +29,7 @@ public class GamePane extends StackPane {
 	private LayerController lyc;
 	private MyScene myScene;
 	private PointsController pc;
+	private TurnController tc;
 	
 	public GamePane(GameController gameController, MyScene myScene) {
 		this.gc = gameController;
@@ -36,6 +38,7 @@ public class GamePane extends StackPane {
 		this.pcc = gc.getPatterncardController();
 		this.lyc = gc.getLayerController();
 		this.pc = gc.getPointsController();
+		this.tc = gc.getTurnController();
 		
 		
 		setScreenSize();
@@ -44,7 +47,7 @@ public class GamePane extends StackPane {
 
 	private void setUp() {
 		gamePane = new BorderPane();
-		playerPane = new PlayerPane(dhc, pcc, myScene, gc, pc);
+		playerPane = new PlayerPane(dhc, pcc, myScene, gc, pc, tc);
 		cardDisplayPane = new CardDisplayPane(gc.getCardsController());
 		enemyPane = new EnemyPane(gc);
 		gamePane.setLeft(cardDisplayPane);

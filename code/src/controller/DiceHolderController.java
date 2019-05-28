@@ -16,6 +16,7 @@ public class DiceHolderController {
 
 	private ArrayList<DiceHolderModel> dhmodels = new ArrayList<DiceHolderModel>();
 	private ArrayList<DiceHolderPane> dhpanes = new ArrayList<DiceHolderPane>();
+	private ArrayList<DiceModel> movedDice = new ArrayList<DiceModel>();
 	private DiceController dc;
 	private PatterncardController pcc;
 	
@@ -79,6 +80,7 @@ public class DiceHolderController {
 						
 						if(checkDiceMovement(selectedModel, dhmodels.get(i).getDie()) == true) {
 							selectedModel.setDie(dhmodels.get(i).getDie());// wiselt de models
+						movedDice.add(dhmodels.get(i).getDie());
 						dhmodels.get(i).setDie(null);
 
 						dhmodels.get(i).switchSelected();// zet achtergrond en selected naar nul van oude pane
@@ -86,6 +88,8 @@ public class DiceHolderController {
 
 						dp.setCenter(dhpanes.get(i).getCenter());// wiselt de panes
 						dhpanes.get(i).setCenter(null);
+						
+						
 
 						return;
 						}else {
@@ -275,5 +279,13 @@ public class DiceHolderController {
 			}
 		}
 		return playerWindowDice;
+	}
+	
+	public ArrayList<DiceModel> getMovedDice() {
+		return movedDice;
+	}
+
+	public ArrayList<DiceHolderModel> getDhmodels() {
+		return dhmodels;
 	}
 }

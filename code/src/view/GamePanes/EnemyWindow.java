@@ -83,7 +83,7 @@ public class EnemyWindow extends VBox {
 
 	}
 
-	private void aanduiding() { // deze method wordt uiteindelijk verwijderd
+	private void aanduiding() { //TODO deze method wordt uiteindelijk verwijderd
 		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null))); // aanduiding van
 																									// chatvak
 		Label text = new Label();
