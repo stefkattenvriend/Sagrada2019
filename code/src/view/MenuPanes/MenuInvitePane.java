@@ -24,12 +24,14 @@ public class MenuInvitePane extends FlowPane{
 	private ArrayList<String> challengers;
 	private LoginController lc;
 	private MenuController menuController;
+	private ArrayList<String> invitedGameIDs;
 	
 	public MenuInvitePane(MenuController menuController, LoginController lc) {
 		databeest = menuController.getDataBaseApplication();
 		this.lc = lc;
 		this.menuController = menuController;
 		challengers = databeest.getChallenger(lc.getCurrentAccount());
+		invitedGameIDs = databeest.getInviteGameID(lc.getCurrentAccount());
 		setPaneSize();
 		createActiveGamesList();
 		setBackground(new Background(new BackgroundFill(Color.rgb(254, 255, 209, 0.8), null, null))); //tijdelijk
@@ -54,9 +56,8 @@ public class MenuInvitePane extends FlowPane{
 		
 		ArrayList<MenuDropdown> games = new ArrayList<MenuDropdown>();
 		
-		for(int i = 0; i < challengers.size(); i++) {// vult verzameling met alle knoppen
-			games.add(new MenuDropdown(menuController, false, "Uitnodiging van " + challengers.get(i), false, null, false, true, null, lc));
-			
+		for(int i = 0; i < invitedGameIDs.size(); i++) {// vult verzameling met alle knoppen
+			games.add(new MenuDropdown(menuController, false, "Uitnodiging voor Sagrada " + invitedGameIDs.get(i) + " Door " + challengers.get(i), false, null, false, true, null, lc));
 		}
 		
 		for(int x = 0; x < games.size(); x++) { //voegt alle knoppen toe aan de lijst

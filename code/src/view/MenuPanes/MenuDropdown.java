@@ -1,10 +1,12 @@
 package view.MenuPanes;
 
+import java.security.KeyStore.PrivateKeyEntry;
 import java.util.ArrayList;
 
 import controller.LoginController;
 import controller.MenuController;
 import databeest.DataBaseApplication;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -34,6 +36,7 @@ public class MenuDropdown extends VBox {// door joery
 	private DataBaseApplication databeest;
 	private ArrayList<String> players;
 	private ArrayList<String> status;
+	private String gameID;
 
 	public MenuDropdown(MenuController menuController, boolean gamesPane, String btnName, boolean playersPane,
 			MenuPlayersPane menuPlayersPane, boolean waitPane, boolean invitesPane, MenuWaitingPane menuWaitingPane, LoginController loginController) {
@@ -99,7 +102,7 @@ public class MenuDropdown extends VBox {// door joery
 
 		if (waitPane) {
 			String splitBtnName[] = username.split(" ");
-			String gameID = splitBtnName[1];
+			gameID = splitBtnName[1];
 			players = databeest.getPlayersInGame(gameID, loginController.getCurrentAccount());
 			status = databeest.getPlayerStatus(gameID, loginController.getCurrentAccount());
 			FlowPane inGamePlayers = new FlowPane();
@@ -150,17 +153,22 @@ public class MenuDropdown extends VBox {// door joery
 		}
 	
 		if(invitesPane) {
+			String splitBtnName[] = username.split(" ");
+			gameID = splitBtnName[3];
+			int playerID = databeest.getPlayerID(gameID, loginController.getCurrentAccount());
+			
 			HBox choicePane = new HBox();
 			choicePane.setPrefSize(MenuPane.paneWidth - 60, 60);
 			Button accept = new Button("accepteer");
 			accept.setPrefSize((MenuPane.paneWidth - 60) / 2, 60);
 			accept.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, null, null)));
+			accept.setOnAction(e -> menuController.acceptInvite(playerID));
 			
 			Button ignore = new Button("weiger");
 			ignore.setPrefSize((MenuPane.paneWidth - 60) / 2, 60);
 			ignore.setBackground(new Background(new BackgroundFill(Color.INDIANRED, null, null)));
-
-//			choicePane.setAlignment(Pos.CENTER);
+			ignore.setOnAction(e -> menuController.declineInvite(playerID));
+			
 			choicePane.getChildren().addAll(accept, ignore);
 			gameInfoPane.setCenter(choicePane);
 		}

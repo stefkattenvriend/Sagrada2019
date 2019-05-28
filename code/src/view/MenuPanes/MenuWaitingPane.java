@@ -87,14 +87,16 @@ public class MenuWaitingPane extends FlowPane {
 			for (int s = 0; s < status.size(); s++) {
 				if (status.get(s).equals("uitdager")) {
 					gotit = true;
+					
 					gameIDs.remove(i);
 				}
 			}
 			
-			//voegt knop toe
+		}
+		
+		for(int i = 0; i < gameIDs.size(); i++) { //voegt knop toe
 			games.add(new MenuDropdown(menuController, false, "Sagrada " + gameIDs.get(i), false, null, true, false,
-					this, loginController)); // spelersnaam
-			
+					this, loginController));
 		}
 
 		for (int x = 0; x < games.size(); x++) { // voegt alle knoppen toe aan de lijst

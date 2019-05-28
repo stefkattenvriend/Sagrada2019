@@ -173,6 +173,29 @@ public class DataBaseApplication {
 		return challengers;
 	}
 	
+	
+	public ArrayList<String> getInviteGameID(String currentAccount){ //alle uitdagers van de ingelogde speler #joery
+		Statement stmt = null;
+		ArrayList<String> challengers = new ArrayList<>();
+		String query = "SELECT p2.game_idgame as gameid From player p1 Inner join player p2 On p1.game_idgame = p2.game_idgame where p1.username = '" + currentAccount + "' and p1.playstatus_playstatus = 'uitgedaagde' And p2.playstatus_playstatus = 'uitdager' Order by p1.game_idgame;";
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while (rs.next()) {
+
+				challengers.add(rs.getString(1));
+
+			}
+			stmt.close();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return challengers;
+	}
+	
+	
+	
 	public ArrayList<String> getWaitingGames(String currentAccount){ //alle afwachtend op reactie games van de ingelogde speler #joery
 		Statement stmt = null;
 		ArrayList<String> waitingGames = new ArrayList<>();
@@ -233,17 +256,21 @@ public class DataBaseApplication {
 		return playerStatus;
 	}
 	
-	public ArrayList<String> getPlayerID(String gameID, String currentAccount){ //alle afwachtend op reactie games van de ingelogde speler #joery
+	
+	
+	
+	
+	public int getPlayerID(String gameID, String currentAccount){ //alle afwachtend op reactie games van de ingelogde speler #joery
 		Statement stmt = null;
-		ArrayList<String> playerID = new ArrayList<>();
-		String query = "";
+		String query = "SELECT idplayer FROM player WHERE game_idgame = '" + gameID + "' AND username = '" + currentAccount + "';";
+		int playerID = 0;
 		try {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			
 			while (rs.next()) {
 
-				playerID.add(rs.getString(1));
+				playerID = rs.getInt(1);
 
 			}
 			stmt.close();
@@ -252,8 +279,6 @@ public class DataBaseApplication {
 		}
 		return playerID;
 	}
-	
-	
 
 	public ArrayList<String> getColor() {
 		Statement stmt = null;
