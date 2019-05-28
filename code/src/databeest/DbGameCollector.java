@@ -19,6 +19,16 @@ public class DbGameCollector {
 		dataBaseApplication.insertQuery(query);
 
 	}
+	
+	public void updateStatusAccept(int idplayer) {
+		String query = "UPDATE `mwmastbe_db2`.`player` SET `playstatus_playstatus` = 'geaccepteerd' WHERE (`idplayer` = '" + idplayer + "');";
+		dataBaseApplication.insertQuery(query);
+	}
+	
+	public void updateStatusIgnore(int idplayer) {
+		String query = "UPDATE `mwmastbe_db2`.`player` SET `playstatus_playstatus` = 'geweigerd' WHERE (`idplayer` = '" + idplayer + "');";
+		dataBaseApplication.insertQuery(query);
+	}
 
 	public void pushFirstPlayer(String username, String color) {
 		// voeg user toe aan game
