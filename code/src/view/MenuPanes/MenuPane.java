@@ -52,9 +52,9 @@ public class MenuPane extends BorderPane {
 //		BackgroundImage(Image image, BackgroundRepeat repeatX, BackgroundRepeat repeatY, BackgroundPosition position, BackgroundSize size)
 	}
 	
-	private void createPanes() {
-		menuLeftPane = new MenuLeftPane(menuController, loginController);
+	private void createPanes() {		
 		menuRightPane = new MenuRightPane(myScene, menuController, loginController);
+		menuLeftPane = new MenuLeftPane(menuController, loginController, menuRightPane.getMenuWaitingGame());
 		menuCenterPane = new MenuCenterPane(loginController, menuController, menuRightPane.getMenuWaitingGame());
 		setLeft(menuLeftPane);
 		setCenter(menuCenterPane);

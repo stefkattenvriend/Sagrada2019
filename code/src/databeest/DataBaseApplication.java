@@ -194,7 +194,45 @@ public class DataBaseApplication {
 		return challengers;
 	}
 	
+	public ArrayList<String> getCurrentPlayerStatus(String currentAccount, String gameID){ //alle uitdagers van de ingelogde speler #joery
+		Statement stmt = null;
+		ArrayList<String> currentPlayerStatus = new ArrayList<>();
+		String query = "SELECT playstatus_playstatus from player where username = '" + currentAccount + "' and game_idgame = '" + gameID + "';";
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while (rs.next()) {
+
+				currentPlayerStatus.add(rs.getString(1));
+
+			}
+			stmt.close();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return currentPlayerStatus;
+	}
 	
+	public ArrayList<String> getAcceptedGame(String currentAccount){ //alle uitdagers van de ingelogde speler #joery
+		Statement stmt = null;
+		ArrayList<String> statusAccepted = new ArrayList<>();
+		String query = "SELECT playstatus_playstatus as status from player where username = '" + currentAccount + "' AND playstatus_playstatus = 'geaccepteerd' order by game_idgame;";
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while (rs.next()) {
+
+				statusAccepted.add(rs.getString(1));
+
+			}
+			stmt.close();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return statusAccepted;
+	}
 	
 	public ArrayList<String> getWaitingGames(String currentAccount){ //alle afwachtend op reactie games van de ingelogde speler #joery
 		Statement stmt = null;

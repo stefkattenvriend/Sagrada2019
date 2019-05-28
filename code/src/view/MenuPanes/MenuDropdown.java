@@ -1,13 +1,10 @@
 package view.MenuPanes;
 
-import java.security.KeyStore.PrivateKeyEntry;
 import java.util.ArrayList;
 
 import controller.LoginController;
 import controller.MenuController;
 import databeest.DataBaseApplication;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -37,15 +34,19 @@ public class MenuDropdown extends VBox {// door joery
 	private ArrayList<String> players;
 	private ArrayList<String> status;
 	private String gameID;
+	private int playerID;
+	private MenuInvitePane menuInvitePane;
 
 	public MenuDropdown(MenuController menuController, boolean gamesPane, String btnName, boolean playersPane,
-			MenuPlayersPane menuPlayersPane, boolean waitPane, boolean invitesPane, MenuWaitingPane menuWaitingPane, LoginController loginController) {
+			MenuPlayersPane menuPlayersPane, boolean waitPane, boolean invitesPane, MenuWaitingPane menuWaitingPane,
+			LoginController loginController, MenuInvitePane menuInvitePane) {
 		this.menuController = menuController;
 		username = btnName;
 		this.menuPlayersPane = menuPlayersPane;
 		this.waitPane = waitPane;
 		this.menuWaitingPane = menuWaitingPane;
 		this.loginController = loginController;
+		this.menuInvitePane = menuInvitePane;
 		databeest = menuController.getDataBaseApplication();
 		createInfoPane(gamesPane, playersPane, waitPane, invitesPane);
 		createButton(btnName);
@@ -107,72 +108,104 @@ public class MenuDropdown extends VBox {// door joery
 			status = databeest.getPlayerStatus(gameID, loginController.getCurrentAccount());
 			FlowPane inGamePlayers = new FlowPane();
 			inGamePlayers.setPrefSize(MenuPane.paneWidth - 60, 60);
-			
+
 			VBox playersList = new VBox();
 			Label p1 = new Label();
 			Label p2 = new Label();
 			Label p3 = new Label();
-			
-			for(int i = 0; i < players.size(); i++){
-				if(players.get(i) != null) {
-					if(i == 0) {
+
+			for (int i = 0; i < players.size(); i++) {
+				if (players.get(i) != null) {
+					if (i == 0) {
 						p1.setText(players.get(i));
-					} else if(i == 1) {
+					} else if (i == 1) {
 						p2.setText(players.get(i));
-					} else if(i == 2) {
+					} else if (i == 2) {
 						p3.setText(players.get(i));
 					}
 				}
 			}
-			
-			playersList.getChildren().addAll(p1,p2,p3);
-			
+
+			playersList.getChildren().addAll(p1, p2, p3);
+
 			VBox gap = new VBox();
 			gap.setPrefWidth(20);
-			
+
 			VBox statusList = new VBox();
 			Label s1 = new Label();
 			Label s2 = new Label();
 			Label s3 = new Label();
-			
-			for(int i = 0; i < status.size(); i++){
-				if(status.get(i) != null) {
-					if(i == 0) {
+
+			for (int i = 0; i < status.size(); i++) {
+				if (status.get(i) != null) {
+					if (i == 0) {
+						if(status.get(i).equals("uitgedaagde")) {
+							s1.setText("wachten op reactie..");
+						} else if(status.get(i).equals("uitdager")) {
+							s1.setText("heeft jou uitgenodigd");
+						} else {
 						s1.setText(status.get(i));
-					} else if(i == 1) {
+						}
+					} else if (i == 1) {
+						if(status.get(i).equals("uitgedaagde")) {
+							s2.setText("wachten op reactie..");
+						} else if(status.get(i).equals("uitdager")) {
+							s2.setText("heeft jou uitgenodigd");
+						} else {
 						s2.setText(status.get(i));
-					} else if(i == 2) {
-						s3.setText(status.get(i));
+						}
+					} else if (i == 2) {
+						if(status.get(i).equals("uitgedaagde")) {
+							s3.setText("wachten op reactie..");
+						} else if(status.get(i).equals("uitdager")) {
+							s3.setText("heeft jou uitgenodigd");
+						} else {
+							s3.setText(status.get(i));
+						}
 					}
 				}
 			}
-			
-			statusList.getChildren().addAll(s1,s2,s3);
+
+			statusList.getChildren().addAll(s1, s2, s3);
 			inGamePlayers.getChildren().addAll(playersList, gap, statusList);
 			gameInfoPane.setLeft(inGamePlayers);
 		}
-	
-		if(invitesPane) {
+
+		if (invitesPane) {
 			String splitBtnName[] = username.split(" ");
 			gameID = splitBtnName[3];
-			int playerID = databeest.getPlayerID(gameID, loginController.getCurrentAccount());
-			
+			playerID = databeest.getPlayerID(gameID, loginController.getCurrentAccount());
+
 			HBox choicePane = new HBox();
 			choicePane.setPrefSize(MenuPane.paneWidth - 60, 60);
 			Button accept = new Button("accepteer");
 			accept.setPrefSize((MenuPane.paneWidth - 60) / 2, 60);
 			accept.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, null, null)));
-			accept.setOnAction(e -> menuController.acceptInvite(playerID));
+			accept.setOnAction(e -> accept(playerID));
 			
 			Button ignore = new Button("weiger");
 			ignore.setPrefSize((MenuPane.paneWidth - 60) / 2, 60);
 			ignore.setBackground(new Background(new BackgroundFill(Color.INDIANRED, null, null)));
-			ignore.setOnAction(e -> menuController.declineInvite(playerID));
+			ignore.setOnAction(e -> decline(playerID));
 			
 			choicePane.getChildren().addAll(accept, ignore);
 			gameInfoPane.setCenter(choicePane);
 		}
 
+	}
+
+	private void accept(int pID) {
+		menuController.acceptInvite(pID);
+		getChildren().clear();
+		menuInvitePane.updateInvitePane();
+		getChildren().add(btn);
+	}
+
+	private void decline(int pID) {
+		menuController.declineInvite(pID);
+		getChildren().clear();
+		menuInvitePane.updateInvitePane();
+		getChildren().add(btn);
 	}
 
 	public void selectPlayer() {
@@ -193,10 +226,8 @@ public class MenuDropdown extends VBox {// door joery
 	public boolean isClicked() {
 		return isChecked;
 	}
-	
-	public void getPlayersInGame(String gameID, String playername) {
-		
-	}
-	
 
+	public void getPlayersInGame(String gameID, String playername) {
+
+	}
 }

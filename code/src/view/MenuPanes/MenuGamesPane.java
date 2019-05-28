@@ -26,6 +26,7 @@ public class MenuGamesPane extends FlowPane{
 	private boolean clicked = false;
 	private MenuController menuController;
 	private LoginController loginController;
+	private ArrayList<MenuDropdown> games;
 	
 	public MenuGamesPane(MyScene myScene, MenuController menuController, LoginController loginController) {
 		this.myScene = myScene;
@@ -53,10 +54,10 @@ public class MenuGamesPane extends FlowPane{
 		list.setMaxWidth(MenuPane.paneWidth - 80);
 		gamesList.setContent(list);
 		
-		ArrayList<MenuDropdown> games = new ArrayList<MenuDropdown>();
+		games = new ArrayList<MenuDropdown>();
 		
 		for(int i = 0; i < 10; i++) {// vult verzameling met alle knoppen
-			games.add(new MenuDropdown(menuController, true, "Sagrada " + i, false, null, false, false, null, loginController));
+			games.add(new MenuDropdown(menuController, true, "Sagrada " + i, false, null, false, false, null, loginController, null));
 			
 		}
 		

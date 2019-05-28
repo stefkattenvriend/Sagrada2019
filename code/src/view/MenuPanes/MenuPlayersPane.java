@@ -95,7 +95,7 @@ public class MenuPlayersPane extends VBox {// door joery
 		}
 
 		for (int i = 0; i < players.size(); i++) {// vult verzameling met alle knoppen met bijbehorende username
-			menuItems.add(new MenuDropdown(menuController, false, players.get(i), false, this, false, false, null, loginController)); // spelersnaam moet uit
+			menuItems.add(new MenuDropdown(menuController, false, players.get(i), false, this, false, false, null, loginController, null)); // spelersnaam moet uit
 
 		}
 
@@ -125,7 +125,7 @@ public class MenuPlayersPane extends VBox {// door joery
 		listInput.getChildren().clear();
 		message.setText(" ");
 		for (int i = 0; i < players.size(); i++) {// vult verzameling met alle knoppen
-			menuItems.add(new MenuDropdown(menuController, false, players.get(i), true, this, false, false, null, loginController)); // spelersnaam moet uit
+			menuItems.add(new MenuDropdown(menuController, false, players.get(i), true, this, false, false, null, loginController,null)); // spelersnaam moet uit
 			// database worden getrokken
 		}
 
@@ -180,7 +180,7 @@ public class MenuPlayersPane extends VBox {// door joery
 		listInput.getChildren().clear();
 
 		for (int i = 0; i < players.size(); i++) {// vult verzameling met alle knoppen
-			menuItems.add(new MenuDropdown(menuController, false, players.get(i), false, this, false, false, null, loginController));
+			menuItems.add(new MenuDropdown(menuController, false, players.get(i), false, this, false, false, null, loginController, null));
 		}
 
 		for (int x = 0; x < menuItems.size(); x++) { // voegt alle knoppen toe aan de lijst

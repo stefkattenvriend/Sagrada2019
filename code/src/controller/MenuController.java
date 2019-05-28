@@ -34,6 +34,7 @@ public class MenuController {
 	
 	public void acceptInvite(int playerid) {
 		dbGameCollector.updateStatusAccept(playerid);
+		
 	}
 	
 	public void declineInvite(int playerid) {
