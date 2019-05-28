@@ -31,7 +31,13 @@ public class DbChatCollector {
 		ArrayList<String> chatdate = dataBaseApplication.getChatDate(query);
 		return chatdate;
 	}
-
+	
+	public int getPlayerID(int gameid, String username) {
+		int id = 0;
+		id = dataBaseApplication.getPlayerID(username, gameid);
+		return id;
+	}
+	
 	public ArrayList<Integer> getPlayerIDs() {
 		String query = "SELECT player_idplayer FROM chatline ORDER BY time;";
 		ArrayList<Integer> chatIDs = dataBaseApplication.getChatIDs(query); 

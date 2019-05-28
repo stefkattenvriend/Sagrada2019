@@ -719,4 +719,19 @@ public class DataBaseApplication {
 		}
 		return chatID;
 	}
+	
+	public void UpdateDiceLocation(int x, int y, int playerid, int dienumber, String color, int gameID) {
+		Statement stmt = null;
+		String query = "UPDATE playerframefield SET dienumber = " + dienumber + ", diecolor = '" + color + "' WHERE player_idplayer = " + playerid + " AND position_x = " + x + " AND position_y = " + y + " AND idgame = " + gameID + ";";
+
+		try {
+			stmt = m_Conn.createStatement();
+			int rs = stmt.executeUpdate(query);
+			System.out.println(rs);
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
 }
