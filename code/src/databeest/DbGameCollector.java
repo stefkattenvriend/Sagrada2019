@@ -100,8 +100,17 @@ public class DbGameCollector {
 		return amount;
 	}
 	
-	public Integer[] getPlayers(int gameID) {
+	public int[] getPlayers(int gameID) {
 		return dataBaseApplication.GetPlayerIDs(gameID);
+	}
+	
+	public ArrayList<Integer> startedGames() {
+		return dataBaseApplication.getStartedGames();
+	}
+	
+	public String getUsername(int playerid) {
+		String username = dataBaseApplication.getplayerUsername(playerid);
+		return username;
 	}
 
 }
