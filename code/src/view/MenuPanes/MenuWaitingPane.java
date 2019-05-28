@@ -1,6 +1,5 @@
 package view.MenuPanes;
 
-import java.lang.ref.Cleaner;
 import java.util.ArrayList;
 
 import controller.LoginController;
@@ -34,16 +33,20 @@ public class MenuWaitingPane extends FlowPane {
 	private ArrayList<MenuDropdown> games;
 	private ArrayList<String> accepted;
 	private Label title;
+	private MenuGamesPane menuGamesPane;
 	private boolean gotit = false;
 	private ArrayList<String> currentPlayerStatus;
+	private ArrayList<String> newAcceptedGames;
 
-	public MenuWaitingPane(MenuController menuController, LoginController loginController) {
+	public MenuWaitingPane(MenuController menuController, LoginController loginController,
+			MenuGamesPane menuGamesPane) {
 		this.menuController = menuController;
 		this.loginController = loginController;
+		this.menuGamesPane = menuGamesPane;
 		databeest = menuController.getDataBaseApplication();
 		gameIDs = databeest.getWaitingGames(loginController.getCurrentAccount());
 		accepted = databeest.getAcceptedGame(loginController.getCurrentAccount());
-
+		newAcceptedGames = new ArrayList<String>();
 		setPaneSize();
 		createActiveGamesList();
 
@@ -83,22 +86,22 @@ public class MenuWaitingPane extends FlowPane {
 	public void setUp() {
 
 		for (int i = 0; i < gameIDs.size(); i++) {// vult verzameling met alle knoppen
-			
-			//check of de uitdager in het lijstje staat van gameID 
-			//	->view deze mag pas zichtbaar worden als invite is geaccepteerd
+
+			// check of de uitdager in het lijstje staat van gameID
+			// ->view deze mag pas zichtbaar worden als invite is geaccepteerd
 			status = databeest.getPlayerStatus(gameIDs.get(i), loginController.getCurrentAccount());
 			currentPlayerStatus = databeest.getCurrentPlayerStatus(loginController.getCurrentAccount(), gameIDs.get(i));
 			for (int s = 0; s < status.size(); s++) {
 				if (status.get(s).equals("uitdager") && currentPlayerStatus.get(0).equals("uitgedaagde")) {
-					
+
 					gameIDs.remove(i);
-				} 
+				}
 			}
 		}
-		
-		for(int i = 0; i < gameIDs.size(); i++) { //voegt knop toe
+
+		for (int i = 0; i < gameIDs.size(); i++) { // voegt knop toe
 			games.add(new MenuDropdown(menuController, false, "Sagrada " + gameIDs.get(i), false, null, true, false,
-					this, loginController, null));
+					this, loginController, null, menuGamesPane));
 		}
 
 		for (int x = 0; x < games.size(); x++) { // voegt alle knoppen toe aan de lijst
@@ -108,39 +111,42 @@ public class MenuWaitingPane extends FlowPane {
 		setAlignment(Pos.CENTER);
 		getChildren().addAll(title, waitingList);
 	}
-	
+
 	public void updateWaitingPane() {
 		getChildren().clear();
 		list.getChildren().clear();
 		games.clear();
-		
+
 		gameIDs = databeest.getWaitingGames(loginController.getCurrentAccount());
 		
-		for (int i = 0; i < gameIDs.size(); i++) {// vult verzameling met alle knoppen
-			
-			//check of de uitdager in het lijstje staat van gameID 
-			//	->view deze mag pas zichtbaar worden als invite is geaccepteerd
+		for (int i = 0; i < gameIDs.size(); i++) {
+
+			// check of de uitdager in het lijstje staat van gameID
+			// ->view deze mag pas zichtbaar worden als invite is geaccepteerd
 			status = databeest.getPlayerStatus(gameIDs.get(i), loginController.getCurrentAccount());
 			currentPlayerStatus = databeest.getCurrentPlayerStatus(loginController.getCurrentAccount(), gameIDs.get(i));
 			for (int s = 0; s < status.size(); s++) {
 				if (status.get(s).equals("uitdager") && !currentPlayerStatus.get(0).equals("geaccepteerd")) {
-					
-					gameIDs.remove(i);	
-				} 
+
+					gameIDs.remove(i);
+				}
 			}
-		}
-		
-		for(int i = 0; i < gameIDs.size(); i++) { //voegt knop toe
-			games.add(new MenuDropdown(menuController, false, "Sagrada " + gameIDs.get(i), false, null, true, false,
-					this, loginController, null));
+
 		}
 
-		for (int x = 0; x < games.size(); x++) { // voegt alle knoppen toe aan de lijst
-			list.getChildren().add(games.get(x));
+		for (int i = 0; i < gameIDs.size(); i++) { // voegt knop toe
+			games.add(new MenuDropdown(menuController, false, "Sagrada " + gameIDs.get(i), false, null, true, false,
+					this, loginController, null, null));
+		}
+
+		for (int i = 0; i < games.size(); i++) { // voegt alle knoppen toe aan de lijst
+			list.getChildren().add(games.get(i));
 		}
 
 		setAlignment(Pos.CENTER);
 		getChildren().addAll(title, waitingList);
 	}
-	
+
+
+
 }

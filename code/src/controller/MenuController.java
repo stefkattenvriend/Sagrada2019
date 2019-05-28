@@ -23,7 +23,8 @@ public class MenuController {
 		
 	}
 	
-	public void loadGame() {
+	public void loadGame(String gID) {
+		int gameID = Integer.parseInt(gID);
 		mc.getGameController().createGameModel(6);//gehardcode, moet later anders zijn aan game ID gebonden aan button
 		myScene.setGamePane();
 	}
@@ -132,6 +133,24 @@ public class MenuController {
 			}
 		}
 		return activeGames;
+	}
+	
+	public ArrayList<Integer> getWaitedPlayerGames(String username)
+	{
+		ArrayList<Integer> waitedGames = new ArrayList<>();
+		
+		for (int i = 0; i < dbGameCollector.waitedGames().size(); i++) {
+			
+			int gameid = dbGameCollector.waitedGames().get(i);
+			for (int j = 0; j < dbGameCollector.getPlayers(gameid).length; j++) {
+				
+				if (dbGameCollector.getUsername(dbGameCollector.getPlayers(gameid)[j]).equals(username)) {
+					waitedGames.add(dbGameCollector.startedGames().get(i));
+					System.out.println("waited game: " + dbGameCollector.waitedGames().get(i));
+				}
+			}
+		}
+		return waitedGames;
 	}
 	
 }

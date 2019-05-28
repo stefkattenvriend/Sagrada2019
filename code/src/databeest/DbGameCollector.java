@@ -108,6 +108,10 @@ public class DbGameCollector {
 		return dataBaseApplication.getStartedGames();
 	}
 	
+	public ArrayList<Integer> waitedGames() {
+		return dataBaseApplication.getWaitedGames();
+	}
+	
 	public String getUsername(int playerid) {
 		String username = dataBaseApplication.getplayerUsername(playerid);
 		return username;

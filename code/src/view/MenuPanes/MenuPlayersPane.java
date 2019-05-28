@@ -37,7 +37,8 @@ public class MenuPlayersPane extends VBox {// door joery
 	private LoginController loginController;
 	private MenuWaitingPane menuWaitingPane;
 
-	public MenuPlayersPane(MenuController menuController, LoginController loginController, MenuWaitingPane menuWaitingPane) {
+	public MenuPlayersPane(MenuController menuController, LoginController loginController,
+			MenuWaitingPane menuWaitingPane) {
 		this.menuController = menuController;
 		this.loginController = loginController;
 		this.menuWaitingPane = menuWaitingPane;
@@ -95,7 +96,8 @@ public class MenuPlayersPane extends VBox {// door joery
 		}
 
 		for (int i = 0; i < players.size(); i++) {// vult verzameling met alle knoppen met bijbehorende username
-			menuItems.add(new MenuDropdown(menuController, false, players.get(i), false, this, false, false, null, loginController, null)); // spelersnaam moet uit
+			menuItems.add(new MenuDropdown(menuController, false, players.get(i), false, this, false, false, null,
+					loginController, null, null)); // spelersnaam moet uit
 
 		}
 
@@ -125,7 +127,8 @@ public class MenuPlayersPane extends VBox {// door joery
 		listInput.getChildren().clear();
 		message.setText(" ");
 		for (int i = 0; i < players.size(); i++) {// vult verzameling met alle knoppen
-			menuItems.add(new MenuDropdown(menuController, false, players.get(i), true, this, false, false, null, loginController,null)); // spelersnaam moet uit
+			menuItems.add(new MenuDropdown(menuController, false, players.get(i), true, this, false, false, null,
+					loginController, null, null)); // spelersnaam moet uit
 			// database worden getrokken
 		}
 
@@ -150,7 +153,7 @@ public class MenuPlayersPane extends VBox {// door joery
 				message.setTextFill(Color.GREEN);
 			}
 			menuController.newGame(selectedPlayers);
-			
+
 			// [START] testing in console
 //			System.out.println("send invite to:");
 //
@@ -169,8 +172,6 @@ public class MenuPlayersPane extends VBox {// door joery
 
 	}
 
-	
-
 	private void turnOff() { // na 'uitnodigen' of 'afbreken' wordt de normale spelerslijst weergegeven.
 		getChildren().clear();
 		btnPane.getChildren().clear();
@@ -180,7 +181,8 @@ public class MenuPlayersPane extends VBox {// door joery
 		listInput.getChildren().clear();
 
 		for (int i = 0; i < players.size(); i++) {// vult verzameling met alle knoppen
-			menuItems.add(new MenuDropdown(menuController, false, players.get(i), false, this, false, false, null, loginController, null));
+			menuItems.add(new MenuDropdown(menuController, false, players.get(i), false, this, false, false, null,
+					loginController, null, null));
 		}
 
 		for (int x = 0; x < menuItems.size(); x++) { // voegt alle knoppen toe aan de lijst

@@ -27,6 +27,8 @@ public class MenuGamesPane extends FlowPane{
 	private MenuController menuController;
 	private LoginController loginController;
 	private ArrayList<MenuDropdown> games;
+	private ArrayList<Integer> gameIDs;
+	private Label title;
 	
 	public MenuGamesPane(MyScene myScene, MenuController menuController, LoginController loginController) {
 		this.myScene = myScene;
@@ -35,10 +37,11 @@ public class MenuGamesPane extends FlowPane{
 		setPaneSize();
 		createActiveGamesList();
 		setBackground(new Background(new BackgroundFill(Color.rgb(183, 215, 225), null, null))); //tijdelijk
+
 	}
 	
 	private void createActiveGamesList() {
-		Label title = new Label();
+		title = new Label();
 		title.setText("Games");
 		title.setFont(Font.font ("Verdana", FontWeight.BOLD, 30));
 		title.setTextFill(Color.BLUE);
@@ -56,15 +59,17 @@ public class MenuGamesPane extends FlowPane{
 		
 		games = new ArrayList<MenuDropdown>();
 		
-		for(int i = 0; i < 10; i++) {// vult verzameling met alle knoppen
-			games.add(new MenuDropdown(menuController, true, "Sagrada " + i, false, null, false, false, null, loginController, null));
+		gameIDs = menuController.getActivePlayerGames(loginController.getCurrentAccount());
+		
+		for(int i = 0; i < gameIDs.size(); i++) {// vult verzameling met alle knoppen
+			games.add(new MenuDropdown(menuController, true, "Sagrada " + gameIDs.get(i), false, null, false, false, null, loginController, null, this));
 			
 		}
 		
 		for(int x = 0; x < games.size(); x++) { //voegt alle knoppen toe aan de lijst
 			list.getChildren().add(games.get(x));
 		}
-				
+		
 		setAlignment(Pos.CENTER);
 		getChildren().addAll(title, gamesList);
 		

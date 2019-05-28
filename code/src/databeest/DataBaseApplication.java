@@ -174,9 +174,9 @@ public class DataBaseApplication {
 	}
 	
 	
-	public ArrayList<String> getInviteGameID(String currentAccount){ //alle uitdagers van de ingelogde speler #joery
+	public ArrayList<String> getInviteGameID(String currentAccount){ // alle gameID's van de openstaande invites#joery
 		Statement stmt = null;
-		ArrayList<String> challengers = new ArrayList<>();
+		ArrayList<String> inviteGameID = new ArrayList<>();
 		String query = "SELECT p2.game_idgame as gameid From player p1 Inner join player p2 On p1.game_idgame = p2.game_idgame where p1.username = '" + currentAccount + "' and p1.playstatus_playstatus = 'uitgedaagde' And p2.playstatus_playstatus = 'uitdager' Order by p1.game_idgame;";
 		try {
 			stmt = m_Conn.createStatement();
@@ -184,17 +184,17 @@ public class DataBaseApplication {
 			
 			while (rs.next()) {
 
-				challengers.add(rs.getString(1));
+				inviteGameID.add(rs.getString(1));
 
 			}
 			stmt.close();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		return challengers;
+		return inviteGameID;
 	}
 	
-	public ArrayList<String> getCurrentPlayerStatus(String currentAccount, String gameID){ //alle uitdagers van de ingelogde speler #joery
+	public ArrayList<String> getCurrentPlayerStatus(String currentAccount, String gameID){ // huidige status van speler van een uniek nog niet aangemaakt spel.
 		Statement stmt = null;
 		ArrayList<String> currentPlayerStatus = new ArrayList<>();
 		String query = "SELECT playstatus_playstatus from player where username = '" + currentAccount + "' and game_idgame = '" + gameID + "';";
@@ -835,6 +835,29 @@ public class DataBaseApplication {
 		}
 		
 		return startedGames;
+	}
+	
+	//Haalt op welke games NOG NEIT gestart zijn (afwachtend op reactie)
+	public ArrayList<Integer> getWaitedGames(){
+		
+		Statement stmt = null;
+		ArrayList<Integer> waitedGames = new ArrayList<>();
+		String query = "SELECT game_idgame AS gameid, COUNT(idplayer) AS geaccepteerd, (SELECT COUNT(idplayer) FROM player WHERE game_idgame = gameid) AS totaal_spelers FROM player WHERE playstatus_playstatus = 'geaccepteerd' OR playstatus_playstatus = 'uitdager' GROUP BY game_idgame;"; 
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+				if (rs.getInt(2) != rs.getInt(3)) {
+					waitedGames.add(rs.getInt(1));
+				}
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return waitedGames;
 	}
 
 }
