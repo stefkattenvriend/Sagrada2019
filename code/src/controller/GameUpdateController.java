@@ -18,9 +18,7 @@ public class GameUpdateController {
 		if(gm != null) {
 			gm.updateRound();
 		}
-	
-		
-		
+
 	}
 
 	public void setGameModel(GameModel gm) {

@@ -2,6 +2,7 @@ package view.MenuPanes;
 
 import java.util.ArrayList;
 
+import controller.LoginController;
 import controller.MenuController;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -24,10 +25,12 @@ public class MenuGamesPane extends FlowPane{
 	private VBox list;
 	private boolean clicked = false;
 	private MenuController menuController;
+	private LoginController loginController;
 	
-	public MenuGamesPane(MyScene myScene, MenuController menuController) {
+	public MenuGamesPane(MyScene myScene, MenuController menuController, LoginController loginController) {
 		this.myScene = myScene;
 		this.menuController = menuController;
+		this.loginController = loginController;
 		setPaneSize();
 		createActiveGamesList();
 		setBackground(new Background(new BackgroundFill(Color.rgb(183, 215, 225), null, null))); //tijdelijk
@@ -53,7 +56,7 @@ public class MenuGamesPane extends FlowPane{
 		ArrayList<MenuDropdown> games = new ArrayList<MenuDropdown>();
 		
 		for(int i = 0; i < 10; i++) {// vult verzameling met alle knoppen
-			games.add(new MenuDropdown(menuController, true, "Sagrada " + i, false, null, false, false));
+			games.add(new MenuDropdown(menuController, true, "Sagrada " + i, false, null, false, false, null, loginController));
 			
 		}
 		

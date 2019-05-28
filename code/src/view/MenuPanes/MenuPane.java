@@ -56,9 +56,9 @@ public class MenuPane extends BorderPane {
 	}
 	
 	private void createPanes() {
-		menuLeftPane = new MenuLeftPane();
-		menuCenterPane = new MenuCenterPane(loginController, menuController);
-		menuRightPane = new MenuRightPane(myScene, menuController);
+		menuLeftPane = new MenuLeftPane(menuController, loginController);
+		menuRightPane = new MenuRightPane(myScene, menuController, loginController);
+		menuCenterPane = new MenuCenterPane(loginController, menuController, menuRightPane.getMenuWaitingGame());
 		setLeft(menuLeftPane);
 		setCenter(menuCenterPane);
 		setRight(menuRightPane);
@@ -67,13 +67,6 @@ public class MenuPane extends BorderPane {
 	public void setScreenSize() {
 		setMinSize(windowMaxWidth, windowMaxHeight);
 		setMaxSize(windowMaxWidth, windowMaxHeight);
-	}
-	
-	private void setStartButton() {
-		Button button = new Button("start");
-		button.setPrefSize(80, 40);
-		button.setOnAction(e -> menuController.loadGame());
-		setCenter(button);
 	}
 
 }

@@ -1,10 +1,15 @@
 package view.MenuPanes;
 
+import java.util.ArrayList;
+
+import controller.LoginController;
 import controller.MenuController;
+import databeest.DataBaseApplication;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -20,13 +25,21 @@ public class MenuDropdown extends VBox {// door joery
 	private boolean isChecked = false;
 	private MenuPlayersPane menuPlayersPane;
 	private boolean waitPane;
+	private MenuWaitingPane menuWaitingPane;
+	private LoginController loginController;
+	private DataBaseApplication databeest;
+	private ArrayList<String> players;
+	private ArrayList<String> status;
 
 	public MenuDropdown(MenuController menuController, boolean gamesPane, String btnName, boolean playersPane,
-			MenuPlayersPane menuPlayersPane, boolean waitPane, boolean invitesPane) {
+			MenuPlayersPane menuPlayersPane, boolean waitPane, boolean invitesPane, MenuWaitingPane menuWaitingPane, LoginController loginController) {
 		this.menuController = menuController;
 		username = btnName;
 		this.menuPlayersPane = menuPlayersPane;
 		this.waitPane = waitPane;
+		this.menuWaitingPane = menuWaitingPane;
+		this.loginController = loginController;
+		databeest = menuController.getDataBaseApplication();
 		createInfoPane(gamesPane, playersPane, waitPane, invitesPane);
 		createButton(btnName);
 		getChildren().add(btn);
@@ -81,20 +94,67 @@ public class MenuDropdown extends VBox {// door joery
 		}
 
 		if (waitPane) {
-			HBox statuspane = new HBox();
-			statuspane.setPrefSize(MenuPane.paneWidth - 60, 60);
-			Label label1 = new Label("\t [username]");
-			Label label2 = new Label("\t heeft nog geen reactie gegeven");
-			statuspane.getChildren().addAll(label1, label2);
-			gameInfoPane.setCenter(statuspane);
+			String splitBtnName[] = username.split(" ");
+			String gameID = splitBtnName[1];
+			players = databeest.getPlayersInGame(gameID, loginController.getCurrentAccount());
+			status = databeest.getPlayerStatus(gameID, loginController.getCurrentAccount());
+			FlowPane inGamePlayers = new FlowPane();
+			inGamePlayers.setPrefSize(MenuPane.paneWidth - 60, 60);
+			
+			VBox playersList = new VBox();
+			Label p1 = new Label();
+			Label p2 = new Label();
+			Label p3 = new Label();
+			
+			for(int i = 0; i < players.size(); i++){
+				if(players.get(i) != null) {
+					if(i == 0) {
+						p1.setText(players.get(i));
+					} else if(i == 1) {
+						p2.setText(players.get(i));
+					} else if(i == 2) {
+						p3.setText(players.get(i));
+					}
+				}
+			}
+			
+			playersList.getChildren().addAll(p1,p2,p3);
+			
+			VBox gap = new VBox();
+			gap.setPrefWidth(20);
+			
+			VBox statusList = new VBox();
+			Label s1 = new Label();
+			Label s2 = new Label();
+			Label s3 = new Label();
+			
+			for(int i = 0; i < status.size(); i++){
+				if(status.get(i) != null) {
+					if(i == 0) {
+						s1.setText(status.get(i));
+					} else if(i == 1) {
+						s2.setText(status.get(i));
+					} else if(i == 2) {
+						s3.setText(status.get(i));
+					}
+				}
+			}
+			
+			statusList.getChildren().addAll(s1,s2,s3);
+			inGamePlayers.getChildren().addAll(playersList, gap, statusList);
+			gameInfoPane.setLeft(inGamePlayers);
 		}
 	
 		if(invitesPane) {
-			HBox choicePane = new HBox();
+			FlowPane choicePane = new FlowPane();
 			choicePane.setPrefSize(MenuPane.paneWidth - 60, 60);
+			Button accept = new Button("accepteer");
+			accept.setPrefSize(80, 30);
+			Button ignore = new Button("weiger");
+			ignore.setPrefSize(80, 30);
 //			Button accept
 //			Button ignore
-//			statuspane.getChildren().addAll();
+			choicePane.getChildren().addAll(accept, ignore);
 			gameInfoPane.setCenter(choicePane);
 		}
 
@@ -118,5 +178,10 @@ public class MenuDropdown extends VBox {// door joery
 	public boolean isClicked() {
 		return isChecked;
 	}
+	
+	public void getPlayersInGame(String gameID, String playername) {
+		
+	}
+	
 
 }

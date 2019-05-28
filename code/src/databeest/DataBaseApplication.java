@@ -189,6 +189,86 @@ public class DataBaseApplication {
 		}
 		return players;
 	}
+	
+	public ArrayList<String> getChallenger(String currentAccount){ //alle uitdagers van de ingelogde speler #joery
+		Statement stmt = null;
+		ArrayList<String> challengers = new ArrayList<>();
+		String query = "SELECT p2.username as uitdager From player p1 Inner join player p2 On p1.game_idgame = p2.game_idgame where p1.username = '" + currentAccount + "' and p1.playstatus_playstatus = 'uitgedaagde' And p2.playstatus_playstatus = 'uitdager' Order by p1.game_idgame;";
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while (rs.next()) {
+
+				challengers.add(rs.getString(1));
+
+			}
+			stmt.close();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return challengers;
+	}
+	
+	public ArrayList<String> getWaitingGames(String currentAccount){ //alle afwachtend op reactie games van de ingelogde speler #joery
+		Statement stmt = null;
+		ArrayList<String> waitingGames = new ArrayList<>();
+		String query = "SELECT p1.game_idgame as gameid, p1.playstatus_playstatus From player p1 where p1.username = '" + currentAccount + "' Order by p1.game_idgame;";
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while (rs.next()) {
+
+				waitingGames.add(rs.getString(1));
+
+			}
+			stmt.close();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return waitingGames;
+	}
+	
+	public ArrayList<String> getPlayersInGame(String gameID, String currentAccount){ //alle afwachtend op reactie games van de ingelogde speler #joery
+		Statement stmt = null;
+		ArrayList<String> playersInGame = new ArrayList<>();
+		String query = "SELECT username FROM player WHERE game_idgame = '" + gameID + "' AND username != '" + currentAccount + "';";
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while (rs.next()) {
+
+				playersInGame.add(rs.getString(1));
+
+			}
+			stmt.close();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return playersInGame;
+	}
+	
+	public ArrayList<String> getPlayerStatus(String gameID, String currentAccount){ //alle afwachtend op reactie games van de ingelogde speler #joery
+		Statement stmt = null;
+		ArrayList<String> playerStatus = new ArrayList<>();
+		String query = "SELECT playstatus_playstatus FROM player WHERE game_idgame = '" + gameID + "' AND username != '" + currentAccount + "';";
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while (rs.next()) {
+
+				playerStatus.add(rs.getString(1));
+
+			}
+			stmt.close();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return playerStatus;
+	}
 
 	public ArrayList<String> getColor() {
 		Statement stmt = null;
