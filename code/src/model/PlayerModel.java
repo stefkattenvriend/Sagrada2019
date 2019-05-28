@@ -19,10 +19,13 @@ public class PlayerModel {
 	private String stringcolor;
 	private Color color;
 	private int score;
+
 	private DiceHolderType dht;// welke diceholder er bij deze speler hoort dus welke speler is het ~ Rens
-
-	public PlayerModel() {
-
+	private DbPlayerCollector dpc;
+	
+	
+	public PlayerModel(DbPlayerCollector dpc) {
+	this.dpc = dpc;
 	}
 
 	public void getDatabaseInfo(DbPlayerCollector dpc) {
@@ -92,6 +95,7 @@ public class PlayerModel {
 
 	public void setSeqnr(int seqnr) {
 		this.seqnr = seqnr;
+		dpc.setSeqnr(playerid, seqnr);
 	}
 
 	public String getUsername() {
