@@ -9,11 +9,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import model.StatsModel;
+import javafx.scene.layout.Pane;
 //Tesssss
 public class MenuResultsPane extends VBox{
 	private HBox won;
 	private HBox lost;
-import javafx.scene.layout.Pane;
 
 	public MenuResultsPane() {
 		
