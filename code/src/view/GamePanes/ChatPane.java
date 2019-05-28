@@ -44,7 +44,7 @@ public class ChatPane extends BorderPane {
 		this.loginController = loginController;
 		this.cc = cc;
 		setUp();
-		playerid = 1;//waar haal je playerid!?
+		playerid = cc.getPlayerID(cc.getGameid(), loginController.getCurrentAccount());
 	}
 
 	private void setUp() {

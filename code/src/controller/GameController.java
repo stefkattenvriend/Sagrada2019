@@ -47,7 +47,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		this.lc = lc;
 		this.dbCardCollector = dbCardCollector;
 		lyc = new LayerController(pcc);
-		cc = new ChatController(dbChat);
+		cc = new ChatController(dbChat, this);
 		this.dbDieCollector = ddc;
 		this.guc = guc;
 		pc = new PlayerController(dpc);
