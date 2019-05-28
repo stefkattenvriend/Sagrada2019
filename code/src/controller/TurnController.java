@@ -33,6 +33,7 @@ public class TurnController {
 
 					ddu.updateDieLocation(x, y, dhc.getMovedDice().get(i),
 							gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getPlayerId(), gm.getGameId());
+					dm = null;
 
 				}
 			}

@@ -774,7 +774,6 @@ public class DataBaseApplication {
 		try {
 			stmt = m_Conn.createStatement();
 			int rs = stmt.executeUpdate(query);
-			System.out.println(rs);
 			stmt.close();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
