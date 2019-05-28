@@ -2,6 +2,7 @@ package controller;
 
 import databeest.DbChatCollector;
 import databeest.DbDieCollector;
+import databeest.DbDieUpdater;
 import databeest.DbGameCollector;
 import databeest.DbPatternCardInfoCollector;
 import databeest.DbPlayerCollector;
@@ -23,6 +24,7 @@ public class MasterController extends Application{//een controller die alle ande
 	private DbPlayerCollector dbPlayerCollector;
 	private DbPlayerStatsCollector dbPlayerStatsCollector;
 	private DbDieCollector dbDieCollector;
+	private DbDieUpdater dbDieUpdater;
 	private DataBaseApplication databeest;
 	
 	private LoginController lc;
@@ -68,6 +70,7 @@ public class MasterController extends Application{//een controller die alle ande
 		dbCardCollector = new DbCardCollector(databeest);
 		dbDieCollector = new DbDieCollector(databeest);
 		dbPlayerStatsCollector = new DbPlayerStatsCollector(databeest);
+		dbDieUpdater = new DbDieUpdater(databeest);
 		
 		
 		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
@@ -83,7 +86,7 @@ public class MasterController extends Application{//een controller die alle ande
 		
 		this.lc = new LoginController(dbUserInfoCollector);
 		this.pc = new PlayerController(dbPlayerCollector);
-		this.gc = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector, dbCardCollector, guc, dbPlayerCollector, dbDieCollector);
+		this.gc = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector, dbCardCollector, guc, dbPlayerCollector, dbDieCollector, dbDieUpdater);
 		this.sc = new StatsController(dbPlayerStatsCollector);
 //		this.chat = new ChatController(dbChatCollector);
 		

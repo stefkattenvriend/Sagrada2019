@@ -5,6 +5,7 @@ import controller.DiceHolderController;
 import controller.GameController;
 import controller.PatterncardController;
 import controller.PointsController;
+import controller.TurnController;
 import helpers.DiceHolderType;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -31,13 +32,15 @@ public class PlayerPane extends VBox{
 	private GameController gc;
 	private MyScene myScene;
 	private PointsController pc;
+	private TurnController tc;
 	
-	public PlayerPane(DiceHolderController dhc, PatterncardController dcc, MyScene myScene, GameController gc, PointsController pc) {
+	public PlayerPane(DiceHolderController dhc, PatterncardController dcc, MyScene myScene, GameController gc, PointsController pc, TurnController tc) {
 		this.dhc = dhc;
 		this.dcc = dcc;
 		this.gc = gc;
 		this.myScene = myScene;
 		this.pc = pc;
+		this.tc = tc;
 		setBackground(controller.Main.PLAYERPANE); // aanduiding voor pane
 		setUp();
 	}
@@ -56,6 +59,7 @@ public class PlayerPane extends VBox{
 		Button pass = new Button("Pass");
 		pass.setMinSize(60, 30);
 		pass.setMaxSize(60, 30);
+		pass.setOnAction(e -> tc.updatePass());
 		
 		Button menu = new Button("Menu");
 		menu.setMinSize(60, 30);
