@@ -1,10 +1,6 @@
 package controller;
 
-import javafx.application.Platform;
-import javafx.concurrent.Task;
-
-public class UpdateTimerController extends Task<Void> {
-
+public class UpdateTimerController implements Runnable {
 	private GameUpdateController guc;
 	private MenuUpdateController muc;
 	private boolean gameRunning = false;
@@ -33,18 +29,18 @@ public class UpdateTimerController extends Task<Void> {
 	}
 
 	@Override
-	protected Void call() throws InterruptedException {
+	public void run() {
+		while (true) {
+			muc.checker();
+			if (gameRunning == true) {
+				guc.checkDiceMovement();
+			}
 
-		try {
-			
-		for (int i = 0; i <= 1; i = 0) {
-			this.update();
-			Thread.sleep(3000);
+			try {// 3 seconden
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return null;
 	}
 }

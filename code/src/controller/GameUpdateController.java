@@ -92,7 +92,7 @@ public class GameUpdateController {
 									mc.getGameController().getDiceHolderController().getDhmodels().get(j2).setDie(null);
 									if (mc.getGameController().getDiceHolderController().getDhpanes().get(j2).getCenter() != null) {
 										System.out.println("Dingie 1");
-										mc.getGameController().getDiceHolderController().getDhpanes().get(j2).setCenter(null);//changeDie(j2, null);
+										mc.getGameController().getDiceHolderController().getDhpanes().get(j2).changeDie(null);
 										System.out.println("Dingie");
 									}
 									
@@ -105,7 +105,7 @@ public class GameUpdateController {
 					}
 
 					dhma.get(i).setDie(die);
-					mc.getGameController().getDiceHolderController().changeDie(i, dp);
+					mc.getGameController().getDiceHolderController().getDhpanes().get(i).changeDie(dp);
 				}
 			}
 

@@ -48,6 +48,7 @@ public class MyScene extends Scene{
 		if(lc.isLoggedIn()) {
 			menuPane = new MenuPane(mc.getMenuController(), lc, this);
 		}
+		
 		setNewRoot(menuPane);
 		mc.getUtc().setGameRunning(false);
 		mc.getStage().setHeight(menuPane.windowMaxHeight);
@@ -61,5 +62,16 @@ public class MyScene extends Scene{
 		mc.getStage().setHeight(gamePane.windowMaxHeight);
 		mc.getStage().setWidth(gamePane.windowMaxWidth);
 		mc.getStage().centerOnScreen();
+	}
+	
+	public void setLoginPane() {
+		if(!lc.isLoggedIn()) {
+			setNewRoot(loginPane);
+			mc.getStage().setHeight(loginPane.windowMaxHeight);
+			mc.getStage().setWidth(loginPane.windowMaxWidth);
+			mc.getStage().centerOnScreen();
+		}
+
+		
 	}
 }

@@ -57,7 +57,7 @@ public class MenuPane extends BorderPane {
 	
 	public void createPanes() {	
 		menuRightPane = new MenuRightPane(myScene, menuController, loginController);
-		menuLeftPane = new MenuLeftPane(menuController, loginController, menuRightPane.getMenuWaitingGame());
+		menuLeftPane = new MenuLeftPane(menuController, loginController, menuRightPane.getMenuWaitingGame(), myScene);
 		menuCenterPane = new MenuCenterPane(loginController, menuController, menuRightPane.getMenuWaitingGame());
 		setLeft(menuLeftPane);
 		setCenter(menuCenterPane);
@@ -71,7 +71,7 @@ public class MenuPane extends BorderPane {
 	
 	public void update(){
 		menuRightPane = new MenuRightPane(myScene, menuController, loginController);
-		menuLeftPane = new MenuLeftPane(menuController, loginController, menuRightPane.getMenuWaitingGame());
+		menuLeftPane = new MenuLeftPane(menuController, loginController, menuRightPane.getMenuWaitingGame(), myScene);
 		menuCenterPane = new MenuCenterPane(loginController, menuController, menuRightPane.getMenuWaitingGame());
 		setLeft(menuLeftPane);
 		setCenter(menuCenterPane);
