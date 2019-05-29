@@ -2,6 +2,7 @@ package view.GamePanes;
 import controller.DiceHolderController;
 import controller.GameController;
 import controller.LayerController;
+import controller.LoginController;
 import controller.PatterncardController;
 import controller.PointsController;
 import controller.TurnController;
@@ -30,8 +31,10 @@ public class GamePane extends StackPane {
 	private MyScene myScene;
 	private PointsController pc;
 	private TurnController tc;
+	private LoginController logc;
 	
-	public GamePane(GameController gameController, MyScene myScene) {
+	public GamePane(GameController gameController, MyScene myScene, LoginController loginController) {
+		logc = loginController;
 		this.gc = gameController;
 		this.myScene = myScene;
 		this.dhc = gc.getDiceHolderController();
@@ -54,7 +57,7 @@ public class GamePane extends StackPane {
 		gamePane.setCenter(playerPane);
 		gamePane.setRight(enemyPane);
 		
-		LayerPane pcardChooser = new LayerPane(lyc, pcc);
+		LayerPane pcardChooser = new LayerPane(lyc, pcc, logc);
 		
 		//eerste ronde? open dan popup in if-statement
 		setNewRoot(pcardChooser);
