@@ -2,6 +2,7 @@ package controller;
 
 import databeest.DbUserInfoCollector;
 import model.AccountModel;
+import view.MyScene;
 
 //Stef
 public class LoginController {
@@ -15,7 +16,6 @@ public class LoginController {
 	public LoginController(DbUserInfoCollector dbUserInfoCollector)
 	{
 		this.dbUserInfoCollector = dbUserInfoCollector;
-
 		account = new AccountModel();
 	}
 	
@@ -45,6 +45,7 @@ public class LoginController {
 		}
 		else 
 		{
+			loggedIn=false;
 			account.setCurrentAccount(null);
 			System.out.println("Logout gelukt");
 		}
