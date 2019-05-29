@@ -26,7 +26,7 @@ public class MenuController {
 	public void loadGame(String gID) {
 		int gameID = Integer.parseInt(gID);
 		
-		mc.getGameController().createGameModel(gameID);//gehardcode, moet later anders zijn aan game ID gebonden aan button
+		mc.getGameController().createGameModel(gameID);
 		mc.setGuc(new GameUpdateController(mc));
 		mc.getGameUpdateController().setGameModel(mc.getGameController().getGm());
 		myScene.setGamePane();
