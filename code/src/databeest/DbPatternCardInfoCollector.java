@@ -15,4 +15,9 @@ public class DbPatternCardInfoCollector {
         return dataBaseApplication.getPaternCard(pcnumber);
     }
     
+    public int numberOfPatCards() {
+    	int amountPCS = dataBaseApplication.numberOfPatternCards();
+    	return amountPCS;
+    }
+    
 }

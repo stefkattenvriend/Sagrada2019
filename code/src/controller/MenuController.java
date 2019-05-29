@@ -43,10 +43,14 @@ public class MenuController {
 		mc.getGameController().createGameModel(gameID);//gehardcode, moet later anders zijn aan game ID gebonden aan button
 		int round = dbGameCollector.getRound(gameID);
 		System.out.println("dit is het ronde nummer: " + round);// syso om ronde te checken
+		
 		mc.setGuc(new GameUpdateController(mc));
 		mc.getGameUpdateController().setGameModel(mc.getGameController().getGm());
 		myScene.setGamePane();
 		mc.getUtc().setGameRunning(true);
+		if (round == 1/* && paterncard nog niet gekozen*/) {
+			//show pattern card choices
+		}
 	}
 		
 	public void acceptInvite(int playerid) {
