@@ -23,7 +23,8 @@ public class MenuController {
 		
 	}
 	
-	public void loadGame() {
+	public void loadGame(String gID) {
+		int gameID = Integer.parseInt(gID);
 		mc.getGameController().createGameModel(6);//gehardcode, moet later anders zijn aan game ID gebonden aan button
 		mc.setGuc(new GameUpdateController(mc));
 		mc.getGameUpdateController().setGameModel(mc.getGameController().getGm());
@@ -37,6 +38,7 @@ public class MenuController {
 	
 	public void acceptInvite(int playerid) {
 		dbGameCollector.updateStatusAccept(playerid);
+		
 	}
 	
 	public void declineInvite(int playerid) {
@@ -117,5 +119,42 @@ public class MenuController {
 //		System.out.println(list);//syso to check which numbers are added to database
 		return list;
 	}
+	
+	public ArrayList<Integer> getActivePlayerGames(String username)
+	{
+		ArrayList<Integer> activeGames = new ArrayList<>();
+		
+		for (int i = 0; i < dbGameCollector.startedGames().size(); i++) {
+			
+			int gameid = dbGameCollector.startedGames().get(i);
+			for (int j = 0; j < dbGameCollector.getPlayers(gameid).length; j++) {
+				
+				if (dbGameCollector.getUsername(dbGameCollector.getPlayers(gameid)[j]).equals(username)) {
+					activeGames.add(dbGameCollector.startedGames().get(i));
+					System.out.println("active game: " + dbGameCollector.startedGames().get(i));
+				}
+			}
+		}
+		return activeGames;
+	}
+	
+	public ArrayList<Integer> getWaitedPlayerGames(String username)
+	{
+		ArrayList<Integer> waitedGames = new ArrayList<>();
+		
+		for (int i = 0; i < dbGameCollector.waitedGames().size(); i++) {
+			
+			int gameid = dbGameCollector.waitedGames().get(i);
+			for (int j = 0; j < dbGameCollector.getPlayers(gameid).length; j++) {
+				
+				if (dbGameCollector.getUsername(dbGameCollector.getPlayers(gameid)[j]).equals(username)) {
+					waitedGames.add(dbGameCollector.startedGames().get(i));
+					System.out.println("waited game: " + dbGameCollector.waitedGames().get(i));
+				}
+			}
+		}
+		return waitedGames;
+	}
+	
 }
 
