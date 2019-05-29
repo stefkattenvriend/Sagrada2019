@@ -110,9 +110,7 @@ public class DataBaseApplication {
 		}
 
 	}
-
-
-	// milan
+	
 	public int getHighestGameID() {
 		Statement stmt = null;
 		String query = "SELECT max(idgame) FROM game;";
