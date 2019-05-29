@@ -175,7 +175,9 @@ public class MenuController {
 		invitedGames_NEW = databeest.getInviteGameID(mc.getLoginController().getCurrentAccount());
 
 		if (invitedGamesID_OLD.size() != invitedGames_NEW.size()) {
+			if(menuInvitePane != null) {
 			menuInvitePane.updateInvitePane();
+			}
 		}
 	}
 	

@@ -52,7 +52,6 @@ public class MasterController extends Application{//een controller die alle ande
 		startUpdate();
 		stage.setResizable(false);
 		stage.setScene(myScene);
-		
 		stage.setOnCloseRequest(e -> closeApp());
 		stage.show();
 	}
