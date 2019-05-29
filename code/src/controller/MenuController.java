@@ -7,24 +7,36 @@ import javax.swing.JSpinner.DateEditor;
 
 import databeest.DataBaseApplication;
 import databeest.DbGameCollector;
+import javafx.scene.layout.Pane;
 import view.MyScene;
+import view.MenuPanes.MenuInvitePane;
+import view.MenuPanes.MenuPane;
 
 public class MenuController {
-	
-	//instance
+
+	// instance
 	private MyScene myScene;
 	private MasterController mc;
-	private ArrayList<String> colors; 
+	private ArrayList<String> colors;
 	private DbGameCollector dbGameCollector;
+	private int gameid;
+	private MenuUpdateController menuUpdateController;
+	private MenuPane menuPane;
+	private DataBaseApplication databeest;
+	private ArrayList<String> invitedGamesID_OLD;
+	private ArrayList<String> invitedGames_NEW;
+	private MenuInvitePane menuInvitePane;
 
-	
-	public MenuController(MyScene myScene, MasterController mc, DbGameCollector dbGameCollector) {
+	public MenuController(MyScene myScene, MasterController mc, DbGameCollector dbGameCollector,
+			MenuUpdateController menuUpdateController) {
 		this.myScene = myScene;
 		this.mc = mc;
 		this.dbGameCollector = dbGameCollector;
-		
+		this.menuUpdateController = menuUpdateController;
+		databeest = mc.getDatabaseApplication();
+		invitedGamesID_OLD = databeest.getInviteGameID(mc.getLoginController().getCurrentAccount());
 	}
-	
+
 	public void loadGame(String gID) {
 		int gameID = Integer.parseInt(gID);
 		
@@ -43,13 +55,13 @@ public class MenuController {
 		
 	public void acceptInvite(int playerid) {
 		dbGameCollector.updateStatusAccept(playerid);
-		
+
 	}
-	
+
 	public void declineInvite(int playerid) {
 		dbGameCollector.updateStatusIgnore(playerid);
 	}
-	
+
 	public DataBaseApplication getDataBaseApplication() {
 		return mc.getDatabaseApplication();
 	}
@@ -63,30 +75,29 @@ public class MenuController {
 		System.out.println("dit is de gameid" + gameid);
 		String challenger = playerList.get(0);
 		dbGameCollector.pushFirstPlayer(challenger, colors.get(0), gameid);
-		insertPublicObjectiveCards(gameid);
-		insertToolCards(gameid);
+		insertPublicObjectiveCards();
+		insertToolCards();
 		createGameDie(gameid);
 		System.out.println("zise playerlist = " + playerList.size());
 
 		for (int i = 1; i < playerList.size(); i++) {
 			System.out.println(playerList.get(i));
-			addPlayer(playerList.get(i), gameid, colors.get(i), i+1);
-		}		
+			addPlayer(playerList.get(i), gameid, colors.get(i), i + 1);
+		}
 	}
 
 	private ArrayList<String> getColors() {
-		ArrayList<String> colors = new ArrayList<>(); 
+		ArrayList<String> colors = new ArrayList<>();
 		colors = dbGameCollector.getColors();
 		Collections.shuffle(colors);
 		return colors;
 	}
-	
-	
+
 	public int getGameid() {
 		int gameid = dbGameCollector.getHighestGameID();
 		return gameid;
 	}
-	
+
 	public void addPlayer(String username, int gameid, String color, int seq) {
 		dbGameCollector.addPlayer(username, gameid, color, seq);
 	}
@@ -95,17 +106,19 @@ public class MenuController {
 		dbGameCollector.addGameDie(gameid);
 	}
 
-	private void insertToolCards(int gameid) {
-		ArrayList<Integer> randomkaarten = generateThreeRandomUniqueNumbers(12); // van 12 nummers(aantal toolcards), geef mij er drie at random.
-		for(int i = 0; i < 3; i++) {
+	private void insertToolCards() {
+		ArrayList<Integer> randomkaarten = generateThreeRandomUniqueNumbers(12); // van 12 nummers(aantal toolcards),
+																					// geef mij er drie at random.
+		for (int i = 0; i < 3; i++) {
 			int x = randomkaarten.get(i);
 			dbGameCollector.insertToolCards(x, gameid);
 		}
 	}
-	
-	public void insertPublicObjectiveCards(int gameid) {//set to private later
-		ArrayList<Integer> randomkaarten = generateThreeRandomUniqueNumbers(10); // van 10 nummers, geef mij er drie at random.
-		for(int i = 0; i < 3; i++) {
+
+	public void insertPublicObjectiveCards() {// set to private later
+		ArrayList<Integer> randomkaarten = generateThreeRandomUniqueNumbers(10); // van 10 nummers, geef mij er drie at
+																					// random.
+		for (int i = 0; i < 3; i++) {
 			int x = randomkaarten.get(i);
 			dbGameCollector.insertPublicObjectiveCards(x, gameid);
 		}
@@ -127,16 +140,15 @@ public class MenuController {
 //		System.out.println(list);//syso to check which numbers are added to database
 		return list;
 	}
-	
-	public ArrayList<Integer> getActivePlayerGames(String username)
-	{
+
+	public ArrayList<Integer> getActivePlayerGames(String username) {
 		ArrayList<Integer> activeGames = new ArrayList<>();
-		
+
 		for (int i = 0; i < dbGameCollector.startedGames().size(); i++) {
-			
+
 			int gameid = dbGameCollector.startedGames().get(i);
 			for (int j = 0; j < dbGameCollector.getPlayers(gameid).length; j++) {
-				
+
 				if (dbGameCollector.getUsername(dbGameCollector.getPlayers(gameid)[j]).equals(username)) {
 					activeGames.add(dbGameCollector.startedGames().get(i));
 					System.out.println("active game: " + dbGameCollector.startedGames().get(i));
@@ -145,16 +157,15 @@ public class MenuController {
 		}
 		return activeGames;
 	}
-	
-	public ArrayList<Integer> getWaitedPlayerGames(String username)
-	{
+
+	public ArrayList<Integer> getWaitedPlayerGames(String username) {
 		ArrayList<Integer> waitedGames = new ArrayList<>();
-		
+
 		for (int i = 0; i < dbGameCollector.waitedGames().size(); i++) {
-			
+
 			int gameid = dbGameCollector.waitedGames().get(i);
 			for (int j = 0; j < dbGameCollector.getPlayers(gameid).length; j++) {
-				
+
 				if (dbGameCollector.getUsername(dbGameCollector.getPlayers(gameid)[j]).equals(username)) {
 					waitedGames.add(dbGameCollector.startedGames().get(i));
 					System.out.println("waited game: " + dbGameCollector.waitedGames().get(i));
@@ -163,6 +174,16 @@ public class MenuController {
 		}
 		return waitedGames;
 	}
-	
-}
 
+	public void checkForChange() {
+		invitedGames_NEW = databeest.getInviteGameID(mc.getLoginController().getCurrentAccount());
+
+		if (invitedGamesID_OLD.size() != invitedGames_NEW.size()) {
+			menuInvitePane.updateInvitePane();
+		}
+	}
+	
+	public void setInvitePane(MenuInvitePane menuInvitePane) {
+		this.menuInvitePane = menuInvitePane;
+	}
+}

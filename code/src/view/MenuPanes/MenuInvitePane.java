@@ -40,6 +40,7 @@ public class MenuInvitePane extends FlowPane {
 		accepted = databeest.getAcceptedGame(lc.getCurrentAccount());
 		setPaneSize();
 		createActiveGamesList();
+		menuController.setInvitePane(this);
 		setBackground(new Background(new BackgroundFill(Color.rgb(254, 255, 209, 0.8), null, null))); // tijdelijk
 	}
 
@@ -117,4 +118,5 @@ public class MenuInvitePane extends FlowPane {
 		getChildren().addAll(title, inviteList);
 		menuWaitingPane.updateWaitingPane();
 	}
+	
 }
