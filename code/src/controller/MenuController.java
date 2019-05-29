@@ -71,8 +71,8 @@ public class MenuController {
 		System.out.println("dit is de gameid" + gameid);
 		String challenger = playerList.get(0);
 		dbGameCollector.pushFirstPlayer(challenger, colors.get(0), gameid);
-		insertPublicObjectiveCards(gameid);
-		insertToolCards(gameid);
+		insertPublicObjectiveCards();
+		insertToolCards();
 		createGameDie(gameid);
 		System.out.println("zise playerlist = " + playerList.size());
 
