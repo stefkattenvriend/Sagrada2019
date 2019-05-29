@@ -27,10 +27,14 @@ public class MenuController {
 	
 	public void loadGame(String gID) {
 		int gameID = Integer.parseInt(gID);
+		
 		mc.getGameController().createGameModel(gameID);//gehardcode, moet later anders zijn aan game ID gebonden aan button
 		int round = dbGameCollector.getRound(gameID);
 		System.out.println("dit is het ronde nummer: " + round);// syso om ronde te checken
+		mc.setGuc(new GameUpdateController(mc));
+		mc.getGameUpdateController().setGameModel(mc.getGameController().getGm());
 		myScene.setGamePane();
+		mc.getUtc().setGameRunning(true);
 	}
 		
 	public void acceptInvite(int playerid) {
