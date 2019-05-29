@@ -28,7 +28,7 @@ public class ChatPane extends BorderPane {
 	private double panewidth = (GamePane.windowMaxWidth / 3) / 2;
 	private double paneheight = (GamePane.windowMaxHeight);
 	private int textareasize = 735;
-	private int playerid; // hoort de id op te halen van de speler die chat...
+	private int playerid; 
 	private int buttonwidth = 35;
 
 	// instance variables

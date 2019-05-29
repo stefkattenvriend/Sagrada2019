@@ -19,5 +19,15 @@ public class DbPatternCardInfoCollector {
     	int amountPCS = dataBaseApplication.numberOfPatternCards();
     	return amountPCS;
     }
+
+	public void givePatternCardToPlayer(String query) { //aangeroepen door patterncardcontroller
+		dataBaseApplication.insertQuery(query);
+		
+	}
+
+	public int getPlayerID(int gameid, String username) {
+		int playerid = dataBaseApplication.getPlayerID(username, gameid);
+		return playerid;
+	}
     
 }

@@ -1,6 +1,7 @@
 package view;
 
 import controller.LayerController;
+import controller.LoginController;
 import controller.PatterncardController;
 import helpers.PatterncardType;
 import javafx.geometry.Pos;
@@ -32,12 +33,17 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 	private Button button;
 	private FlowPane chooserPane = new FlowPane();
 	private int[] randomPat;
+	private int playerid; 
+	private LoginController logc;
 	
-	public LayerPane(LayerController controller, PatterncardController pcc) {
+	public LayerPane(LayerController controller, PatterncardController pcc, LoginController loginController) {
 //		randomPat = controller.getRandomPat();
+		logc = loginController;
 		this.lyc = controller;
 		this.pcc = pcc;
 		setUp();
+		playerid = pcc.getPlayerID(pcc.getGameid(), logc.getCurrentAccount());
+		System.out.println("dit is de playerid: " + playerid);
 	}
 	
 	public void setUp() {
@@ -57,7 +63,7 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 	
 	private void setButton() {
 		buttonPane = new FlowPane();
-		button = new Button("Random");
+		button = new Button("Standaard Patroonkaarten");
 		button.setPrefSize(80, 40);
 		button.setOnAction(e -> viewOffer()); //bij druk op de knop worden de randomkaarten pas zichtbaar.
 		buttonPane.setAlignment(Pos.CENTER_LEFT);
@@ -75,7 +81,7 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 		lyc.generateRdmPatternCards();
 		randomPat = lyc.getRandomPat();
 		for(int i = 0; i < randomPat.length; i++) {
-//			System.out.println("patterncardID = : " + randomPat[i]);	//syso welke patterncards kunnen gekozen worden
+			System.out.println("patterncardID = : " + randomPat[i]);	//syso welke patterncards kunnen gekozen worden
 		}
 		chooserPane.getChildren().clear();
 		chooserPane.getChildren().addAll(createPatternCard(String.valueOf(randomPat[0])), createPatternCard(String.valueOf(randomPat[1])), createPatternCard(String.valueOf(randomPat[2])), createPatternCard(String.valueOf(randomPat[3])));
@@ -96,12 +102,18 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 			}	
 		}
 		
-		
+		//int label
 //		Label label = new Label(rdInt);
 //		label.setFont(new Font("Arial", 80));
 //		patternCard.getChildren().add(label);
+		
 		patternCard.setAlignment(Pos.CENTER);
-//		patternCard.setOnMouseClicked(e ->); // als je op een pattroonkaart klikt wordt deze gebruikt in het spel.
+		patternCard.setOnMouseClicked(e -> { 
+			pcc.givePatternCardToPlayer(Integer.parseInt(rdInt), playerid); //Wanneer je klikt op de tilepane krijg je die id in de database bij player
+			//switch pane to gamepane
+		});
+		
+		
 		return patternCard;
 	}
 	
