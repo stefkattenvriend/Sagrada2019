@@ -1,11 +1,14 @@
 package view;
 
 import controller.LoginController;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.VBox;
@@ -37,6 +40,16 @@ public class LoginPane extends VBox{
 		setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
 		accountField = new TextField();
 		wachtwoordField = new PasswordField();
+		wachtwoordField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent enter) {
+				if(enter.getCode().equals(KeyCode.ENTER)) {
+					login();
+				}
+			}
+			
+		});
 		accountField.setMinSize(100, 30);
 		accountField.setMaxSize(100, 30);
 		wachtwoordField.setMinSize(100, 30);
