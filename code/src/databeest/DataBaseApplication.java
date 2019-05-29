@@ -565,8 +565,6 @@ public class DataBaseApplication {
 
 	public ArrayList<PatterncardModel> getPaternCard(int pcnumber) {
 		
-		
-
 		ArrayList<PatterncardModel> value = new ArrayList<PatterncardModel>();
 		Statement stmt = null;
 		String query = "SELECT * FROM patterncardfield WHERE patterncard_idpatterncard = " + pcnumber

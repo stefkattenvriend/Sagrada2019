@@ -15,10 +15,6 @@ public class GameModel {
 	private DbGameCollector dgc;
 	private DbPlayerCollector dpc;
 	private PlayerModel[] pma;
-	
-
-
-
 	private DiceController dc;
 	private DiceModel[] dm;
 	private int enemies = 1;

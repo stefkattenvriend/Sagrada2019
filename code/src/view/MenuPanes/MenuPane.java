@@ -42,17 +42,20 @@ public class MenuPane extends BorderPane {
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.CENTER,
                 BackgroundSize.DEFAULT);
+
 		setUp();
+
 	}
 
 	private void setUp() {
 		setScreenSize();
 		createPanes();
 		setBackground(new Background(background));
+//		menuController.update(this);
 //		BackgroundImage(Image image, BackgroundRepeat repeatX, BackgroundRepeat repeatY, BackgroundPosition position, BackgroundSize size)
 	}
 	
-	private void createPanes() {		
+	public void createPanes() {	
 		menuRightPane = new MenuRightPane(myScene, menuController, loginController);
 		menuLeftPane = new MenuLeftPane(menuController, loginController, menuRightPane.getMenuWaitingGame());
 		menuCenterPane = new MenuCenterPane(loginController, menuController, menuRightPane.getMenuWaitingGame());
@@ -65,5 +68,16 @@ public class MenuPane extends BorderPane {
 		setMinSize(windowMaxWidth, windowMaxHeight);
 		setMaxSize(windowMaxWidth, windowMaxHeight);
 	}
+	
+	public void update(){
+		menuRightPane = new MenuRightPane(myScene, menuController, loginController);
+		menuLeftPane = new MenuLeftPane(menuController, loginController, menuRightPane.getMenuWaitingGame());
+		menuCenterPane = new MenuCenterPane(loginController, menuController, menuRightPane.getMenuWaitingGame());
+		setLeft(menuLeftPane);
+		setCenter(menuCenterPane);
+		setRight(menuRightPane);
+	}
+	
+	
 
 }

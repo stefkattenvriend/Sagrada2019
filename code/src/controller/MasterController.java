@@ -48,7 +48,8 @@ public class MasterController extends Application{//een controller die alle ande
 		this.startMasterController();
 		this.stage = stage;
 		myScene = new MyScene(this);
-		mnController = new MenuController(myScene, this, dbGameCollector);
+		mnController = new MenuController(myScene, this, dbGameCollector, muc);
+		startUpdate();
 		stage.setResizable(false);
 		stage.setScene(myScene);
 		
@@ -77,15 +78,6 @@ public class MasterController extends Application{//een controller die alle ande
 		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
 				&& (databeest.makeConnection()))
 		
-			//Game refresher/checker
-		this.guc = new GameUpdateController(this);
-		this.muc = new MenuUpdateController(this);
-		this.utc = new UpdateTimerController(guc, muc);
-		
-				
-		Thread t1 = new Thread(utc);
-		t1.start();
-		
 		this.lc = new LoginController(dbUserInfoCollector);
 		this.pc = new PlayerController(dbPlayerCollector);
 		this.gc = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector, dbCardCollector, guc, dbPlayerCollector, dbDieCollector, dbDieUpdater);
@@ -102,6 +94,18 @@ public class MasterController extends Application{//een controller die alle ande
 		//testen player
 //		pc.setPlayerId(2);
 //		System.out.println("Amount of paystones: " + pc.getPayStones());
+	}
+	
+	
+	private void startUpdate() {
+		//Game refresher/checker
+	this.guc = new GameUpdateController(this);
+	this.muc = new MenuUpdateController(this);
+	this.utc = new UpdateTimerController(guc, muc);
+	
+			
+	Thread t1 = new Thread(utc);
+	t1.start();
 	}
 	
 	public GameController getGameController()

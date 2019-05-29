@@ -117,4 +117,5 @@ public class MenuInvitePane extends FlowPane {
 		getChildren().addAll(title, inviteList);
 		menuWaitingPane.updateWaitingPane();
 	}
+	
 }
