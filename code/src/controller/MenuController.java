@@ -25,7 +25,10 @@ public class MenuController {
 	
 	public void loadGame() {
 		mc.getGameController().createGameModel(6);//gehardcode, moet later anders zijn aan game ID gebonden aan button
+		mc.setGuc(new GameUpdateController(mc));
+		mc.getGameUpdateController().setGameModel(mc.getGameController().getGm());
 		myScene.setGamePane();
+		mc.getUtc().setGameRunning(true);
 	}
 	
 	public void createGame() {

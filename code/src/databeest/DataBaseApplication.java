@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javafx.scene.paint.Color;
 import model.DiceModel;
 import model.PatterncardModel;
+import model.PlayerFieldFrameModel;
 
 public class DataBaseApplication {
 	private Connection m_Conn;
@@ -778,6 +779,30 @@ public class DataBaseApplication {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
+	}
+
+	public ArrayList<PlayerFieldFrameModel> getPlayerFrame(int gameid) {
+		Statement stmt = null;
+		String query = "SELECT * FROM playerframefield WHERE idgame = " + gameid + ";";
+		ArrayList<PlayerFieldFrameModel> PlayerFieldFrameList = new ArrayList<PlayerFieldFrameModel>();
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+
+				if (rs.getInt(5) != 0 && rs.getString(6) != null) {
+					PlayerFieldFrameList.add(new PlayerFieldFrameModel(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(5), rs.getString(6)));
+				}
+				
+
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return PlayerFieldFrameList;
+		
 	}
 
 }

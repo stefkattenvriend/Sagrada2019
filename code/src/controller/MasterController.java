@@ -78,9 +78,8 @@ public class MasterController extends Application{//een controller die alle ande
 				&& (databeest.makeConnection()))
 		
 			//Game refresher/checker
-		this.guc = new GameUpdateController(this);
 		this.muc = new MenuUpdateController(this);
-		this.utc = new UpdateTimerController(guc, muc);
+		this.utc = new UpdateTimerController(null, muc);
 		
 				
 		Thread t1 = new Thread(utc);
@@ -133,11 +132,24 @@ public class MasterController extends Application{//een controller die alle ande
 		return this.guc;
 	}
 	
+	public void setGuc(GameUpdateController guc) {
+		this.guc = guc;
+		utc.setGuc(guc);
+	}
+
+	public UpdateTimerController getUtc() {
+		return utc;
+	}
+
 	public PlayerController getPlayerController()
 	{
 		return this.pc;
 	}
 	
+	public DbDieCollector getDbDieCollector() {
+		return dbDieCollector;
+	}
+
 	public DataBaseApplication getDatabaseApplication() {
 		return databeest;
 	}

@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import model.DiceHolderModel;
 import model.DiceModel;
 import view.GamePanes.DiceHolderPane;
+import view.GamePanes.DicePane;
 
 public class DiceHolderController {
 
@@ -287,5 +288,15 @@ public class DiceHolderController {
 
 	public ArrayList<DiceHolderModel> getDhmodels() {
 		return dhmodels;
+	}
+
+	public ArrayList<DiceHolderPane> getDhpanes() {
+		return dhpanes;
+	}
+
+	public void changeDie(int j2, DicePane dp) {
+		DiceHolderPane dhp = dhpanes.get(j2);
+		dhp.setCenter(dp);
+		
 	}
 }

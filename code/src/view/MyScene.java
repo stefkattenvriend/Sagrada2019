@@ -50,6 +50,7 @@ public class MyScene extends Scene{
 			menuPane = new MenuPane(mc.getMenuController(), lc, this);
 		}
 		setNewRoot(menuPane);
+		mc.getUtc().setGameRunning(false);
 		mc.getStage().setHeight(menuPane.windowMaxHeight);
 		mc.getStage().setWidth(menuPane.windowMaxWidth);
 		mc.getStage().centerOnScreen();

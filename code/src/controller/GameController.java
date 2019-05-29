@@ -90,7 +90,6 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		int amountOfPlayers = dbGameCollector.getAmountOfPlayers(gameID);
 		GameModel gm = new GameModel(gameID, dbGameCollector, username, dpc, amountOfPlayers);
 		this.gm = gm;
-		guc.setGameModel(gm);
 		Integer[] playerIDs = dbGameCollector.getPlayers(gameID);
 
 		for (int i = 0; i < amountOfPlayers; i++) {
@@ -102,6 +101,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		pcc = new PatterncardController(DatabasePTCCollector, gm);
 		this.dhc = new DiceHolderController(pcc, dbDieCollector, gm.getGameId());
 		this.tc = new TurnController(dhc, dbDieUpdater, gm);
+		
 		
 		this.createCardsController();
 	}
