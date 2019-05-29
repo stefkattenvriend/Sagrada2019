@@ -38,9 +38,10 @@ public class MenuInvitePane extends FlowPane {
 		challengers = databeest.getChallenger(lc.getCurrentAccount());
 		invitedGameIDs = databeest.getInviteGameID(lc.getCurrentAccount());
 		accepted = databeest.getAcceptedGame(lc.getCurrentAccount());
+		menuController.setInvitePane(this);
 		setPaneSize();
 		createActiveGamesList();
-		menuController.setInvitePane(this);
+		
 		setBackground(new Background(new BackgroundFill(Color.rgb(254, 255, 209, 0.8), null, null))); // tijdelijk
 	}
 
@@ -98,12 +99,15 @@ public class MenuInvitePane extends FlowPane {
 	}
 
 	public void updateInvitePane() {
+		System.out.println("schoonmaken..");
 		getChildren().clear();
 		list.getChildren().clear();
 		games.clear();
-
+		System.out.println("indelen..");
 		invitedGameIDs = databeest.getInviteGameID(lc.getCurrentAccount());
-
+		challengers = databeest.getChallenger(lc.getCurrentAccount());
+		
+		
 		for (int i = 0; i < invitedGameIDs.size(); i++) {
 			games.add(new MenuDropdown(menuController, false,
 					"Uitnodiging voor Sagrada " + invitedGameIDs.get(i) + " door " + challengers.get(i), false, null,

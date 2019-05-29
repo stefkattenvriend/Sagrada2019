@@ -9,6 +9,7 @@ import databeest.DataBaseApplication;
 import databeest.DbGameCollector;
 import javafx.scene.layout.Pane;
 import view.MyScene;
+import view.MenuPanes.MenuGamesPane;
 import view.MenuPanes.MenuInvitePane;
 import view.MenuPanes.MenuPane;
 
@@ -25,7 +26,11 @@ public class MenuController {
 	private DataBaseApplication databeest;
 	private ArrayList<String> invitedGamesID_OLD;
 	private ArrayList<String> invitedGames_NEW;
+	private ArrayList<Integer> gameIDs_NEW;
+	private ArrayList<Integer> gameIDs_OLD;
 	private MenuInvitePane menuInvitePane;
+	private boolean newInvite = false;
+	private MenuGamesPane menuGamesPane;
 
 	public MenuController(MyScene myScene, MasterController mc, DbGameCollector dbGameCollector,
 			MenuUpdateController menuUpdateController) {
@@ -35,24 +40,26 @@ public class MenuController {
 		this.menuUpdateController = menuUpdateController;
 		databeest = mc.getDatabaseApplication();
 		invitedGamesID_OLD = databeest.getInviteGameID(mc.getLoginController().getCurrentAccount());
+		gameIDs_OLD = getActivePlayerGames(mc.getLoginController().getCurrentAccount());
 	}
 
 	public void loadGame(String gID) {
 		int gameID = Integer.parseInt(gID);
-		
-		mc.getGameController().createGameModel(gameID);//gehardcode, moet later anders zijn aan game ID gebonden aan button
+
+		mc.getGameController().createGameModel(gameID);// gehardcode, moet later anders zijn aan game ID gebonden aan
+														// button
 		int round = dbGameCollector.getRound(gameID);
 		System.out.println("dit is het ronde nummer: " + round);// syso om ronde te checken
-		
+
 		mc.setGuc(new GameUpdateController(mc));
 		mc.getGameUpdateController().setGameModel(mc.getGameController().getGm());
 		myScene.setGamePane();
 		mc.getUtc().setGameRunning(true);
-		if (round == 1/* && paterncard nog niet gekozen*/) {
-			//show pattern card choices
+		if (round == 1/* && paterncard nog niet gekozen */) {
+			// show pattern card choices
 		}
 	}
-		
+
 	public void acceptInvite(int playerid) {
 		dbGameCollector.updateStatusAccept(playerid);
 
@@ -68,7 +75,7 @@ public class MenuController {
 
 	// milan
 	public void newGame(ArrayList<String> playerList) {
-		colors = getColors(); //maakt 5 kleuren
+		colors = getColors(); // maakt 5 kleuren
 		int gameid = getGameid() + 1;
 		System.out.println(gameid);
 		dbGameCollector.pushGame(gameid);
@@ -175,17 +182,47 @@ public class MenuController {
 		return waitedGames;
 	}
 
-	public void checkForChange() {
+	public void updateIncomingInvite() {
 		invitedGames_NEW = databeest.getInviteGameID(mc.getLoginController().getCurrentAccount());
+		if (menuInvitePane != null) {
+			if (invitedGamesID_OLD.size() != invitedGames_NEW.size()) {
+				newInvite = true;
 
-		if (invitedGamesID_OLD.size() != invitedGames_NEW.size()) {
-			if(menuInvitePane != null) {
-			menuInvitePane.updateInvitePane();
+				if (newInvite) {
+					menuInvitePane.updateInvitePane();
+					invitedGamesID_OLD.clear();
+					invitedGamesID_OLD = invitedGames_NEW;
+					System.out.println("nieuwe uitnodiging");
+					newInvite = false;
+				}
+
+			}
+		}
+	}
+
+	public void setInvitePane(MenuInvitePane menuInvitePane) {
+		this.menuInvitePane = menuInvitePane;
+	}
+	
+	public void updateActiveGames() {
+		gameIDs_NEW = getActivePlayerGames(mc.getLoginController().getCurrentAccount());
+		if (menuGamesPane != null) {
+			if (gameIDs_OLD.size() != gameIDs_NEW.size()) {
+				newInvite = true;
+
+				if (newInvite) {
+					menuGamesPane.updateGamePane();
+					gameIDs_OLD.clear();
+					gameIDs_OLD = gameIDs_NEW;
+					System.out.println("Nieuwe actieve game");
+					newInvite = false;
+				}
+
 			}
 		}
 	}
 	
-	public void setInvitePane(MenuInvitePane menuInvitePane) {
-		this.menuInvitePane = menuInvitePane;
+	public void setActiveGamesPane(MenuGamesPane menuGamesPane) {
+		this.menuGamesPane = menuGamesPane;
 	}
 }
