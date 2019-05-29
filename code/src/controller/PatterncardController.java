@@ -25,6 +25,11 @@ public class PatterncardController {
 		setup(gm);
 	}
 	
+	public int numberOfPatternCards() {
+		int amount = 0;
+		amount = DatabasePTCCollector.numberOfPatCards();
+		return amount;
+	}
 	
 	private void setup(GameModel gm) {
 		getPcModels(gm);

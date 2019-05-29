@@ -881,4 +881,23 @@ public class DataBaseApplication {
 		
 	}
 
+	public int numberOfPatternCards() {
+	        Statement stmt = null;
+	        String query = "SELECT COUNT(idpatterncard) FROM patterncard;";
+	        int pcnumber = 0;
+	        try {
+	            stmt = m_Conn.createStatement();
+	            ResultSet rs = stmt.executeQuery(query);
+
+	            while (rs.next()) {
+	                pcnumber = rs.getInt(1);
+
+	            }
+	            stmt.close();
+	        } catch (SQLException e) {
+	            System.out.println(e.getMessage());
+	        }
+	        return pcnumber;
+	    }
+
 }

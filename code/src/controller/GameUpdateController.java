@@ -60,6 +60,68 @@ public class GameUpdateController {
 						pffm = pffa.get(j);
 					}
 					else if (j == pffa.size() - 1) {
+						break;
+					}
+				}
+				int dienumber;
+				Color diecolor;
+				if (dhma.get(i).getDie() == null) {
+					dienumber = 0;
+					diecolor = Color.WHITE;
+				}else {
+					dienumber = dhma.get(i).getDie().getDieNumber();
+					diecolor = dhma.get(i).getDie().getDieColor();
+				}
+				if (dienumber != pffm.getDienumber()
+						|| diecolor != pffm.getDiecolor()) {
+					DiceModel die = null;
+					DicePane dp = null;
+					for (int j = 0; j < mc.getGameController().getDiceHolderController().getDiceController().getDMAL()
+							.size(); j++) {
+						if (mc.getGameController().getDiceHolderController().getDiceController().getDiceModel(j)
+								.getDieNumber() == pffm.getDienumber()
+								&& mc.getGameController().getDiceHolderController().getDiceController().getDiceModel(j)
+										.getDieColor() == pffm.getDiecolor()) {
+							
+							die = mc.getGameController().getDiceHolderController().getDiceController().getDiceModel(j);
+							
+							dp = mc.getGameController().getDiceHolderController().getDiceController().getDicePane(j);
+							
+							for (int j2 = 0; j2 < mc.getGameController().getDiceHolderController().getDhmodels().size(); j2++) {
+								if (mc.getGameController().getDiceHolderController().getDhmodels().get(j2).getDie() == die) {
+									mc.getGameController().getDiceHolderController().getDhmodels().get(j2).setDie(null);
+									if (mc.getGameController().getDiceHolderController().getDhpanes().get(j2).getCenter() != null) {
+										System.out.println("Dingie 1");
+										mc.getGameController().getDiceHolderController().getDhpanes().get(j2).changeDie(null);
+										System.out.println("Dingie");
+									}
+									
+								}
+							}
+							
+							
+							break;
+						}
+					}
+
+					dhma.get(i).setDie(die);
+					mc.getGameController().getDiceHolderController().getDhpanes().get(i).changeDie(dp);
+				}
+			}
+
+			if (dhma.get(i).getType() == DiceHolderType.ENEMY2) {
+				int playerid = mc.getGameController().getGm().getPlayerModel(DiceHolderType.ENEMY2).getPlayerId();
+				PlayerFieldFrameModel pffm = null;
+				if (pffa.isEmpty()) {
+							return;
+						}
+				for (int j = 0; j < pffa.size(); j++) {
+
+					if (pffa.get(j).getX() == dhma.get(i).getX() && pffa.get(j).getY() == dhma.get(i).getY()
+							&& pffa.get(j).getPlayerid() == playerid) {
+						pffm = pffa.get(j);
+					}
+					else if (j == pffa.size() - 1) {
 						return;
 					}
 				}
@@ -106,6 +168,68 @@ public class GameUpdateController {
 					mc.getGameController().getDiceHolderController().changeDie(i, dp);
 				}
 			}
+
+			if (dhma.get(i).getType() == DiceHolderType.ENEMY3) {
+				int playerid = mc.getGameController().getGm().getPlayerModel(DiceHolderType.ENEMY3).getPlayerId();
+				PlayerFieldFrameModel pffm = null;
+				if (pffa.isEmpty()) {
+							return;
+						}
+				for (int j = 0; j < pffa.size(); j++) {
+
+					if (pffa.get(j).getX() == dhma.get(i).getX() && pffa.get(j).getY() == dhma.get(i).getY()
+							&& pffa.get(j).getPlayerid() == playerid) {
+						pffm = pffa.get(j);
+					}
+					else if (j == pffa.size() - 1) {
+						return;
+					}
+				}
+				int dienumber;
+				Color diecolor;
+				if (dhma.get(i).getDie() == null) {
+					dienumber = 0;
+					diecolor = Color.WHITE;
+				}else {
+					dienumber = dhma.get(i).getDie().getDieNumber();
+					diecolor = dhma.get(i).getDie().getDieColor();
+				}
+				if (dienumber != pffm.getDienumber()
+						|| diecolor != pffm.getDiecolor()) {
+					DiceModel die = null;
+					DicePane dp = null;
+					for (int j = 0; j < mc.getGameController().getDiceHolderController().getDiceController().getDMAL()
+							.size(); j++) {
+						if (mc.getGameController().getDiceHolderController().getDiceController().getDiceModel(j)
+								.getDieNumber() == pffm.getDienumber()
+								&& mc.getGameController().getDiceHolderController().getDiceController().getDiceModel(j)
+										.getDieColor() == pffm.getDiecolor()) {
+							
+							die = mc.getGameController().getDiceHolderController().getDiceController().getDiceModel(j);
+							
+							dp = mc.getGameController().getDiceHolderController().getDiceController().getDicePane(j);
+							
+							for (int j2 = 0; j2 < mc.getGameController().getDiceHolderController().getDhmodels().size(); j2++) {
+								if (mc.getGameController().getDiceHolderController().getDhmodels().get(j2).getDie() == die) {
+									mc.getGameController().getDiceHolderController().getDhmodels().get(j2).setDie(null);
+									if (mc.getGameController().getDiceHolderController().getDhpanes().get(j2).getCenter() != null) {
+										mc.getGameController().getDiceHolderController().changeDie(j2, null);
+									}
+									
+								}
+							}
+							
+							
+							break;
+						}
+					}
+
+					dhma.get(i).setDie(die);
+					mc.getGameController().getDiceHolderController().changeDie(i, dp);
+				}
+			}
+		
+		
 		}
 	}
 }
