@@ -3,6 +3,8 @@ package controller;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import javax.swing.JSpinner.DateEditor;
+
 import databeest.DataBaseApplication;
 import databeest.DbGameCollector;
 import javafx.scene.layout.Pane;
@@ -37,14 +39,16 @@ public class MenuController {
 
 	public void loadGame(String gID) {
 		int gameID = Integer.parseInt(gID);
-		mc.getGameController().createGameModel(6);// gehardcode, moet later anders zijn aan game ID gebonden aan button
+		
+		mc.getGameController().createGameModel(gameID);//gehardcode, moet later anders zijn aan game ID gebonden aan button
+		int round = dbGameCollector.getRound(gameID);
+		System.out.println("dit is het ronde nummer: " + round);// syso om ronde te checken
+		mc.setGuc(new GameUpdateController(mc));
+		mc.getGameUpdateController().setGameModel(mc.getGameController().getGm());
 		myScene.setGamePane();
+		mc.getUtc().setGameRunning(true);
 	}
-
-	public void createGame() {
-		// neemt username mee
-	}
-
+		
 	public void acceptInvite(int playerid) {
 		dbGameCollector.updateStatusAccept(playerid);
 
@@ -60,13 +64,16 @@ public class MenuController {
 
 	// milan
 	public void newGame(ArrayList<String> playerList) {
-		colors = getColors(); // maakt 5 kleuren
-		dbGameCollector.pushGame();
+		colors = getColors(); //maakt 5 kleuren
+		int gameid = getGameid() + 1;
+		System.out.println(gameid);
+		dbGameCollector.pushGame(gameid);
+		System.out.println("dit is de gameid" + gameid);
 		String challenger = playerList.get(0);
-		dbGameCollector.pushFirstPlayer(challenger, colors.get(0));
-		insertPublicObjectiveCards();
-		insertToolCards();
-		createGameDie();
+		dbGameCollector.pushFirstPlayer(challenger, colors.get(0), gameid);
+		insertPublicObjectiveCards(gameid);
+		insertToolCards(gameid);
+		createGameDie(gameid);
 		System.out.println("zise playerlist = " + playerList.size());
 
 		for (int i = 1; i < playerList.size(); i++) {
@@ -83,7 +90,7 @@ public class MenuController {
 	}
 
 	public int getGameid() {
-		gameid = dbGameCollector.getHighestGameID();
+		int gameid = dbGameCollector.getHighestGameID();
 		return gameid;
 	}
 
@@ -91,8 +98,8 @@ public class MenuController {
 		dbGameCollector.addPlayer(username, gameid, color, seq);
 	}
 
-	private void createGameDie() {
-		dbGameCollector.addGameDie();
+	private void createGameDie(int gameid) {
+		dbGameCollector.addGameDie(gameid);
 	}
 
 	private void insertToolCards() {
@@ -100,7 +107,7 @@ public class MenuController {
 																					// geef mij er drie at random.
 		for (int i = 0; i < 3; i++) {
 			int x = randomkaarten.get(i);
-			dbGameCollector.insertToolCards(x);
+			dbGameCollector.insertToolCards(x, gameid);
 		}
 	}
 
@@ -109,7 +116,7 @@ public class MenuController {
 																					// random.
 		for (int i = 0; i < 3; i++) {
 			int x = randomkaarten.get(i);
-			dbGameCollector.insertPublicObjectiveCards(x);
+			dbGameCollector.insertPublicObjectiveCards(x, gameid);
 		}
 	}
 
