@@ -40,6 +40,7 @@ public class GameUpdateController {
 	}
 
 	public void checkDiceMovement() {
+		
 		ArrayList<DiceHolderModel> dhma = dhc.getDhmodels();
 		ArrayList<PlayerFieldFrameModel> pffa = ddc.getPlayerFrame(mc.getGameController().getGm().getGameId());
 
