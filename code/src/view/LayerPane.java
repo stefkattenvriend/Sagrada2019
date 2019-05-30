@@ -35,12 +35,9 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 	private int[] randomPat;
 	private int playerid; 
 	private LoginController logc;
-	private GamePane gamePane;
-	private MyScene myScene;
 	
-	public LayerPane(LayerController controller, PatterncardController pcc, LoginController loginController, MyScene myscene) {
+	public LayerPane(LayerController controller, PatterncardController pcc, LoginController loginController) {
 //		randomPat = controller.getRandomPat();
-		this.myScene = myscene;
 		logc = loginController;
 		this.lyc = controller;
 		this.pcc = pcc;
@@ -66,7 +63,7 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 	
 	private void setButton() {
 		buttonPane = new FlowPane();
-		button = new Button("Standaard");
+		button = new Button("Standaard Patroonkaarten");
 		button.setPrefSize(80, 40);
 		button.setOnAction(e -> viewOffer()); //bij druk op de knop worden de randomkaarten pas zichtbaar.
 		buttonPane.setAlignment(Pos.CENTER_LEFT);
@@ -84,14 +81,11 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 		lyc.generateRdmPatternCards();
 		randomPat = lyc.getRandomPat();
 		for(int i = 0; i < randomPat.length; i++) {
-			lyc.insertChoice(i, playerid);					// zet keuzes in database
 			System.out.println("patterncardID = : " + randomPat[i]);	//syso welke patterncards kunnen gekozen worden
-			
 		}
 		chooserPane.getChildren().clear();
 		chooserPane.getChildren().addAll(createPatternCard(String.valueOf(randomPat[0])), createPatternCard(String.valueOf(randomPat[1])), createPatternCard(String.valueOf(randomPat[2])), createPatternCard(String.valueOf(randomPat[3])));
 		chooserPane.setAlignment(Pos.CENTER_RIGHT);
-		buttonPane.getChildren().clear();// haalt de button weg
 	}
 	
 	private Pane createPatternCard(String rdInt) {
@@ -116,7 +110,7 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 		patternCard.setAlignment(Pos.CENTER);
 		patternCard.setOnMouseClicked(e -> { 
 			pcc.givePatternCardToPlayer(Integer.parseInt(rdInt), playerid); //Wanneer je klikt op de tilepane krijg je die id in de database bij player
-			myScene.setGamePane();
+			//switch pane to gamepane
 		});
 		
 		

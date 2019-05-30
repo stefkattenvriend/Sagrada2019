@@ -6,7 +6,6 @@ import databeest.DbChatCollector;
 import databeest.DbDieCollector;
 import databeest.DbDieUpdater;
 import databeest.DbGameCollector;
-import databeest.DbMenuCollector;
 import databeest.DbPatternCardInfoCollector;
 import databeest.DbPayStoneRuler;
 import databeest.DbPlayerCollector;
@@ -30,7 +29,6 @@ public class MasterController extends Application{//een controller die alle ande
 	private DbPlayerStatsCollector dbPlayerStatsCollector;
 	private DbDieCollector dbDieCollector;
 	private DbDieUpdater dbDieUpdater;
-	private DbMenuCollector dbMenuCollector;
 	private DataBaseApplication databeest;
 	private DbPayStoneRuler psr;
 	
@@ -80,12 +78,10 @@ public class MasterController extends Application{//een controller die alle ande
 		dbCardCollector = new DbCardCollector(databeest);
 		dbDieCollector = new DbDieCollector(databeest);
 		dbPlayerStatsCollector = new DbPlayerStatsCollector(databeest);
-		dbMenuCollector = new DbMenuCollector(databeest);
 		dbDieUpdater = new DbDieUpdater(databeest);
 		dbTurnCollector = new DbTurnCollector(databeest);
 		psr = new DbPayStoneRuler(databeest);
 		tcc = new DbToolCardCollector(databeest);
-		
 		
 		
 		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
@@ -157,7 +153,7 @@ public class MasterController extends Application{//een controller die alle ande
 	}
 	
 	public void setGuc(GameUpdateController guc) {
-		this.guc = guc;
+//		this.guc = guc;
 //		utc.setGuc(guc);
 	}
 
@@ -173,15 +169,14 @@ public class MasterController extends Application{//een controller die alle ande
 	public DbDieCollector getDbDieCollector() {
 		return dbDieCollector;
 	}
-	
-	public DbMenuCollector getDbMenuCollecter() {
-		return dbMenuCollector;
-	}
 
 	public DataBaseApplication getDatabaseApplication() {
 		return databeest;
 	}
 	
+	public PayStoneController getPsc() {
+		return gc.getPsc();
+	}
 	
 
 }

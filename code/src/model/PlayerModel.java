@@ -19,7 +19,7 @@ public class PlayerModel {
 	private String stringcolor;
 	private Color color;
 	private int score;
-	private int[] pcChoiche;
+	private int[] pcOptions;
 
 	private DiceHolderType dht;// welke diceholder er bij deze speler hoort dus welke speler is het ~ Rens
 	private DbPlayerCollector dpc;
@@ -27,7 +27,6 @@ public class PlayerModel {
 	
 	public PlayerModel(DbPlayerCollector dpc) {
 	this.dpc = dpc;
-	int[] pcChoiche = new int[4];
 	}
 
 	public void getDatabaseInfo(DbPlayerCollector dpc) {
@@ -60,12 +59,8 @@ public class PlayerModel {
 				color = Color.PURPLE;
 				break;
 			}
-			getPcChoiche();
+		pcOptions = dpc.getPcOptions(playerid);
 		}
-	}
-	
-	public void getPcChoiche() {
-		pcChoiche = dpc.getPatternCardChoice(playerid);
 	}
 
 	public int getPlayerId() {

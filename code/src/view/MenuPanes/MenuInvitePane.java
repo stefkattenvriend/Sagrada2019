@@ -26,6 +26,7 @@ public class MenuInvitePane extends FlowPane {
 	private MenuWaitingPane menuWaitingPane;
 	private MenuController menuController;
 	private ArrayList<String> invitedGameIDs;
+	private ArrayList<String> accepted;
 	private ArrayList<MenuDropdown> games;
 	private Label title;
 
@@ -36,6 +37,7 @@ public class MenuInvitePane extends FlowPane {
 		this.menuWaitingPane = menuWaitingPane;
 		challengers = databeest.getChallenger(lc.getCurrentAccount());
 		invitedGameIDs = databeest.getInviteGameID(lc.getCurrentAccount());
+		accepted = databeest.getAcceptedGame(lc.getCurrentAccount());
 		menuController.setInvitePane(this);
 		setPaneSize();
 		createActiveGamesList();
@@ -62,6 +64,19 @@ public class MenuInvitePane extends FlowPane {
 		inviteList.setContent(list);
 
 		games = new ArrayList<MenuDropdown>();
+
+		for (int i = 0; i < invitedGameIDs.size(); i++) {
+//			
+//			if(accepted.size() != 0) {
+//				if(accepted.get(i) != null) {
+//					invitedGameIDs.remove(i);
+//					challengers.remove(i);
+//				} 
+//			} else {
+//				break;
+//			}
+
+		}
 
 		for (int i = 0; i < invitedGameIDs.size(); i++) {
 			games.add(new MenuDropdown(menuController, false,
