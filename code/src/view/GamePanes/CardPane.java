@@ -23,6 +23,8 @@ public class CardPane extends StackPane{
 		if(toolCard) {
 			this.setOnMouseClicked(e -> cc.useCard(cardNr));
 		}
+		
+		
 		this.addPlayerPayStone();
 		this.addPlayerPayStone();
 		this.addPlayerPayStone();

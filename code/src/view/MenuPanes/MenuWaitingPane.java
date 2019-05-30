@@ -49,6 +49,7 @@ public class MenuWaitingPane extends FlowPane {
 		newAcceptedGames = new ArrayList<String>();
 		setPaneSize();
 		createActiveGamesList();
+
 		setBackground(new Background(new BackgroundFill(Color.rgb(255, 205, 205, 0.8), null, null)));
 	}
 
@@ -57,6 +58,7 @@ public class MenuWaitingPane extends FlowPane {
 		title.setText("Wachten op reactie");
 		title.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
 		title.setTextFill(Color.RED);
+
 		waitingList = new ScrollPane();
 		waitingList.setMinSize(MenuPane.paneWidth - 60, (MenuPane.windowMaxHeight / 2) - 180);
 		waitingList.setMaxSize(MenuPane.paneWidth - 60, (MenuPane.windowMaxHeight / 2) - 180);

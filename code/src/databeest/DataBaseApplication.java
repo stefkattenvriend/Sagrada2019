@@ -33,7 +33,7 @@ public class DataBaseApplication {
 	public boolean makeConnection() {
 		try {
 			m_Conn = DriverManager
-					.getConnection("jdbc:mysql://databases.aii.avans.nl/mwmastbe_db2?user=rcaasper&password=Ab12345"); //TODO hier moet de uiteindelijke inloggegevens komen voor de database van school
+					.getConnection("jdbc:mysql://databases.aii.avans.nl/mwmastbe_db2?user=rcaasper&password=Ab12345");
 			System.out.println("So far, so good...");
 		} catch (SQLException ex) {
 			// handle any errors
@@ -836,17 +836,17 @@ public class DataBaseApplication {
 	}
 	
 	//Haalt op welke games gestart zijn (iedereen heeft het verzoek geaccepteerd)
-	public ArrayList<Integer> getStartedGames(String username){
+	public ArrayList<Integer> getStartedGames(){
 		
 		Statement stmt = null;
 		ArrayList<Integer> startedGames = new ArrayList<>();
-		String query = "SELECT game_idgame AS idgame1, (SELECT game_idgame FROM player WHERE username = '" + username + "' AND game_idgame = idgame1) AS personalgames, COUNT(idplayer) AS geaccepteerd, (SELECT COUNT(idplayer) FROM player WHERE game_idgame = idgame1) AS totaal_spelers FROM player WHERE (playstatus_playstatus = 'geaccepteerd' OR playstatus_playstatus = 'uitdager') GROUP BY game_idgame; "; 
+		String query = "SELECT game_idgame AS gameid, COUNT(idplayer) AS geaccepteerd, (SELECT COUNT(idplayer) FROM player WHERE game_idgame = gameid) AS totaal_spelers FROM player WHERE playstatus_playstatus = 'geaccepteerd' OR playstatus_playstatus = 'uitdager' GROUP BY game_idgame;"; 
 		try {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
-				if (rs.getInt(1) == rs.getInt(2) && rs.getInt(3) == rs.getInt(4)) {
+				if (rs.getInt(2) == rs.getInt(3)) {
 					startedGames.add(rs.getInt(1));
 				}
 			}
@@ -859,17 +859,17 @@ public class DataBaseApplication {
 	}
 	
 	//Haalt op welke games NOG NEIT gestart zijn (afwachtend op reactie)
-	public ArrayList<Integer> getWaitedGames(String username){
+	public ArrayList<Integer> getWaitedGames(){
 		
 		Statement stmt = null;
 		ArrayList<Integer> waitedGames = new ArrayList<>();
-		String query = "SELECT game_idgame AS idgame1, (SELECT game_idgame FROM player WHERE username = '" + username + "' AND game_idgame = idgame1) AS personalgames, COUNT(idplayer) AS geaccepteerd, (SELECT COUNT(idplayer) FROM player WHERE game_idgame = idgame1) AS totaal_spelers FROM player WHERE (playstatus_playstatus = 'geaccepteerd' OR playstatus_playstatus = 'uitdager') GROUP BY game_idgame; "; 
+		String query = "SELECT game_idgame AS gameid, COUNT(idplayer) AS geaccepteerd, (SELECT COUNT(idplayer) FROM player WHERE game_idgame = gameid) AS totaal_spelers FROM player WHERE playstatus_playstatus = 'geaccepteerd' OR playstatus_playstatus = 'uitdager' GROUP BY game_idgame;"; 
 		try {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
-				if (rs.getInt(1) == rs.getInt(2) && rs.getInt(3) < rs.getInt(4)) {
+				if (rs.getInt(2) != rs.getInt(3)) {
 					waitedGames.add(rs.getInt(1));
 				}
 			}
@@ -1006,25 +1006,40 @@ public class DataBaseApplication {
 			return 2;
 		}
 	}
-
-	public int[] getPcChoiche(int playerid) {
+	
+	public int paystoneAmount(int toolCardNr, int idgame) {
 		Statement stmt = null;
-		String query = "SELECT patterncard_idpatterncard FROM player WHERE idplayer = " + playerid + ";";
-		int[] pcIds = new int[4];
-		int i = 0;
+		String query = "SELECT count(gametoolcard) FROM gamefavortoken WHERE gametoolcard = " + toolCardNr + " AND idgame = " + idgame;
+		int amount = 0;
 		try {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
-				pcIds[i] = rs.getInt(1);
-				System.out.println(pcIds[i]);
-
+				amount = rs.getInt(1);
 			}
 			stmt.close();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-		return pcIds;
+		return amount;
+	}
+
+	public int getDifficulty(int patterncardId) {
+		Statement stmt = null;
+		String query = "SELECT difficulty FROM patterncard WHERE idpatterncard = " + patterncardId;
+		int diff = 0;
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+				diff = rs.getInt(1);
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return diff;
 	}
 }
