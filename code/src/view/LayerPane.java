@@ -91,17 +91,18 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 	} 
 	
 	private void viewOffer() {
-		lyc.generateRdmPatternCards();
-		randomPat = lyc.getRandomPat();
-		for(int i = 0; i < randomPat.length; i++) {
-			lyc.insertChoice(i, playerid);					// zet keuzes in database
-			System.out.println("patterncardID = : " + randomPat[i]);	//syso welke patterncards kunnen gekozen worden
-			
-		}
+//		lyc.generateRdmPatternCards();
+//		randomPat = lyc.getRandomPat();
+//		for(int i = 0; i < randomPat.length; i++) {
+//			lyc.insertChoice(i, playerid);					// zet keuzes in database
+//			System.out.println("patterncardID = : " + randomPat[i]);	//syso welke patterncards kunnen gekozen worden
+//			
+//		}
 		chooserPane.getChildren().clear();
 		chooserPane.getChildren().addAll(createPatternCard(String.valueOf(randomPat[0])), createPatternCard(String.valueOf(randomPat[1])), createPatternCard(String.valueOf(randomPat[2])), createPatternCard(String.valueOf(randomPat[3])));
 		chooserPane.setAlignment(Pos.CENTER_RIGHT);
 		buttonPane.getChildren().clear();// haalt de button weg
+		buttonPane.getChildren().add(buttonMenu);
 	}
 	
 	private Pane createPatternCard(String rdInt) {
