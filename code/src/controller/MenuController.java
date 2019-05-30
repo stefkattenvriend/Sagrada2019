@@ -152,13 +152,35 @@ public class MenuController {
 
 	public ArrayList<Integer> getActivePlayerGames(String username) {
 		ArrayList<Integer> activeGames = new ArrayList<>();
-		activeGames = dbGameCollector.startedGames(username);
+
+		for (int i = 0; i < dbGameCollector.startedGames().size(); i++) {
+
+			int gameid = dbGameCollector.startedGames().get(i);
+			for (int j = 0; j < dbGameCollector.getPlayers(gameid).length; j++) {
+
+				if (dbGameCollector.getUsername(dbGameCollector.getPlayers(gameid)[j]).equals(username)) {
+					activeGames.add(dbGameCollector.startedGames().get(i));
+					System.out.println("active game: " + dbGameCollector.startedGames().get(i));
+				}
+			}
+		}
 		return activeGames;
 	}
 
 	public ArrayList<Integer> getWaitedPlayerGames(String username) {
 		ArrayList<Integer> waitedGames = new ArrayList<>();
-		waitedGames = dbGameCollector.waitedGames(username);
+
+		for (int i = 0; i < dbGameCollector.waitedGames().size(); i++) {
+
+			int gameid = dbGameCollector.waitedGames().get(i);
+			for (int j = 0; j < dbGameCollector.getPlayers(gameid).length; j++) {
+
+				if (dbGameCollector.getUsername(dbGameCollector.getPlayers(gameid)[j]).equals(username)) {
+					waitedGames.add(dbGameCollector.startedGames().get(i));
+					System.out.println("waited game: " + dbGameCollector.waitedGames().get(i));
+				}
+			}
+		}
 		return waitedGames;
 	}
 
@@ -175,6 +197,7 @@ public class MenuController {
 					System.out.println("nieuwe uitnodiging");
 					newInvite = false;
 				}
+
 			}
 		}
 	}
