@@ -3,19 +3,22 @@ package controller;
 import databeest.DbDieUpdater;
 import databeest.DbTurnCollector;
 import helpers.DiceHolderType;
+import javafx.scene.layout.Pane;
 import model.DiceHolderModel;
 import model.GameModel;
 import model.PlayerModel;
+import view.GamePanes.PlayerPane;
 
 public class TurnController {
 
-	DiceHolderController dhc;
-	DbDieUpdater ddu;
-	GameModel gm;
-	DbTurnCollector dtc;
+	private DiceHolderController dhc;
+	private DbDieUpdater ddu;
+	private GameModel gm;
+	private DbTurnCollector dtc;
 	PlayerModel currentplayer;
 	String username;
 	int gameId;
+	private PlayerPane pp;
 
 	public TurnController(DiceHolderController dhc, DbDieUpdater ddu, GameModel gm, DbTurnCollector dtc, String username, int gameId) {
 		this.gameId = gameId;
@@ -24,6 +27,10 @@ public class TurnController {
 		this.dhc = dhc;
 		this.ddu = ddu;
 		this.gm = gm;
+	}
+	
+	public void givePane(PlayerPane pane) {
+		this.pp = pane;
 	}
 
 	public void updatePass() {// update na pas knop
@@ -48,11 +55,11 @@ public class TurnController {
 			}
 
 		}
-		updateSeqnr();
+		updateSeqnrAndTurn();
 	}
 	
 	//milan
-		private void updateSeqnr() {
+		private void updateSeqnrAndTurn() {
 			PlayerModel[] players = gm.getPma();
 			int amountOfPlayers = players.length;
 			int seqnr = 10;
@@ -304,7 +311,7 @@ public class TurnController {
 
 	
 	public void TurnAdmissionGiving() {
-		TurnAdmissionChecker tac = new TurnAdmissionChecker(dtc, username, gameId);
+		TurnAdmissionChecker tac = new TurnAdmissionChecker(dtc, username, gameId, pp);
 
 			Thread t1 = new Thread(tac);
 			t1.start();
