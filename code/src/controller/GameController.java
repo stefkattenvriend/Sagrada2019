@@ -6,7 +6,10 @@ import databeest.DbDieCollector;
 import databeest.DbDieUpdater;
 import databeest.DbGameCollector;
 import databeest.DbPatternCardInfoCollector;
+import databeest.DbPayStoneRuler;
 import databeest.DbPlayerCollector;
+import databeest.DbToolCardCollector;
+import databeest.DbTurnCollector;
 import model.GameModel;
 
 public class GameController {// deze classe wordt aangemaakt in de masterController en maakt uiteindelijk ook
@@ -28,11 +31,17 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private TurnController tc;
 	private GameUpdateController guc;
 	private GameModel gm;
+	private DbTurnCollector dtc;
+	private DbPayStoneRuler psr;
+	private DbToolCardCollector dtcc;
+	private ToolCardController tcc;
+	private PayStoneController psc;
 	
 	private PlayerController pc;
 
-	public GameController(DbPatternCardInfoCollector DatabasePTCCollector, DbGameCollector dbGamecollector,
-			LoginController lc, DbChatCollector dbChat, DbCardCollector dbCardCollector, GameUpdateController guc, DbPlayerCollector dpc, DbDieCollector ddc, DbDieUpdater ddu) {
+	public GameController(DbPatternCardInfoCollector DatabasePTCCollector, DbGameCollector dbGamecollector, LoginController lc, DbChatCollector dbChat, 
+			DbCardCollector dbCardCollector, GameUpdateController guc, DbPlayerCollector dpc, DbDieCollector ddc, DbDieUpdater ddu, 
+			DbTurnCollector dtc, DbPayStoneRuler psr, DbToolCardCollector tcc) {
 		this.DatabasePTCCollector = DatabasePTCCollector;
 		this.dpc = dpc;
 		this.lc = lc;
@@ -45,6 +54,10 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		
 		pc = new PlayerController(dpc);
 		this.dbGameCollector = dbGamecollector;
+		
+		this.dtc = dtc;
+		dtcc = tcc;
+		this.psr = psr;
 	}
 	
 	public CardsController getCardsController() {
@@ -102,13 +115,13 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		pcc = new PatterncardController(DatabasePTCCollector, gm);
 		lyc = new LayerController(pcc);
 		this.dhc = new DiceHolderController(pcc, dbDieCollector, gm.getGameId());
-		this.tc = new TurnController(dhc, dbDieUpdater, gm);
-		
-		this.createCardsController();
+		this.tc = new TurnController(dhc, dbDieUpdater, gm, dtc, username, gm.getGameId());
 	}
 	
 	public void createCardsController() {
-		crc = new CardsController(dbCardCollector, dhc.getDiceController().getDMAL(), gm.getGameId());
+		tcc = new ToolCardController(dhc.getDiceController().getDMAL(), psc, dtcc, gm.getGameId());
+		psc = new PayStoneController(psr, pc.getPlayerID(), gm.getGameId());
+		crc = new CardsController(dbCardCollector, gm.getGameId(), tcc);
 	}
 
 }

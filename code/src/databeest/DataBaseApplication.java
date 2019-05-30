@@ -14,7 +14,6 @@ import model.PlayerFieldFrameModel;
 
 public class DataBaseApplication {
 	private Connection m_Conn;
-
 	public DataBaseApplication() {
 		m_Conn = null;
 	}
@@ -34,7 +33,7 @@ public class DataBaseApplication {
 	public boolean makeConnection() {
 		try {
 			m_Conn = DriverManager
-					.getConnection("jdbc:mysql://databases.aii.avans.nl/mwmastbe_db2?user=rcaasper&password=Ab12345");
+					.getConnection("jdbc:mysql://databases.aii.avans.nl/mwmastbe_db2?user=rcaasper&password=Ab12345"); //TODO hier moet de uiteindelijke inloggegevens komen voor de database van school
 			System.out.println("So far, so good...");
 		} catch (SQLException ex) {
 			// handle any errors
@@ -112,6 +111,31 @@ public class DataBaseApplication {
 
 	}
 	
+	public boolean myTurn(String username, int gameId) {
+		Statement stmt = null;
+		String query = "SELECT isCurrentPlayer WHERE idplayer = " + this.getPlayerID(username, gameId);
+		int ifPlayer = 0;
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while (rs.next()) {
+				ifPlayer = rs.getInt(1);
+			}
+			stmt.close();
+			if (ifPlayer != 0) {
+				return true;
+			} else {
+				return false;
+			}
+			
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+	}
+
+
 	public int getHighestGameID() {
 		Statement stmt = null;
 		String query = "SELECT max(idgame) FROM game;";
@@ -812,17 +836,17 @@ public class DataBaseApplication {
 	}
 	
 	//Haalt op welke games gestart zijn (iedereen heeft het verzoek geaccepteerd)
-	public ArrayList<Integer> getStartedGames(){
+	public ArrayList<Integer> getStartedGames(String username){
 		
 		Statement stmt = null;
 		ArrayList<Integer> startedGames = new ArrayList<>();
-		String query = "SELECT game_idgame AS gameid, COUNT(idplayer) AS geaccepteerd, (SELECT COUNT(idplayer) FROM player WHERE game_idgame = gameid) AS totaal_spelers FROM player WHERE playstatus_playstatus = 'geaccepteerd' OR playstatus_playstatus = 'uitdager' GROUP BY game_idgame;"; 
+		String query = "SELECT game_idgame AS idgame1, (SELECT game_idgame FROM player WHERE username = '" + username + "' AND game_idgame = idgame1) AS personalgames, COUNT(idplayer) AS geaccepteerd, (SELECT COUNT(idplayer) FROM player WHERE game_idgame = idgame1) AS totaal_spelers FROM player WHERE (playstatus_playstatus = 'geaccepteerd' OR playstatus_playstatus = 'uitdager') GROUP BY game_idgame; "; 
 		try {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
-				if (rs.getInt(2) == rs.getInt(3)) {
+				if (rs.getInt(1) == rs.getInt(2) && rs.getInt(3) == rs.getInt(4)) {
 					startedGames.add(rs.getInt(1));
 				}
 			}
@@ -835,17 +859,17 @@ public class DataBaseApplication {
 	}
 	
 	//Haalt op welke games NOG NEIT gestart zijn (afwachtend op reactie)
-	public ArrayList<Integer> getWaitedGames(){
+	public ArrayList<Integer> getWaitedGames(String username){
 		
 		Statement stmt = null;
 		ArrayList<Integer> waitedGames = new ArrayList<>();
-		String query = "SELECT game_idgame AS gameid, COUNT(idplayer) AS geaccepteerd, (SELECT COUNT(idplayer) FROM player WHERE game_idgame = gameid) AS totaal_spelers FROM player WHERE playstatus_playstatus = 'geaccepteerd' OR playstatus_playstatus = 'uitdager' GROUP BY game_idgame;"; 
+		String query = "SELECT game_idgame AS idgame1, (SELECT game_idgame FROM player WHERE username = '" + username + "' AND game_idgame = idgame1) AS personalgames, COUNT(idplayer) AS geaccepteerd, (SELECT COUNT(idplayer) FROM player WHERE game_idgame = idgame1) AS totaal_spelers FROM player WHERE (playstatus_playstatus = 'geaccepteerd' OR playstatus_playstatus = 'uitdager') GROUP BY game_idgame; "; 
 		try {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
-				if (rs.getInt(2) != rs.getInt(3)) {
+				if (rs.getInt(1) == rs.getInt(2) && rs.getInt(3) < rs.getInt(4)) {
 					waitedGames.add(rs.getInt(1));
 				}
 			}
@@ -899,5 +923,87 @@ public class DataBaseApplication {
 	        }
 	        return pcnumber;
 	    }
+	
+	public void setStoneToCard(int gameId, int playerId, int toolcardId, int amount) {
+		Statement stmt = null;
+		String query = "UPDATE gamefavortoken SET gametoolcard = " + toolcardId + " WHERE idgame = " + gameId + " AND idplayer = " + playerId + " LIMIT " + amount;
+		try {
+			stmt = m_Conn.createStatement();
+			int rs = stmt.executeUpdate(query);
+			System.out.println(rs);
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
 
+	public void addStones(int gameId) {
+		Statement stmt = null;
+		int idfavortoken = 0;
+		String query = "INSERT INTO gamefavortoken(idfavortoken, idgame) VALUES (" +  idfavortoken + ", " + gameId + ")";
+		while (idfavortoken < 20) {
+			try {
+				stmt = m_Conn.createStatement();
+				int rs = stmt.executeUpdate(query);
+				System.out.println(rs);
+				stmt.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+	}
+
+	public void addStonesToPlayer(int gameId, int playerId, int amount) {
+		Statement stmt = null;
+		String query = "UPDATE gamefavortoken SET idplayer = " + playerId + " WHERE idgame = " + gameId + " AND idplayer IS NULL LIMIT " + amount;
+		try {
+			stmt = m_Conn.createStatement();
+			int rs = stmt.executeUpdate(query);
+			System.out.println(rs);
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}	
+	}
+
+	public int getStones(int playerId, int gameId) {
+		Statement stmt = null;
+		String query = "SELECT count(idplayer) FROM gamefavortoken WHERE idplayer = " + playerId + " AND idgame = " + gameId + "AND gametoolcard IS NULL;";
+		int amount = 0;
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+				amount = rs.getInt(1);
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return amount;
+	}
+
+	public int getPrice(int toolCardNr, int idgame) {
+		Statement stmt = null;
+		String query = "SELECT count(gametoolcard) FROM gamefavortoken WHERE gametoolcard = " + toolCardNr + " AND idgame = " + idgame;
+		int amount = 0;
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+				amount = rs.getInt(1);
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		if (amount < 1) {
+			return 1;
+		} else {
+			return 2;
+		}
+	}
 }
