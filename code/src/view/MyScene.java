@@ -64,6 +64,16 @@ public class MyScene extends Scene{
 		mc.getStage().centerOnScreen();
 	}
 	
+	public void setLayerPane() {
+		
+		LayerPane pcardChooser = new LayerPane(mc.getGameController().getLayerController(), mc.getGameController().getPatterncardController(), lc, this);
+		
+		setNewRoot(pcardChooser);
+		mc.getStage().setHeight(gamePane.windowMaxHeight);
+		mc.getStage().setWidth(gamePane.windowMaxWidth);
+		mc.getStage().centerOnScreen();
+	}
+	
 	public void setLoginPane() {
 		if(!lc.isLoggedIn()) {
 			setNewRoot(loginPane);

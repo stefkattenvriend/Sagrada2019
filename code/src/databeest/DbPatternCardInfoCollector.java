@@ -29,5 +29,10 @@ public class DbPatternCardInfoCollector {
 		int playerid = dataBaseApplication.getPlayerID(username, gameid);
 		return playerid;
 	}
+
+	public void insertChoice(String query) {
+		dataBaseApplication.insertQuery(query);
+		
+	}
     
 }
