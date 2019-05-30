@@ -35,10 +35,10 @@ public class MenuInvitePane extends FlowPane {
 		this.lc = lc;
 		this.menuController = menuController;
 		this.menuWaitingPane = menuWaitingPane;
-		challengers = databeest.getChallenger(lc.getCurrentAccount());
-		invitedGameIDs = databeest.getInviteGameID(lc.getCurrentAccount());
-		accepted = databeest.getAcceptedGame(lc.getCurrentAccount());
 		menuController.setInvitePane(this);
+		challengers = menuController.getChallengers();
+		invitedGameIDs = menuController.getInvitedGamesID();
+
 		setPaneSize();
 		createActiveGamesList();
 		
@@ -98,14 +98,16 @@ public class MenuInvitePane extends FlowPane {
 		setMaxSize(MenuPane.paneWidth - 40, MenuPane.windowMaxHeight - (MenuPane.windowMaxHeight / 3) - 80);
 	}
 
-	public void updateInvitePane() {
+	public void updateInvitePane(ArrayList<String> newInvitedGameIDs, ArrayList<String> newChallengers) {
 		System.out.println("schoonmaken..");
 		getChildren().clear();
 		list.getChildren().clear();
 		games.clear();
 		System.out.println("indelen..");
-		invitedGameIDs = databeest.getInviteGameID(lc.getCurrentAccount());
-		challengers = databeest.getChallenger(lc.getCurrentAccount());
+		invitedGameIDs.clear();
+		invitedGameIDs = newInvitedGameIDs;
+		challengers.clear();
+		challengers = newChallengers;
 		
 		
 		for (int i = 0; i < invitedGameIDs.size(); i++) {

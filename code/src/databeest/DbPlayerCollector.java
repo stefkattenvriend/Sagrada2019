@@ -69,4 +69,8 @@ public class DbPlayerCollector {
 		dbApplication.insertQuery(query);
 	}
 	
+	public int[] getPcOptions(int playerid) {
+		return dbApplication.getPcChoiche(playerid);
+	}
+	
 }
