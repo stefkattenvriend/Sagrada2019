@@ -44,9 +44,9 @@ public class MenuController {
 		databeest = mc.getDatabaseApplication();
 //		invitedGamesID_OLD = databeest.getInviteGameID(mc.getLoginController().getCurrentAccount());
 		invitedGamesID_OLD = getInvitedGamesID();
+		gameIDs_OLD = getActiveGames();
 		
-		
-		gameIDs_OLD = getDbActivePlayerGames(mc.getLoginController().getCurrentAccount());
+//		gameIDs_OLD = getDbActivePlayerGames(mc.getLoginController().getCurrentAccount());
 		
 	}
 	
@@ -54,9 +54,34 @@ public class MenuController {
 		return menuModel.getChallengers();
 	}
 	
+	public ArrayList<String> getNewChallengers() {
+		return menuModel.getChallengersUpdate();
+	}
+	
 	public ArrayList<String> getInvitedGamesID(){
 		return menuModel.getInvitedGameIDs();
 	}
+	
+	public ArrayList<String> getNewInvitedGamesID(){
+		return menuModel.getInvitedGameIDsUpdate();
+	}
+	
+	public ArrayList<Integer> getActiveGames(){
+		return menuModel.getActiveGames();
+	}
+	
+	public ArrayList<Integer> getNewActiveGames(){
+		return menuModel.getActiveGamesUpdate();
+	}
+	
+	public ArrayList<Integer> getWaitedGames(){
+		return menuModel.getWaitedGames();
+	}
+	
+	public ArrayList<Integer> getNewWaitedGames(){
+		return menuModel.getWaitedGamesUpdate();
+	}
+	
 
 	public void loadGame(String gID) {
 		int gameID = Integer.parseInt(gID);
@@ -184,23 +209,24 @@ public class MenuController {
 		return list;
 	}
 
-	public ArrayList<Integer> getDbActivePlayerGames(String username) {
-		return dbGameCollector.startedGames(username);
-	}
-	
-	public ArrayList<Integer> getWaitedPlayerGames(String username) {
-		return dbGameCollector.waitedGames(username);
-	}
+//	public ArrayList<Integer> getDbActivePlayerGames(String username) {
+//		return dbGameCollector.startedGames(username);
+//	}
+//	
+//	public ArrayList<Integer> getWaitedPlayerGames(String username) {
+//		return dbGameCollector.waitedGames(username);
+//	}
 	
 	public void updateIncomingInvite() {
-		invitedGames_NEW = databeest.getInviteGameID(mc.getLoginController().getCurrentAccount());
+//		invitedGames_NEW = databeest.getInviteGameID(mc.getLoginController().getCurrentAccount());
+		invitedGames_NEW = getNewInvitedGamesID();
 		
 		if (menuInvitePane != null) {
 			if (invitedGamesID_OLD.size() != invitedGames_NEW.size()) {
 				newInvite = true;
 
 				if (newInvite) {
-					menuInvitePane.updateInvitePane();
+					menuInvitePane.setNewInput(invitedGames_NEW, getNewChallengers());
 					invitedGamesID_OLD.clear();
 					invitedGamesID_OLD = invitedGames_NEW;
 					System.out.println("nieuwe uitnodiging");
@@ -215,13 +241,14 @@ public class MenuController {
 	}
 	
 	public void updateActiveGames() {
-		gameIDs_NEW = getDbActivePlayerGames(mc.getLoginController().getCurrentAccount());
+//		gameIDs_NEW = getDbActivePlayerGames(mc.getLoginController().getCurrentAccount());
+		gameIDs_NEW = getNewActiveGames();
 		if (menuGamesPane != null) {
 			if (gameIDs_OLD.size() != gameIDs_NEW.size()) {
 				newInvite = true;
 
 				if (newInvite) {
-					menuGamesPane.updateGamePane();
+					menuGamesPane.newActiveGames(gameIDs_NEW);
 					gameIDs_OLD.clear();
 					gameIDs_OLD = gameIDs_NEW;
 					System.out.println("Nieuwe actieve game");

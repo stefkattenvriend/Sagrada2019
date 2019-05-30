@@ -1,19 +1,24 @@
 package controller;
 
 import databeest.DbTurnCollector;
+import view.GamePanes.PlayerPane;
 
 public class TurnAdmissionChecker implements Runnable {
+
 	private boolean myTurn;
 	private DbTurnCollector dtc;
 	private String username;
 	private int gameId;
 	private DiceHolderController dhc;
+	private PlayerPane pp;
 	
-	public TurnAdmissionChecker(DbTurnCollector dtc, String username, int gameId, DiceHolderController dhc) {
+	public TurnAdmissionChecker(DbTurnCollector dtc, String username, int gameId, DiceHolderController dhc, PlayerPane pp) {
 		this.username = username;
 		this.gameId = gameId;
 		this.dtc = dtc;
 		this.dhc = dhc;
+		this.pp = pp;
+
 	}
 	
 	public void run() {
@@ -24,7 +29,7 @@ public class TurnAdmissionChecker implements Runnable {
 	
 	private void checkMyTurn() {
 		if (dtc.myTurn(username, gameId)) {
-			//allow something
+			pp.yourTurn();
 			System.out.println("myturn");
 			dhc.switchTurnInteractable(true);
 			

@@ -35,10 +35,7 @@ public class MenuInvitePane extends FlowPane {
 		this.menuController = menuController;
 		this.menuWaitingPane = menuWaitingPane;
 		menuController.setInvitePane(this);
-		
-//		challengers = databeest.getChallenger(lc.getCurrentAccount());
-//		invitedGameIDs = databeest.getInviteGameID(lc.getCurrentAccount());
-		
+	
 		this.challengers = menuController.getChallengers();
 		this.invitedGameIDs = menuController.getInvitedGamesID();
 
@@ -87,6 +84,14 @@ public class MenuInvitePane extends FlowPane {
 		setMinSize(MenuPane.paneWidth - 40, MenuPane.windowMaxHeight - (MenuPane.windowMaxHeight / 3) - 80);
 		setMaxSize(MenuPane.paneWidth - 40, MenuPane.windowMaxHeight - (MenuPane.windowMaxHeight / 3) - 80);
 	}
+	
+	public void setNewInput(ArrayList<String> newInvitedGames, ArrayList<String> newChallengers) {
+		invitedGameIDs.clear();
+		challengers.clear();
+		invitedGameIDs = newInvitedGames;
+		challengers = newChallengers;
+		updateInvitePane();
+	}
 
 	public void updateInvitePane() {
 		System.out.println("schoonmaken..");
@@ -94,8 +99,6 @@ public class MenuInvitePane extends FlowPane {
 		list.getChildren().clear();
 		games.clear();
 		System.out.println("indelen..");
-		invitedGameIDs = databeest.getInviteGameID(lc.getCurrentAccount());
-		challengers = databeest.getChallenger(lc.getCurrentAccount());
 
 		for (int i = 0; i < invitedGameIDs.size(); i++) {
 			games.add(new MenuDropdown(menuController, false,

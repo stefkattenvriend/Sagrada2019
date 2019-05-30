@@ -33,6 +33,7 @@ public class PlayerPane extends VBox{
 	private MyScene myScene;
 	private PointsController pc;
 	private TurnController tc;
+	private Button pass;
 	
 	public PlayerPane(DiceHolderController dhc, PatterncardController dcc, MyScene myScene, GameController gc, PointsController pc, TurnController tc) {
 		this.dhc = dhc;
@@ -43,6 +44,8 @@ public class PlayerPane extends VBox{
 		this.tc = tc;
 		setBackground(controller.Main.PLAYERPANE); // aanduiding voor pane
 		setUp();
+		tc.givePane(this);
+		tc.TurnAdmissionGiving();
 	}
 	
 	private void setUp() {
@@ -56,10 +59,10 @@ public class PlayerPane extends VBox{
 	private void setTinyButtonSection() {
 		BorderPane section = new BorderPane();
 		
-		Button pass = new Button("Pass");
+		pass = new Button("Pass");
 		pass.setMinSize(60, 30);
 		pass.setMaxSize(60, 30);
-		pass.setOnAction(e -> tc.updatePass());
+		pass.setOnAction(e -> pass());
 		
 		Button menu = new Button("Menu");
 		menu.setMinSize(60, 30);
@@ -72,6 +75,15 @@ public class PlayerPane extends VBox{
 		section.setLeft(pass);
 		section.setRight(menu);
 		getChildren().add(section);
+	}
+
+	public void yourTurn() {
+		pass.setVisible(true);
+	}
+	
+	private void pass() {
+		tc.updatePass(); 
+		pass.setVisible(false);
 	}
 
 	private void setPlayerBoardPane() {
