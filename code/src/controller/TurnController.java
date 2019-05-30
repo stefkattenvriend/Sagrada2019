@@ -34,8 +34,9 @@ public class TurnController {
 	}
 
 	public void updatePass() {// update na pas knop
-		System.out.println("Test");
-
+		
+		dhc.switchTurnInteractable(false);
+		
 		DiceHolderModel dm = null;
 
 		for (int i = 0; i < dhc.getMovedDice().size(); i++) {
@@ -311,10 +312,11 @@ public class TurnController {
 
 	
 	public void TurnAdmissionGiving() {
-		TurnAdmissionChecker tac = new TurnAdmissionChecker(dtc, username, gameId, pp);
+		TurnAdmissionChecker tac = new TurnAdmissionChecker(dtc, username, gameId, dhc, pp);
 
 			Thread t1 = new Thread(tac);
 			t1.start();
 	}
+
 
 }
