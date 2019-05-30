@@ -68,5 +68,9 @@ public class DbPlayerCollector {
 		String query = "UPDATE `mwmastbe_db2`.`player` SET `seqnr` = '" + seqnr + "' WHERE (`idplayer` = '" + playerid + "');";
 		dbApplication.insertQuery(query);
 	}
+
+	public int[] getPatternCardChoice(int playerid) {
+		return dbApplication.getPcChoiche(playerid);
+	}
 	
 }
