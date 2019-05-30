@@ -11,6 +11,8 @@ public class MenuModel {
 	
 	private ArrayList<String> challengers;
 	private String currentAccount;
+	private ArrayList<Integer> activePlayerGames;
+	private ArrayList<Integer> waitedPlayerGames;
 	
 	public MenuModel(MasterController masterController) {
 		this.menuCollector = masterController.getDbMenuCollecter();
@@ -22,9 +24,20 @@ public class MenuModel {
 		this.challengers = menuCollector.getChallanger(currentAccount);
 	}
 
-	public static ArrayList<Integer> getActivePlayerGames() {
-		
-		return null;
+	public void setActivePlayerGames(ArrayList<Integer> activePlayerGames) {
+		this.activePlayerGames = activePlayerGames;
+	}
+	
+	public ArrayList<Integer> getActivePlayerGames() {
+		return activePlayerGames;
+	}
+
+	public void setWaitedPlayerGames(ArrayList<Integer> waitedPlayerGames) {
+		this.waitedPlayerGames = waitedPlayerGames;
+	}
+
+	public ArrayList<Integer> getWaitedPlayerGames() {
+		return waitedPlayerGames;
 	}
 	
 }
