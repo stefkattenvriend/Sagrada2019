@@ -55,7 +55,7 @@ public class TurnController {
 		private void updateSeqnr() {
 			PlayerModel[] players = gm.getPma();
 			int amountOfPlayers = players.length;
-			int seqnr = 8;
+			int seqnr = 10;
 			if (amountOfPlayers == 4) {
 				System.out.println(amountOfPlayers + " players detected, passing the turn to the next!");
 				for (int i = 0; i < players.length; i++) {
@@ -293,6 +293,8 @@ public class TurnController {
 						players[0].setSeqnr(1);
 						players[1].setSeqnr(2);
 						players[0].setCurrentPlayer(true);
+					} else {
+						System.out.println("Something went wrong, check turncontroller 300~");
 					}
 					break;
 				default: System.out.println("something went wrong here...");
