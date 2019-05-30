@@ -4,9 +4,11 @@ import controller.LayerController;
 import controller.LoginController;
 import controller.PatterncardController;
 import helpers.PatterncardType;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -31,6 +33,7 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 	private PatterncardController pcc;
 	private FlowPane buttonPane;
 	private Button button;
+	private Button buttonMenu;
 	private FlowPane chooserPane = new FlowPane();
 	private int[] randomPat;
 	private int playerid; 
@@ -67,14 +70,21 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 	private void setButton() {
 		buttonPane = new FlowPane();
 		button = new Button("Standaard");
+		buttonMenu = new Button("Menu");
+		buttonMenu.setPrefSize(80, 40);
 		button.setPrefSize(80, 40);
+		buttonMenu.setOnAction(e -> backToMenu());
 		button.setOnAction(e -> viewOffer()); //bij druk op de knop worden de randomkaarten pas zichtbaar.
 		buttonPane.setAlignment(Pos.CENTER_LEFT);
 		buttonPane.setPrefSize(120, windowMaxHeight);
 		buttonPane.setBorder(new Border(new BorderStroke(Color.BLACK, null, null, null)));
-		buttonPane.getChildren().add(button);
+		buttonPane.getChildren().addAll(buttonMenu, button);
 	}
 	
+	private void backToMenu() {
+		myScene.setMenuPane();
+	}
+
 	private void setChooserPane() {
 		chooserPane.setPrefSize(windowMaxWidth - 120, windowMaxHeight);
 		
@@ -116,7 +126,8 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 		patternCard.setAlignment(Pos.CENTER);
 		patternCard.setOnMouseClicked(e -> { 
 			pcc.givePatternCardToPlayer(Integer.parseInt(rdInt), playerid); //Wanneer je klikt op de tilepane krijg je die id in de database bij player
-			myScene.setGamePane();
+			//get paystones
+			myScene.setGamePane(); //setgamePane
 		});
 		
 		

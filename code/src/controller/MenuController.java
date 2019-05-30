@@ -47,10 +47,10 @@ public class MenuController {
 		int round = dbGameCollector.getRound(gameID);
 		System.out.println("dit is het ronde nummer: " + round);// syso om ronde te checken
 
-		mc.setGuc(new GameUpdateController(mc));
-		mc.getGameUpdateController().setGameModel(mc.getGameController().getGm());
+//		mc.setGuc(new GameUpdateController(mc));
+//		mc.getGameUpdateController().setGameModel(mc.getGameController().getGm());
 		
-		mc.getUtc().setGameRunning(true);
+//		mc.getUtc().setGameRunning(true);
 		String username = mc.getLoginController().getCurrentAccount();
 		int playerid = databeest.getPlayerID(username, gameID);
 		int patcardid = databeest.getPaternCardNumber(playerid);
