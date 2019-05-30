@@ -4,6 +4,7 @@ import controller.GameController;
 import controller.LayerController;
 import controller.LoginController;
 import controller.PatterncardController;
+import controller.PayStoneController;
 import controller.PointsController;
 import controller.TurnController;
 //joery
@@ -51,20 +52,24 @@ public class GamePane extends StackPane {
 	private void setUp() {
 		gamePane = new BorderPane();
 		playerPane = new PlayerPane(dhc, pcc, myScene, gc, pc, tc);
-		cardDisplayPane = new CardDisplayPane(gc.getCardsController());
+		cardDisplayPane = new CardDisplayPane(gc.getCardsController(), gc.getPsc());
 		enemyPane = new EnemyPane(gc);
 		gamePane.setLeft(cardDisplayPane);
 		gamePane.setCenter(playerPane);
 		gamePane.setRight(enemyPane);
 		
-		getChildren().add(gamePane);
+		LayerPane pcardChooser = new LayerPane(lyc, pcc, logc);
+		
+		//eerste ronde? open dan popup in if-statement
+		setNewRoot(pcardChooser);
+		
+//		getChildren().add(gamePane);
 	}
 	
-
-	
-	public void setGamePane() {
-		getChildren().clear();
-		getChildren().add(gamePane);
+	private void setNewRoot(Pane pane) {
+		if(true) {//hardcoded -> het is de eerste speelronde
+			getChildren().addAll(gamePane, pane);	
+		}
 	}
 	
 	public PlayerPane getPlayerPane() {
