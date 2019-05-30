@@ -21,7 +21,7 @@ public class MenuUpdateController {
 	}
 	
 	public void checker() {
-		menuController.checkForChange();
+		menuController.updateIncomingInvite();
 	}
 	
 }

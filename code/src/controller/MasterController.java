@@ -12,6 +12,7 @@ import databeest.DbPlayerStatsCollector;
 import databeest.DbTurnCollector;
 import databeest.DbUserInfoCollector;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 import view.MyScene;
 
@@ -54,7 +55,6 @@ public class MasterController extends Application{//een controller die alle ande
 		startUpdate();
 		stage.setResizable(false);
 		stage.setScene(myScene);
-		
 		stage.setOnCloseRequest(e -> closeApp());
 		stage.show();
 	}
@@ -102,13 +102,19 @@ public class MasterController extends Application{//een controller die alle ande
 	
 	private void startUpdate() {
 		//Game refresher/checker
-	this.guc = new GameUpdateController(this);
-	this.muc = new MenuUpdateController(this);
-	this.utc = new UpdateTimerController(guc, muc);
+//	this.guc = new GameUpdateController(this);
+//	this.muc = new MenuUpdateController(this);
+//	this.utc = new UpdateTimerController(guc, muc);
 	
-			
-	Thread t1 = new Thread(utc);
+//			
+//	Thread t1 = new Thread(utc);
+//	t1.start();
+		
+	MasterRunnable masterRunnable = new MasterRunnable(this.getMenuController(), this.getGameController());	
+	
+	Thread t1 = new Thread(masterRunnable);
 	t1.start();
+		
 	}
 	
 	public GameController getGameController()
