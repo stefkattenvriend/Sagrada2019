@@ -35,7 +35,7 @@ public class TurnAdmissionChecker implements Runnable {
 			
 			
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(3000);
 			} catch (InterruptedException e) {
 				System.out.println("TurnAdmissionController checkMyTurn sleep error");
 				e.printStackTrace();
@@ -46,7 +46,7 @@ public class TurnAdmissionChecker implements Runnable {
 			dhc.switchTurnInteractable(false);
 			
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(3000);
 			} catch (InterruptedException e) {
 				System.out.println("TurnAdmissionController checkMyTurn sleep error");
 				e.printStackTrace();

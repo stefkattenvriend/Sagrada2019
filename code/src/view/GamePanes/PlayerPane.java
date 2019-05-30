@@ -72,7 +72,7 @@ public class PlayerPane extends VBox{
 		pass.setAlignment(Pos.CENTER_LEFT);
 		menu.setAlignment(Pos.CENTER_RIGHT);
 		
-		section.setLeft(pass);
+//		section.setLeft(pass);
 		section.setRight(menu);
 		getChildren().add(section);
 	}
