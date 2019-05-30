@@ -118,5 +118,8 @@ public class DbGameCollector {
 		String username = dataBaseApplication.getplayerUsername(playerid);
 		return username;
 	}
-
+	
+	public int[] getPatternCardChoice(int playerid) {
+		return dataBaseApplication.getPcChoiche(playerid);
+	}
 }

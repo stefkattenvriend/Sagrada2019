@@ -29,6 +29,7 @@ public class MenuController {
 	private boolean newInvite = false;
 	private MenuGamesPane menuGamesPane;
 	private MenuModel menuModel;
+	private int[] randomPat;
 
 	public MenuController(MyScene myScene, MasterController mc, DbGameCollector dbGameCollector,
 			MenuUpdateController menuUpdateController) {
@@ -58,11 +59,26 @@ public class MenuController {
 		String username = mc.getLoginController().getCurrentAccount();
 		int playerid = databeest.getPlayerID(username, gameID);
 		int patcardid = databeest.getPaternCardNumber(playerid);
+		int[] choice = databeest.getPcChoiche(playerid);
+		
+		LayerController lyc = mc.getGameController().getLayerController();
+		
+		if (choice[0] == 0) {
+			lyc.generateRdmPatternCards();
+			randomPat = lyc.getRandomPat();
+			for(int i = 0; i < randomPat.length; i++) {
+				lyc.insertChoice(i, playerid);					// zet keuzes in database
+				System.out.println("patterncardID = : " + randomPat[i]);	//syso welke patterncards kunnen gekozen worden
+				
+			}
+			myScene.setLayerPane();
+		}else {
+			lyc.setRandomID(choice);
+		}
 		if (round == 1 && patcardid == 0) {
 			myScene.setLayerPane();
 		} else {
 			myScene.setGamePane();
-			
 		}
 	}
 

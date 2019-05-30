@@ -1028,4 +1028,40 @@ public class DataBaseApplication {
 		}
 		return pcIds;
 	}
+
+	public int getDifficulty(int idPatternCards) {
+		Statement stmt = null;
+		String query = "SELECT difficulty FROM patterncard WHERE idPatternCard = " + idPatternCards + ";";
+		int diff = 0;
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+				diff = rs.getInt(1);
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return diff;
+	}
+
+	public int getStonesOnCard(int cardId, int gameId) {
+		Statement stmt = null;
+		String query = "SELECT count(idfavortoken) FROM gamefavortoken WHERE gametoolcard = " + cardId + "AND idgame = " + gameId;
+		int amount = 0;
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+				amount = rs.getInt(1);
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return amount;
+	}
 }
