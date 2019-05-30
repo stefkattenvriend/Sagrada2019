@@ -30,6 +30,7 @@ public class CardDisplayPane extends BorderPane{
 		vbox2 = new VBox();
 		
 		toolCard1 = new CardPane(cc.getTc1(), true, cc, cc.getTc1Nr());	//toolcards
+		System.out.println(toolCard1);
 		toolCard2 = new CardPane(cc.getTc2(), true, cc, cc.getTc2Nr());
 		toolCard3 = new CardPane(cc.getTc3(), true, cc, cc.getTc3Nr());
 		

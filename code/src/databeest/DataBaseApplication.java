@@ -368,7 +368,9 @@ public class DataBaseApplication {
 
 			// return string in console
 			while (rs.next()) {
+//				System.out.println("idtoolcard: " + rs);
 				idToolCards.add(rs.getInt(1));
+
 			}
 			stmt.close();
 		} catch (SQLException e) {

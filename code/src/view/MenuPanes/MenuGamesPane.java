@@ -60,7 +60,7 @@ public class MenuGamesPane extends FlowPane {
 		
 		games = new ArrayList<MenuDropdown>();
 		
-//		gameIDs = menuController.getActivePlayerGames(loginController.getCurrentAccount());
+		gameIDs = menuController.getActivePlayerGames(loginController.getCurrentAccount());
 //		gameIDs = MenuModel.getActivePlayerGames();
 		
 		for(int i = 0; i < gameIDs.size(); i++) {// vult verzameling met alle knoppen
