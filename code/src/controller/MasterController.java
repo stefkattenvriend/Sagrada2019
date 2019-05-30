@@ -156,14 +156,14 @@ public class MasterController extends Application{//een controller die alle ande
 		return this.guc;
 	}
 	
-	public void setGuc(GameUpdateController guc) {
-		this.guc = guc;
+//	public void setGuc(GameUpdateController guc) {
+//		this.guc = guc;
 //		utc.setGuc(guc);
-	}
-
-	public UpdateTimerController getUtc() {
-		return utc;
-	}
+//	}
+//
+//	public UpdateTimerController getUtc() {
+//		return utc;
+//	}
 
 	public PlayerController getPlayerController()
 	{
