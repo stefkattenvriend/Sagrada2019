@@ -13,10 +13,11 @@ public class LayerController {
 	private int fourPatternCards = 4;
 	private ArrayList<Integer> patternCards = new ArrayList<Integer>(); //arraylist met alle patroonkaarten in zich.
 	private int[] randomPat = new int[4]; //array met 4 random gekozen patroonkaarten opgeslagen.
+	private PatterncardController pcc;
 	
 	public LayerController(PatterncardController pcc) {
 		totalAmoundOfptrnCards = pcc.numberOfPatternCards();
-		
+		this.pcc = pcc;
 	}
 	
 	public void generateRdmPatternCards() { //voor nu alleen een int, later wordt dit verwerkt met een pattroonkaart.
@@ -34,6 +35,12 @@ public class LayerController {
 	
 	public int[] getRandomPat() {
 		return randomPat.clone();
+	}
+
+	public void insertChoice(int i, int playerid) {
+		String query = "INSERT INTO `mwmastbe_db2`.`patterncardoption` (`patterncard_idpatterncard`, `player_idplayer`) VALUES ('" + i + "', '" + playerid + "');";
+		pcc.insertChoice(query);
+		
 	}
 	
 	

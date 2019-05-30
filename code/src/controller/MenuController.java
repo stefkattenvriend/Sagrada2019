@@ -20,7 +20,6 @@ public class MenuController {
 	private MasterController mc;
 	private ArrayList<String> colors;
 	private DbGameCollector dbGameCollector;
-	private int gameid;
 	private MenuUpdateController menuUpdateController;
 	private MenuPane menuPane;
 	private DataBaseApplication databeest;
@@ -53,10 +52,16 @@ public class MenuController {
 
 		mc.setGuc(new GameUpdateController(mc));
 		mc.getGameUpdateController().setGameModel(mc.getGameController().getGm());
-		myScene.setGamePane();
+		
 		mc.getUtc().setGameRunning(true);
-		if (round == 1/* && paterncard nog niet gekozen */) {
-			// show pattern card choices
+		String username = mc.getLoginController().getCurrentAccount();
+		int playerid = databeest.getPlayerID(username, gameID);
+		int patcardid = databeest.getPaternCardNumber(playerid);
+		if (round == 1 && patcardid == 0) {
+			myScene.setLayerPane();
+		} else {
+			myScene.setGamePane();
+			
 		}
 	}
 
@@ -82,8 +87,8 @@ public class MenuController {
 		System.out.println("dit is de gameid" + gameid);
 		String challenger = playerList.get(0);
 		dbGameCollector.pushFirstPlayer(challenger, colors.get(0), gameid);
-		insertPublicObjectiveCards();
-		insertToolCards();
+		insertPublicObjectiveCards(gameid);
+		insertToolCards(gameid);
 		createGameDie(gameid);
 		System.out.println("zise playerlist = " + playerList.size());
 
@@ -113,7 +118,7 @@ public class MenuController {
 		dbGameCollector.addGameDie(gameid);
 	}
 
-	private void insertToolCards() {
+	private void insertToolCards(int gameid) {
 		ArrayList<Integer> randomkaarten = generateThreeRandomUniqueNumbers(12); // van 12 nummers(aantal toolcards),
 																					// geef mij er drie at random.
 		for (int i = 0; i < 3; i++) {
@@ -122,7 +127,7 @@ public class MenuController {
 		}
 	}
 
-	public void insertPublicObjectiveCards() {// set to private later
+	public void insertPublicObjectiveCards(int gameid) {// set to private later
 		ArrayList<Integer> randomkaarten = generateThreeRandomUniqueNumbers(10); // van 10 nummers, geef mij er drie at
 																					// random.
 		for (int i = 0; i < 3; i++) {
