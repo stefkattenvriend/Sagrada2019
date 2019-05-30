@@ -19,6 +19,7 @@ public class PlayerModel {
 	private String stringcolor;
 	private Color color;
 	private int score;
+	private int[] pcChoiche;
 
 	private DiceHolderType dht;// welke diceholder er bij deze speler hoort dus welke speler is het ~ Rens
 	private DbPlayerCollector dpc;
