@@ -112,7 +112,6 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 			pc.setPlayerId(playerIDs[i]);
 			gm.addPlayer(i, playerIDs[i], username);
 		}
-		psr.addStonesToGame(gameID);
 		pcc = new PatterncardController(DatabasePTCCollector, gm);
 		lyc = new LayerController(pcc);
 		this.dhc = new DiceHolderController(pcc, dbDieCollector, gm.getGameId());

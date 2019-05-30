@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import model.MenuModel;
 import view.MyScene;
 import view.GamePanes.GamePane;
 
@@ -61,7 +62,7 @@ public class MenuGamesPane extends FlowPane {
 		games = new ArrayList<MenuDropdown>();
 		
 		gameIDs = menuController.getActivePlayerGames(loginController.getCurrentAccount());
-		gameIDs = MenuModel.getActivePlayerGames();
+		//gameIDs = MenuModel.getActivePlayerGames();
 		
 		for(int i = 0; i < gameIDs.size(); i++) {// vult verzameling met alle knoppen
 			games.add(new MenuDropdown(menuController, true, "Sagrada " + gameIDs.get(i), false, null, false, false, null, loginController, null, this));

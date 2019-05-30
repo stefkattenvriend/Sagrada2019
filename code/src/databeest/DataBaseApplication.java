@@ -940,13 +940,15 @@ public class DataBaseApplication {
 	public void addStones(int gameId) {
 		Statement stmt = null;
 		int idfavortoken = 0;
-		String query = "INSERT INTO gamefavortoken(idfavortoken, idgame) VALUES (" +  idfavortoken + ", " + gameId + ")";
 		while (idfavortoken < 20) {
+		String query = "INSERT INTO gamefavortoken(idfavortoken, idgame) VALUES (" +  idfavortoken + ", " + gameId + ")";
 			try {
 				stmt = m_Conn.createStatement();
 				int rs = stmt.executeUpdate(query);
-				System.out.println(rs);
+				System.out.println("idfavortoken: " + idfavortoken + "  -gameId: " + gameId);
 				stmt.close();
+				idfavortoken++;
+				System.out.println("favortoken++: " + idfavortoken);
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 			}

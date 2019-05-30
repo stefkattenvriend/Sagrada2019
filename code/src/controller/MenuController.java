@@ -2,9 +2,10 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
+
 import databeest.DataBaseApplication;
 import databeest.DbGameCollector;
-import javafx.scene.layout.Pane;
+import databeest.DbPayStoneRuler;
 import model.MenuModel;
 import view.MyScene;
 import view.MenuPanes.MenuGamesPane;
@@ -30,9 +31,11 @@ public class MenuController {
 	private MenuGamesPane menuGamesPane;
 	private MenuModel menuModel;
 	private int[] randomPat;
+	private DbPayStoneRuler psr;
 
 	public MenuController(MyScene myScene, MasterController mc, DbGameCollector dbGameCollector,
-			MenuUpdateController menuUpdateController) {
+			MenuUpdateController menuUpdateController, DbPayStoneRuler psr) {
+		this.psr = psr;
 		this.myScene = myScene;
 		this.mc = mc;
 		this.dbGameCollector = dbGameCollector;
@@ -102,7 +105,7 @@ public class MenuController {
 		insertToolCards(gameid);
 		createGameDie(gameid);
 		System.out.println("zise playerlist = " + playerList.size());
-
+		psr.addStonesToGame(gameid);
 		for (int i = 1; i < playerList.size(); i++) {
 			System.out.println(playerList.get(i));
 			addPlayer(playerList.get(i), gameid, colors.get(i), i + 1);
