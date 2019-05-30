@@ -34,26 +34,14 @@ public class MenuController {
 
 	public MenuController(MyScene myScene, MasterController mc, DbGameCollector dbGameCollector,
 			MenuUpdateController menuUpdateController) {
-		menuModel = new MenuModel(mc);
 		this.myScene = myScene;
 		this.mc = mc;
 		this.dbGameCollector = dbGameCollector;
 		this.menuUpdateController = menuUpdateController;
 		databeest = mc.getDatabaseApplication();
-		invitedGamesID_OLD = menuModel.getInvitedGameIDs();
-//		gameIDs_OLD = menuModel.get
+		invitedGamesID_OLD = databeest.getInviteGameID(mc.getLoginController().getCurrentAccount());
 		gameIDs_OLD = getActivePlayerGames(mc.getLoginController().getCurrentAccount());
-		
 	}
-	
-	public ArrayList<String> getChallengers() {
-		return menuModel.getChallengers();
-	}
-	
-	public ArrayList<String> getInvitedGamesID(){
-		return menuModel.getInvitedGameIDs();
-	}
-	
 
 	public void loadGame(String gID) {
 		int gameID = Integer.parseInt(gID);
@@ -65,16 +53,10 @@ public class MenuController {
 
 		mc.setGuc(new GameUpdateController(mc));
 		mc.getGameUpdateController().setGameModel(mc.getGameController().getGm());
-		
-		//mc.getUtc().setGameRunning(true);
-		String username = mc.getLoginController().getCurrentAccount();
-		int playerid = databeest.getPlayerID(username, gameID);
-		int patcardid = databeest.getPaternCardNumber(playerid);
-		if (round == 1 && patcardid == 0) {
-			myScene.setLayerPane();
-		} else {
-			myScene.setGamePane();
-			
+		myScene.setGamePane();
+		mc.getUtc().setGameRunning(true);
+		if (round == 1/* && paterncard nog niet gekozen */) {
+			// show pattern card choices
 		}
 	}
 
@@ -178,16 +160,14 @@ public class MenuController {
         return waitedGames;
     }
 
-	public void updateIncomingInvite() {	
-		invitedGames_NEW = 	menuModel.getInvitedGameIDsUpdate();	
-		ArrayList<String> newChallengers = menuModel.getChallengersUpdate();
-		
+	public void updateIncomingInvite() {
+		invitedGames_NEW = databeest.getInviteGameID(mc.getLoginController().getCurrentAccount());
 		if (menuInvitePane != null) {
 			if (invitedGamesID_OLD.size() != invitedGames_NEW.size()) {
 				newInvite = true;
 
 				if (newInvite) {
-					menuInvitePane.updateInvitePane(invitedGames_NEW, newChallengers);
+					menuInvitePane.updateInvitePane();
 					invitedGamesID_OLD.clear();
 					invitedGamesID_OLD = invitedGames_NEW;
 					System.out.println("nieuwe uitnodiging");
@@ -203,9 +183,7 @@ public class MenuController {
 	}
 	
 	public void updateActiveGames() {
-//		gameIDs_NEW = getActivePlayerGames(mc.getLoginController().getCurrentAccount());
-		
-		
+		gameIDs_NEW = getActivePlayerGames(mc.getLoginController().getCurrentAccount());
 		if (menuGamesPane != null) {
 			if (gameIDs_OLD.size() != gameIDs_NEW.size()) {
 				newInvite = true;

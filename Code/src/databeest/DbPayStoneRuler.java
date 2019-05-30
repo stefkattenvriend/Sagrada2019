@@ -26,4 +26,9 @@ public class DbPayStoneRuler {
 	public int getDifficulty(int idPatternCards) {
 		return db.getDifficulty(idPatternCards);
 	}
+	
+
+	public int getStonesOnCard(int cardId, int gameId) {
+		return db.getStonesonCard(cardId, gameId);
+	}
 }

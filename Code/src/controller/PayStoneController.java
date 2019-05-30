@@ -25,4 +25,8 @@ public class PayStoneController {
 	public void giveStones(int idPatternCards) {
 		psr.addStonesToPlayer(idPatternCards, idPatternCards, psr.getDifficulty(idPatternCards));
 	}
+	
+	public int getStonesOnCard(int cardId) {
+		return psr.getStonesOnCard(cardId, gameId);
+	}
 }
