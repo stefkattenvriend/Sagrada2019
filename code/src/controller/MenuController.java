@@ -32,15 +32,26 @@ public class MenuController {
 
 	public MenuController(MyScene myScene, MasterController mc, DbGameCollector dbGameCollector,
 			MenuUpdateController menuUpdateController) {
+		menuModel = new MenuModel(mc);
 		this.myScene = myScene;
 		this.mc = mc;
 		this.dbGameCollector = dbGameCollector;
 		this.menuUpdateController = menuUpdateController;
 		databeest = mc.getDatabaseApplication();
-		invitedGamesID_OLD = databeest.getInviteGameID(mc.getLoginController().getCurrentAccount());
+		invitedGamesID_OLD = menuModel.getInvitedGameIDs();
+//		gameIDs_OLD = menuModel.get
 		gameIDs_OLD = getActivePlayerGames(mc.getLoginController().getCurrentAccount());
-		menuModel = new MenuModel(mc);
+		
 	}
+	
+	public ArrayList<String> getChallengers() {
+		return menuModel.getChallengers();
+	}
+	
+	public ArrayList<String> getInvitedGamesID(){
+		return menuModel.getInvitedGameIDs();
+	}
+	
 
 	public void loadGame(String gID) {
 		int gameID = Integer.parseInt(gID);
@@ -165,14 +176,16 @@ public class MenuController {
         return waitedGames;
     }
 
-	public void updateIncomingInvite() {
-		invitedGames_NEW = databeest.getInviteGameID(mc.getLoginController().getCurrentAccount());
+	public void updateIncomingInvite() {	
+		invitedGames_NEW = 	menuModel.getInvitedGameIDsUpdate();	
+		ArrayList<String> newChallengers = menuModel.getChallengersUpdate();
+		
 		if (menuInvitePane != null) {
 			if (invitedGamesID_OLD.size() != invitedGames_NEW.size()) {
 				newInvite = true;
 
 				if (newInvite) {
-					menuInvitePane.updateInvitePane();
+					menuInvitePane.updateInvitePane(invitedGames_NEW, newChallengers);
 					invitedGamesID_OLD.clear();
 					invitedGamesID_OLD = invitedGames_NEW;
 					System.out.println("nieuwe uitnodiging");
@@ -188,7 +201,9 @@ public class MenuController {
 	}
 	
 	public void updateActiveGames() {
-		gameIDs_NEW = getActivePlayerGames(mc.getLoginController().getCurrentAccount());
+//		gameIDs_NEW = getActivePlayerGames(mc.getLoginController().getCurrentAccount());
+		
+		
 		if (menuGamesPane != null) {
 			if (gameIDs_OLD.size() != gameIDs_NEW.size()) {
 				newInvite = true;

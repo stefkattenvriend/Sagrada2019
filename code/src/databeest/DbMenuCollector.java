@@ -21,7 +21,9 @@ public class DbMenuCollector {
 	public ArrayList<String> getInviteGameID(String currentAccount){
 		
 		return databeest.getInviteGameID(currentAccount);
-	}	
+	}
+	
+	
 	
 	
 }
