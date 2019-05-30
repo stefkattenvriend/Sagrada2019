@@ -8,7 +8,7 @@ public class DbToolCardCollector {
 		this.dba = dba;
 	}
 	
-	public int getPrice(int ToolCardNr) {
-		return dba.getPrice(ToolCardNr);
+	public int getPrice(int ToolCardNr, int idgame) {
+		return dba.getPrice(ToolCardNr, idgame);
 	}
 }

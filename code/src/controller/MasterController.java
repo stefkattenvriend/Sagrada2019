@@ -7,8 +7,10 @@ import databeest.DbDieCollector;
 import databeest.DbDieUpdater;
 import databeest.DbGameCollector;
 import databeest.DbPatternCardInfoCollector;
+import databeest.DbPayStoneRuler;
 import databeest.DbPlayerCollector;
 import databeest.DbPlayerStatsCollector;
+import databeest.DbToolCardCollector;
 import databeest.DbTurnCollector;
 import databeest.DbUserInfoCollector;
 import javafx.application.Application;
@@ -28,6 +30,7 @@ public class MasterController extends Application{//een controller die alle ande
 	private DbDieCollector dbDieCollector;
 	private DbDieUpdater dbDieUpdater;
 	private DataBaseApplication databeest;
+	private DbPayStoneRuler psr;
 	
 	private DbTurnCollector dbTurnCollector;
 	private LoginController lc;
@@ -41,6 +44,7 @@ public class MasterController extends Application{//een controller die alle ande
 	private UpdateTimerController utc;
 	private GameUpdateController guc;
 	private MenuUpdateController muc;
+	private DbToolCardCollector tcc;
 	
 	public void startup(String[] args) {
 		launch(args);
@@ -76,6 +80,8 @@ public class MasterController extends Application{//een controller die alle ande
 		dbPlayerStatsCollector = new DbPlayerStatsCollector(databeest);
 		dbDieUpdater = new DbDieUpdater(databeest);
 		dbTurnCollector = new DbTurnCollector(databeest);
+		psr = new DbPayStoneRuler(databeest);
+		tcc = new DbToolCardCollector(databeest);
 		
 		
 		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
@@ -83,7 +89,7 @@ public class MasterController extends Application{//een controller die alle ande
 		
 		this.lc = new LoginController(dbUserInfoCollector);
 		this.pc = new PlayerController(dbPlayerCollector);
-		this.gc = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector, dbCardCollector, guc, dbPlayerCollector, dbDieCollector, dbDieUpdater, dbTurnCollector);
+		this.gc = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector, dbCardCollector, guc, dbPlayerCollector, dbDieCollector, dbDieUpdater, dbTurnCollector, psr, tcc);
 		this.sc = new StatsController(dbPlayerStatsCollector);
 //		this.chat = new ChatController(dbChatCollector);
 		
