@@ -43,57 +43,55 @@ public class ToolCardController {
 				}
 			}
 			
-			else if (number == 2) {
+			if (number == 2) {
 				// verplaats dobbelsteen in raam. kleur voorwaardes negeren
 			}
 			
-			else if (number == 3) {
+			if (number == 3) {
 				// verplaats dobbelsteen in raam voorwaarde voor waardes negeren
 			}
 			
-			else if (number == 4) {
+			if (number == 4) {
 				// verplaats 2 dobbelstenen
 			}
 			
-			else if (number == 5) {
+			if (number == 5) {
 				// dobbelsteen kiezen daarna wisselen met eentje van roundtrack
 			}
 			
-			else if (number == 6) {
+			if (number == 6) {
 				// nadat dobbelsteen kiest opnieuw werpen
 				Random random = new Random();
 				int randomInt = random.nextInt(6) + 1;
 				dice.get(0).setEyes(randomInt);
 			}
 			
-			else if (number == 7) {
+			if (number == 7) {
 				// Werp alle dobbelstenen in het aanbod opnieuw, enkel bij 2e beurt
 			}
 			
-			else if (number == 8) {
+			if (number == 8) {
 				// na eerste beurt gelijk nieuwe dobbelsteen kiezen tweede beurt overslaan.
 			}
 			
-			else if (number == 9) {
+			if (number == 9) {
 				// nadat dobbelsteen gekozen, leggen in een vak dat niet grenst aan andere steen
 			}
 			
-			else if (number == 10) {
+			if (number == 10) {
 				// nadat dobbelsteen gekozen, mag draaien naar tegenovergestelde zijde
 				dice.get(0).setEyes(7 - dice.get(0).getEyes());
 				// dobbelsteen.waarde = 7 - dobbelsteen.waarde;
 			}
 			
-			else if (number == 11) {
+			if (number == 11) {
 				// nadat dobbelsteen gekozen, nieuwe dobbelsteen pakken uit zak en waarde kiezen
 				// op je bord of in het aanbodleggen
 			}
 			
-			else if (number == 12) {
+			if (number == 12) {
 				// verplaats 2 dobbelstenen van dezelfde kleur die overeenkomen met een steen op
 				// het rondespoor
-			} else {
-				System.out.println("Number "+ number +" doesnt exist");
 			}
 	
 		}

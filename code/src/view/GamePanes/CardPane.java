@@ -11,10 +11,8 @@ public class CardPane extends StackPane{
 	private int cardNr;
 	private CardsController cc;
 	FlowPane ppsh = new FlowPane();
-	PayStoneController psc;
 	
-	public CardPane(ImageView background, boolean toolCard, CardsController cardsController, int cardNr, PayStoneController psc) {
-		this.psc = psc;
+	public CardPane(ImageView background, boolean toolCard, CardsController cardsController, int cardNr) {
 		cc = cardsController;
 		this.cardNr = cardNr;
 		setPrefSize((GamePane.windowMaxWidth / 6), (GamePane.windowMaxHeight - 40) / 3);
@@ -31,6 +29,13 @@ public class CardPane extends StackPane{
 			p1.run();
 		}
 		
+		
+		this.addPlayerPayStone();
+		this.addPlayerPayStone();
+		this.addPlayerPayStone();
+		this.addPlayerPayStone();
+		this.addPlayerPayStone();
+		this.addPlayerPayStone();
 	}
 	
 	public void addPlayerPayStone() {
