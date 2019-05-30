@@ -4,6 +4,7 @@ import controller.GameController;
 import controller.LayerController;
 import controller.LoginController;
 import controller.PatterncardController;
+import controller.PayStoneController;
 import controller.PointsController;
 import controller.TurnController;
 //joery
@@ -51,7 +52,7 @@ public class GamePane extends StackPane {
 	private void setUp() {
 		gamePane = new BorderPane();
 		playerPane = new PlayerPane(dhc, pcc, myScene, gc, pc, tc);
-		cardDisplayPane = new CardDisplayPane(gc.getCardsController());
+		cardDisplayPane = new CardDisplayPane(gc.getCardsController(), gc.getPsc());
 		enemyPane = new EnemyPane(gc);
 		gamePane.setLeft(cardDisplayPane);
 		gamePane.setCenter(playerPane);
