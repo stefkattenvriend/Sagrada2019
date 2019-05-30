@@ -15,6 +15,7 @@ import model.PatterncardModel;
 public class PatterncardController {
 
 	private ArrayList<PatterncardModel> pcmodels = new ArrayList<PatterncardModel>();
+	private ArrayList<PatterncardModel> pcChoiceModels = new ArrayList<>();
 	private int Patternnumber = 0;
 	private GameModel gModel;
 	private DbPatternCardInfoCollector DatabasePTCCollector;
@@ -82,7 +83,10 @@ public class PatterncardController {
 		return pcmodels.size();
 	}
 	
-	
+	public void addPatternCardChoice(int patID) {
+		pcChoiceModels.addAll(DatabasePTCCollector.getPatternCard(patID));
+		
+	}
 	
 	public BorderPane PatterncardCreate(int x, int y, int PatterncardNumber, int size, PatterncardType pct) {
 		BorderPane pane = new BorderPane();
