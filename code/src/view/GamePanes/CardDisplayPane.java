@@ -1,5 +1,6 @@
 package view.GamePanes;
 import controller.CardsController;
+import controller.PayStoneController;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
@@ -15,10 +16,12 @@ public class CardDisplayPane extends BorderPane{
 	private CardPane targetCard2;
 	private CardPane targetCard3;
 	private CardsController cc;
+	private PayStoneController psc;
 	
-	public CardDisplayPane(CardsController cc) {
+	public CardDisplayPane(CardsController cc, PayStoneController psc) {
 		this.cc = cc;
-		//setUp();
+		this.psc = psc;
+		setUp();
 		
 		setBackground(controller.Main.CARDDISPLAYPANE); // aanduiding voor pane
 	}
@@ -29,13 +32,13 @@ public class CardDisplayPane extends BorderPane{
 		vbox1 = new VBox();
 		vbox2 = new VBox();
 		
-		toolCard1 = new CardPane(cc.getTc1(), true, cc, cc.getTc1Nr());	//toolcards
-		toolCard2 = new CardPane(cc.getTc2(), true, cc, cc.getTc2Nr());
-		toolCard3 = new CardPane(cc.getTc3(), true, cc, cc.getTc3Nr());
+		toolCard1 = new CardPane(cc.getTc1(), true, cc, cc.getTc1Nr(), psc);	//toolcards
+		toolCard2 = new CardPane(cc.getTc2(), true, cc, cc.getTc2Nr(), psc);
+		toolCard3 = new CardPane(cc.getTc3(), true, cc, cc.getTc3Nr(), psc);
 		
-		targetCard1 = new CardPane(cc.getTgc1(), false, cc, cc.getTgc1Nr()); //targetcards
-		targetCard2 = new CardPane(cc.getTgc2(), false, cc, cc.getTgc2Nr());
-		targetCard3 = new CardPane(cc.getTgc3(), false, cc, cc.getTgc3Nr());
+		targetCard1 = new CardPane(cc.getTgc1(), false, cc, cc.getTgc1Nr(), psc); //targetcards
+		targetCard2 = new CardPane(cc.getTgc2(), false, cc, cc.getTgc2Nr(), psc);
+		targetCard3 = new CardPane(cc.getTgc3(), false, cc, cc.getTgc3Nr(), psc);
 		
 		
 

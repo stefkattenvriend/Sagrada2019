@@ -22,4 +22,12 @@ public class DbPayStoneRuler {
 	public int getStones(int playerId, int gameId) {
 		return db.getStones(playerId, gameId);
 	}
+
+	public int getDifficulty(int idPatternCards) {
+		return db.getDifficulty(idPatternCards);
+	}
+
+	public int getStonesOnCard(int cardId, int gameId) {
+		return db.getStonesOnCard(cardId, gameId);
+	}
 }

@@ -4,13 +4,12 @@ import controller.GameController;
 import controller.LayerController;
 import controller.LoginController;
 import controller.PatterncardController;
+import controller.PayStoneController;
 import controller.PointsController;
 import controller.TurnController;
 //joery
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import view.LayerPane;
 import view.MyScene;
 
 public class GamePane extends StackPane {
@@ -32,9 +31,11 @@ public class GamePane extends StackPane {
 	private PointsController pc;
 	private TurnController tc;
 	private LoginController logc;
+	private PayStoneController psc;
 	
-	public GamePane(GameController gameController, MyScene myScene, LoginController loginController) {
+	public GamePane(GameController gameController, MyScene myScene, LoginController loginController, PayStoneController psc) {
 		logc = loginController;
+		this.psc = psc;
 		this.gc = gameController;
 		this.myScene = myScene;
 		this.dhc = gc.getDiceHolderController();
@@ -51,7 +52,7 @@ public class GamePane extends StackPane {
 	private void setUp() {
 		gamePane = new BorderPane();
 		playerPane = new PlayerPane(dhc, pcc, myScene, gc, pc, tc);
-		cardDisplayPane = new CardDisplayPane(gc.getCardsController());
+		cardDisplayPane = new CardDisplayPane(gc.getCardsController(), psc);
 		enemyPane = new EnemyPane(gc);
 		gamePane.setLeft(cardDisplayPane);
 		gamePane.setCenter(playerPane);
