@@ -14,7 +14,6 @@ import model.PlayerFieldFrameModel;
 
 public class DataBaseApplication {
 	private Connection m_Conn;
-
 	public DataBaseApplication() {
 		m_Conn = null;
 	}
@@ -112,6 +111,31 @@ public class DataBaseApplication {
 
 	}
 	
+	public boolean myTurn(String username, int gameId) {
+		Statement stmt = null;
+		String query = "SELECT isCurrentPlayer WHERE idplayer = " + this.getPlayerID(username, gameId);
+		int ifPlayer = 0;
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while (rs.next()) {
+				ifPlayer = rs.getInt(1);
+			}
+			stmt.close();
+			if (ifPlayer != 0) {
+				return true;
+			} else {
+				return false;
+			}
+			
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+	}
+
+
 	public int getHighestGameID() {
 		Statement stmt = null;
 		String query = "SELECT max(idgame) FROM game;";
