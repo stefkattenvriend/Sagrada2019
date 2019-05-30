@@ -37,7 +37,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		this.dpc = dpc;
 		this.lc = lc;
 		this.dbCardCollector = dbCardCollector;
-		lyc = new LayerController(pcc);
+		
 		cc = new ChatController(dbChat, this);
 		this.dbDieCollector = ddc;
 		this.guc = guc;
@@ -90,8 +90,8 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		int amountOfPlayers = dbGameCollector.getAmountOfPlayers(gameID);
 		GameModel gm = new GameModel(gameID, dbGameCollector, username, dpc, amountOfPlayers);
 		this.gm = gm;
-		guc.setGameModel(gm);
-		Integer[] playerIDs = dbGameCollector.getPlayers(gameID);
+		
+		int[] playerIDs = dbGameCollector.getPlayers(gameID);
 
 		for (int i = 0; i < amountOfPlayers; i++) {
 			//kijk welke spelers er meedoen en maak ze
@@ -100,6 +100,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 			gm.addPlayer(i, playerIDs[i], username);
 		}
 		pcc = new PatterncardController(DatabasePTCCollector, gm);
+		lyc = new LayerController(pcc);
 		this.dhc = new DiceHolderController(pcc, dbDieCollector, gm.getGameId());
 		this.tc = new TurnController(dhc, dbDieUpdater, gm);
 		

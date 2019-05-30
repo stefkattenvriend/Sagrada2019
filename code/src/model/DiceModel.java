@@ -1,5 +1,6 @@
 package model;
 
+import helpers.DiceHolderType;
 import javafx.scene.paint.Color;
 
 //Rens
@@ -8,6 +9,7 @@ public class DiceModel {
 	private int dieNumber;
 	private Color dieColor;
 	private int eyes;
+	
 
 	public DiceModel(int dieNumber, Color dieColor, int eyes) {
 		this.dieNumber = dieNumber;

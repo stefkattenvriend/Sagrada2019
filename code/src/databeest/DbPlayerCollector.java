@@ -63,5 +63,10 @@ public class DbPlayerCollector {
 		String username = dbApplication.getplayerUsername(playerid);
 		return username;
 	}
+
+	public void setSeqnr(int seqnr, int playerid) {
+		String query = "UPDATE `mwmastbe_db2`.`player` SET `seqnr` = '" + seqnr + "' WHERE (`idplayer` = '" + playerid + "');";
+		dbApplication.insertQuery(query);
+	}
 	
 }

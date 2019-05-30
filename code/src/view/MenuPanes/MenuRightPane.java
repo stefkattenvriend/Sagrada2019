@@ -34,7 +34,7 @@ public class MenuRightPane extends VBox{
 	
 	private void createPanes() {
 		menuGamesPane = new MenuGamesPane(myScene, menuController, loginController);
-		menuWaitingPane = new MenuWaitingPane(menuController, loginController);
+		menuWaitingPane = new MenuWaitingPane(menuController, loginController, menuGamesPane);
 		
 		setAlignment(Pos.CENTER);
 		getChildren().addAll(menuGamesPane, menuWaitingPane);

@@ -7,6 +7,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import view.MyScene;
 import view.GamePanes.GamePane;
 
 public class MenuLeftPane extends VBox{
@@ -17,10 +18,15 @@ public class MenuLeftPane extends VBox{
 	private MenuResultsPane invitePane;
 	private MenuController menuController;
 	private LoginController loginController;
+	private MenuWaitingPane menuWaitingPane;
+	private MenuLogoutPane logoutPane;
+	private MyScene myScene;
 	
-	public MenuLeftPane(MenuController menuController, LoginController loginController) {
+	public MenuLeftPane(MenuController menuController, LoginController loginController, MenuWaitingPane menuWaitingPane, MyScene myscene) {
 		this.menuController = menuController;
 		this.loginController = loginController;
+		this.menuWaitingPane = menuWaitingPane;
+		this.myScene = myscene;
 		setUp();
 	}
 
@@ -32,11 +38,12 @@ public class MenuLeftPane extends VBox{
 	}
 	
 	private void createPanes() {		
-		resultsPane = new MenuInvitePane(menuController, loginController);
+		resultsPane = new MenuInvitePane(menuController, loginController, menuWaitingPane);
 		invitePane = new MenuResultsPane();
+		logoutPane = new MenuLogoutPane(loginController, myScene);
 		
 		setAlignment(Pos.CENTER);
-		getChildren().addAll(invitePane, resultsPane);
+		getChildren().addAll(logoutPane, invitePane, resultsPane);
 	}
 
 	private void setPaneSize() {

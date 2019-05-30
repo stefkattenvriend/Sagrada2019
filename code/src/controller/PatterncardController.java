@@ -16,20 +16,37 @@ public class PatterncardController {
 
 	private ArrayList<PatterncardModel> pcmodels = new ArrayList<PatterncardModel>();
 	private int Patternnumber = 0;
-	
+	private GameModel gModel;
 	private DbPatternCardInfoCollector DatabasePTCCollector;
 	
 	
 	public PatterncardController(DbPatternCardInfoCollector DatabasePTCCollector, GameModel gm) {
 		this.DatabasePTCCollector = DatabasePTCCollector;
+		gModel = gm;
 		setup(gm);
 	}
 	
+	public int numberOfPatternCards() {
+		int amount = 0;
+		amount = DatabasePTCCollector.numberOfPatCards();
+		return amount;
+	}
 	
 	private void setup(GameModel gm) {
 		getPcModels(gm);
 	}	
 	
+	public int getGameid() {
+		int gameid = 0;
+		gameid = gModel.getGameId();
+		return gameid;
+	}
+	
+	public int getPlayerID(int gameid, String username) {
+		int playerid = 0;
+		playerid = DatabasePTCCollector.getPlayerID(gameid, username);
+		return playerid;
+	}
 
 	private void getPcModels(GameModel gm) {
 		
@@ -51,6 +68,8 @@ public class PatterncardController {
 		
 		
 	}
+	
+
 	
 	public PatterncardModel getPcModel(int i) {
 		
@@ -107,5 +126,10 @@ public class PatterncardController {
 		}
 		
 		return pane;
+	}
+
+	public void givePatternCardToPlayer(int rdInt, int idplayer) {
+		String query = "UPDATE `mwmastbe_db2`.`player` SET `patterncard_idpatterncard` = '" + rdInt + "' WHERE (`idplayer` = '" + idplayer + "');";
+		DatabasePTCCollector.givePatternCardToPlayer(query);
 	}
 }
