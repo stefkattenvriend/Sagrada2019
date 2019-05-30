@@ -59,8 +59,10 @@ public class MenuController {
 		int playerid = databeest.getPlayerID(username, gameID);
 		int patcardid = databeest.getPaternCardNumber(playerid);
 		int[] choice = databeest.getPcChoiche(playerid);
+		
+		LayerController lyc = mc.getGameController().getLayerController();
+		
 		if (choice[0] == 0) {
-			LayerController lyc = mc.getGameController().getLayerController();
 			lyc.generateRdmPatternCards();
 			randomPat = lyc.getRandomPat();
 			for(int i = 0; i < randomPat.length; i++) {
@@ -68,6 +70,9 @@ public class MenuController {
 				System.out.println("patterncardID = : " + randomPat[i]);	//syso welke patterncards kunnen gekozen worden
 				
 			}
+			myScene.setLayerPane();
+		}else {
+			lyc.setRandomID(choice);
 		}
 		if (round == 1 && patcardid == 0) {
 			myScene.setLayerPane();

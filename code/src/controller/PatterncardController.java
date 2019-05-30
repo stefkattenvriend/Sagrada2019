@@ -15,7 +15,7 @@ import model.PatterncardModel;
 public class PatterncardController {
 
 	private ArrayList<PatterncardModel> pcmodels = new ArrayList<PatterncardModel>();
-	private ArrayList<PatterncardModel> pcChoiceModels = new ArrayList<>();
+	private ArrayList<PatterncardModel> pcChoiceModels = new ArrayList<PatterncardModel>();
 	private int Patternnumber = 0;
 	private GameModel gModel;
 	private DbPatternCardInfoCollector DatabasePTCCollector;
@@ -98,12 +98,19 @@ public class PatterncardController {
 		
 		//pane.setPrefSize(arg0, arg1);
 		
+		ArrayList<PatterncardModel> models= null;
 		
-		
-		for (int i = 0; i < pcmodels.size(); i++) {
-			if (pcmodels.get(i).getPatterncardNumber() == PatterncardNumber && pcmodels.get(i).getX() == x && pcmodels.get(i).getY() == y) {
-				if(pcmodels.get(i).getNumber() >= 1 && pcmodels.get(i).getNumber() <= 6) {
-					Text center = new Text(Integer.toString(pcmodels.get(i).getNumber()));
+		if (pct == PatterncardType.CHOICE) {
+			models = pcChoiceModels;
+		}
+		else {
+			models = pcmodels;
+		}
+			
+		for (int i = 0; i < models.size(); i++) {
+			if (models.get(i).getPatterncardNumber() == PatterncardNumber && models.get(i).getX() == x && models.get(i).getY() == y) {
+				if(models.get(i).getNumber() >= 1 && models.get(i).getNumber() <= 6) {
+					Text center = new Text(Integer.toString(models.get(i).getNumber()));
 					if(pct == PatterncardType.CHOICE || pct == PatterncardType.PLAYER) {
 						center.setScaleX(7);
 						center.setScaleY(7);
@@ -115,10 +122,10 @@ public class PatterncardController {
 					pane.setCenter(center);
 					break;
 				}
-				else if(pcmodels.get(i).getColor() != null) {
+				else if(models.get(i).getColor() != null) {
 					Pane center = new Pane();
 					center.setPrefSize(80, 80);
-					center.setBackground(new Background( new BackgroundFill(pcmodels.get(i).getColor(), null, null)));
+					center.setBackground(new Background( new BackgroundFill(models.get(i).getColor(), null, null)));
 					pane.setCenter(center);
 					break;
 				}

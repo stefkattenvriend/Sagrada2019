@@ -18,6 +18,7 @@ public class LayerController {
 	public LayerController(PatterncardController pcc) {
 		totalAmoundOfptrnCards = pcc.numberOfPatternCards();
 		this.pcc = pcc;
+		System.out.println();
 	}
 	
 	public void generateRdmPatternCards() { //voor nu alleen een int, later wordt dit verwerkt met een pattroonkaart.
@@ -34,6 +35,10 @@ public class LayerController {
 	}
 	
 	public int[] getRandomPat() {
+		for (int i = 0; i < randomPat.length; i++) {
+			pcc.addPatternCardChoice(randomPat[i]);
+		}
+		
 		return randomPat.clone();
 	}
 
@@ -41,6 +46,10 @@ public class LayerController {
 		String query = "INSERT INTO `mwmastbe_db2`.`patterncardoption` (`patterncard_idpatterncard`, `player_idplayer`) VALUES ('" + i + "', '" + playerid + "');";
 		pcc.insertChoice(query);
 		
+	}
+	
+	public void setRandomID(int[] ids) {
+		this.randomPat = ids;
 	}
 	
 	
