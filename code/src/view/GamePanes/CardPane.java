@@ -3,8 +3,6 @@ package view.GamePanes;
 import controller.CardsController;
 import controller.PayStoneController;
 import controller.PayStoneThread;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
@@ -30,6 +28,7 @@ public class CardPane extends StackPane{
 			this.setOnMouseClicked(e -> cc.useCard(cardNr));
 			PayStoneThread pst = new PayStoneThread(psc, cardNr, this);
 			Thread p1 = new Thread(pst);
+			p1.run();
 		}
 		
 	}
@@ -41,6 +40,13 @@ public class CardPane extends StackPane{
 	
 	public int getCardNr() {
 		return cardNr;
+	}
+
+	public void setPayStones(int stonesOnCard) {
+		this.getChildren().clear();
+		for(int i = 0; i < stonesOnCard; i++) {
+			this.getChildren().addAll(ppsh);
+		}
 	}
 	
 }
