@@ -55,8 +55,9 @@ public class TurnController {
 		private void updateSeqnr() {
 			PlayerModel[] players = gm.getPma();
 			int amountOfPlayers = players.length;
-			int seqnr = 8;
+			int seqnr = 10;
 			if (amountOfPlayers == 4) {
+				System.out.println(amountOfPlayers + " players detected, passing the turn to the next!");
 				for (int i = 0; i < players.length; i++) {
 					int x = players[i].getSeqnr();
 					if (x < seqnr) {
@@ -159,9 +160,11 @@ public class TurnController {
 						players[3].setSeqnr(4);
 					} 
 					break;
+				default: System.out.println("something went wrong here...");
 				}
 			}
 			if (amountOfPlayers == 3) {
+				System.out.println(amountOfPlayers + " players detected, passing the turn to the next!");
 				for (int i = 0; i < players.length; i++) {
 					int x = players[i].getSeqnr();
 					if (x < seqnr) {
@@ -214,6 +217,7 @@ public class TurnController {
 							players[i].setCurrentPlayer(true);
 						} 
 					}
+					break;
 				case 6:
 					currentplayer.setCurrentPlayer(false);
 					if (currentplayer == players[0]) { //verandert de volgorde van startspeler wanner de laatste persoon past.
@@ -233,18 +237,25 @@ public class TurnController {
 						players[1].setSeqnr(2);
 						players[2].setSeqnr(3);
 					}
+					break;
+				default: System.out.println("something went wrong here...");
 				}
 			}
 			if (amountOfPlayers == 2) {
+				System.out.println(amountOfPlayers + " players detected, passing the turn to the next!");
 				for (int i = 0; i < players.length; i++) {
 					int x = players[i].getSeqnr();
+					System.out.println("this is value x: " + x);
 					if (x < seqnr) {
-						seqnr = x; // pakt de laagste seqnr, deze is van de huidige speler die op pass drukt.
-						currentplayer = players[i]; // slaat op welke speler uit players[] de huidige speler is
+						seqnr = x; 
+						System.out.println("this is value seqnr: " + seqnr);
+						currentplayer = players[i]; 
+						System.out.println("This is its actual seqnr: " + currentplayer.getSeqnr());
 					}
 				}
 				switch (seqnr) {
 				case 1:
+					
 					currentplayer.setSeqnr(4);
 					currentplayer.setCurrentPlayer(false);
 					for (int i = 0; i < players.length; i++) {
@@ -282,9 +293,11 @@ public class TurnController {
 						players[0].setSeqnr(1);
 						players[1].setSeqnr(2);
 						players[0].setCurrentPlayer(true);
+					} else {
+						System.out.println("Something went wrong, check turncontroller 300~");
 					}
 					break;
-				
+				default: System.out.println("something went wrong here...");
 				}
 			}
 		}

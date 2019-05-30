@@ -10,4 +10,13 @@ public class DbTurnCollector {
 	public boolean myTurn(String username, int gameId) {
 		return dataBaseApplication.myTurn(username, gameId);
 	}
+	
+	public int getRoundNumber(int gameID) {
+		int round;
+		round = dataBaseApplication.getRoundNumber(gameID);
+		return round;
+	}
+	
+	
+	
 }

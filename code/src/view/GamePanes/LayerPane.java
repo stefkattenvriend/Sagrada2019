@@ -16,6 +16,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import helpers.PatterncardType;
 
 
 public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worden aangemaakt(dus in de scene). deze pane geeft de mogelijkheid om "pop-ups" te cre�ren(voor bijvoorbeeld een pauze menu, patroonkaart keuze en een scorebord op einde van game ~Rens
@@ -87,7 +88,7 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 		for (int i = 1; i < 5; i++) {
 			for (int j = 1; j < 6; j++) {
 				double size = ((GamePane.windowMaxWidth / 3) / 5) - 1; 
-			patternCard.getChildren().add(pcc.PatterncardCreate(j, i, Integer.parseInt(rdInt), (int)size));
+			patternCard.getChildren().add(pcc.PatterncardCreate(j, i, Integer.parseInt(rdInt), (int)size, PatterncardType.CHOICE));
 			}	
 		}
 		

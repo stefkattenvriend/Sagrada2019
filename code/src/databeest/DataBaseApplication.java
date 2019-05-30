@@ -67,7 +67,7 @@ public class DataBaseApplication {
 			stmt = m_Conn.createStatement();
 
 			int rs = stmt.executeUpdate(query);
-			System.out.println(rs);// Deze maakt de 1 in de console :D
+//			System.out.println(rs);// Deze maakt de 1 in de console :D
 			stmt.close();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
