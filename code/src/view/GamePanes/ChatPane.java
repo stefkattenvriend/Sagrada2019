@@ -28,7 +28,7 @@ public class ChatPane extends BorderPane {
 	private double panewidth = (GamePane.windowMaxWidth / 3) / 2;
 	private double paneheight = (GamePane.windowMaxHeight);
 	private int textareasize = 735;
-	private int playerid = 2; // hoort de id op te halen van de speler die chat...
+	private int playerid; 
 	private int buttonwidth = 35;
 
 	// instance variables
@@ -44,6 +44,7 @@ public class ChatPane extends BorderPane {
 		this.loginController = loginController;
 		this.cc = cc;
 		setUp();
+		playerid = cc.getPlayerID(cc.getGameid(), loginController.getCurrentAccount());
 	}
 
 	private void setUp() {
@@ -53,9 +54,9 @@ public class ChatPane extends BorderPane {
 		TextArea textArea = new TextArea();
 		scrollPane = new ScrollPane();
 		scrollPane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
-//		scrollPane.setFitToWidth(true);
 		scrollPane.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
 		scrollPane.setMinHeight(textareasize);
+		scrollPane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null)));
 		textArea.setMinHeight(textareasize);
 		TextField textField = new TextField();
 		textField.setPromptText("Type here to chat...");
@@ -79,8 +80,8 @@ public class ChatPane extends BorderPane {
 			String date = dateFormat.format(new Date());
 
 			if (message.length() > 0) {
-
-				textArea.appendText("(" + date + "): " + message); // getChatFromDatabase first,
+				String name = loginController.getUsername();
+				textArea.appendText("(" + date + ") " + name + ": " + message); // getChatFromDatabase first,
 				textArea.appendText("\n");
 				cc.sendChatToDatabase(playerid, "NOW()", message);
 				textField.clear();
@@ -95,10 +96,12 @@ public class ChatPane extends BorderPane {
 			
 			chat = cc.getchat();
 			chatdate = cc.getchatDate();
+			ArrayList<Integer> idchat = cc.getPlayerIDs();
 			textArea.clear();
 			for(int i = 0; i < chat.size(); i++) {
-				//playerid.getusername:
-				textArea.appendText("(" + chatdate.get(i) + "): ");
+				
+				String name = cc.getUsername(idchat.get(i));
+				textArea.appendText("(" + chatdate.get(i) + ") " + name + ": ");
 				textArea.appendText(chat.get(i) + "\n");
 			}
 			buttonBar.getChildren().clear();

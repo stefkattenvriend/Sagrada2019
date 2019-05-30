@@ -33,7 +33,7 @@ public class DiceOfferPane extends FlowPane{
 		setMaxSize(GamePane.windowMaxWidth / 3, 200);
 	}
 	
-	private void aanduiding() { // deze method wordt uiteindelijk verwijderd
+	private void aanduiding() { //TODO deze method wordt uiteindelijk verwijderd
 		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null))); //aanduiding van chatvak
 		Label text = new Label();
 		text.setText("DiceOfferPane");
@@ -48,9 +48,9 @@ public class DiceOfferPane extends FlowPane{
 	}
 	
 	private void addDie() {//test methode wordt later verwijderdt
-		dhc.addDie(DiceHolderType.OFFER, 1, 0, Color.PURPLE, 3, true);
-		dhc.addDie(DiceHolderType.OFFER, 2, 0, Color.GREEN, 6, true);
-		dhc.addDie(DiceHolderType.OFFER, 3, 0, Color.YELLOW, 3, true);
-		dhc.addDie(DiceHolderType.OFFER, 4, 0, Color.RED, 6, true);
+		dhc.addDie(DiceHolderType.OFFER, 1, 0, 6);
+		dhc.addDie(DiceHolderType.OFFER, 2, 0, 73);
+		dhc.addDie(DiceHolderType.OFFER, 3, 0, 42);
+		dhc.addDie(DiceHolderType.OFFER, 4, 0, 90);
 	}
 	}

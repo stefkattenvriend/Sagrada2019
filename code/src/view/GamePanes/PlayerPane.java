@@ -4,6 +4,8 @@ package view.GamePanes;
 import controller.DiceHolderController;
 import controller.GameController;
 import controller.PatterncardController;
+import controller.PointsController;
+import controller.TurnController;
 import helpers.DiceHolderType;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -29,14 +31,21 @@ public class PlayerPane extends VBox{
 	private PatterncardController dcc;
 	private GameController gc;
 	private MyScene myScene;
+	private PointsController pc;
+	private TurnController tc;
+	private Button pass;
 	
-	public PlayerPane(DiceHolderController dhc, PatterncardController dcc, MyScene myScene, GameController gc) {
+	public PlayerPane(DiceHolderController dhc, PatterncardController dcc, MyScene myScene, GameController gc, PointsController pc, TurnController tc) {
 		this.dhc = dhc;
 		this.dcc = dcc;
 		this.gc = gc;
 		this.myScene = myScene;
+		this.pc = pc;
+		this.tc = tc;
 		setBackground(controller.Main.PLAYERPANE); // aanduiding voor pane
 		setUp();
+		tc.givePane(this);
+		tc.TurnAdmissionGiving();
 	}
 	
 	private void setUp() {
@@ -50,9 +59,10 @@ public class PlayerPane extends VBox{
 	private void setTinyButtonSection() {
 		BorderPane section = new BorderPane();
 		
-		Button pass = new Button("Pass");
+		pass = new Button("Pass");
 		pass.setMinSize(60, 30);
 		pass.setMaxSize(60, 30);
+		pass.setOnAction(e -> pass());
 		
 		Button menu = new Button("Menu");
 		menu.setMinSize(60, 30);
@@ -62,9 +72,18 @@ public class PlayerPane extends VBox{
 		pass.setAlignment(Pos.CENTER_LEFT);
 		menu.setAlignment(Pos.CENTER_RIGHT);
 		
-		section.setLeft(pass);
+//		section.setLeft(pass);
 		section.setRight(menu);
 		getChildren().add(section);
+	}
+
+	public void yourTurn() {
+		pass.setVisible(true);
+	}
+	
+	private void pass() {
+		tc.updatePass(); 
+		pass.setVisible(false);
 	}
 
 	private void setPlayerBoardPane() {
@@ -76,7 +95,7 @@ public class PlayerPane extends VBox{
 	private void setPersonalAttributes() {
 		personalAttributes = new HBox();
 		paystoneHolder = new PaystoneHolderPane();
-		points = new PointsPane();
+		points = new PointsPane(pc);
 		pocp = new PersonalObjectiveCardPane(Color.PURPLE);
 		personalAttributes.getChildren().addAll(paystoneHolder, points, pocp);
 		personalAttributes.setMinHeight(75);
@@ -94,6 +113,10 @@ public class PlayerPane extends VBox{
 	private void setPaneSize() {
 		setMinSize(GamePane.windowMaxWidth / 3, GamePane.windowMaxHeight);
 		setMaxSize(GamePane.windowMaxWidth / 3, GamePane.windowMaxHeight);
+	}
+	
+	public PersonalObjectiveCardPane getPOCP() {
+		return pocp;
 	}
 
 }

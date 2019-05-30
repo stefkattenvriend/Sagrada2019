@@ -1,34 +1,36 @@
 package model;
 
+import helpers.DiceHolderType;
 import javafx.scene.paint.Color;
 
 //Rens
 public class DiceModel {
-	
-	private int size;
-	private Color paint;
+
+	private int dieNumber;
+	private Color dieColor;
 	private int eyes;
 	
-	public DiceModel(int size, Color paint, int eyes) {
-		this.size = size;
-		this.paint = paint;
+
+	public DiceModel(int dieNumber, Color dieColor, int eyes) {
+		this.dieNumber = dieNumber;
+		this.dieColor = dieColor;
 		this.eyes = eyes;
 	}
 
-	public int getSize() {
-		return size;
+	public int getDieNumber() {
+		return dieNumber;
 	}
 
-	public void setSize(int size) {
-		this.size = size;
+	public void setDieNumber(int dieNumber) {
+		this.dieNumber = dieNumber;
 	}
 
-	public Color getPaint() {
-		return paint;
+	public Color getDieColor() {
+		return dieColor;
 	}
 
-	public void setPaint(Color paint) {
-		this.paint = paint;
+	public void setDieColor(Color dieColor) {
+		this.dieColor = dieColor;
 	}
 
 	public int getEyes() {

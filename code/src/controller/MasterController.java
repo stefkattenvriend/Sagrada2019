@@ -1,14 +1,21 @@
 package controller;
 
-import databeest.DbChatCollector;
-import databeest.DbGameCollector;
-import databeest.DbPatternCardInfoCollector;
-import databeest.DbPlayerCollector;
-import databeest.DbPlayerStatsCollector;
 import databeest.DataBaseApplication;
 import databeest.DbCardCollector;
+import databeest.DbChatCollector;
+import databeest.DbDieCollector;
+import databeest.DbDieUpdater;
+import databeest.DbGameCollector;
+import databeest.DbMenuCollector;
+import databeest.DbPatternCardInfoCollector;
+import databeest.DbPayStoneRuler;
+import databeest.DbPlayerCollector;
+import databeest.DbPlayerStatsCollector;
+import databeest.DbToolCardCollector;
+import databeest.DbTurnCollector;
 import databeest.DbUserInfoCollector;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 import view.MyScene;
 
@@ -21,8 +28,13 @@ public class MasterController extends Application{//een controller die alle ande
 	private DbGameCollector dbGameCollector;
 	private DbPlayerCollector dbPlayerCollector;
 	private DbPlayerStatsCollector dbPlayerStatsCollector;
+	private DbDieCollector dbDieCollector;
+	private DbDieUpdater dbDieUpdater;
+	private DbMenuCollector dbMenuCollector;
 	private DataBaseApplication databeest;
+	private DbPayStoneRuler psr;
 	
+	private DbTurnCollector dbTurnCollector;
 	private LoginController lc;
 	private PlayerController pc;
 	private GameController gc;
@@ -33,6 +45,8 @@ public class MasterController extends Application{//een controller die alle ande
 	private StatsController sc;
 	private UpdateTimerController utc;
 	private GameUpdateController guc;
+	private MenuUpdateController muc;
+	private DbToolCardCollector tcc;
 	
 	public void startup(String[] args) {
 		launch(args);
@@ -43,10 +57,8 @@ public class MasterController extends Application{//een controller die alle ande
 		this.startMasterController();
 		this.stage = stage;
 		myScene = new MyScene(this);
-		mnController = new MenuController(myScene, this);
 		stage.setResizable(false);
 		stage.setScene(myScene);
-		
 		stage.setOnCloseRequest(e -> closeApp());
 		stage.show();
 	}
@@ -64,22 +76,22 @@ public class MasterController extends Application{//een controller die alle ande
 		dbGameCollector = new DbGameCollector(databeest);
 		dbPlayerCollector = new DbPlayerCollector(databeest);
 		dbCardCollector = new DbCardCollector(databeest);
+		dbDieCollector = new DbDieCollector(databeest);
 		dbPlayerStatsCollector = new DbPlayerStatsCollector(databeest);
+		dbMenuCollector = new DbMenuCollector(databeest);
+		dbDieUpdater = new DbDieUpdater(databeest);
+		dbTurnCollector = new DbTurnCollector(databeest);
+		psr = new DbPayStoneRuler(databeest);
+		tcc = new DbToolCardCollector(databeest);
+		
+		
 		
 		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
 				&& (databeest.makeConnection()))
 		
-			//Game refresher/checker
-		this.guc = new GameUpdateController(this);
-		this.utc = new UpdateTimerController(guc);
-		
-				
-		Thread t1 = new Thread(utc);
-		t1.start();
-		
-		this.lc = new LoginController(dbUserInfoCollector);
+		this.lc = new LoginController(dbUserInfoCollector,this);
 		this.pc = new PlayerController(dbPlayerCollector);
-		this.gc = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector, dbCardCollector, guc, dbPlayerCollector);
+		this.gc = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector, dbCardCollector, guc, dbPlayerCollector, dbDieCollector, dbDieUpdater, dbTurnCollector, psr, tcc);
 		this.sc = new StatsController(dbPlayerStatsCollector);
 //		this.chat = new ChatController(dbChatCollector);
 		
@@ -93,6 +105,29 @@ public class MasterController extends Application{//een controller die alle ande
 		//testen player
 //		pc.setPlayerId(2);
 //		System.out.println("Amount of paystones: " + pc.getPayStones());
+	}
+	
+	
+	private void startUpdate() {
+		//Game refresher/checker
+//	this.guc = new GameUpdateController(this);
+//	this.muc = new MenuUpdateController(this);
+//	this.utc = new UpdateTimerController(guc, muc);
+	
+//			
+//	Thread t1 = new Thread(utc);
+//	t1.start();
+		
+	MasterRunnable masterRunnable = new MasterRunnable(this.getMenuController(), this.getGameController());	
+	
+	Thread t1 = new Thread(masterRunnable);
+	t1.start();
+		
+	}
+	
+	public void makeMenuController() {
+		mnController = new MenuController(myScene, this, dbGameCollector, muc, psr);
+		startUpdate();
 	}
 	
 	public GameController getGameController()
@@ -124,18 +159,38 @@ public class MasterController extends Application{//een controller die alle ande
 		return this.guc;
 	}
 	
-	public MenuUpdateController getMenuUpdateController() {
-		
-		return null;//moet de menuopdate controller in komen
-	}
-	
+//	public void setGuc(GameUpdateController guc) {
+//		this.guc = guc;
+//		utc.setGuc(guc);
+//	}
+//
+//	public UpdateTimerController getUtc() {
+//		return utc;
+//	}
+
 	public PlayerController getPlayerController()
 	{
 		return this.pc;
 	}
 	
+	public DbDieCollector getDbDieCollector() {
+		return dbDieCollector;
+	}
+	
+	public DbMenuCollector getDbMenuCollecter() {
+		return dbMenuCollector;
+	}
+	
+	public DbGameCollector getDbGameCollector() {
+		return dbGameCollector;
+	}
+
 	public DataBaseApplication getDatabaseApplication() {
 		return databeest;
+	}
+
+	public PayStoneController getPayStoneController() {
+		return gc.getPayStoneController();
 	}
 	
 	

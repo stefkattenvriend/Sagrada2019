@@ -1,4 +1,5 @@
 package view.GamePanes;
+import controller.PointsController;
 //joery
 import javafx.scene.control.Label;
 import javafx.scene.layout.Border;
@@ -10,14 +11,17 @@ import javafx.scene.paint.Color;
 public class PointsPane extends Pane{
 	
 	private double personalAttributesHeight = 75;
+	private PointsController pc;
 	
-	public PointsPane() {
+	public PointsPane(PointsController pc) {
+		this.pc = pc;
 		setUp();
 	}
 
 	private void setUp() {
 		setPaneSize();
-		aanduiding();
+		Label label = new Label("Your score is:");
+		
 		
 	}
 

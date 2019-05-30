@@ -2,12 +2,14 @@ package view.GamePanes;
 import controller.DiceHolderController;
 import controller.GameController;
 import controller.LayerController;
+import controller.LoginController;
 import controller.PatterncardController;
+import controller.PayStoneController;
+import controller.PointsController;
+import controller.TurnController;
 //joery
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import view.LayerPane;
 import view.MyScene;
 
 public class GamePane extends StackPane {
@@ -26,13 +28,22 @@ public class GamePane extends StackPane {
 	private BorderPane gamePane;
 	private LayerController lyc;
 	private MyScene myScene;
+	private PointsController pc;
+	private TurnController tc;
+	private LoginController logc;
+	private PayStoneController psc;
 	
-	public GamePane(GameController gameController, MyScene myScene) {
+	public GamePane(GameController gameController, MyScene myScene, LoginController loginController, PayStoneController psc) {
+		logc = loginController;
+		this.psc = psc;
 		this.gc = gameController;
 		this.myScene = myScene;
 		this.dhc = gc.getDiceHolderController();
 		this.pcc = gc.getPatterncardController();
 		this.lyc = gc.getLayerController();
+		this.pc = gc.getPointsController();
+		this.tc = gc.getTurnController();
+		
 		
 		setScreenSize();
 		setUp();
@@ -40,25 +51,25 @@ public class GamePane extends StackPane {
 
 	private void setUp() {
 		gamePane = new BorderPane();
-		playerPane = new PlayerPane(dhc, pcc, myScene, gc);
-		cardDisplayPane = new CardDisplayPane(gc.getCardsController());
+		playerPane = new PlayerPane(dhc, pcc, myScene, gc, pc, tc);
+		cardDisplayPane = new CardDisplayPane(gc.getCardsController(), psc);
 		enemyPane = new EnemyPane(gc);
 		gamePane.setLeft(cardDisplayPane);
 		gamePane.setCenter(playerPane);
 		gamePane.setRight(enemyPane);
 		
-		LayerPane pcardChooser = new LayerPane(lyc, pcc);
-		
-		//eerste ronde? open dan popup in if-statement
-		setNewRoot(pcardChooser);
-		
 		getChildren().add(gamePane);
 	}
 	
-	private void setNewRoot(Pane pane) {
-		if(false) {//hardcoded -> het is de eerste speelronde
-			getChildren().addAll(gamePane, pane);	
-		}
+
+	
+	public void setGamePane() {
+		getChildren().clear();
+		getChildren().add(gamePane);
+	}
+	
+	public PlayerPane getPlayerPane() {
+		return playerPane;
 	}
 
 	private void setScreenSize() {

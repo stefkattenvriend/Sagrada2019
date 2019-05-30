@@ -1,12 +1,10 @@
 package view.MenuPanes;
 
+import controller.LoginController;
 import controller.MenuController;
 import javafx.geometry.Pos;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import view.MyScene;
@@ -18,10 +16,12 @@ public class MenuRightPane extends VBox{
 	private MenuWaitingPane menuWaitingPane;
 	private MyScene myScene;
 	private MenuController menuController;
+	private LoginController loginController;
 	
-	public MenuRightPane(MyScene myScene, MenuController menuController) {
+	public MenuRightPane(MyScene myScene, MenuController menuController, LoginController loginController) {
 		this.myScene = myScene;
 		this.menuController = menuController;
+		this.loginController = loginController;
 		setUp();
 	}
 	
@@ -29,12 +29,13 @@ public class MenuRightPane extends VBox{
 		setPaneSize();
 		tijdelijkAanduiding();
 		createPanes();
+		setAlignment(Pos.CENTER);
 	}
 	
 	private void createPanes() {
-		menuGamesPane = new MenuGamesPane(myScene, menuController);
+		menuGamesPane = new MenuGamesPane(myScene, menuController, loginController);
+		menuWaitingPane = new MenuWaitingPane(menuController, loginController, menuGamesPane);
 		
-		menuWaitingPane = new MenuWaitingPane();
 		setAlignment(Pos.CENTER);
 		getChildren().addAll(menuGamesPane, menuWaitingPane);
 		
@@ -46,7 +47,10 @@ public class MenuRightPane extends VBox{
 	}
 	
 	private void tijdelijkAanduiding() {
-//		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null)));
 		setBackground(new Background(new BackgroundFill(Color.rgb(255, 255, 255, 0.7), null, null)));
+	}
+	
+	public MenuWaitingPane getMenuWaitingGame() {
+		return menuWaitingPane;
 	}
 }

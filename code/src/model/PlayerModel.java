@@ -19,10 +19,13 @@ public class PlayerModel {
 	private String stringcolor;
 	private Color color;
 	private int score;
+
 	private DiceHolderType dht;// welke diceholder er bij deze speler hoort dus welke speler is het ~ Rens
-
-	public PlayerModel() {
-
+	private DbPlayerCollector dpc;
+	
+	
+	public PlayerModel(DbPlayerCollector dpc) {
+	this.dpc = dpc;
 	}
 
 	public void getDatabaseInfo(DbPlayerCollector dpc) {
@@ -77,9 +80,22 @@ public class PlayerModel {
 	public boolean isCurrentPlayer() {
 		return isCurrentPlayer;
 	}
-
+	
+	//milan
+	//updates the database with current player
 	public void setCurrentPlayer(boolean isCurrentPlayer) {
 		this.isCurrentPlayer = isCurrentPlayer;
+		int i = 0;
+		if (isCurrentPlayer) {
+			i = 1;
+			System.out.println("Player: " + username + " is now current player of game: " + gameid);
+			dpc.setGameTurn(gameid, playerid);
+		} else {
+			i = 0;
+			System.out.println("Player: " + username + " is no longer current player of game: "+ gameid);
+		}
+		
+		dpc.setCurrentPlayer(playerid, i);
 	}
 
 	public Color getObjectiveColor() {
@@ -92,6 +108,8 @@ public class PlayerModel {
 
 	public void setSeqnr(int seqnr) {
 		this.seqnr = seqnr;
+		System.out.println("Setting " + playerid + "'s seqnr to: " + seqnr);
+		dpc.setSeqnr(playerid, seqnr);
 	}
 
 	public String getUsername() {

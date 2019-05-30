@@ -21,13 +21,12 @@ public class MyScene extends Scene{
 		super(new Pane());
 		this.mc = mc;
 //		this.stage = stage;
-		
+		this.
 		lc = mc.getLoginController();
 		
 		root = new Pane();
 		
 		loginPane = new LoginPane(this, lc);
-		
 		
 
 		// hier moeten ook nog de registratie panes worden aangemaakt.
@@ -44,22 +43,51 @@ public class MyScene extends Scene{
 		root.getChildren().add(pane);
 	}
 	
+	public void goToMenuPane() {
+		setNewRoot(menuPane);
+		//als je terug gaat van layerpane naar menupane worden invitepane en activeGamesPane blijvend leeg.
+	}
+	
+	
 	public void setMenuPane()
 	{
 		if(lc.isLoggedIn()) {
 			menuPane = new MenuPane(mc.getMenuController(), lc, this);
 		}
+		
 		setNewRoot(menuPane);
+//		mc.getUtc().setGameRunning(false);
 		mc.getStage().setHeight(menuPane.windowMaxHeight);
 		mc.getStage().setWidth(menuPane.windowMaxWidth);
 		mc.getStage().centerOnScreen();
 	}
 
 	public void setGamePane() {
-		gamePane = new GamePane(mc.getGameController(), this);
+		gamePane = new GamePane(mc.getGameController(), this, lc, mc.getPayStoneController());
 		setNewRoot(gamePane);
 		mc.getStage().setHeight(gamePane.windowMaxHeight);
 		mc.getStage().setWidth(gamePane.windowMaxWidth);
 		mc.getStage().centerOnScreen();
+	}
+	
+	public void setLayerPane() {
+		
+		LayerPane pcardChooser = new LayerPane(mc.getGameController().getLayerController(), mc.getGameController().getPatterncardController(), lc, this);
+		
+		setNewRoot(pcardChooser);
+		mc.getStage().setHeight(gamePane.windowMaxHeight);
+		mc.getStage().setWidth(gamePane.windowMaxWidth);
+		mc.getStage().centerOnScreen();
+	}
+	
+	public void setLoginPane() {
+		if(!lc.isLoggedIn()) {
+			setNewRoot(loginPane);
+			mc.getStage().setHeight(loginPane.windowMaxHeight);
+			mc.getStage().setWidth(loginPane.windowMaxWidth);
+			mc.getStage().centerOnScreen();
+		}
+
+		
 	}
 }

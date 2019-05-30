@@ -1,6 +1,7 @@
 package view;
 
 import controller.LayerController;
+import controller.LoginController;
 import controller.PatterncardController;
 import helpers.PatterncardType;
 import javafx.geometry.Pos;
@@ -28,14 +29,23 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 	private PatterncardController pcc;
 	private FlowPane buttonPane;
 	private Button button;
+	private Button buttonMenu;
 	private FlowPane chooserPane = new FlowPane();
 	private int[] randomPat;
+	private int playerid; 
+	private LoginController logc;
+	private GamePane gamePane;
+	private MyScene myScene;
 	
-	public LayerPane(LayerController controller, PatterncardController pcc) {
+	public LayerPane(LayerController controller, PatterncardController pcc, LoginController loginController, MyScene myscene) {
 //		randomPat = controller.getRandomPat();
+		this.myScene = myscene;
+		logc = loginController;
 		this.lyc = controller;
 		this.pcc = pcc;
 		setUp();
+		playerid = pcc.getPlayerID(pcc.getGameid(), logc.getCurrentAccount());
+		System.out.println("dit is de playerid: " + playerid);
 	}
 	
 	public void setUp() {
@@ -45,6 +55,7 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 		setChooserPane();
 		setLeft(buttonPane);
 		setRight(chooserPane);
+		viewOffer();
 		
 		
 	}
@@ -55,26 +66,41 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 	
 	private void setButton() {
 		buttonPane = new FlowPane();
-		button = new Button("Random");
+		button = new Button("Standaard");
+		buttonMenu = new Button("Menu");
+		buttonMenu.setPrefSize(80, 40);
 		button.setPrefSize(80, 40);
+		buttonMenu.setOnAction(e -> backToMenu());
 		button.setOnAction(e -> viewOffer()); //bij druk op de knop worden de randomkaarten pas zichtbaar.
 		buttonPane.setAlignment(Pos.CENTER_LEFT);
 		buttonPane.setPrefSize(120, windowMaxHeight);
 		buttonPane.setBorder(new Border(new BorderStroke(Color.BLACK, null, null, null)));
-		buttonPane.getChildren().add(button);
+		buttonPane.getChildren().addAll(buttonMenu/*, button*/);
 	}
 	
+	private void backToMenu() {
+		myScene.setMenuPane();
+	}
+
 	private void setChooserPane() {
 		chooserPane.setPrefSize(windowMaxWidth - 120, windowMaxHeight);
 		
 	} 
 	
 	private void viewOffer() {
-		lyc.generateRdmPatternCards();
+//		lyc.generateRdmPatternCards();
+//		randomPat = lyc.getRandomPat();
+//		for(int i = 0; i < randomPat.length; i++) {
+//			lyc.insertChoice(i, playerid);					// zet keuzes in database
+//			System.out.println("patterncardID = : " + randomPat[i]);	//syso welke patterncards kunnen gekozen worden
+//			
+//		}
 		randomPat = lyc.getRandomPat();
 		chooserPane.getChildren().clear();
 		chooserPane.getChildren().addAll(createPatternCard(String.valueOf(randomPat[0])), createPatternCard(String.valueOf(randomPat[1])), createPatternCard(String.valueOf(randomPat[2])), createPatternCard(String.valueOf(randomPat[3])));
 		chooserPane.setAlignment(Pos.CENTER_RIGHT);
+		buttonPane.getChildren().clear();// haalt de button weg
+		buttonPane.getChildren().add(buttonMenu);
 	}
 	
 	private Pane createPatternCard(String rdInt) {
@@ -91,12 +117,19 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 			}	
 		}
 		
+		//int label
+//		Label label = new Label(rdInt);
+//		label.setFont(new Font("Arial", 80));
+//		patternCard.getChildren().add(label);
 		
-		/*Label label = new Label(rdInt);
-		label.setFont(new Font("Arial", 80));
-		patternCard.getChildren().add(label);*/
 		patternCard.setAlignment(Pos.CENTER);
-//		patternCard.setOnMouseClicked(e ->); // als je op een pattroonkaart klikt wordt deze gebruikt in het spel.
+		patternCard.setOnMouseClicked(e -> { 
+			pcc.givePatternCardToPlayer(Integer.parseInt(rdInt), playerid); //Wanneer je klikt op de tilepane krijg je die id in de database bij player
+			//get paystones
+			myScene.setGamePane(); //setgamePane
+		});
+		
+		
 		return patternCard;
 	}
 	

@@ -1,48 +1,38 @@
 package databeest;
 
+import java.util.ArrayList;
 import model.PatterncardModel;
-import javafx.scene.paint.Color;
 
 public class DbPatternCardInfoCollector {
-	
-	private DataBaseApplication dataBaseApplication;
-	
-	public DbPatternCardInfoCollector(DataBaseApplication dataBaseApplication) {
-		this.dataBaseApplication = dataBaseApplication;
-	}
-	
-	public void getPatternCardInfo(int pcnumber, int x, int y, PatterncardModel pcm) {
-		int value = dataBaseApplication.getPaternCardValue(pcnumber, x, y);
-		String PatternColor = dataBaseApplication.getPaternCardColor(pcnumber, x, y);
+    
+    private DataBaseApplication dataBaseApplication;
+    
+    public DbPatternCardInfoCollector(DataBaseApplication dataBaseApplication) {
+        this.dataBaseApplication = dataBaseApplication;
+    }
+    
+    public ArrayList<PatterncardModel> getPatternCard(int pcnumber) {
+        return dataBaseApplication.getPaternCard(pcnumber);
+    }
+    
+    public int numberOfPatCards() {
+    	int amountPCS = dataBaseApplication.numberOfPatternCards();
+    	return amountPCS;
+    }
+
+	public void givePatternCardToPlayer(String query) { //aangeroepen door patterncardcontroller
+		dataBaseApplication.insertQuery(query);
 		
-		if (value != 0) {
-			pcm.setNumber(value);
-		}
-		if (PatternColor != null) {
-			
-			switch(PatternColor) {
-			case "geel":
-				pcm.setColor(Color.YELLOW);
-				break;
-			case "groen":
-				pcm.setColor(Color.GREEN);
-				break;
-				
-			case "rood" :
-				pcm.setColor(Color.RED);
-				break;
-				
-			case "blauw" : 
-				pcm.setColor(Color.BLUE);
-				break;
-				
-			case "paars" :
-				pcm.setColor(Color.PURPLE);
-				break;
-			}
-			
-		}else {
-			pcm.setColor(Color.WHITE);
-		}
 	}
+
+	public int getPlayerID(int gameid, String username) {
+		int playerid = dataBaseApplication.getPlayerID(username, gameid);
+		return playerid;
+	}
+
+	public void insertChoice(String query) {
+		dataBaseApplication.insertQuery(query);
+		
+	}
+    
 }

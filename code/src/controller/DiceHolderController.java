@@ -2,6 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 
+import databeest.DbDieCollector;
 import helpers.DiceHolderType;
 import helpers.PatterncardType;
 import javafx.scene.layout.Background;
@@ -10,16 +11,19 @@ import javafx.scene.paint.Color;
 import model.DiceHolderModel;
 import model.DiceModel;
 import view.GamePanes.DiceHolderPane;
+import view.GamePanes.DicePane;
 
 public class DiceHolderController {
 
 	private ArrayList<DiceHolderModel> dhmodels = new ArrayList<DiceHolderModel>();
 	private ArrayList<DiceHolderPane> dhpanes = new ArrayList<DiceHolderPane>();
-	private DiceController dc = new DiceController();
+	private ArrayList<DiceModel> movedDice = new ArrayList<DiceModel>();
+	private DiceController dc;
 	private PatterncardController pcc;
 	
-	public DiceHolderController(PatterncardController pcc) {
+	public DiceHolderController(PatterncardController pcc, DbDieCollector ddc, int gameid) {
 		this.pcc = pcc;
+		dc = new DiceController(ddc, gameid);
 	}
 
 	public DiceHolderPane CreateDiceHolder(double size, int x, int y, DiceHolderType type) {// deze methode maakt de
@@ -77,6 +81,7 @@ public class DiceHolderController {
 						
 						if(checkDiceMovement(selectedModel, dhmodels.get(i).getDie()) == true) {
 							selectedModel.setDie(dhmodels.get(i).getDie());// wiselt de models
+						movedDice.add(dhmodels.get(i).getDie());
 						dhmodels.get(i).setDie(null);
 
 						dhmodels.get(i).switchSelected();// zet achtergrond en selected naar nul van oude pane
@@ -84,6 +89,8 @@ public class DiceHolderController {
 
 						dp.setCenter(dhpanes.get(i).getCenter());// wiselt de panes
 						dhpanes.get(i).setCenter(null);
+						
+						
 
 						return;
 						}else {
@@ -151,12 +158,14 @@ public class DiceHolderController {
 
 	}
 
-	public void addDie(DiceHolderType location, int x, int y, Color color, int eyes, boolean interactable) {
-		DiceModel die = dc.createDieModel(color, eyes, 40);
+	public void addDie(DiceHolderType location, int x, int y, int dieModel) {
+		
+		dieModel = dieModel - 1;//zodat t werkt met n array
+		
 		for (int i = 0; i < dhmodels.size(); i++) {
 			if (dhmodels.get(i).getType() == location && dhmodels.get(i).getX() == x && dhmodels.get(i).getY() == y) {
-				dhmodels.get(i).setDie(die);
-				dhpanes.get(i).setCenter(dc.createDicePane(die));
+				dhmodels.get(i).setDie(dc.getDiceModel(dieModel));
+				dhpanes.get(i).setCenter(dc.getDicePane(dieModel));
 			}
 			
 		}
@@ -168,7 +177,7 @@ public class DiceHolderController {
 		
 		for (int i = 0; i < pcc.getPcModelsSize(); i++) {//vergelijkt kleur van patroonkaart en die
 			if(location.getX() == pcc.getPcModel(i).getX() && location.getY() == pcc.getPcModel(i).getY() && pcc.getPcModel(i).getPct() == PatterncardType.PLAYER) {
-					if(die.getPaint() != pcc.getPcModel(i).getColor() && pcc.getPcModel(i).getColor() != Color.WHITE) {
+					if(die.getDieColor() != pcc.getPcModel(i).getColor() && pcc.getPcModel(i).getColor() != Color.WHITE) {
 						check = false;
 						return check;
 				}
@@ -195,7 +204,7 @@ public class DiceHolderController {
 						DiceModel leftDie = dhmodels.get(i).getDie();
 							if (leftDie == die) {
 								break;
-							}else if (leftDie.getEyes() == die.getEyes() || leftDie.getPaint() == die.getPaint()) {
+							}else if (leftDie.getEyes() == die.getEyes() || leftDie.getDieColor() == die.getDieColor()) {
 								check = false;
 								return check;
 							}
@@ -211,7 +220,7 @@ public class DiceHolderController {
 						DiceModel rightDie = dhmodels.get(i).getDie();
 						if (rightDie == die) {
 							break;
-						}else if (rightDie.getEyes() == die.getEyes() || rightDie.getPaint() == die.getPaint()) {
+						}else if (rightDie.getEyes() == die.getEyes() || rightDie.getDieColor() == die.getDieColor()) {
 								check = false;
 								return check;
 							}
@@ -227,7 +236,7 @@ public class DiceHolderController {
 						DiceModel topDie = dhmodels.get(i).getDie();
 						if (topDie == die) {
 							break;
-						}else if (topDie.getEyes() == die.getEyes() || topDie.getPaint() == die.getPaint()) {
+						}else if (topDie.getEyes() == die.getEyes() || topDie.getDieColor() == die.getDieColor()) {
 								check = false;
 								return check;
 							}
@@ -243,7 +252,7 @@ public class DiceHolderController {
 						DiceModel bottomDie = dhmodels.get(i).getDie();
 						if (bottomDie == die) {
 							break;
-						}else if (bottomDie.getEyes() == die.getEyes() || bottomDie.getPaint() == die.getPaint()) {
+						}else if (bottomDie.getEyes() == die.getEyes() || bottomDie.getDieColor() == die.getDieColor()) {
 								check = false;
 								return check;
 							}
@@ -261,5 +270,41 @@ public class DiceHolderController {
 	
 	public DiceController getDiceController() {
 		return dc;
+	}
+	
+	public ArrayList<DiceHolderModel> getPlayerWindowDice(){
+		ArrayList<DiceHolderModel> playerWindowDice = new ArrayList<DiceHolderModel>();
+		for(int i=0; i < dhmodels.size(); i++) {
+			if(dhmodels.get(i).getType() == DiceHolderType.PLAYERWINDOW) {
+				playerWindowDice.add(dhmodels.get(i));
+			}
+		}
+		return playerWindowDice;
+	}
+	
+	public ArrayList<DiceModel> getMovedDice() {
+		return movedDice;
+	}
+
+	public ArrayList<DiceHolderModel> getDhmodels() {
+		return dhmodels;
+	}
+
+	public ArrayList<DiceHolderPane> getDhpanes() {
+		return dhpanes;
+	}
+
+	public void changeDie(int j2, DicePane dp) {
+		DiceHolderPane dhp = dhpanes.get(j2);
+		dhp.setCenter(dp);
+		
+	}
+	
+	public void switchTurnInteractable(boolean b) {
+		for (int i = 0; i < dhmodels.size(); i++) {
+			if (dhmodels.get(i).getType() == DiceHolderType.OFFER || dhmodels.get(i).getType() == DiceHolderType.PLAYERWINDOW) {
+				dhmodels.get(i).setInteractable(b);
+			}
+		}
 	}
 }

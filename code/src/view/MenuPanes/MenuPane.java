@@ -3,10 +3,7 @@ package view.MenuPanes;
 
 import controller.LoginController;
 import controller.MenuController;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -45,20 +42,23 @@ public class MenuPane extends BorderPane {
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.CENTER,
                 BackgroundSize.DEFAULT);
+
 		setUp();
+
 	}
 
 	private void setUp() {
 		setScreenSize();
 		createPanes();
 		setBackground(new Background(background));
+//		menuController.update(this);
 //		BackgroundImage(Image image, BackgroundRepeat repeatX, BackgroundRepeat repeatY, BackgroundPosition position, BackgroundSize size)
 	}
 	
-	private void createPanes() {
-		menuLeftPane = new MenuLeftPane();
-		menuCenterPane = new MenuCenterPane(loginController, menuController);
-		menuRightPane = new MenuRightPane(myScene, menuController);
+	public void createPanes() {	
+		menuRightPane = new MenuRightPane(myScene, menuController, loginController);
+		menuLeftPane = new MenuLeftPane(menuController, loginController, menuRightPane.getMenuWaitingGame(), myScene);
+		menuCenterPane = new MenuCenterPane(loginController, menuController, menuRightPane.getMenuWaitingGame());
 		setLeft(menuLeftPane);
 		setCenter(menuCenterPane);
 		setRight(menuRightPane);
@@ -69,11 +69,15 @@ public class MenuPane extends BorderPane {
 		setMaxSize(windowMaxWidth, windowMaxHeight);
 	}
 	
-	private void setStartButton() {
-		Button button = new Button("start");
-		button.setPrefSize(80, 40);
-		button.setOnAction(e -> menuController.loadGame());
-		setCenter(button);
+	public void update(){
+		menuRightPane = new MenuRightPane(myScene, menuController, loginController);
+		menuLeftPane = new MenuLeftPane(menuController, loginController, menuRightPane.getMenuWaitingGame(), myScene);
+		menuCenterPane = new MenuCenterPane(loginController, menuController, menuRightPane.getMenuWaitingGame());
+		setLeft(menuLeftPane);
+		setCenter(menuCenterPane);
+		setRight(menuRightPane);
 	}
+	
+	
 
 }

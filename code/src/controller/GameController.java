@@ -1,16 +1,16 @@
 package controller;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-
 import databeest.DbCardCollector;
 import databeest.DbChatCollector;
+import databeest.DbDieCollector;
+import databeest.DbDieUpdater;
 import databeest.DbGameCollector;
 import databeest.DbPatternCardInfoCollector;
+import databeest.DbPayStoneRuler;
 import databeest.DbPlayerCollector;
+import databeest.DbToolCardCollector;
+import databeest.DbTurnCollector;
 import model.GameModel;
-import model.PlayerModel;
 
 public class GameController {// deze classe wordt aangemaakt in de masterController en maakt uiteindelijk ook
 								// de andere controllers aan ~Rens
@@ -20,32 +20,44 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private DbPatternCardInfoCollector DatabasePTCCollector;
 	private DbCardCollector dbCardCollector;
 	private DbGameCollector dbGameCollector;
+	private DbDieCollector dbDieCollector;
+	private DbDieUpdater dbDieUpdater;
 	private DbPlayerCollector dpc;
 	private LayerController lyc;
 	private LoginController lc;
 	private CardsController crc;
 	private ChatController cc;
+	private PointsController ptsc;
+	private TurnController tc;
 	private GameUpdateController guc;
 	private GameModel gm;
+	private DbTurnCollector dtc;
+	private DbPayStoneRuler psr;
+	private DbToolCardCollector dtcc;
+	private ToolCardController tcc;
+	private PayStoneController psc;
 	
 	private PlayerController pc;
-	
-	private int gameid;
-	private ArrayList<String> colors; 
 
-	public GameController(DbPatternCardInfoCollector DatabasePTCCollector, DbGameCollector dbGamecollector,
-			LoginController lc, DbChatCollector dbChat, DbCardCollector dbCardCollector, GameUpdateController guc, DbPlayerCollector dpc) {
+	public GameController(DbPatternCardInfoCollector DatabasePTCCollector, DbGameCollector dbGamecollector, LoginController lc, DbChatCollector dbChat, 
+			DbCardCollector dbCardCollector, GameUpdateController guc, DbPlayerCollector dpc, DbDieCollector ddc, DbDieUpdater ddu, 
+			DbTurnCollector dtc, DbPayStoneRuler psr, DbToolCardCollector tcc) {
 		this.DatabasePTCCollector = DatabasePTCCollector;
 		this.dpc = dpc;
 		this.lc = lc;
 		this.dbCardCollector = dbCardCollector;
-		pcc = new PatterncardController(DatabasePTCCollector);
-		dhc = new DiceHolderController(pcc);
-		lyc = new LayerController(pcc);
-		cc = new ChatController(dbChat);
+		
+		cc = new ChatController(dbChat, this);
+		this.dbDieCollector = ddc;
 		this.guc = guc;
+		this.dbDieUpdater = ddu;
+		
 		pc = new PlayerController(dpc);
 		this.dbGameCollector = dbGamecollector;
+		
+		this.dtc = dtc;
+		dtcc = tcc;
+		this.psr = psr;
 	}
 	
 	public CardsController getCardsController() {
@@ -54,6 +66,10 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 
 	public DiceHolderController getDiceHolderController() {
 		return dhc;
+	}
+
+	public TurnController getTurnController() {
+		return tc;
 	}
 
 	public PatterncardController getPatterncardController() {
@@ -75,87 +91,11 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		return lc;
 	}
 	
+	public PointsController getPointsController() {
+		return ptsc; }
+	
 	public GameModel getGm() {
 		return gm;
-	}
-
-	// milan
-	public void newGame() {
-		colors = getColors(); //maakt 5 kleuren
-		dbGameCollector.pushGame();
-		String username = lc.getCurrentAccount();
-//		String username = "123";
-		dbGameCollector.pushFirstPlayer(username, colors.get(0));
-		insertPublicObjectiveCards();
-		insertToolCards();
-		createGameDie();
-		getPlayer("kees", gameid);//deze actie wordt uitgevoerd wanneer uitnodiging geaccepteerd is
-		
-	}
-	
-	private void createGameDie() {
-		dbGameCollector.addGameDie();
-	}
-
-
-
-	public void getPlayer(String username, int gameid) {
-		int x = 4;
-		int i = (int)(Math.random() * ((x - 1) + 1)) + 1;
-		addPlayer(username, gameid, colors.get(i));
-		colors.remove(i);
-		x--;
-	}
-	
-	public void addPlayer(String username, int gameid, String color) {
-		dbGameCollector.addPlayer(username, gameid, color);
-	}
-
-	private void insertToolCards() {
-		ArrayList<Integer> randomkaarten = generateThreeRandomUniqueNumbers(12); // van 12 nummers(aantal toolcards), geef mij er drie at random.
-		for(int i = 0; i < 3; i++) {
-			int x = randomkaarten.get(i);
-			dbGameCollector.insertToolCards(x);
-		}
-	}
-
-	public void insertPublicObjectiveCards() {//set to private later
-		ArrayList<Integer> randomkaarten = generateThreeRandomUniqueNumbers(10); // van 10 nummers, geef mij er drie at random.
-		for(int i = 0; i < 3; i++) {
-			int x = randomkaarten.get(i);
-			dbGameCollector.insertPublicObjectiveCards(x);
-		}
-	}
-
-	private ArrayList<Integer> generateThreeRandomUniqueNumbers(int aantalkaarten) {
-		ArrayList<Integer> list = new ArrayList<>();
-		for (int i = 1; i <= aantalkaarten; i++) {
-			list.add(i);
-
-		}
-
-		Collections.shuffle(list);
-
-		int x = list.size() - 3;
-		for (int i = 0; i < x; i++) {
-			list.remove(0);
-
-		}
-//		System.out.println(list);//syso to check which numbers are added to database
-		return list;
-	}
-	
-	private ArrayList<String> getColors() {
-		ArrayList<String> colors = new ArrayList<>(); 
-		colors = dbGameCollector.getColors();
-		Collections.shuffle(colors);
-		return colors;
-	}
-	
-	
-	public int getGameid() {
-		gameid = dbGameCollector.getHighestGameID();
-		return gameid;
 	}
 
 	public void createGameModel(int gameID) {
@@ -163,8 +103,8 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		int amountOfPlayers = dbGameCollector.getAmountOfPlayers(gameID);
 		GameModel gm = new GameModel(gameID, dbGameCollector, username, dpc, amountOfPlayers);
 		this.gm = gm;
-		guc.setGameModel(gm);
-		Integer[] playerIDs = dbGameCollector.getPlayers(gameID);
+		
+		int[] playerIDs = dbGameCollector.getPlayers(gameID);
 
 		for (int i = 0; i < amountOfPlayers; i++) {
 			//kijk welke spelers er meedoen en maak ze
@@ -172,11 +112,20 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 			pc.setPlayerId(playerIDs[i]);
 			gm.addPlayer(i, playerIDs[i], username);
 		}
-		this.createCardsController();
+		pcc = new PatterncardController(DatabasePTCCollector, gm);
+		lyc = new LayerController(pcc);
+		this.dhc = new DiceHolderController(pcc, dbDieCollector, gm.getGameId());
+		this.tc = new TurnController(dhc, dbDieUpdater, gm, dtc, username, gm.getGameId());
 	}
 	
 	public void createCardsController() {
-		crc = new CardsController(dbCardCollector, dhc.getDiceController().getDMAL(), gm.getGameId());
+		tcc = new ToolCardController(dhc.getDiceController().getDMAL(), psc, dtcc, gm.getGameId());
+		psc = new PayStoneController(psr, pc.getPlayerID(), gm.getGameId());
+		crc = new CardsController(dbCardCollector, gm.getGameId(), tcc);
+	}
+
+	public PayStoneController getPayStoneController() {
+		return psc;
 	}
 
 }
