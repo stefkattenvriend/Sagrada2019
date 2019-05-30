@@ -1,6 +1,7 @@
 package controller;
 
 import databeest.DbDieUpdater;
+import databeest.DbTurnCollector;
 import helpers.DiceHolderType;
 import model.DiceHolderModel;
 import model.GameModel;
@@ -11,9 +12,15 @@ public class TurnController {
 	DiceHolderController dhc;
 	DbDieUpdater ddu;
 	GameModel gm;
+	DbTurnCollector dtc;
 	PlayerModel currentplayer;
+	String username;
+	int gameId;
 
-	public TurnController(DiceHolderController dhc, DbDieUpdater ddu, GameModel gm) {
+	public TurnController(DiceHolderController dhc, DbDieUpdater ddu, GameModel gm, DbTurnCollector dtc, String username, int gameId) {
+		this.gameId = gameId;
+		this.username = username;
+		this.dtc = dtc;
 		this.dhc = dhc;
 		this.ddu = ddu;
 		this.gm = gm;
@@ -95,6 +102,13 @@ public class TurnController {
 				break;
 			}
 		}
+	}
+	
+	public void TurnAdmissionGiving() {
+		TurnAdmissionChecker tac = new TurnAdmissionChecker(dtc, username, gameId);
+
+			Thread t1 = new Thread(tac);
+			t1.start();
 	}
 
 }

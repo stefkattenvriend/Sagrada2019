@@ -1,15 +1,18 @@
 package controller;
 
+import databeest.DataBaseApplication;
+import databeest.DbCardCollector;
 import databeest.DbChatCollector;
 import databeest.DbDieCollector;
 import databeest.DbDieUpdater;
 import databeest.DbGameCollector;
 import databeest.DbMenuCollector;
 import databeest.DbPatternCardInfoCollector;
+import databeest.DbPayStoneRuler;
 import databeest.DbPlayerCollector;
 import databeest.DbPlayerStatsCollector;
-import databeest.DataBaseApplication;
-import databeest.DbCardCollector;
+import databeest.DbToolCardCollector;
+import databeest.DbTurnCollector;
 import databeest.DbUserInfoCollector;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -29,7 +32,9 @@ public class MasterController extends Application{//een controller die alle ande
 	private DbDieUpdater dbDieUpdater;
 	private DbMenuCollector dbMenuCollector;
 	private DataBaseApplication databeest;
+	private DbPayStoneRuler psr;
 	
+	private DbTurnCollector dbTurnCollector;
 	private LoginController lc;
 	private PlayerController pc;
 	private GameController gc;
@@ -41,6 +46,7 @@ public class MasterController extends Application{//een controller die alle ande
 	private UpdateTimerController utc;
 	private GameUpdateController guc;
 	private MenuUpdateController muc;
+	private DbToolCardCollector tcc;
 	
 	public void startup(String[] args) {
 		launch(args);
@@ -76,6 +82,9 @@ public class MasterController extends Application{//een controller die alle ande
 		dbPlayerStatsCollector = new DbPlayerStatsCollector(databeest);
 		dbMenuCollector = new DbMenuCollector(databeest);
 		dbDieUpdater = new DbDieUpdater(databeest);
+		dbTurnCollector = new DbTurnCollector(databeest);
+		psr = new DbPayStoneRuler(databeest);
+		tcc = new DbToolCardCollector(databeest);
 		
 		
 		
@@ -84,7 +93,7 @@ public class MasterController extends Application{//een controller die alle ande
 		
 		this.lc = new LoginController(dbUserInfoCollector);
 		this.pc = new PlayerController(dbPlayerCollector);
-		this.gc = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector, dbCardCollector, guc, dbPlayerCollector, dbDieCollector, dbDieUpdater);
+		this.gc = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector, dbCardCollector, guc, dbPlayerCollector, dbDieCollector, dbDieUpdater, dbTurnCollector, psr, tcc);
 		this.sc = new StatsController(dbPlayerStatsCollector);
 //		this.chat = new ChatController(dbChatCollector);
 		
