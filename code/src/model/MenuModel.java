@@ -15,10 +15,16 @@ public class MenuModel {
 	public MenuModel(MasterController masterController) {
 		this.menuCollector = masterController.getDbMenuCollecter();
 		this.currentAccount = masterController.getLoginController().getCurrentAccount();
+		
 	}
 	
 	public void setChallengers() {
 		this.challengers = menuCollector.getChallanger(currentAccount);
+	}
+
+	public static ArrayList<Integer> getActivePlayerGames() {
+		
+		return null;
 	}
 	
 }
