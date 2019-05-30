@@ -57,14 +57,18 @@ public class GamePane extends StackPane {
 		gamePane.setCenter(playerPane);
 		gamePane.setRight(enemyPane);
 		
-		getChildren().add(gamePane);
+		LayerPane pcardChooser = new LayerPane(lyc, pcc, logc);
+		
+		//eerste ronde? open dan popup in if-statement
+		setNewRoot(pcardChooser);
+		
+//		getChildren().add(gamePane);
 	}
 	
-
-	
-	public void setGamePane() {
-		getChildren().clear();
-		getChildren().add(gamePane);
+	private void setNewRoot(Pane pane) {
+		if(true) {//hardcoded -> het is de eerste speelronde
+			getChildren().addAll(gamePane, pane);	
+		}
 	}
 	
 	public PlayerPane getPlayerPane() {

@@ -123,5 +123,9 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		psc = new PayStoneController(psr, pc.getPlayerID(), gm.getGameId());
 		crc = new CardsController(dbCardCollector, gm.getGameId(), tcc);
 	}
+	
+	public PayStoneController getPsc() {
+		return psc;
+	}
 
 }

@@ -1,9 +1,6 @@
 package model;
 
-import java.util.ArrayList;
-
 import controller.MasterController;
-import databeest.DbMenuCollector;
 
 public class MenuModel {
 

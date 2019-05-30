@@ -2,10 +2,12 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
+
+import javax.swing.JSpinner.DateEditor;
+
 import databeest.DataBaseApplication;
 import databeest.DbGameCollector;
 import javafx.scene.layout.Pane;
-import model.MenuModel;
 import view.MyScene;
 import view.MenuPanes.MenuGamesPane;
 import view.MenuPanes.MenuInvitePane;
@@ -18,6 +20,7 @@ public class MenuController {
 	private MasterController mc;
 	private ArrayList<String> colors;
 	private DbGameCollector dbGameCollector;
+	private int gameid;
 	private MenuUpdateController menuUpdateController;
 	private MenuPane menuPane;
 	private DataBaseApplication databeest;
@@ -28,7 +31,6 @@ public class MenuController {
 	private MenuInvitePane menuInvitePane;
 	private boolean newInvite = false;
 	private MenuGamesPane menuGamesPane;
-	private MenuModel menuModel;
 
 	public MenuController(MyScene myScene, MasterController mc, DbGameCollector dbGameCollector,
 			MenuUpdateController menuUpdateController) {
@@ -61,10 +63,10 @@ public class MenuController {
 		int round = dbGameCollector.getRound(gameID);
 		System.out.println("dit is het ronde nummer: " + round);// syso om ronde te checken
 
-//		mc.setGuc(new GameUpdateController(mc));
-//		mc.getGameUpdateController().setGameModel(mc.getGameController().getGm());
+		mc.setGuc(new GameUpdateController(mc));
+		mc.getGameUpdateController().setGameModel(mc.getGameController().getGm());
 		
-//		mc.getUtc().setGameRunning(true);
+		//mc.getUtc().setGameRunning(true);
 		String username = mc.getLoginController().getCurrentAccount();
 		int playerid = databeest.getPlayerID(username, gameID);
 		int patcardid = databeest.getPaternCardNumber(playerid);
@@ -98,8 +100,8 @@ public class MenuController {
 		System.out.println("dit is de gameid" + gameid);
 		String challenger = playerList.get(0);
 		dbGameCollector.pushFirstPlayer(challenger, colors.get(0), gameid);
-		insertPublicObjectiveCards(gameid);
-		insertToolCards(gameid);
+		insertPublicObjectiveCards();
+		insertToolCards();
 		createGameDie(gameid);
 		System.out.println("zise playerlist = " + playerList.size());
 
@@ -129,7 +131,7 @@ public class MenuController {
 		dbGameCollector.addGameDie(gameid);
 	}
 
-	private void insertToolCards(int gameid) {
+	private void insertToolCards() {
 		ArrayList<Integer> randomkaarten = generateThreeRandomUniqueNumbers(12); // van 12 nummers(aantal toolcards),
 																					// geef mij er drie at random.
 		for (int i = 0; i < 3; i++) {
@@ -138,7 +140,7 @@ public class MenuController {
 		}
 	}
 
-	public void insertPublicObjectiveCards(int gameid) {// set to private later
+	public void insertPublicObjectiveCards() {// set to private later
 		ArrayList<Integer> randomkaarten = generateThreeRandomUniqueNumbers(10); // van 10 nummers, geef mij er drie at
 																					// random.
 		for (int i = 0; i < 3; i++) {

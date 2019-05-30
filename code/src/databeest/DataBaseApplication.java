@@ -14,6 +14,7 @@ import model.PlayerFieldFrameModel;
 
 public class DataBaseApplication {
 	private Connection m_Conn;
+
 	public DataBaseApplication() {
 		m_Conn = null;
 	}
@@ -33,7 +34,7 @@ public class DataBaseApplication {
 	public boolean makeConnection() {
 		try {
 			m_Conn = DriverManager
-					.getConnection("jdbc:mysql://databases.aii.avans.nl/mwmastbe_db2?user=rcaasper&password=Ab12345"); //TODO hier moet de uiteindelijke inloggegevens komen voor de database van school
+					.getConnection("jdbc:mysql://databases.aii.avans.nl/mwmastbe_db2?user=rcaasper&password=Ab12345");
 			System.out.println("So far, so good...");
 		} catch (SQLException ex) {
 			// handle any errors
@@ -45,7 +46,6 @@ public class DataBaseApplication {
 		}
 		return true;
 	}
-
 
 	// Stef
 	// voor een insert Query
@@ -110,7 +110,7 @@ public class DataBaseApplication {
 		}
 
 	}
-	
+
 	public boolean myTurn(String username, int gameId) {
 		Statement stmt = null;
 		String query = "SELECT isCurrentPlayer WHERE idplayer = " + this.getPlayerID(username, gameId);
@@ -118,7 +118,7 @@ public class DataBaseApplication {
 		try {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
-			
+
 			while (rs.next()) {
 				ifPlayer = rs.getInt(1);
 			}
@@ -128,13 +128,12 @@ public class DataBaseApplication {
 			} else {
 				return false;
 			}
-			
+
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			return false;
 		}
 	}
-
 
 	public int getHighestGameID() {
 		Statement stmt = null;
@@ -175,15 +174,17 @@ public class DataBaseApplication {
 		}
 		return players;
 	}
-	
-	public ArrayList<String> getChallenger(String currentAccount){ //alle uitdagers van de ingelogde speler #joery
+
+	public ArrayList<String> getChallenger(String currentAccount) { // alle uitdagers van de ingelogde speler #joery
 		Statement stmt = null;
 		ArrayList<String> challengers = new ArrayList<>();
-		String query = "SELECT p2.username as uitdager From player p1 Inner join player p2 On p1.game_idgame = p2.game_idgame where p1.username = '" + currentAccount + "' and p1.playstatus_playstatus = 'uitgedaagde' And p2.playstatus_playstatus = 'uitdager' Order by p1.game_idgame;";
+		String query = "SELECT p2.username as uitdager From player p1 Inner join player p2 On p1.game_idgame = p2.game_idgame where p1.username = '"
+				+ currentAccount
+				+ "' and p1.playstatus_playstatus = 'uitgedaagde' And p2.playstatus_playstatus = 'uitdager' Order by p1.game_idgame;";
 		try {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
-			
+
 			while (rs.next()) {
 
 				challengers.add(rs.getString(1));
@@ -195,16 +196,17 @@ public class DataBaseApplication {
 		}
 		return challengers;
 	}
-	
-	
-	public ArrayList<String> getInviteGameID(String currentAccount){ // alle gameID's van de openstaande invites#joery
+
+	public ArrayList<String> getInviteGameID(String currentAccount) { // alle gameID's van de openstaande invites#joery
 		Statement stmt = null;
 		ArrayList<String> inviteGameID = new ArrayList<>();
-		String query = "SELECT p2.game_idgame as gameid From player p1 Inner join player p2 On p1.game_idgame = p2.game_idgame where p1.username = '" + currentAccount + "' and p1.playstatus_playstatus = 'uitgedaagde' And p2.playstatus_playstatus = 'uitdager' Order by p1.game_idgame;";
+		String query = "SELECT p2.game_idgame as gameid From player p1 Inner join player p2 On p1.game_idgame = p2.game_idgame where p1.username = '"
+				+ currentAccount
+				+ "' and p1.playstatus_playstatus = 'uitgedaagde' And p2.playstatus_playstatus = 'uitdager' Order by p1.game_idgame;";
 		try {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
-			
+
 			while (rs.next()) {
 
 				inviteGameID.add(rs.getString(1));
@@ -216,15 +218,18 @@ public class DataBaseApplication {
 		}
 		return inviteGameID;
 	}
-	
-	public ArrayList<String> getCurrentPlayerStatus(String currentAccount, String gameID){ // huidige status van speler van een uniek nog niet aangemaakt spel.
+
+	public ArrayList<String> getCurrentPlayerStatus(String currentAccount, String gameID) { // huidige status van speler
+																							// van een uniek nog niet
+																							// aangemaakt spel.
 		Statement stmt = null;
 		ArrayList<String> currentPlayerStatus = new ArrayList<>();
-		String query = "SELECT playstatus_playstatus from player where username = '" + currentAccount + "' and game_idgame = '" + gameID + "';";
+		String query = "SELECT playstatus_playstatus from player where username = '" + currentAccount
+				+ "' and game_idgame = '" + gameID + "';";
 		try {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
-			
+
 			while (rs.next()) {
 
 				currentPlayerStatus.add(rs.getString(1));
@@ -236,15 +241,16 @@ public class DataBaseApplication {
 		}
 		return currentPlayerStatus;
 	}
-	
-	public ArrayList<String> getAcceptedGame(String currentAccount){ //alle uitdagers van de ingelogde speler #joery
+
+	public ArrayList<String> getAcceptedGame(String currentAccount) { // alle uitdagers van de ingelogde speler #joery
 		Statement stmt = null;
 		ArrayList<String> statusAccepted = new ArrayList<>();
-		String query = "SELECT playstatus_playstatus as status from player where username = '" + currentAccount + "' AND playstatus_playstatus = 'geaccepteerd' order by game_idgame;";
+		String query = "SELECT playstatus_playstatus as status from player where username = '" + currentAccount
+				+ "' AND playstatus_playstatus = 'geaccepteerd' order by game_idgame;";
 		try {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
-			
+
 			while (rs.next()) {
 
 				statusAccepted.add(rs.getString(1));
@@ -256,15 +262,17 @@ public class DataBaseApplication {
 		}
 		return statusAccepted;
 	}
-	
-	public ArrayList<String> getWaitingGames(String currentAccount){ //alle afwachtend op reactie games van de ingelogde speler #joery
+
+	public ArrayList<String> getWaitingGames(String currentAccount) { // alle afwachtend op reactie games van de
+																		// ingelogde speler #joery
 		Statement stmt = null;
 		ArrayList<String> waitingGames = new ArrayList<>();
-		String query = "SELECT p1.game_idgame as gameid, p1.playstatus_playstatus From player p1 where p1.username = '" + currentAccount + "' Order by p1.game_idgame;";
+		String query = "SELECT p1.game_idgame as gameid, p1.playstatus_playstatus From player p1 where p1.username = '"
+				+ currentAccount + "' Order by p1.game_idgame;";
 		try {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
-			
+
 			while (rs.next()) {
 
 				waitingGames.add(rs.getString(1));
@@ -276,15 +284,18 @@ public class DataBaseApplication {
 		}
 		return waitingGames;
 	}
-	
-	public ArrayList<String> getPlayersInGame(String gameID, String currentAccount){ //alle afwachtend op reactie games van de ingelogde speler #joery
+
+	public ArrayList<String> getPlayersInGame(String gameID, String currentAccount) { // alle afwachtend op reactie
+																						// games van de ingelogde speler
+																						// #joery
 		Statement stmt = null;
 		ArrayList<String> playersInGame = new ArrayList<>();
-		String query = "SELECT username FROM player WHERE game_idgame = '" + gameID + "' AND username != '" + currentAccount + "';";
+		String query = "SELECT username FROM player WHERE game_idgame = '" + gameID + "' AND username != '"
+				+ currentAccount + "';";
 		try {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
-			
+
 			while (rs.next()) {
 
 				playersInGame.add(rs.getString(1));
@@ -296,15 +307,18 @@ public class DataBaseApplication {
 		}
 		return playersInGame;
 	}
-	
-	public ArrayList<String> getPlayerStatus(String gameID, String currentAccount){ //alle afwachtend op reactie games van de ingelogde speler #joery
+
+	public ArrayList<String> getPlayerStatus(String gameID, String currentAccount) { // alle afwachtend op reactie games
+																						// van de ingelogde speler
+																						// #joery
 		Statement stmt = null;
 		ArrayList<String> playerStatus = new ArrayList<>();
-		String query = "SELECT playstatus_playstatus FROM player WHERE game_idgame = '" + gameID + "' AND username != '" + currentAccount + "';";
+		String query = "SELECT playstatus_playstatus FROM player WHERE game_idgame = '" + gameID + "' AND username != '"
+				+ currentAccount + "';";
 		try {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
-			
+
 			while (rs.next()) {
 
 				playerStatus.add(rs.getString(1));
@@ -316,15 +330,17 @@ public class DataBaseApplication {
 		}
 		return playerStatus;
 	}
-	
-	public int getPlayerID(String gameID, String currentAccount){ //alle afwachtend op reactie games van de ingelogde speler #joery
+
+	public int getPlayerID(String gameID, String currentAccount) { // alle afwachtend op reactie games van de ingelogde
+																	// speler #joery
 		Statement stmt = null;
-		String query = "SELECT idplayer FROM player WHERE game_idgame = '" + gameID + "' AND username = '" + currentAccount + "';";
+		String query = "SELECT idplayer FROM player WHERE game_idgame = '" + gameID + "' AND username = '"
+				+ currentAccount + "';";
 		int playerID = 0;
 		try {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
-			
+
 			while (rs.next()) {
 
 				playerID = rs.getInt(1);
@@ -587,7 +603,7 @@ public class DataBaseApplication {
 	}
 
 	public ArrayList<PatterncardModel> getPaternCard(int pcnumber) {
-		
+
 		ArrayList<PatterncardModel> value = new ArrayList<PatterncardModel>();
 		Statement stmt = null;
 		String query = "SELECT * FROM patterncardfield WHERE patterncard_idpatterncard = " + pcnumber
@@ -596,7 +612,6 @@ public class DataBaseApplication {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
-			
 			while (rs.next()) {
 
 				String colorstring = rs.getString(4);
@@ -627,8 +642,9 @@ public class DataBaseApplication {
 
 				}
 
-				PatterncardModel patterncardModel = new PatterncardModel(pcnumber, rs.getInt(2), rs.getInt(3), pcolor, rs.getInt(5));
-				
+				PatterncardModel patterncardModel = new PatterncardModel(pcnumber, rs.getInt(2), rs.getInt(3), pcolor,
+						rs.getInt(5));
+
 				value.add(patterncardModel);
 			}
 			stmt.close();
@@ -695,25 +711,25 @@ public class DataBaseApplication {
 		}
 		return playerIDs;
 	}
-	
+
 	public int getPaternCardNumber(int playerID) {
-        Statement stmt = null;
-        String query = "SELECT patterncard_idpatterncard FROM player WHERE idplayer = " + playerID + ";";
-        int pcid = 0;
-        try {
-            stmt = m_Conn.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
+		Statement stmt = null;
+		String query = "SELECT patterncard_idpatterncard FROM player WHERE idplayer = " + playerID + ";";
+		int pcid = 0;
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
 
-            while (rs.next()) {
-                pcid = rs.getInt(1);
+			while (rs.next()) {
+				pcid = rs.getInt(1);
 
-            }
-            stmt.close();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return pcid;
-    }
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return pcid;
+	}
 
 	public String getPlayerColor(int playerID) {
 
@@ -799,8 +815,6 @@ public class DataBaseApplication {
 		return diceList;
 	}
 
-	
-	
 	public ArrayList<Integer> getChatIDs(String query) {
 		Statement stmt = null;
 		ArrayList<Integer> chatID = new ArrayList<>();
@@ -821,10 +835,12 @@ public class DataBaseApplication {
 		}
 		return chatID;
 	}
-	
+
 	public void UpdateDiceLocation(int x, int y, int playerid, int dienumber, String color, int gameID) {
 		Statement stmt = null;
-		String query = "UPDATE playerframefield SET dienumber = " + dienumber + ", diecolor = '" + color + "' WHERE player_idplayer = " + playerid + " AND position_x = " + x + " AND position_y = " + y + " AND idgame = " + gameID + ";";
+		String query = "UPDATE playerframefield SET dienumber = " + dienumber + ", diecolor = '" + color
+				+ "' WHERE player_idplayer = " + playerid + " AND position_x = " + x + " AND position_y = " + y
+				+ " AND idgame = " + gameID + ";";
 
 		try {
 			stmt = m_Conn.createStatement();
@@ -834,19 +850,19 @@ public class DataBaseApplication {
 			System.out.println(e.getMessage());
 		}
 	}
-	
-	//Haalt op welke games gestart zijn (iedereen heeft het verzoek geaccepteerd)
-	public ArrayList<Integer> getStartedGames(String username){
-		
+
+	// Haalt op welke games gestart zijn (iedereen heeft het verzoek geaccepteerd)
+	public ArrayList<Integer> getStartedGames() {
+
 		Statement stmt = null;
 		ArrayList<Integer> startedGames = new ArrayList<>();
-		String query = "SELECT game_idgame AS idgame1, (SELECT game_idgame FROM player WHERE username = '" + username + "' AND game_idgame = idgame1) AS personalgames, COUNT(idplayer) AS geaccepteerd, (SELECT COUNT(idplayer) FROM player WHERE game_idgame = idgame1) AS totaal_spelers FROM player WHERE (playstatus_playstatus = 'geaccepteerd' OR playstatus_playstatus = 'uitdager') GROUP BY game_idgame; "; 
+		String query = "SELECT game_idgame AS gameid, COUNT(idplayer) AS geaccepteerd, (SELECT COUNT(idplayer) FROM player WHERE game_idgame = gameid) AS totaal_spelers FROM player WHERE playstatus_playstatus = 'geaccepteerd' OR playstatus_playstatus = 'uitdager' GROUP BY game_idgame;";
 		try {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
-				if (rs.getInt(1) == rs.getInt(2) && rs.getInt(3) == rs.getInt(4)) {
+				if (rs.getInt(2) == rs.getInt(3)) {
 					startedGames.add(rs.getInt(1));
 				}
 			}
@@ -854,22 +870,22 @@ public class DataBaseApplication {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-		
+
 		return startedGames;
 	}
-	
-	//Haalt op welke games NOG NEIT gestart zijn (afwachtend op reactie)
-	public ArrayList<Integer> getWaitedGames(String username){
-		
+
+	// Haalt op welke games NOG NEIT gestart zijn (afwachtend op reactie)
+	public ArrayList<Integer> getWaitedGames() {
+
 		Statement stmt = null;
 		ArrayList<Integer> waitedGames = new ArrayList<>();
-		String query = "SELECT game_idgame AS idgame1, (SELECT game_idgame FROM player WHERE username = '" + username + "' AND game_idgame = idgame1) AS personalgames, COUNT(idplayer) AS geaccepteerd, (SELECT COUNT(idplayer) FROM player WHERE game_idgame = idgame1) AS totaal_spelers FROM player WHERE (playstatus_playstatus = 'geaccepteerd' OR playstatus_playstatus = 'uitdager') GROUP BY game_idgame; "; 
+		String query = "SELECT game_idgame AS gameid, COUNT(idplayer) AS geaccepteerd, (SELECT COUNT(idplayer) FROM player WHERE game_idgame = gameid) AS totaal_spelers FROM player WHERE playstatus_playstatus = 'geaccepteerd' OR playstatus_playstatus = 'uitdager' GROUP BY game_idgame;";
 		try {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
-				if (rs.getInt(1) == rs.getInt(2) && rs.getInt(3) < rs.getInt(4)) {
+				if (rs.getInt(2) != rs.getInt(3)) {
 					waitedGames.add(rs.getInt(1));
 				}
 			}
@@ -877,7 +893,7 @@ public class DataBaseApplication {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-		
+
 		return waitedGames;
 	}
 
@@ -892,9 +908,9 @@ public class DataBaseApplication {
 			while (rs.next()) {
 
 				if (rs.getInt(5) != 0 && rs.getString(6) != null) {
-					PlayerFieldFrameList.add(new PlayerFieldFrameModel(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(5), rs.getString(6)));
+					PlayerFieldFrameList.add(new PlayerFieldFrameModel(rs.getInt(1), rs.getInt(2), rs.getInt(3),
+							rs.getInt(5), rs.getString(6)));
 				}
-				
 
 			}
 			stmt.close();
@@ -902,31 +918,32 @@ public class DataBaseApplication {
 			System.out.println(e.getMessage());
 		}
 		return PlayerFieldFrameList;
-		
+
 	}
 
 	public int numberOfPatternCards() {
-	        Statement stmt = null;
-	        String query = "SELECT COUNT(idpatterncard) FROM patterncard;";
-	        int pcnumber = 0;
-	        try {
-	            stmt = m_Conn.createStatement();
-	            ResultSet rs = stmt.executeQuery(query);
+		Statement stmt = null;
+		String query = "SELECT COUNT(idpatterncard) FROM patterncard;";
+		int pcnumber = 0;
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
 
-	            while (rs.next()) {
-	                pcnumber = rs.getInt(1);
+			while (rs.next()) {
+				pcnumber = rs.getInt(1);
 
-	            }
-	            stmt.close();
-	        } catch (SQLException e) {
-	            System.out.println(e.getMessage());
-	        }
-	        return pcnumber;
-	    }
-	
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return pcnumber;
+	}
+
 	public void setStoneToCard(int gameId, int playerId, int toolcardId, int amount) {
 		Statement stmt = null;
-		String query = "UPDATE gamefavortoken SET gametoolcard = " + toolcardId + " WHERE idgame = " + gameId + " AND idplayer = " + playerId + " LIMIT " + amount;
+		String query = "UPDATE gamefavortoken SET gametoolcard = " + toolcardId + " WHERE idgame = " + gameId
+				+ " AND idplayer = " + playerId + " LIMIT " + amount;
 		try {
 			stmt = m_Conn.createStatement();
 			int rs = stmt.executeUpdate(query);
@@ -940,7 +957,7 @@ public class DataBaseApplication {
 	public void addStones(int gameId) {
 		Statement stmt = null;
 		int idfavortoken = 0;
-		String query = "INSERT INTO gamefavortoken(idfavortoken, idgame) VALUES (" +  idfavortoken + ", " + gameId + ")";
+		String query = "INSERT INTO gamefavortoken(idfavortoken, idgame) VALUES (" + idfavortoken + ", " + gameId + ")";
 		while (idfavortoken < 20) {
 			try {
 				stmt = m_Conn.createStatement();
@@ -955,7 +972,8 @@ public class DataBaseApplication {
 
 	public void addStonesToPlayer(int gameId, int playerId, int amount) {
 		Statement stmt = null;
-		String query = "UPDATE gamefavortoken SET idplayer = " + playerId + " WHERE idgame = " + gameId + " AND idplayer IS NULL LIMIT " + amount;
+		String query = "UPDATE gamefavortoken SET idplayer = " + playerId + " WHERE idgame = " + gameId
+				+ " AND idplayer IS NULL LIMIT " + amount;
 		try {
 			stmt = m_Conn.createStatement();
 			int rs = stmt.executeUpdate(query);
@@ -963,12 +981,13 @@ public class DataBaseApplication {
 			stmt.close();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
-		}	
+		}
 	}
 
 	public int getStones(int playerId, int gameId) {
 		Statement stmt = null;
-		String query = "SELECT count(idplayer) FROM gamefavortoken WHERE idplayer = " + playerId + " AND idgame = " + gameId + "AND gametoolcard IS NULL;";
+		String query = "SELECT count(idplayer) FROM gamefavortoken WHERE idplayer = " + playerId + " AND idgame = "
+				+ gameId + "AND gametoolcard IS NULL;";
 		int amount = 0;
 		try {
 			stmt = m_Conn.createStatement();
@@ -986,7 +1005,8 @@ public class DataBaseApplication {
 
 	public int getPrice(int toolCardNr, int idgame) {
 		Statement stmt = null;
-		String query = "SELECT count(gametoolcard) FROM gamefavortoken WHERE gametoolcard = " + toolCardNr + " AND idgame = " + idgame;
+		String query = "SELECT count(gametoolcard) FROM gamefavortoken WHERE gametoolcard = " + toolCardNr
+				+ " AND idgame = " + idgame;
 		int amount = 0;
 		try {
 			stmt = m_Conn.createStatement();
@@ -999,7 +1019,7 @@ public class DataBaseApplication {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-		
+
 		if (amount < 1) {
 			return 1;
 		} else {
@@ -1007,9 +1027,47 @@ public class DataBaseApplication {
 		}
 	}
 
+	public int paystoneAmount(int toolCardNr, int idgame) {
+		Statement stmt = null;
+
+		String query = "SELECT count(gametoolcard) FROM gamefavortoken WHERE gametoolcard = " + toolCardNr + " AND idgame = " + idgame;
+		int amount = 0;
+
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+				amount = rs.getInt(1);
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return amount;
+	}
+
+	public int getDifficulty(int patterncardId) {
+		Statement stmt = null;
+		String query = "SELECT difficulty FROM patterncard WHERE idpatterncard = " + patterncardId;
+		int diff = 0;
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+				diff = rs.getInt(1);
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return diff;
+	}
+
 	public int[] getPcChoiche(int playerid) {
 		Statement stmt = null;
-		String query = "SELECT patterncard_idpatterncard FROM player WHERE idplayer = " + playerid + ";";
+		String query = "SELECT patterncard_idpatterncard FROM patterncardoption WHERE player_idplayer = " + playerid + ";";
 		int[] pcIds = new int[4];
 		int i = 0;
 		try {
@@ -1018,8 +1076,7 @@ public class DataBaseApplication {
 
 			while (rs.next()) {
 				pcIds[i] = rs.getInt(1);
-				System.out.println(pcIds[i]);
-
+				i++;
 			}
 			stmt.close();
 		} catch (SQLException e) {

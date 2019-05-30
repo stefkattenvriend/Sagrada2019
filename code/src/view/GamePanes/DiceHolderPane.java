@@ -23,7 +23,7 @@ public class DiceHolderPane extends BorderPane{
 		this.setOnMouseExited(e -> dhc.DiceHolderLeaveHover(this));
 	}
 
-	public void updateDiceHolderPane(){
-		getChildren().clear();
+	public void changeDie(DicePane dp) {
+		this.setCenter(dp);
 	}
 }
