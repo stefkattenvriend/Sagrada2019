@@ -105,6 +105,7 @@ public class PlayerModel {
 
 	public void setSeqnr(int seqnr) {
 		this.seqnr = seqnr;
+		System.out.println("Setting " + playerid + "'s seqnr to: " + seqnr);
 		dpc.setSeqnr(playerid, seqnr);
 	}
 
