@@ -112,6 +112,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 			pc.setPlayerId(playerIDs[i]);
 			gm.addPlayer(i, playerIDs[i], username);
 		}
+		psr.addStonesToGame(gameID);
 		pcc = new PatterncardController(DatabasePTCCollector, gm);
 		lyc = new LayerController(pcc);
 		this.dhc = new DiceHolderController(pcc, dbDieCollector, gm.getGameId());
@@ -122,6 +123,10 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		tcc = new ToolCardController(dhc.getDiceController().getDMAL(), psc, dtcc, gm.getGameId());
 		psc = new PayStoneController(psr, pc.getPlayerID(), gm.getGameId());
 		crc = new CardsController(dbCardCollector, gm.getGameId(), tcc);
+	}
+
+	public PayStoneController getPayStoneController() {
+		return psc;
 	}
 
 }
