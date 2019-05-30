@@ -21,6 +21,7 @@ public class MasterRunnable implements Runnable {
             	menuController.updateIncomingInvite();
             	//plaats hier je updatemethod vanuit de bijbehorende controler.
             	
+            	
 //            	menuController.updateActiveGames(); //dit zou moeten werken, laadtijd van query moet gefixt worden.
             	System.out.println("aan het checken..");
             }

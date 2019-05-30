@@ -4,6 +4,7 @@ import databeest.DbChatCollector;
 import databeest.DbDieCollector;
 import databeest.DbDieUpdater;
 import databeest.DbGameCollector;
+import databeest.DbMenuCollector;
 import databeest.DbPatternCardInfoCollector;
 import databeest.DbPlayerCollector;
 import databeest.DbPlayerStatsCollector;
@@ -26,6 +27,7 @@ public class MasterController extends Application{//een controller die alle ande
 	private DbPlayerStatsCollector dbPlayerStatsCollector;
 	private DbDieCollector dbDieCollector;
 	private DbDieUpdater dbDieUpdater;
+	private DbMenuCollector dbMenuCollector;
 	private DataBaseApplication databeest;
 	
 	private LoginController lc;
@@ -72,7 +74,9 @@ public class MasterController extends Application{//een controller die alle ande
 		dbCardCollector = new DbCardCollector(databeest);
 		dbDieCollector = new DbDieCollector(databeest);
 		dbPlayerStatsCollector = new DbPlayerStatsCollector(databeest);
+		dbMenuCollector = new DbMenuCollector(databeest);
 		dbDieUpdater = new DbDieUpdater(databeest);
+		
 		
 		
 		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
@@ -159,6 +163,10 @@ public class MasterController extends Application{//een controller die alle ande
 	
 	public DbDieCollector getDbDieCollector() {
 		return dbDieCollector;
+	}
+	
+	public DbMenuCollector getDbMenuCollecter() {
+		return dbMenuCollector;
 	}
 
 	public DataBaseApplication getDatabaseApplication() {

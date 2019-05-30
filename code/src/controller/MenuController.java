@@ -2,9 +2,6 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
-import javax.swing.JSpinner.DateEditor;
-
 import databeest.DataBaseApplication;
 import databeest.DbGameCollector;
 import javafx.scene.layout.Pane;
