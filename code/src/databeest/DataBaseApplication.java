@@ -368,7 +368,9 @@ public class DataBaseApplication {
 
 			// return string in console
 			while (rs.next()) {
+//				System.out.println("idtoolcard: " + rs);
 				idToolCards.add(rs.getInt(1));
+
 			}
 			stmt.close();
 		} catch (SQLException e) {
@@ -1041,5 +1043,23 @@ public class DataBaseApplication {
 			System.out.println(e.getMessage());
 		}
 		return diff;
+	}
+
+	public int getStonesonCard(int gametoolcard, int gameId) {
+		Statement stmt = null;
+		String query = "SELECT count(idfavortoken) FROM patterncard WHERE gametoolcard = " + gametoolcard + " AND idgame = " + gameId;
+		int amount = 0;
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+				amount = rs.getInt(1);
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return amount;
 	}
 }

@@ -53,16 +53,10 @@ public class MenuController {
 
 		mc.setGuc(new GameUpdateController(mc));
 		mc.getGameUpdateController().setGameModel(mc.getGameController().getGm());
-		
-		//mc.getUtc().setGameRunning(true);
-		String username = mc.getLoginController().getCurrentAccount();
-		int playerid = databeest.getPlayerID(username, gameID);
-		int patcardid = databeest.getPaternCardNumber(playerid);
-		if (round == 1 && patcardid == 0) {
-			myScene.setLayerPane();
-		} else {
-			myScene.setGamePane();
-			
+		myScene.setGamePane();
+		mc.getUtc().setGameRunning(true);
+		if (round == 1/* && paterncard nog niet gekozen */) {
+			// show pattern card choices
 		}
 	}
 
