@@ -13,6 +13,7 @@ public class MasterRunnable implements Runnable {
 	
 	@Override
     public void run() {
+		boolean test = true;
         Runnable updater = new Runnable() {
 
             @Override
@@ -26,7 +27,7 @@ public class MasterRunnable implements Runnable {
             }
         };
 
-        while (true) {
+        while (test) {
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException ex) {

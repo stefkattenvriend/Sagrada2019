@@ -34,12 +34,17 @@ public class MenuInvitePane extends FlowPane {
 		this.lc = lc;
 		this.menuController = menuController;
 		this.menuWaitingPane = menuWaitingPane;
-		challengers = databeest.getChallenger(lc.getCurrentAccount());
-		invitedGameIDs = databeest.getInviteGameID(lc.getCurrentAccount());
 		menuController.setInvitePane(this);
+		
+//		challengers = databeest.getChallenger(lc.getCurrentAccount());
+//		invitedGameIDs = databeest.getInviteGameID(lc.getCurrentAccount());
+		
+		this.challengers = menuController.getChallengers();
+		this.invitedGameIDs = menuController.getInvitedGamesID();
+
 		setPaneSize();
 		createActiveGamesList();
-		
+
 		setBackground(new Background(new BackgroundFill(Color.rgb(254, 255, 209, 0.8), null, null))); // tijdelijk
 	}
 
@@ -66,7 +71,7 @@ public class MenuInvitePane extends FlowPane {
 		for (int i = 0; i < invitedGameIDs.size(); i++) {
 			games.add(new MenuDropdown(menuController, false,
 					"Uitnodiging voor Sagrada " + invitedGameIDs.get(i) + " door " + challengers.get(i), false, null,
-					false, true, null, lc, this,null));
+					false, true, null, lc, this, null));
 		}
 
 		for (int x = 0; x < games.size(); x++) { // voegt alle knoppen toe aan de lijst
@@ -91,8 +96,7 @@ public class MenuInvitePane extends FlowPane {
 		System.out.println("indelen..");
 		invitedGameIDs = databeest.getInviteGameID(lc.getCurrentAccount());
 		challengers = databeest.getChallenger(lc.getCurrentAccount());
-		
-		
+
 		for (int i = 0; i < invitedGameIDs.size(); i++) {
 			games.add(new MenuDropdown(menuController, false,
 					"Uitnodiging voor Sagrada " + invitedGameIDs.get(i) + " door " + challengers.get(i), false, null,
@@ -107,5 +111,5 @@ public class MenuInvitePane extends FlowPane {
 		getChildren().addAll(title, inviteList);
 		menuWaitingPane.updateWaitingPane();
 	}
-	
+
 }

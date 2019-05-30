@@ -57,8 +57,6 @@ public class MasterController extends Application{//een controller die alle ande
 		this.startMasterController();
 		this.stage = stage;
 		myScene = new MyScene(this);
-		mnController = new MenuController(myScene, this, dbGameCollector, muc);
-		startUpdate();
 		stage.setResizable(false);
 		stage.setScene(myScene);
 		stage.setOnCloseRequest(e -> closeApp());
@@ -91,7 +89,7 @@ public class MasterController extends Application{//een controller die alle ande
 		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
 				&& (databeest.makeConnection()))
 		
-		this.lc = new LoginController(dbUserInfoCollector);
+		this.lc = new LoginController(dbUserInfoCollector,this);
 		this.pc = new PlayerController(dbPlayerCollector);
 		this.gc = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector, dbCardCollector, guc, dbPlayerCollector, dbDieCollector, dbDieUpdater, dbTurnCollector, psr, tcc);
 		this.sc = new StatsController(dbPlayerStatsCollector);
@@ -125,6 +123,11 @@ public class MasterController extends Application{//een controller die alle ande
 	Thread t1 = new Thread(masterRunnable);
 	t1.start();
 		
+	}
+	
+	public void makeMenuController() {
+		mnController = new MenuController(myScene, this, dbGameCollector, muc);
+		startUpdate();
 	}
 	
 	public GameController getGameController()

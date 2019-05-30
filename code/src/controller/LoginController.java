@@ -9,13 +9,15 @@ public class LoginController {
 	
 	// Instance variables
 	private DbUserInfoCollector dbUserInfoCollector;
+	private MasterController masterController;
 	private AccountModel account;
 	private boolean loggedIn = false;
 	
 	// Constructor
-	public LoginController(DbUserInfoCollector dbUserInfoCollector)
+	public LoginController(DbUserInfoCollector dbUserInfoCollector, MasterController masterController)
 	{
 		this.dbUserInfoCollector = dbUserInfoCollector;
+		this.masterController = masterController;
 		account = new AccountModel();
 	}
 	
@@ -25,6 +27,7 @@ public class LoginController {
 		if(this.CheckLogin(username, password))
 		{
 			account.setCurrentAccount(username);
+			masterController.makeMenuController();
 			System.out.println("Login gelukt");
 			loggedIn = true;
 			
