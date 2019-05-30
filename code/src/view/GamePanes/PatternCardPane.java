@@ -13,6 +13,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
+import helpers.PatterncardType;
 
 public class PatternCardPane extends Pane{//misschien hernoemen naar bord pane? pattern card moet zich op het bord bevinden toch? ~Rens
 	
@@ -64,7 +65,7 @@ public class PatternCardPane extends Pane{//misschien hernoemen naar bord pane? 
 		for (int i = 1; i < 5; i++) {
 			for (int j = 1; j < 6; j++) {
 				double size = ((GamePane.windowMaxWidth / 3) / 5) - 1; 
-			patternCardView.getChildren().add(pcc.PatterncardCreate(j, i, pcnumber, (int)size));
+			patternCardView.getChildren().add(pcc.PatterncardCreate(j, i, pcnumber, (int)size, PatterncardType.PLAYER));
 			}	
 		}
 	}
