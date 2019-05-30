@@ -1009,7 +1009,7 @@ public class DataBaseApplication {
 
 	public int[] getPcChoiche(int playerid) {
 		Statement stmt = null;
-		String query = "SELECT patterncard_idpatterncard FROM player WHERE idplayer = " + playerid + ";";
+		String query = "SELECT patterncard_idpatterncard FROM patterncardoption WHERE player_idplayer = " + playerid + ";";
 		int[] pcIds = new int[4];
 		int i = 0;
 		try {
@@ -1018,7 +1018,7 @@ public class DataBaseApplication {
 
 			while (rs.next()) {
 				pcIds[i] = rs.getInt(1);
-				System.out.println(pcIds[i]);
+				i++;
 
 			}
 			stmt.close();
