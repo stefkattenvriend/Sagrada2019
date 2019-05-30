@@ -5,6 +5,7 @@ import java.util.Collections;
 import databeest.DataBaseApplication;
 import databeest.DbGameCollector;
 import javafx.scene.layout.Pane;
+import model.MenuModel;
 import view.MyScene;
 import view.MenuPanes.MenuGamesPane;
 import view.MenuPanes.MenuInvitePane;
@@ -27,6 +28,7 @@ public class MenuController {
 	private MenuInvitePane menuInvitePane;
 	private boolean newInvite = false;
 	private MenuGamesPane menuGamesPane;
+	private MenuModel menuModel;
 
 	public MenuController(MyScene myScene, MasterController mc, DbGameCollector dbGameCollector,
 			MenuUpdateController menuUpdateController) {
@@ -37,6 +39,7 @@ public class MenuController {
 		databeest = mc.getDatabaseApplication();
 		invitedGamesID_OLD = databeest.getInviteGameID(mc.getLoginController().getCurrentAccount());
 		gameIDs_OLD = getActivePlayerGames(mc.getLoginController().getCurrentAccount());
+		menuModel = new MenuModel(mc);
 	}
 
 	public void loadGame(String gID) {
