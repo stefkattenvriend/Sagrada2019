@@ -3,19 +3,20 @@ package controller;
 import databeest.DbDieUpdater;
 import databeest.DbTurnCollector;
 import helpers.DiceHolderType;
+import javafx.scene.layout.Pane;
 import model.DiceHolderModel;
 import model.GameModel;
 import model.PlayerModel;
 
 public class TurnController {
 
-	DiceHolderController dhc;
-	DbDieUpdater ddu;
-	GameModel gm;
-	DbTurnCollector dtc;
-	PlayerModel currentplayer;
-	String username;
-	int gameId;
+	private DiceHolderController dhc;
+	private DbDieUpdater ddu;
+	private GameModel gm;
+	private DbTurnCollector dtc;
+	private PlayerModel currentplayer;
+	private String username;
+	private int gameId;
 
 	public TurnController(DiceHolderController dhc, DbDieUpdater ddu, GameModel gm, DbTurnCollector dtc, String username, int gameId) {
 		this.gameId = gameId;
@@ -25,10 +26,12 @@ public class TurnController {
 		this.ddu = ddu;
 		this.gm = gm;
 	}
+	
 
 	public void updatePass() {// update na pas knop
-		System.out.println("Test");
-
+		
+		dhc.switchTurnInteractable(false);
+		
 		DiceHolderModel dm = null;
 
 		for (int i = 0; i < dhc.getMovedDice().size(); i++) {
@@ -304,10 +307,11 @@ public class TurnController {
 
 	
 	public void TurnAdmissionGiving() {
-		TurnAdmissionChecker tac = new TurnAdmissionChecker(dtc, username, gameId);
+		TurnAdmissionChecker tac = new TurnAdmissionChecker(dtc, username, gameId, dhc);
 
 			Thread t1 = new Thread(tac);
 			t1.start();
 	}
+
 
 }

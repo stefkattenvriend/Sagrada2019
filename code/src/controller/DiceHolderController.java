@@ -299,4 +299,12 @@ public class DiceHolderController {
 		dhp.setCenter(dp);
 		
 	}
+	
+	public void switchTurnInteractable(boolean b) {
+		for (int i = 0; i < dhmodels.size(); i++) {
+			if (dhmodels.get(i).getType() == DiceHolderType.OFFER || dhmodels.get(i).getType() == DiceHolderType.PLAYERWINDOW) {
+				dhmodels.get(i).setInteractable(b);
+			}
+		}
+	}
 }
