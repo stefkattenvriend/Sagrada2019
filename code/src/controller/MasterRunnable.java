@@ -20,9 +20,7 @@ public class MasterRunnable implements Runnable {
             public void run() {
             	
             	menuController.updateIncomingInvite();
-            	
-            	
-//            	menuController.updateActiveGames(); //dit zou moeten werken, laadtijd van query moet gefixt worden.
+            	menuController.updateActiveGames(); //dit zou moeten werken, laadtijd van query moet gefixt worden.
             	System.out.println("aan het checken..");
             }
         };

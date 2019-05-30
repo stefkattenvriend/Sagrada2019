@@ -43,6 +43,12 @@ public class MyScene extends Scene{
 		root.getChildren().add(pane);
 	}
 	
+	public void goToMenuPane() {
+		setNewRoot(menuPane);
+		//als je terug gaat van layerpane naar menupane worden invitepane en activeGamesPane blijvend leeg.
+	}
+	
+	
 	public void setMenuPane()
 	{
 		if(lc.isLoggedIn()) {

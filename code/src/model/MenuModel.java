@@ -3,11 +3,13 @@ package model;
 import java.util.ArrayList;
 
 import controller.MasterController;
+import databeest.DbGameCollector;
 import databeest.DbMenuCollector;
 
 public class MenuModel {
 
 	private DbMenuCollector menuCollector;
+	private DbGameCollector gameCollector;
 
 	// runtime
 	private ArrayList<String> challengers;
@@ -18,9 +20,11 @@ public class MenuModel {
 	
 	public MenuModel(MasterController masterController) {
 		this.menuCollector = masterController.getDbMenuCollecter();
+		this.gameCollector = masterController.getDbGameCollector();
 		this.currentAccount = masterController.getLoginController().getCurrentAccount();
 		setInvitedGameIDs();
 		setChallengers();
+		setActiveGames();
 	}
 
 	// get & set invitedGamesIDs [MenuInvitePane] (OLD)
@@ -41,7 +45,8 @@ public class MenuModel {
 		return challengers;
 	}
 
-	// UPDATE METHODS
+	// START UPDATE METHODS
+	
 	public ArrayList<String> getInvitedGameIDsUpdate() {
 
 		return menuCollector.getInviteGameID(currentAccount);
@@ -50,21 +55,39 @@ public class MenuModel {
 	public ArrayList<String> getChallengersUpdate() {
 		return menuCollector.getChallanger(currentAccount);
 	}
-
-	public void setActivePlayerGames(ArrayList<Integer> activePlayerGames) {
-		this.activePlayerGames = activePlayerGames;
+	
+	public ArrayList<Integer> getActiveGamesUpdate(){
+		return gameCollector.startedGames(currentAccount);
 	}
 	
-	public ArrayList<Integer> getActivePlayerGames() {
+	public ArrayList<Integer> getWaitedGamesUpdate(){
+		return gameCollector.waitedGames(currentAccount);
+	}
+	
+	// END UPDATE METHODS
+
+	public void setActiveGames(){
+		this.activePlayerGames = gameCollector.startedGames(currentAccount);
+	}
+	
+	public ArrayList<Integer> getActiveGames(){
 		return activePlayerGames;
 	}
-
-	public void setWaitedPlayerGames(ArrayList<Integer> waitedPlayerGames) {
-		this.waitedPlayerGames = waitedPlayerGames;
+	
+	public void setWaitedGames(){
+		this.waitedPlayerGames = gameCollector.waitedGames(currentAccount);
 	}
-
-	public ArrayList<Integer> getWaitedPlayerGames() {
+	
+	public ArrayList<Integer> getWaitedGames(){
 		return waitedPlayerGames;
 	}
+
+//	public void setWaitedPlayerGames(ArrayList<Integer> waitedPlayerGames) {
+//		this.waitedPlayerGames = waitedPlayerGames;
+//	}
+//
+//	public ArrayList<Integer> getWaitedPlayerGames() {
+//		return waitedPlayerGames;
+//	}
 
 }

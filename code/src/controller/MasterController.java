@@ -180,6 +180,10 @@ public class MasterController extends Application{//een controller die alle ande
 	public DbMenuCollector getDbMenuCollecter() {
 		return dbMenuCollector;
 	}
+	
+	public DbGameCollector getDbGameCollector() {
+		return dbGameCollector;
+	}
 
 	public DataBaseApplication getDatabaseApplication() {
 		return databeest;
