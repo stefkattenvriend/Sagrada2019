@@ -1042,4 +1042,22 @@ public class DataBaseApplication {
 		}
 		return diff;
 	}
+
+	public int getStonesonCard(int gametoolcard, int gameId) {
+		Statement stmt = null;
+		String query = "SELECT count(idfavortoken) FROM patterncard WHERE gametoolcard = " + gametoolcard + " AND idgame = " + gameId;
+		int amount = 0;
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+				amount = rs.getInt(1);
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return amount;
+	}
 }
