@@ -41,9 +41,10 @@ public class MenuController {
 		this.dbGameCollector = dbGameCollector;
 		this.menuUpdateController = menuUpdateController;
 		databeest = mc.getDatabaseApplication();
-		invitedGamesID_OLD = databeest.getInviteGameID(mc.getLoginController().getCurrentAccount());
-		gameIDs_OLD = getActivePlayerGames(mc.getLoginController().getCurrentAccount());
 		menuModel = new MenuModel(mc);
+		invitedGamesID_OLD = databeest.getInviteGameID(mc.getLoginController().getCurrentAccount());
+		gameIDs_OLD = menuModel.getActivePlayerGames();
+		
 	}
 
 	public void loadGame(String gID) {
@@ -62,8 +63,10 @@ public class MenuController {
 		int playerid = databeest.getPlayerID(username, gameID);
 		int patcardid = databeest.getPaternCardNumber(playerid);
 		int[] choice = databeest.getPcChoiche(playerid);
+		
+		LayerController lyc = mc.getGameController().getLayerController();
+		
 		if (choice[0] == 0) {
-			LayerController lyc = mc.getGameController().getLayerController();
 			lyc.generateRdmPatternCards();
 			randomPat = lyc.getRandomPat();
 			for(int i = 0; i < randomPat.length; i++) {
@@ -71,6 +74,9 @@ public class MenuController {
 				System.out.println("patterncardID = : " + randomPat[i]);	//syso welke patterncards kunnen gekozen worden
 				
 			}
+			myScene.setLayerPane();
+		}else {
+			lyc.setRandomID(choice);
 		}
 		if (round == 1 && patcardid == 0) {
 			myScene.setLayerPane();
@@ -167,18 +173,14 @@ public class MenuController {
 		return list;
 	}
 
-	public ArrayList<Integer> getActivePlayerGames(String username) {
-        ArrayList<Integer> activeGames = new ArrayList<>();
-        activeGames = dbGameCollector.startedGames(username);
-        return activeGames;
-    }
-
-    public ArrayList<Integer> getWaitedPlayerGames(String username) {
-        ArrayList<Integer> waitedGames = new ArrayList<>();
-        waitedGames = dbGameCollector.waitedGames(username);
-        return waitedGames;
-    }
-
+	public ArrayList<Integer> getDbActivePlayerGames(String username) {
+		return dbGameCollector.startedGames(username);
+	}
+	
+	public ArrayList<Integer> getWaitedPlayerGames(String username) {
+		return dbGameCollector.waitedGames(username);
+	}
+	
 	public void updateIncomingInvite() {
 		invitedGames_NEW = databeest.getInviteGameID(mc.getLoginController().getCurrentAccount());
 		if (menuInvitePane != null) {
@@ -192,7 +194,6 @@ public class MenuController {
 					System.out.println("nieuwe uitnodiging");
 					newInvite = false;
 				}
-
 			}
 		}
 	}
@@ -202,7 +203,7 @@ public class MenuController {
 	}
 	
 	public void updateActiveGames() {
-		gameIDs_NEW = getActivePlayerGames(mc.getLoginController().getCurrentAccount());
+		gameIDs_NEW = getDbActivePlayerGames(mc.getLoginController().getCurrentAccount());
 		if (menuGamesPane != null) {
 			if (gameIDs_OLD.size() != gameIDs_NEW.size()) {
 				newInvite = true;
@@ -221,5 +222,9 @@ public class MenuController {
 	
 	public void setActiveGamesPane(MenuGamesPane menuGamesPane) {
 		this.menuGamesPane = menuGamesPane;
+	}
+
+	public MenuModel getMenuModel() {
+		return menuModel;
 	}
 }

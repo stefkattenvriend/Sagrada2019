@@ -30,6 +30,7 @@ public class MenuGamesPane extends FlowPane {
 	private ArrayList<MenuDropdown> games;
 	private ArrayList<Integer> gameIDs;
 	private Label title;
+	private MenuModel menuModel;
 	
 	public MenuGamesPane(MyScene myScene, MenuController menuController, LoginController loginController) {
 		this.myScene = myScene;
@@ -84,7 +85,7 @@ public class MenuGamesPane extends FlowPane {
 		list.getChildren().clear();
 		games.clear();
 		System.out.println("actieve games indelen..");
-		gameIDs = menuController.getActivePlayerGames(loginController.getCurrentAccount());
+		gameIDs = menuController.getDbActivePlayerGames(loginController.getCurrentAccount());
 
 		
 		for(int i = 0; i < gameIDs.size(); i++) {// vult verzameling met alle knoppen
