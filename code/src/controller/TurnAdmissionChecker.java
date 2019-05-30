@@ -25,6 +25,7 @@ public class TurnAdmissionChecker implements Runnable {
 			//allow something
 			System.out.println("myturn");
 			
+			
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
@@ -34,6 +35,7 @@ public class TurnAdmissionChecker implements Runnable {
 		} else {
 			//dont allow something
 			System.out.println("not my turn");
+			
 			
 			try {
 				Thread.sleep(1000);

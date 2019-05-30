@@ -33,7 +33,7 @@ public class DataBaseApplication {
 	public boolean makeConnection() {
 		try {
 			m_Conn = DriverManager
-					.getConnection("jdbc:mysql://databases.aii.avans.nl/mwmastbe_db2?user=rcaasper&password=Ab12345");
+					.getConnection("jdbc:mysql://databases.aii.avans.nl/mwmastbe_db2?user=rcaasper&password=Ab12345"); //TODO hier moet de uiteindelijke inloggegevens komen voor de database van school
 			System.out.println("So far, so good...");
 		} catch (SQLException ex) {
 			// handle any errors
@@ -836,17 +836,17 @@ public class DataBaseApplication {
 	}
 	
 	//Haalt op welke games gestart zijn (iedereen heeft het verzoek geaccepteerd)
-	public ArrayList<Integer> getStartedGames(){
+	public ArrayList<Integer> getStartedGames(String username){
 		
 		Statement stmt = null;
 		ArrayList<Integer> startedGames = new ArrayList<>();
-		String query = "SELECT game_idgame AS gameid, COUNT(idplayer) AS geaccepteerd, (SELECT COUNT(idplayer) FROM player WHERE game_idgame = gameid) AS totaal_spelers FROM player WHERE playstatus_playstatus = 'geaccepteerd' OR playstatus_playstatus = 'uitdager' GROUP BY game_idgame;"; 
+		String query = "SELECT game_idgame AS idgame1, (SELECT game_idgame FROM player WHERE username = '" + username + "' AND game_idgame = idgame1) AS personalgames, COUNT(idplayer) AS geaccepteerd, (SELECT COUNT(idplayer) FROM player WHERE game_idgame = idgame1) AS totaal_spelers FROM player WHERE (playstatus_playstatus = 'geaccepteerd' OR playstatus_playstatus = 'uitdager') GROUP BY game_idgame; "; 
 		try {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
-				if (rs.getInt(2) == rs.getInt(3)) {
+				if (rs.getInt(1) == rs.getInt(2) && rs.getInt(3) == rs.getInt(4)) {
 					startedGames.add(rs.getInt(1));
 				}
 			}
@@ -859,17 +859,17 @@ public class DataBaseApplication {
 	}
 	
 	//Haalt op welke games NOG NEIT gestart zijn (afwachtend op reactie)
-	public ArrayList<Integer> getWaitedGames(){
+	public ArrayList<Integer> getWaitedGames(String username){
 		
 		Statement stmt = null;
 		ArrayList<Integer> waitedGames = new ArrayList<>();
-		String query = "SELECT game_idgame AS gameid, COUNT(idplayer) AS geaccepteerd, (SELECT COUNT(idplayer) FROM player WHERE game_idgame = gameid) AS totaal_spelers FROM player WHERE playstatus_playstatus = 'geaccepteerd' OR playstatus_playstatus = 'uitdager' GROUP BY game_idgame;"; 
+		String query = "SELECT game_idgame AS idgame1, (SELECT game_idgame FROM player WHERE username = '" + username + "' AND game_idgame = idgame1) AS personalgames, COUNT(idplayer) AS geaccepteerd, (SELECT COUNT(idplayer) FROM player WHERE game_idgame = idgame1) AS totaal_spelers FROM player WHERE (playstatus_playstatus = 'geaccepteerd' OR playstatus_playstatus = 'uitdager') GROUP BY game_idgame; "; 
 		try {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
-				if (rs.getInt(2) != rs.getInt(3)) {
+				if (rs.getInt(1) == rs.getInt(2) && rs.getInt(3) < rs.getInt(4)) {
 					waitedGames.add(rs.getInt(1));
 				}
 			}

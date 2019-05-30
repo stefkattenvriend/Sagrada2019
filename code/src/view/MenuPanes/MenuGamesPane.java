@@ -17,7 +17,7 @@ import javafx.scene.text.FontWeight;
 import view.MyScene;
 import view.GamePanes.GamePane;
 
-public class MenuGamesPane extends FlowPane{
+public class MenuGamesPane extends FlowPane {
 	
 	private ScrollPane gamesList;
 	
