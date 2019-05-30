@@ -158,7 +158,7 @@ public class MasterController extends Application{//een controller die alle ande
 	
 	public void setGuc(GameUpdateController guc) {
 		this.guc = guc;
-		utc.setGuc(guc);
+//		utc.setGuc(guc);
 	}
 
 	public UpdateTimerController getUtc() {
