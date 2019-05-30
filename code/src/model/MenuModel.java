@@ -51,9 +51,6 @@ public class MenuModel {
 		return menuCollector.getChallanger(currentAccount);
 	}
 
-	public static ArrayList<Integer> getActivePlayerGames() {
-
-		return null;
 	public void setActivePlayerGames(ArrayList<Integer> activePlayerGames) {
 		this.activePlayerGames = activePlayerGames;
 	}
