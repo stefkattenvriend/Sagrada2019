@@ -68,5 +68,15 @@ public class DbPlayerCollector {
 		String query = "UPDATE `mwmastbe_db2`.`player` SET `seqnr` = '" + seqnr + "' WHERE (`idplayer` = '" + playerid + "');";
 		dbApplication.insertQuery(query);
 	}
+
+	public void setCurrentPlayer(int playerid, int i) {
+		String query = "UPDATE `mwmastbe_db2`.`player` SET `isCurrentPlayer` = '" + i + "' WHERE (`idplayer` = '" + playerid + "');";
+		dbApplication.insertQuery(query);
+	}
+
+	public void setGameTurn(int gameid, int playerid) {
+		String query = "UPDATE `mwmastbe_db2`.`game` SET `turn_idplayer` = '" + playerid + "' WHERE (`idgame` = '" + gameid + "');";
+		dbApplication.insertQuery(query);
+	}
 	
 }

@@ -80,9 +80,19 @@ public class PlayerModel {
 	public boolean isCurrentPlayer() {
 		return isCurrentPlayer;
 	}
-
+	
+	//milan
+	//updates the database with current player
 	public void setCurrentPlayer(boolean isCurrentPlayer) {
 		this.isCurrentPlayer = isCurrentPlayer;
+		int i = 0;
+		if (isCurrentPlayer) {
+			i = 1;
+			dpc.setGameTurn(gameid, playerid);
+		} else {
+			i = 0;
+		}
+		dpc.setCurrentPlayer(playerid, i);
 	}
 
 	public Color getObjectiveColor() {
