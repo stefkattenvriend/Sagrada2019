@@ -46,7 +46,7 @@ public class MenuController {
 		invitedGamesID_OLD = getInvitedGamesID();
 		
 		
-		gameIDs_OLD = getActivePlayerGames(mc.getLoginController().getCurrentAccount());
+		gameIDs_OLD = getDbActivePlayerGames(mc.getLoginController().getCurrentAccount());
 		
 	}
 	

@@ -126,7 +126,7 @@ public class MasterController extends Application{//een controller die alle ande
 	}
 	
 	public void makeMenuController() {
-		mnController = new MenuController(myScene, this, dbGameCollector, muc);
+		mnController = new MenuController(myScene, this, dbGameCollector, muc, psr);
 		startUpdate();
 	}
 	
