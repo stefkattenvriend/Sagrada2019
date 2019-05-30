@@ -974,13 +974,15 @@ public class DataBaseApplication {
 	public void addStones(int gameId) {
 		Statement stmt = null;
 		int idfavortoken = 0;
-		String query = "INSERT INTO gamefavortoken(idfavortoken, idgame) VALUES (" + idfavortoken + ", " + gameId + ")";
 		while (idfavortoken < 20) {
+		String query = "INSERT INTO gamefavortoken(idfavortoken, idgame) VALUES (" +  idfavortoken + ", " + gameId + ")";
 			try {
 				stmt = m_Conn.createStatement();
 				int rs = stmt.executeUpdate(query);
-				System.out.println(rs);
+				System.out.println("idfavortoken: " + idfavortoken + "  -gameId: " + gameId);
 				stmt.close();
+				idfavortoken++;
+				System.out.println("favortoken++: " + idfavortoken);
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 			}
@@ -1065,5 +1067,41 @@ public class DataBaseApplication {
 			System.out.println(e.getMessage());
 		}
 		return pcIds;
+	}
+
+	public int getDifficulty(int idPatternCards) {
+		Statement stmt = null;
+		String query = "SELECT difficulty FROM patterncard WHERE idPatternCard = " + idPatternCards + ";";
+		int diff = 0;
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+				diff = rs.getInt(1);
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return diff;
+	}
+
+	public int getStonesOnCard(int cardId, int gameId) {
+		Statement stmt = null;
+		String query = "SELECT count(idfavortoken) FROM gamefavortoken WHERE gametoolcard = " + cardId + "AND idgame = " + gameId;
+		int amount = 0;
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+				amount = rs.getInt(1);
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return amount;
 	}
 }

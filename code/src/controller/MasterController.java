@@ -184,6 +184,10 @@ public class MasterController extends Application{//een controller die alle ande
 	public DataBaseApplication getDatabaseApplication() {
 		return databeest;
 	}
+
+	public PayStoneController getPayStoneController() {
+		return gc.getPayStoneController();
+	}
 	
 	
 

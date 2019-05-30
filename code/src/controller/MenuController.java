@@ -2,9 +2,10 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
+
 import databeest.DataBaseApplication;
 import databeest.DbGameCollector;
-import javafx.scene.layout.Pane;
+import databeest.DbPayStoneRuler;
 import model.MenuModel;
 import view.MyScene;
 import view.MenuPanes.MenuGamesPane;
@@ -29,9 +30,12 @@ public class MenuController {
 	private boolean newInvite = false;
 	private MenuGamesPane menuGamesPane;
 	private MenuModel menuModel;
+	private int[] randomPat;
+	private DbPayStoneRuler psr;
 
 	public MenuController(MyScene myScene, MasterController mc, DbGameCollector dbGameCollector,
-			MenuUpdateController menuUpdateController) {
+			MenuUpdateController menuUpdateController, DbPayStoneRuler psr) {
+		this.psr = psr;
 		this.myScene = myScene;
 		this.mc = mc;
 		this.dbGameCollector = dbGameCollector;
@@ -69,11 +73,26 @@ public class MenuController {
 		String username = mc.getLoginController().getCurrentAccount();
 		int playerid = databeest.getPlayerID(username, gameID);
 		int patcardid = databeest.getPaternCardNumber(playerid);
+		int[] choice = databeest.getPcChoiche(playerid);
+		
+		LayerController lyc = mc.getGameController().getLayerController();
+		
+		if (choice[0] == 0) {
+			lyc.generateRdmPatternCards();
+			randomPat = lyc.getRandomPat();
+			for(int i = 0; i < randomPat.length; i++) {
+				lyc.insertChoice(i, playerid);					// zet keuzes in database
+				System.out.println("patterncardID = : " + randomPat[i]);	//syso welke patterncards kunnen gekozen worden
+				
+			}
+			myScene.setLayerPane();
+		}else {
+			lyc.setRandomID(choice);
+		}
 		if (round == 1 && patcardid == 0) {
 			myScene.setLayerPane();
 		} else {
 			myScene.setGamePane();
-			
 		}
 	}
 
@@ -103,7 +122,7 @@ public class MenuController {
 		insertToolCards(gameid);
 		createGameDie(gameid);
 		System.out.println("zise playerlist = " + playerList.size());
-
+		psr.addStonesToGame(gameid);
 		for (int i = 1; i < playerList.size(); i++) {
 			System.out.println(playerList.get(i));
 			addPlayer(playerList.get(i), gameid, colors.get(i), i + 1);
@@ -165,18 +184,14 @@ public class MenuController {
 		return list;
 	}
 
-	public ArrayList<Integer> getActivePlayerGames(String username) {
-        ArrayList<Integer> activeGames = new ArrayList<>();
-        activeGames = dbGameCollector.startedGames(username);
-        return activeGames;
-    }
-
-    public ArrayList<Integer> getWaitedPlayerGames(String username) {
-        ArrayList<Integer> waitedGames = new ArrayList<>();
-        waitedGames = dbGameCollector.waitedGames(username);
-        return waitedGames;
-    }
-
+	public ArrayList<Integer> getDbActivePlayerGames(String username) {
+		return dbGameCollector.startedGames(username);
+	}
+	
+	public ArrayList<Integer> getWaitedPlayerGames(String username) {
+		return dbGameCollector.waitedGames(username);
+	}
+	
 	public void updateIncomingInvite() {
 		invitedGames_NEW = databeest.getInviteGameID(mc.getLoginController().getCurrentAccount());
 		
@@ -191,7 +206,6 @@ public class MenuController {
 					System.out.println("nieuwe uitnodiging");
 					newInvite = false;
 				}
-
 			}
 		}
 	}
@@ -201,7 +215,7 @@ public class MenuController {
 	}
 	
 	public void updateActiveGames() {
-		gameIDs_NEW = getActivePlayerGames(mc.getLoginController().getCurrentAccount());
+		gameIDs_NEW = getDbActivePlayerGames(mc.getLoginController().getCurrentAccount());
 		if (menuGamesPane != null) {
 			if (gameIDs_OLD.size() != gameIDs_NEW.size()) {
 				newInvite = true;
@@ -220,5 +234,9 @@ public class MenuController {
 	
 	public void setActiveGamesPane(MenuGamesPane menuGamesPane) {
 		this.menuGamesPane = menuGamesPane;
+	}
+
+	public MenuModel getMenuModel() {
+		return menuModel;
 	}
 }

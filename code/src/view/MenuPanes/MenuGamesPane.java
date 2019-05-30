@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import model.MenuModel;
 import view.MyScene;
 import view.GamePanes.GamePane;
 
@@ -29,6 +30,7 @@ public class MenuGamesPane extends FlowPane {
 	private ArrayList<MenuDropdown> games;
 	private ArrayList<Integer> gameIDs;
 	private Label title;
+	private MenuModel menuModel;
 	
 	public MenuGamesPane(MyScene myScene, MenuController menuController, LoginController loginController) {
 		this.myScene = myScene;
@@ -60,8 +62,7 @@ public class MenuGamesPane extends FlowPane {
 		
 		games = new ArrayList<MenuDropdown>();
 		
-		gameIDs = menuController.getActivePlayerGames(loginController.getCurrentAccount());
-//		gameIDs = MenuModel.getActivePlayerGames();
+		gameIDs = menuController.getDbActivePlayerGames(loginController.getCurrentAccount());
 		
 		for(int i = 0; i < gameIDs.size(); i++) {// vult verzameling met alle knoppen
 			games.add(new MenuDropdown(menuController, true, "Sagrada " + gameIDs.get(i), false, null, false, false, null, loginController, null, this));
@@ -83,7 +84,7 @@ public class MenuGamesPane extends FlowPane {
 		list.getChildren().clear();
 		games.clear();
 		System.out.println("actieve games indelen..");
-		gameIDs = menuController.getActivePlayerGames(loginController.getCurrentAccount());
+		gameIDs = menuController.getDbActivePlayerGames(loginController.getCurrentAccount());
 
 		
 		for(int i = 0; i < gameIDs.size(); i++) {// vult verzameling met alle knoppen

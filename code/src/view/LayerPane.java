@@ -4,11 +4,8 @@ import controller.LayerController;
 import controller.LoginController;
 import controller.PatterncardController;
 import helpers.PatterncardType;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -19,7 +16,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import view.GamePanes.GamePane;
 
 
@@ -59,6 +55,7 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 		setChooserPane();
 		setLeft(buttonPane);
 		setRight(chooserPane);
+		viewOffer();
 		
 		
 	}
@@ -78,7 +75,7 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 		buttonPane.setAlignment(Pos.CENTER_LEFT);
 		buttonPane.setPrefSize(120, windowMaxHeight);
 		buttonPane.setBorder(new Border(new BorderStroke(Color.BLACK, null, null, null)));
-		buttonPane.getChildren().addAll(buttonMenu, button);
+		buttonPane.getChildren().addAll(buttonMenu/*, button*/);
 	}
 	
 	private void backToMenu() {
@@ -91,17 +88,19 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 	} 
 	
 	private void viewOffer() {
-		lyc.generateRdmPatternCards();
+//		lyc.generateRdmPatternCards();
+//		randomPat = lyc.getRandomPat();
+//		for(int i = 0; i < randomPat.length; i++) {
+//			lyc.insertChoice(i, playerid);					// zet keuzes in database
+//			System.out.println("patterncardID = : " + randomPat[i]);	//syso welke patterncards kunnen gekozen worden
+//			
+//		}
 		randomPat = lyc.getRandomPat();
-		for(int i = 0; i < randomPat.length; i++) {
-			lyc.insertChoice(i, playerid);					// zet keuzes in database
-			System.out.println("patterncardID = : " + randomPat[i]);	//syso welke patterncards kunnen gekozen worden
-			
-		}
 		chooserPane.getChildren().clear();
 		chooserPane.getChildren().addAll(createPatternCard(String.valueOf(randomPat[0])), createPatternCard(String.valueOf(randomPat[1])), createPatternCard(String.valueOf(randomPat[2])), createPatternCard(String.valueOf(randomPat[3])));
 		chooserPane.setAlignment(Pos.CENTER_RIGHT);
 		buttonPane.getChildren().clear();// haalt de button weg
+		buttonPane.getChildren().add(buttonMenu);
 	}
 	
 	private Pane createPatternCard(String rdInt) {
