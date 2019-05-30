@@ -120,7 +120,7 @@ public class MenuWaitingPane extends FlowPane {
 		games.clear();
 
 //		gameIDs = databeest.getWaitingGames(loginController.getCurrentAccount());
-		gameIDs = menuController.getNewActiveGames();
+		gameIDs = menuController.getNewWaitedGames();
 		
 //		for (int i = 0; i < gameIDs.size(); i++) {
 //
