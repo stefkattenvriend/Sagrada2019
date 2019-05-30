@@ -11,6 +11,7 @@ import view.MyScene;
 import view.MenuPanes.MenuGamesPane;
 import view.MenuPanes.MenuInvitePane;
 import view.MenuPanes.MenuPane;
+import view.MenuPanes.MenuWaitingPane;
 
 public class MenuController {
 
@@ -26,9 +27,12 @@ public class MenuController {
 	private ArrayList<String> invitedGames_NEW;
 	private ArrayList<Integer> gameIDs_NEW;
 	private ArrayList<Integer> gameIDs_OLD;
+	private ArrayList<Integer> waitedGames_OLD;
+	private ArrayList<Integer> waitedGames_NEW;
 	private MenuInvitePane menuInvitePane;
 	private boolean newInvite = false;
 	private MenuGamesPane menuGamesPane;
+	private MenuWaitingPane menuWaitingPane;
 	private MenuModel menuModel;
 	private int[] randomPat;
 	private DbPayStoneRuler psr;
@@ -42,12 +46,9 @@ public class MenuController {
 		this.menuUpdateController = menuUpdateController;
 		this.menuModel = new MenuModel(mc);
 		databeest = mc.getDatabaseApplication();
-//		invitedGamesID_OLD = databeest.getInviteGameID(mc.getLoginController().getCurrentAccount());
 		invitedGamesID_OLD = getInvitedGamesID();
 		gameIDs_OLD = getActiveGames();
-		
-//		gameIDs_OLD = getDbActivePlayerGames(mc.getLoginController().getCurrentAccount());
-		
+		this.waitedGames_OLD = menuModel.getWaitedGames();		
 	}
 	
 	public ArrayList<String> getChallengers() {
@@ -208,17 +209,8 @@ public class MenuController {
 //		System.out.println(list);//syso to check which numbers are added to database
 		return list;
 	}
-
-//	public ArrayList<Integer> getDbActivePlayerGames(String username) {
-//		return dbGameCollector.startedGames(username);
-//	}
-//	
-//	public ArrayList<Integer> getWaitedPlayerGames(String username) {
-//		return dbGameCollector.waitedGames(username);
-//	}
 	
 	public void updateIncomingInvite() {
-//		invitedGames_NEW = databeest.getInviteGameID(mc.getLoginController().getCurrentAccount());
 		invitedGames_NEW = getNewInvitedGamesID();
 		
 		if (menuInvitePane != null) {
@@ -241,7 +233,6 @@ public class MenuController {
 	}
 	
 	public void updateActiveGames() {
-//		gameIDs_NEW = getDbActivePlayerGames(mc.getLoginController().getCurrentAccount());
 		gameIDs_NEW = getNewActiveGames();
 		if (menuGamesPane != null) {
 			if (gameIDs_OLD.size() != gameIDs_NEW.size()) {
@@ -261,6 +252,27 @@ public class MenuController {
 	
 	public void setActiveGamesPane(MenuGamesPane menuGamesPane) {
 		this.menuGamesPane = menuGamesPane;
+	}
+	
+	public void updateWaitedGames() {
+		waitedGames_NEW = getNewWaitedGames();
+		if (menuWaitingPane != null) {
+//			if (waitedGames_OLD.size() != waitedGames_NEW.size()) { //andere beveiliging bedenken. Checkt niet of status is verandert.
+//				newInvite = true;
+//				if (newInvite) {
+					menuWaitingPane.newWaitedGames(waitedGames_NEW);
+					waitedGames_OLD.clear();
+					waitedGames_OLD = waitedGames_NEW;
+//					System.out.println("Nieuwe actieve game");
+//					newInvite = false;
+//				}
+
+//			}
+		}
+	}
+	
+	public void setWaitedGamesPane(MenuWaitingPane menuWaitingPane) {
+		this.menuWaitingPane = menuWaitingPane;
 	}
 
 	public MenuModel getMenuModel() {

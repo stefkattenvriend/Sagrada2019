@@ -111,6 +111,7 @@ public class DbGameCollector {
 	}
 	
 	public ArrayList<Integer> waitedGames(String username) {
+
 		return dataBaseApplication.getWaitedGames(username);
 	}
 	

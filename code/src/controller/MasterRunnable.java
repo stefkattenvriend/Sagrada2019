@@ -20,14 +20,15 @@ public class MasterRunnable implements Runnable {
             public void run() {
             	
             	menuController.updateIncomingInvite();
-            	menuController.updateActiveGames(); //dit zou moeten werken, laadtijd van query moet gefixt worden.
-            	System.out.println("aan het checken..");
+            	menuController.updateActiveGames();
+            	menuController.updateWaitedGames();
+//            	System.out.println("aan het checken..");
             }
         };
 
         while (test) {
             try {
-                Thread.sleep(3000);
+                Thread.sleep(4000);
             } catch (InterruptedException ex) {
             }
 
