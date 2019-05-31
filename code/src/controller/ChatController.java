@@ -44,13 +44,13 @@ public class ChatController {
 		return name;
 	}
 
-	public ArrayList<String> getchat() {
-		ArrayList<String> chat = chatdb.getChat();
+	public ArrayList<String> getchat(int playerid) {
+		ArrayList<String> chat = chatdb.getChat(playerid);
 		return chat;
 	}
 	
-	public ArrayList<String> getchatDate() {
-		ArrayList<String> chatdate = chatdb.getChatDate();
+	public ArrayList<String> getchatDate(int playerid) {
+		ArrayList<String> chatdate = chatdb.getChatDate(playerid);
 		return chatdate;
 	}
 
@@ -60,6 +60,11 @@ public class ChatController {
 		
 		ArrayList<Integer> iDs = chatdb.getPlayerIDs();		
 		return iDs;
+	}
+
+	public int[] whichPlayers(int gameid) {
+		int[] players = chatdb.whichPlayers(gameid);
+		return players;
 	}
 	
 	//methode om chat te lezen en door te geven naar model. (playerid, time, message)
