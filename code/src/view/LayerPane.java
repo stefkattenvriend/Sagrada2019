@@ -80,7 +80,7 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 	}
 	
 	private void backToMenu() {
-		myScene.setMenuPane();
+		myScene.goToMenuPane();
 	}
 
 	private void setChooserPane() {

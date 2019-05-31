@@ -93,15 +93,9 @@ public class MenuController {
 	public void loadGame(String gID) {
 		int gameID = Integer.parseInt(gID);
 
-		mc.getGameController().createGameModel(gameID);// gehardcode, moet later anders zijn aan game ID gebonden aan
-														// button
+		mc.getGameController().createGameModel(gameID);
 		int round = dbGameCollector.getRound(gameID);
-		System.out.println("dit is het ronde nummer: " + round);// syso om ronde te checken
-
-//		mc.setGuc(new GameUpdateController(mc));
-//		mc.getGameUpdateController().setGameModel(mc.getGameController().getGm());
-
-//		mc.getUtc().setGameRunning(true);
+		System.out.println("dit is het ronde nummer: " + round);// syso om ronde te checke
 		String username = mc.getLoginController().getCurrentAccount();
 		int playerid = databeest.getPlayerID(username, gameID);
 		int patcardid = databeest.getPaternCardNumber(playerid);

@@ -21,13 +21,13 @@ public class DbChatCollector {
 		return name;
 	}
 
-	public ArrayList<String> getChat() {
-		String query = "SELECT * FROM `chatline` ORDER BY time;";
+	public ArrayList<String> getChat(int playerid) {
+		String query = "SELECT * FROM chatline WHERE player_idplayer = '" + playerid + "' ORDER BY time;";
 		ArrayList<String> chat = dataBaseApplication.getChat(query);
 		return chat;
 	}
-	public ArrayList<String> getChatDate() {
-		String query = "SELECT RIGHT(time, 8) FROM chatline ORDER BY time;";
+	public ArrayList<String> getChatDate(int playerid) {
+		String query = "SELECT RIGHT(time, 8) FROM chatline WHERE player_idplayer = '" + playerid + "' ORDER BY time;";
 		ArrayList<String> chatdate = dataBaseApplication.getChatDate(query);
 		return chatdate;
 	}
@@ -42,5 +42,10 @@ public class DbChatCollector {
 		String query = "SELECT player_idplayer FROM chatline ORDER BY time;";
 		ArrayList<Integer> chatIDs = dataBaseApplication.getChatIDs(query); 
 		return chatIDs;
+	}
+
+	public int[] whichPlayers(int gameid) {
+		int[] players = dataBaseApplication.GetPlayerIDs(gameid);
+		return players;
 	}
 }

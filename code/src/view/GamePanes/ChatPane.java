@@ -1,6 +1,5 @@
 package view.GamePanes;
 
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,15 +19,13 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
-
-
 public class ChatPane extends BorderPane {
 
 	// constants
 	private double panewidth = (GamePane.windowMaxWidth / 3) / 2;
 	private double paneheight = (GamePane.windowMaxHeight);
 	private int textareasize = 735;
-	private int playerid; 
+	private int playerid;
 	private int buttonwidth = 35;
 
 	// instance variables
@@ -38,13 +35,15 @@ public class ChatPane extends BorderPane {
 	private ArrayList<String> chatdate;
 	private LoginController loginController;
 	private ScrollPane scrollPane;
-	
+	private int gameid;
+
 	// Gemaakt door milan
 	public ChatPane(ChatController cc, LoginController loginController) {
 		this.loginController = loginController;
 		this.cc = cc;
 		setUp();
-		playerid = cc.getPlayerID(cc.getGameid(), loginController.getCurrentAccount());
+		gameid = cc.getGameid();
+		playerid = cc.getPlayerID(gameid, loginController.getCurrentAccount());
 	}
 
 	private void setUp() {
@@ -85,25 +84,26 @@ public class ChatPane extends BorderPane {
 				textArea.appendText("\n");
 				cc.sendChatToDatabase(playerid, "NOW()", message);
 				textField.clear();
-				
+
 			}
 			buttonBar.getChildren().clear();
-			
+
 			buttonBar.getChildren().addAll(textField, getchatbutton);
 		});
 
 		getchatbutton.setOnAction(action -> {
-			
-			chat = cc.getchat();
-			chatdate = cc.getchatDate();
-			ArrayList<Integer> idchat = cc.getPlayerIDs();
+			int[] players = cc.whichPlayers(gameid);
 			textArea.clear();
-			for(int i = 0; i < chat.size(); i++) {
-				
-				String name = cc.getUsername(idchat.get(i));
-				textArea.appendText("(" + chatdate.get(i) + ") " + name + ": ");
-				textArea.appendText(chat.get(i) + "\n");
+			for (int i = 0; i < players.length; i++) {
+				chat = cc.getchat(players[i]);
+				chatdate = cc.getchatDate(players[i]);
+				for (int x = 0; x < chat.size(); x++) {
+					String name = cc.getUsername(players[i]);
+					textArea.appendText("(" + chatdate.get(x) + ") " + name + ": ");
+					textArea.appendText(chat.get(x) + "\n");
+				}
 			}
+
 			buttonBar.getChildren().clear();
 			buttonBar.getChildren().addAll(textField, submitbutton);
 
