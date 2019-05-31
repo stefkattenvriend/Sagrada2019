@@ -121,7 +121,6 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		pcc = new PatterncardController(DatabasePTCCollector, gm);
 		lyc = new LayerController(pcc, this);
 		this.dhc = new DiceHolderController(pcc, dbDieCollector, gm.getGameId());
-		createCardsController();
 		this.tc = new TurnController(dhc, dbDieUpdater, gm, dtc, username, gm.getGameId());
 		createCardsController();
 	}

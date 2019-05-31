@@ -58,8 +58,7 @@ public class MenuInvitePane extends FlowPane {
 		inviteList.setFitToHeight(true);
 
 		list = new VBox();
-		list.setMinWidth(MenuPane.paneWidth - 80); // hoogte van lijst moet automatisch bijgewerkt worden met binding of
-													// listner.
+		list.setMinWidth(MenuPane.paneWidth - 80); // hoogte van lijst moet automatisch bijgewerkt worden met binding of listner.
 		list.setMaxWidth(MenuPane.paneWidth - 80);
 		inviteList.setContent(list);
 

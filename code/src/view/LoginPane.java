@@ -40,6 +40,16 @@ public class LoginPane extends VBox{
 		setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
 		accountField = new TextField();
 		wachtwoordField = new PasswordField();
+		accountField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent enter) {
+				if(enter.getCode().equals(KeyCode.ENTER)) {
+					login();
+				}
+			}
+			
+		});
 		wachtwoordField.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
 			@Override
@@ -69,10 +79,6 @@ public class LoginPane extends VBox{
 		loginButton = new Button("Inloggen");
 		registreerButton = new Button("Registreren");
 		loginButton.setOnAction(e -> login());
-		
-		//TODO
-//		registreerButton.setOnAction();     > Moet naar registreerPane gaan
-		//tijdelijk:
 		registreerButton.setOnAction(e -> register());
 	}
 	
