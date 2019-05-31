@@ -41,13 +41,9 @@ public class PlayerPane extends VBox{
 		return personalAttributes;
 	}
 	
-	
-	public PlayerPane(DiceHolderController dhc, PatterncardController dcc, MyScene myScene, GameController gc, PointsController pc, TurnController tc, PayStoneController psc) {
-		this.psc = psc;
-	}
-	
-	public PlayerPane(DiceHolderController dhc, PatterncardController dcc, MyScene myScene, GameController gc, PointsController pc, TurnController tc, PlayerController playercontroller) {
+	public PlayerPane(DiceHolderController dhc, PatterncardController dcc, MyScene myScene, GameController gc, PointsController pc, TurnController tc, PlayerController playercontroller, PayStoneController psc) {
 		this.dhc = dhc;
+		this.psc = psc;
 		this.dcc = dcc;
 		this.gc = gc;
 		this.myScene = myScene;
@@ -117,8 +113,6 @@ public class PlayerPane extends VBox{
 		gc.setPersonalAttributes(personalAttributes);
 		psh = new PaystoneHolderPane(psc, psc.getPlayerStones());
 		points = new PointsPane(pc);
-		pocp = new PersonalObjectiveCardPane(playercontroller);
-		personalAttributes.getChildren().addAll(psh, points, pocp);
 		pocp = new PersonalObjectiveCardPane(playercontroller);
 		personalAttributes.getChildren().addAll(getpaystoneHolder(), points, pocp);
 		personalAttributes.setMinHeight(75);
