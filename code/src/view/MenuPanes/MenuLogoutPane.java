@@ -21,8 +21,9 @@ public class MenuLogoutPane extends FlowPane{
 		button.setMaxSize(100, 50);
 		button.setMinSize(100, 50);
 		button.setOnAction(e -> logout());
-		button.setTextAlignment(TextAlignment.CENTER);
-		button.setOnMouseClicked(e -> button.setTextAlignment(TextAlignment.CENTER));
+		button.setTextAlignment(TextAlignment.RIGHT);
+		button.setOnMouseClicked(e -> button.setTextAlignment(TextAlignment.RIGHT));
+		button.setOnMouseEntered(e -> button.setTextAlignment(TextAlignment.RIGHT));
 		
 		getChildren().add(button);
 	}
