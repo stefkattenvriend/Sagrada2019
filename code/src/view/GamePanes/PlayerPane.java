@@ -5,7 +5,6 @@ import controller.DiceHolderController;
 import controller.GameController;
 import controller.PatterncardController;
 import controller.PayStoneController;
-import controller.PayStonePlayerThread;
 import controller.PointsController;
 import controller.TurnController;
 import helpers.DiceHolderType;
@@ -13,7 +12,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import view.MyScene;
@@ -51,6 +49,7 @@ public class PlayerPane extends VBox{
 		this.myScene = myScene;
 		this.pc = pc;
 		this.tc = tc;
+		personalAttributes = new PersonalAttributes(this);
 		setBackground(controller.Main.PLAYERPANE); // aanduiding voor pane
 		setUp();
 		tc.givePane(this);

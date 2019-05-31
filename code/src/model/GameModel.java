@@ -52,6 +52,7 @@ public class GameModel {
 	public void addPlayer(int i, int playerID, String username)
 	{
 		System.out.println("i=" + i);
+		System.out.println("playerId" + playerID);
 		pma[i] = new PlayerModel(dpc);
 		pma[i].setGameid(gameid);
 		pma[i].setPlayerId(playerID);

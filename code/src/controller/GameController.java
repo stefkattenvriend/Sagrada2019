@@ -122,12 +122,13 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 
 		for (int i = 0; i < amountOfPlayers; i++) {
 			//kijk welke spelers er meedoen en maak ze
-
 			pc.setPlayerId(playerIDs[i]);
 			gm.addPlayer(i, playerIDs[i], username);
+			System.out.println("playerIds[i]" + playerIDs[i]);
 		}
 		pcc = new PatterncardController(DatabasePTCCollector, gm);
 		lyc = new LayerController(pcc, this);
+		System.out.println("Player id in create game model: " + pc.getPlayerID());
 		this.dhc = new DiceHolderController(pcc, dbDieCollector, gm.getGameId());
 		this.tc = new TurnController(dhc, dbDieUpdater, gm, dtc, username, gm.getGameId());
 		createCardsController();
@@ -136,8 +137,8 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	public void createCardsController() {
 		psc = new PayStoneController(psr, pc.getPlayerID(), gm.getGameId());
 		tcc = new ToolCardController(dhc.getDiceController().getDMAL(), psc, dtcc, gm.getGameId());
-		psc = new PayStoneController(psr, pc.getPlayerID(), gm.getGameId());
 		crc = new CardsController(dbCardCollector, gm.getGameId(), tcc);
+		System.out.println("should be gameId: " + gm.getGameId());
 	}
 
 	public PayStoneController getPayStoneController() {
@@ -145,12 +146,14 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	}
 	
 	public void updatePaystones() {
-		int amount = psc.getPlayerStones();
-		System.out.println("amount: " + amount);
-		if (amount != ppsm.getStones()) {
-			System.out.println("ppsm amount: " + ppsm.getStones());
-			ppsm.setStones(amount);	
-			pa.refresh();
+		if(gameRunning) {
+			int amount = psc.getPlayerStones();
+			System.out.println("amount: " + amount);
+			if (amount != ppsm.getStones()) {
+				System.out.println("ppsm amount: " + ppsm.getStones());
+				ppsm.setStones(amount);	
+				pa.refresh();
+			}
 		}
 	}
 	

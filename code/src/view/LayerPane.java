@@ -35,12 +35,13 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 	private int[] randomPat;
 	private int playerid; 
 	private LoginController logc;
-	private GamePane gamePane;
+	private GameController gameController;
 	private MyScene myScene;
 	
-	public LayerPane(LayerController controller, PatterncardController pcc, LoginController loginController, MyScene myscene) {
+	public LayerPane(LayerController controller, PatterncardController pcc, LoginController loginController, MyScene myscene, GameController gameController) {
 //		randomPat = controller.getRandomPat();
 		this.myScene = myscene;
+		this.gameController = gameController;
 		logc = loginController;
 		this.lyc = controller;
 		this.pcc = pcc;
@@ -126,6 +127,8 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 		patternCard.setAlignment(Pos.CENTER);
 		patternCard.setOnMouseClicked(e -> { 
 			pcc.givePatternCardToPlayer(Integer.parseInt(rdInt), playerid); //Wanneer je klikt op de tilepane krijg je die id in de database bij player
+			System.out.println("The patterncardId: " + Integer.parseInt(rdInt));
+			gameController.getPayStoneController().giveStones(Integer.parseInt(rdInt));
 			//get paystones
 			myScene.setGamePane(); //setgamePane
 			lyc.setGameRunning(true);

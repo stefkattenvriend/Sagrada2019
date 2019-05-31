@@ -1,6 +1,5 @@
 package view.GamePanes;
 import controller.PayStoneController;
-import controller.PayStonePlayerThread;
 //joery
 import javafx.scene.control.Label;
 import javafx.scene.layout.Border;
