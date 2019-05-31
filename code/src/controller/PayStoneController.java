@@ -27,7 +27,10 @@ public class PayStoneController {
 	}
 
 	public int getStonesOnCard(int cardId) {
-		return psr.getStonesOnCard(cardId, gameId);
-		
+		return psr.getStonesOnCard(cardId, gameId);	
+	}
+	
+	public int getPlayerStones() {
+		return psr.getStones(playerId, gameId);
 	}
 }
