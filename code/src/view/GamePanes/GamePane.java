@@ -47,6 +47,7 @@ public class GamePane extends StackPane {
 		
 		setScreenSize();
 		setUp();
+		gc.setGamepane(this);
 	}
 
 	private void setUp() {
@@ -74,6 +75,12 @@ public class GamePane extends StackPane {
 
 	private void setScreenSize() {
 		setPrefSize(windowMaxWidth, windowMaxHeight);
+	}
+
+	public void updatePC() {
+		playerPane.updatePC();
+		enemyPane.updatePC();
+		
 	}
 
 }

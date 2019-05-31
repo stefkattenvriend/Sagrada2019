@@ -11,6 +11,7 @@ import databeest.DbPlayerCollector;
 import databeest.DbToolCardCollector;
 import databeest.DbTurnCollector;
 import model.GameModel;
+import view.GamePanes.GamePane;
 
 public class GameController {// deze classe wordt aangemaakt in de masterController en maakt uiteindelijk ook
 								// de andere controllers aan ~Rens
@@ -36,6 +37,8 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private DbToolCardCollector dtcc;
 	private ToolCardController tcc;
 	private PayStoneController psc;
+	private GamePane gamepane;
+	private boolean gameRunning;
 	
 	private PlayerController pc;
 
@@ -47,6 +50,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		this.lc = lc;
 		this.dbCardCollector = dbCardCollector;
 		
+
 		cc = new ChatController(dbChat, this);
 		this.dbDieCollector = ddc;
 		this.guc = guc;
@@ -58,6 +62,8 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		this.dtc = dtc;
 		dtcc = tcc;
 		this.psr = psr;
+		
+		this.gameRunning = false;
 	}
 	
 	public CardsController getCardsController() {
@@ -113,7 +119,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 			gm.addPlayer(i, playerIDs[i], username);
 		}
 		pcc = new PatterncardController(DatabasePTCCollector, gm);
-		lyc = new LayerController(pcc);
+		lyc = new LayerController(pcc, this);
 		this.dhc = new DiceHolderController(pcc, dbDieCollector, gm.getGameId());
 		createCardsController();
 		this.tc = new TurnController(dhc, dbDieUpdater, gm, dtc, username, gm.getGameId());
@@ -129,6 +135,22 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 
 	public PayStoneController getPayStoneController() {
 		return psc;
+	}
+
+	public void updatePC() {
+		if (gameRunning) {
+			gamepane.updatePC();
+		}
+		
+		
+	}
+
+	public void setGamepane(GamePane gamepane) {
+		this.gamepane = gamepane;
+	}
+	
+	public void setGameRunning(boolean gameRunning) {
+		this.gameRunning = gameRunning;
 	}
 
 }
