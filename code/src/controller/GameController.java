@@ -10,6 +10,7 @@ import databeest.DbPayStoneRuler;
 import databeest.DbPlayerCollector;
 import databeest.DbToolCardCollector;
 import databeest.DbTurnCollector;
+import javafx.scene.paint.Color;
 import model.GameModel;
 import model.PlayerPayStoneModel;
 import view.GamePanes.PersonalAttributes;
@@ -177,4 +178,10 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		this.gameRunning = gameRunning;
 	}
 
+	public void setMyColor()
+	{
+		if (gameRunning) {
+			gamepane.setMyColor(gm.getMyColor());
+		}
+	}
 }
