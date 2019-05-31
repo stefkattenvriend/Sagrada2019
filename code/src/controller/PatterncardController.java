@@ -163,4 +163,10 @@ public class PatterncardController {
 	public void loadEnemyPatterncards() {
 
 	}
+
+	public int getDifficulty(int rdInt) {
+		int diff = DatabasePTCCollector.getDifficulty(rdInt);
+		return diff;
+		
+	}
 }

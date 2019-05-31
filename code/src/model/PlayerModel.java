@@ -67,6 +67,7 @@ public class PlayerModel {
 
 	public void setPlayerId(int playerid) {
 		this.playerid = playerid;
+		System.out.println("player id set to:" + playerid);
 	}
 
 	public void setPayStones(int payStones) {

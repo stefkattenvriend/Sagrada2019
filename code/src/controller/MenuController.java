@@ -29,6 +29,8 @@ public class MenuController {
 	private ArrayList<Integer> gameIDs_OLD;
 	private ArrayList<Integer> waitedGames_OLD;
 	private ArrayList<Integer> waitedGames_NEW;
+	private ArrayList<String> playerStatus_OLD;
+	private ArrayList<String> playerStatus_NEW;
 	private MenuInvitePane menuInvitePane;
 	private boolean newInvite = false;
 	private MenuGamesPane menuGamesPane;
@@ -36,6 +38,7 @@ public class MenuController {
 	private MenuModel menuModel;
 	private int[] randomPat;
 	private DbPayStoneRuler psr;
+	private boolean nextCheck = true;
 
 	public MenuController(MyScene myScene, MasterController mc, DbGameCollector dbGameCollector,
 			MenuUpdateController menuUpdateController, DbPayStoneRuler psr) {
@@ -48,61 +51,58 @@ public class MenuController {
 		databeest = mc.getDatabaseApplication();
 		invitedGamesID_OLD = getInvitedGamesID();
 		gameIDs_OLD = getActiveGames();
-		this.waitedGames_OLD = menuModel.getWaitedGames();		
+		waitedGames_OLD = getWaitedGames();
 	}
-	
+
 	public ArrayList<String> getChallengers() {
 		return menuModel.getChallengers();
 	}
-	
+
 	public ArrayList<String> getNewChallengers() {
 		return menuModel.getChallengersUpdate();
 	}
-	
-	public ArrayList<String> getInvitedGamesID(){
+
+	public ArrayList<String> getInvitedGamesID() {
 		return menuModel.getInvitedGameIDs();
 	}
-	
-	public ArrayList<String> getNewInvitedGamesID(){
+
+	public ArrayList<String> getNewInvitedGamesID() {
 		return menuModel.getInvitedGameIDsUpdate();
 	}
-	
-	public ArrayList<Integer> getActiveGames(){
+
+	public ArrayList<Integer> getActiveGames() {
 		return menuModel.getActiveGames();
 	}
-	
-	public ArrayList<Integer> getNewActiveGames(){
+
+	public ArrayList<Integer> getNewActiveGames() {
 		return menuModel.getActiveGamesUpdate();
 	}
-	
-	public ArrayList<Integer> getWaitedGames(){
+
+	public ArrayList<Integer> getWaitedGames() {
 		return menuModel.getWaitedGames();
 	}
-	
-	public ArrayList<Integer> getNewWaitedGames(){
+
+	public ArrayList<Integer> getNewWaitedGames() {
 		return menuModel.getWaitedGamesUpdate();
 	}
-	
+
+	public ArrayList<String> getPlayerStatus(int gameID) {
+		return menuModel.getPlayerStatus(gameID);
+	}
 
 	public void loadGame(String gID) {
 		int gameID = Integer.parseInt(gID);
 
-		mc.getGameController().createGameModel(gameID);// gehardcode, moet later anders zijn aan game ID gebonden aan
-														// button
+		mc.getGameController().createGameModel(gameID);
 		int round = dbGameCollector.getRound(gameID);
-		System.out.println("dit is het ronde nummer: " + round);// syso om ronde te checken
-
-//		mc.setGuc(new GameUpdateController(mc));
-//		mc.getGameUpdateController().setGameModel(mc.getGameController().getGm());
-		
-//		mc.getUtc().setGameRunning(true);
+		System.out.println("dit is het ronde nummer: " + round);// syso om ronde te checke
 		String username = mc.getLoginController().getCurrentAccount();
 		int playerid = databeest.getPlayerID(username, gameID);
 		int patcardid = databeest.getPaternCardNumber(playerid);
 		int[] choice = databeest.getPcChoiche(playerid);
-		
+
 		LayerController lyc = mc.getGameController().getLayerController();
-		
+
 		if (choice[0] == 0) {
 			lyc.generateRdmPatternCards();
 			randomPat = lyc.getRandomPat();
@@ -112,7 +112,7 @@ public class MenuController {
 				
 			}
 			myScene.setLayerPane();
-		}else {
+		} else {
 			lyc.setRandomID(choice);
 		}
 		if (round == 1 && patcardid == 0) {
@@ -210,10 +210,10 @@ public class MenuController {
 //		System.out.println(list);//syso to check which numbers are added to database
 		return list;
 	}
-	
+
 	public void updateIncomingInvite() {
 		invitedGames_NEW = getNewInvitedGamesID();
-		
+
 		if (menuInvitePane != null) {
 			if (invitedGamesID_OLD.size() != invitedGames_NEW.size()) {
 				newInvite = true;
@@ -232,7 +232,7 @@ public class MenuController {
 	public void setInvitePane(MenuInvitePane menuInvitePane) {
 		this.menuInvitePane = menuInvitePane;
 	}
-	
+
 	public void updateActiveGames() {
 		gameIDs_NEW = getNewActiveGames();
 		if (menuGamesPane != null) {
@@ -250,28 +250,22 @@ public class MenuController {
 			}
 		}
 	}
-	
+
 	public void setActiveGamesPane(MenuGamesPane menuGamesPane) {
 		this.menuGamesPane = menuGamesPane;
 	}
-	
+
 	public void updateWaitedGames() {
 		waitedGames_NEW = getNewWaitedGames();
-		if (menuWaitingPane != null) {
-//			if (waitedGames_OLD.size() != waitedGames_NEW.size()) { //andere beveiliging bedenken. Checkt niet of status is verandert.
-//				newInvite = true;
-//				if (newInvite) {
-					menuWaitingPane.newWaitedGames(waitedGames_NEW);
-					waitedGames_OLD.clear();
-					waitedGames_OLD = waitedGames_NEW;
-//					System.out.println("Nieuwe actieve game");
-//					newInvite = false;
-//				}
 
-//			}
+		if (menuWaitingPane != null) {
+			menuWaitingPane.newWaitedGames(waitedGames_NEW);
+			waitedGames_OLD.clear();
+			waitedGames_OLD = waitedGames_NEW;
 		}
+
 	}
-	
+
 	public void setWaitedGamesPane(MenuWaitingPane menuWaitingPane) {
 		this.menuWaitingPane = menuWaitingPane;
 	}

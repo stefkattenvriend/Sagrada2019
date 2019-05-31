@@ -8,6 +8,7 @@ import javafx.scene.layout.Pane;
 import model.DiceHolderModel;
 import model.GameModel;
 import model.PlayerModel;
+import view.GamePanes.ChatPane;
 import view.GamePanes.PlayerPane;
 
 public class TurnController {
@@ -16,24 +17,32 @@ public class TurnController {
 	private DbDieUpdater ddu;
 	private GameModel gm;
 	private DbTurnCollector dtc;
-	PlayerModel currentplayer;
-	String username;
-	int gameId;
+	private PlayerModel currentplayer;
+	private String username;
+	private int gameId;
 	private PlayerPane pp;
 	private TurnAdmissionChecker tac;
+	private GameController gController;
 	
-	public TurnController(DiceHolderController dhc, DbDieUpdater ddu, GameModel gm, DbTurnCollector dtc, String username, int gameId) {
+	public TurnController(GameController gc, DiceHolderController dhc, DbDieUpdater ddu, GameModel gm, DbTurnCollector dtc, String username, int gameId) {
 		this.gameId = gameId;
 		this.username = username;
 		this.dtc = dtc;
 		this.dhc = dhc;
 		this.ddu = ddu;
 		this.gm = gm;
+		this.gController = gc;
 	}
 	
 	public void givePane(PlayerPane pane) {
 		this.pp = pane;
 	}
+	
+	
+	
+//	public void updateChat() {
+//		gController.updateChatPane();
+//	}
 
 	public void updatePass() {// update na pas knop
 		
