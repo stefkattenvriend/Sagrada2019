@@ -10,6 +10,7 @@ import databeest.DbPayStoneRuler;
 import databeest.DbPlayerCollector;
 import databeest.DbToolCardCollector;
 import databeest.DbTurnCollector;
+import javafx.scene.paint.Color;
 import helpers.PatterncardType;
 import model.GameModel;
 import view.GamePanes.ChatPane;
@@ -183,6 +184,12 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		this.gameRunning = gameRunning;
 	}
 
+	public void setMyColor()
+	{
+		if (gameRunning) {
+			gamepane.setMyColor(gm.getMyColor());
+		}
+	}
 	public void updatePCid(int i) {
 		//pcc.updatePCa(i, PatterncardType.PLAYER);
 		//gm.updatePCa(i);
@@ -197,10 +204,10 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		return chatPane;
 	}
 	
-//	public void updateChatPane() {
-//		if(chatPane != null) {
-//		chatPane.updateChat();
-//		}
-//	}
+	public void updateChatPane() {
+		if(chatPane != null) {
+		chatPane.updateChat();
+		}
+	}
 
 }

@@ -32,7 +32,7 @@ public class TurnAdmissionChecker implements Runnable {
 			checkMyTurn();
 //			tc.updatePass(); //hoeft niet automatisch toch? aldus milan.
 			
-//			tc.updateChat(); //update chat automatisch hoop ik
+			tc.updateChat(); //update chat automatisch hoop ik
 		}
 	}
 	

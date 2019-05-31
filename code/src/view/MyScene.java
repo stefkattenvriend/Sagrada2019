@@ -6,6 +6,7 @@ import controller.PlayerController;
 //joery
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import model.GameModel;
 import view.GamePanes.GamePane;
 import view.MenuPanes.MenuPane;
 
@@ -18,13 +19,13 @@ public class MyScene extends Scene{
 	private GamePane gamePane;
 	private LoginPane loginPane;
 	private Pane root;
-	private PlayerController playercontroller;
+	private GameModel gameModel;
 //	private Stage stage;
 	
-	public MyScene(MasterController mc, PlayerController playercontroller) {
+	public MyScene(MasterController mc, GameModel gameModel) {
 		super(new Pane());
 		this.mc = mc;
-		this.playercontroller = playercontroller;
+		this.gameModel = gameModel;
 //		this.stage = stage;
 		this.
 		lc = mc.getLoginController();
@@ -69,7 +70,7 @@ public class MyScene extends Scene{
 	}
 
 	public void setGamePane() {
-		gamePane = new GamePane(mc.getGameController(), this, lc, mc.getPayStoneController(), playercontroller);
+		gamePane = new GamePane(mc.getGameController(), this, lc, mc.getPayStoneController(), gameModel);
 		setNewRoot(gamePane);
 		mc.getStage().setHeight(gamePane.windowMaxHeight);
 		mc.getStage().setWidth(gamePane.windowMaxWidth);

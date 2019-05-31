@@ -14,6 +14,8 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import model.GameModel;
 import view.MyScene;
 
 
@@ -35,13 +37,12 @@ public class PlayerPane extends VBox{
 	private Button pass;
 	private PayStoneController psc;
 	private PaystoneHolderPane psh;
-	private PlayerController playercontroller;
 	
 	public PersonalAttributes getPersonalAttributes() {
 		return personalAttributes;
 	}
 	
-	public PlayerPane(DiceHolderController dhc, PatterncardController dcc, MyScene myScene, GameController gc, PointsController pc, TurnController tc, PlayerController playercontroller, PayStoneController psc) {
+	public PlayerPane(DiceHolderController dhc, PatterncardController dcc, MyScene myScene, GameController gc, PointsController pc, TurnController tc, PayStoneController psc) {
 		this.dhc = dhc;
 		this.psc = psc;
 		this.dcc = dcc;
@@ -50,7 +51,6 @@ public class PlayerPane extends VBox{
 		this.pc = pc;
 		this.tc = tc;
 		personalAttributes = new PersonalAttributes(this);
-		this.playercontroller = playercontroller;
 		setBackground(controller.Main.PLAYERPANE); // aanduiding voor pane
 		setUp();
 		tc.givePane(this);
@@ -114,7 +114,7 @@ public class PlayerPane extends VBox{
 		gc.setPersonalAttributes(personalAttributes);
 		psh = new PaystoneHolderPane(psc, psc.getPlayerStones());
 		points = new PointsPane(pc);
-		pocp = new PersonalObjectiveCardPane(playercontroller);
+		pocp = new PersonalObjectiveCardPane();
 		personalAttributes.getChildren().addAll(getpaystoneHolder(), points, pocp);
 		personalAttributes.setMinHeight(75);
 		getChildren().add(personalAttributes);
@@ -158,6 +158,10 @@ public class PlayerPane extends VBox{
 		
 	}
 
+	public void setMyColor(Color color) {
+		pocp.setMyColor(color);		
+	}
+	
 	public void updatePCid(int i) {
 		playerBoardPane.updatePCid(i);
 		
