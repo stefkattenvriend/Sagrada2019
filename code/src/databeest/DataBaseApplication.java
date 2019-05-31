@@ -999,7 +999,7 @@ public class DataBaseApplication {
 	public int getStones(int playerId, int gameId) {
 		Statement stmt = null;
 		String query = "SELECT count(idplayer) FROM gamefavortoken WHERE idplayer = " + playerId + " AND idgame = "
-				+ gameId + "AND gametoolcard IS NULL;";
+				+ gameId + " AND gametoolcard = NULL;";
 		int amount = 0;
 		try {
 			stmt = m_Conn.createStatement();
