@@ -1089,8 +1089,7 @@ public class DataBaseApplication {
 
 	public int getStonesOnCard(int cardId, int gameId) {
 		Statement stmt = null;
-		String query = "SELECT count(idfavortoken) FROM gamefavortoken WHERE gametoolcard = " + cardId + "AND idgame = "
-				+ gameId;
+		String query = "SELECT count(idfavortoken) FROM gamefavortoken WHERE gametoolcard = '" + cardId + "' AND idgame = '" + gameId + "';";
 		int amount = 0;
 		try {
 			stmt = m_Conn.createStatement();
@@ -1098,6 +1097,7 @@ public class DataBaseApplication {
 
 			while (rs.next()) {
 				amount = rs.getInt(1);
+
 			}
 			stmt.close();
 		} catch (SQLException e) {
