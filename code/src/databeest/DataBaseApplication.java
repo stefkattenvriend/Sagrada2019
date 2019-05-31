@@ -466,6 +466,27 @@ public class DataBaseApplication {
 		return chat;
 	}
 
+	public ArrayList<Integer> getChatPlayers(String query) {
+		Statement stmt = null;
+		ArrayList<Integer> chatPlayers = new ArrayList<>();
+
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			// return string in console
+			while (rs.next()) {
+
+				chatPlayers.add(rs.getInt(1));
+
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return chatPlayers;
+	}
+	
 	public ArrayList<String> getChatDate(String query) {
 		Statement stmt = null;
 		ArrayList<String> chat = new ArrayList<>();
@@ -1099,4 +1120,6 @@ public class DataBaseApplication {
 		}
 		return amount;
 	}
+
+	
 }

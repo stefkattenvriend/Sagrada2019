@@ -117,4 +117,18 @@ public class GameModel {
 		Color myColor = pma[0].getObjectiveColor();
 		return myColor;
 	}
+	
+	public void updatePCa(int i) {
+		pma[0].setPatid(i);
+		
+		
+	}
+
+	public void updateEnemyPCid() {
+		for (int i = 0; i < pma.length; i++) {
+			if (pma[i].getPatid() == 0) {
+				pma[i].reloadPcID();
+			}
+		}
+	}
 }

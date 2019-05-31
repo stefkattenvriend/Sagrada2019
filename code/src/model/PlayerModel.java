@@ -164,5 +164,9 @@ public class PlayerModel {
 	public void setScore(int score) {
 		this.score = score;
 	}
+	
+	public void reloadPcID() {
+		patid = dpc.getPatternCardID(playerid);
+	}
 
 }

@@ -11,7 +11,9 @@ import databeest.DbPlayerCollector;
 import databeest.DbToolCardCollector;
 import databeest.DbTurnCollector;
 import javafx.scene.paint.Color;
+import helpers.PatterncardType;
 import model.GameModel;
+import view.GamePanes.ChatPane;
 import model.PlayerPayStoneModel;
 import view.GamePanes.PersonalAttributes;
 import view.GamePanes.PlayerPane;
@@ -46,6 +48,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private boolean gameRunning;
 	
 	private PlayerController pc;
+	private ChatPane chatPane;
 	private PlayerPane pp;
 	private PersonalAttributes pa;
 
@@ -131,7 +134,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		lyc = new LayerController(pcc, this);
 		System.out.println("Player id in create game model: " + pc.getPlayerID());
 		this.dhc = new DiceHolderController(pcc, dbDieCollector, gm.getGameId());
-		this.tc = new TurnController(dhc, dbDieUpdater, gm, dtc, username, gm.getGameId());
+		this.tc = new TurnController(this, dhc, dbDieUpdater, gm, dtc, username, gm.getGameId());
 		createCardsController();
 	}
 	
@@ -164,7 +167,10 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 
 	public void updatePC() {
 		if (gameRunning) {
+			gm.updateEnemyPCid();
+			pcc.getPcModels(gm);
 			gamepane.updatePC();
+			
 		}
 		
 		
@@ -184,4 +190,24 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 			gamepane.setMyColor(gm.getMyColor());
 		}
 	}
+	public void updatePCid(int i) {
+		//pcc.updatePCa(i, PatterncardType.PLAYER);
+		//gm.updatePCa(i);
+		gamepane.updatePCid(i);
+		
+	}
+	public void giveChatPane(ChatPane chatPane) {
+		this.chatPane = chatPane;
+	}
+	
+	public ChatPane getChatPane() {
+		return chatPane;
+	}
+	
+	public void updateChatPane() {
+		if(chatPane != null) {
+		chatPane.updateChat();
+		}
+	}
+
 }

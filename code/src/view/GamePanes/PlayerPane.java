@@ -91,6 +91,7 @@ public class PlayerPane extends VBox{
 	private void menuAction() {
 		myScene.goToMenuPane();
 		tc.stopThread();
+		gc.setGameRunning(false);
 	}
 
 	public void yourTurn() {
@@ -159,6 +160,11 @@ public class PlayerPane extends VBox{
 
 	public void setMyColor(Color color) {
 		pocp.setMyColor(color);		
+	}
+	
+	public void updatePCid(int i) {
+		playerBoardPane.updatePCid(i);
+		
 	}
 
 }

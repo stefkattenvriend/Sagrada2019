@@ -91,5 +91,10 @@ public class GamePane extends StackPane {
 	public void setMyColor(Color color) {
 		playerPane.setMyColor(color);
 	}
+	
+	public void updatePCid(int i) {
+		playerPane.updatePCid(i);
+		
+	}
 
 }
