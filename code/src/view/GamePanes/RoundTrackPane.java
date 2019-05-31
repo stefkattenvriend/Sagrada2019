@@ -1,5 +1,6 @@
 package view.GamePanes;
 import controller.DiceHolderController;
+import helpers.DiceHolderType;
 //joery
 import javafx.scene.control.Label;
 import javafx.scene.layout.Border;
@@ -21,7 +22,15 @@ public class RoundTrackPane extends FlowPane{
 	
 	private void setUp() {
 		setPaneSize();
+		addDiceHolders();
 		aanduiding();
+	}
+	
+	private void addDiceHolders() {
+		for (int i = 0; i < 10; i++) {
+			double size = ((GamePane.windowMaxWidth / 3) / 10) - 1; 
+			getChildren().add(dhc.CreateDiceHolder(size, i, 0, DiceHolderType.OFFER));
+			}
 	}
 	
 	private void setPaneSize() {
