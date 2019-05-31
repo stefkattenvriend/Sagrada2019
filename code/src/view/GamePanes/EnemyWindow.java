@@ -148,4 +148,9 @@ public class EnemyWindow extends VBox {
 		}
 
 	}
+
+	public void updatePC() {
+		patternCard.getChildren().clear();
+		addPatternCard();
+	}
 }

@@ -21,9 +21,6 @@ public class CardsController {
 		tcc.useCard(CardNr);
 	}
 	
-	
-	
-	
 	public ImageView getTc1(){
 		return cardBackgroundModel.getToolCardBg(cardBackgroundModel.getToolCard1());
 	}

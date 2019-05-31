@@ -5,9 +5,11 @@ import javafx.application.Platform;
 public class MasterRunnable implements Runnable {
 
 	private MenuController menuController;
+	private GameController gameController;
 	
 	public MasterRunnable(MenuController menuController, GameController gameController) {
 		this.menuController = menuController;
+		this.gameController = gameController;
 	}
 	
 	
@@ -24,6 +26,8 @@ public class MasterRunnable implements Runnable {
             	menuController.updateWaitedGames();
             	
 //            	System.out.println("aan het checken..");
+            	
+            	gameController.updatePC();
             }
         };
 

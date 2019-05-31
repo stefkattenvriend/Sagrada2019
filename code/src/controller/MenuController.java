@@ -112,11 +112,10 @@ public class MenuController {
 		if (choice[0] == 0) {
 			lyc.generateRdmPatternCards();
 			randomPat = lyc.getRandomPat();
-			for (int i = 0; i < randomPat.length; i++) {
-				lyc.insertChoice(i, playerid); // zet keuzes in database
-				System.out.println("patterncardID = : " + randomPat[i]); // syso welke patterncards kunnen gekozen
-																			// worden
-
+			for(int i = 0; i < randomPat.length; i++) {
+				lyc.insertChoice(randomPat[i], playerid);					// zet keuzes in database
+//				System.out.println("patterncardID = : " + randomPat[i]);	//syso welke patterncards kunnen gekozen worden
+				
 			}
 			myScene.setLayerPane();
 		} else {

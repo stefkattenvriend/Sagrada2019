@@ -1,5 +1,6 @@
 package controller;
 
+
 import databeest.DbTurnCollector;
 import view.GamePanes.PlayerPane;
 
@@ -11,19 +12,22 @@ public class TurnAdmissionChecker implements Runnable {
 	private int gameId;
 	private DiceHolderController dhc;
 	private PlayerPane pp;
+	private boolean playing = true;
+	private TurnController tc;
 	
-	public TurnAdmissionChecker(DbTurnCollector dtc, String username, int gameId, DiceHolderController dhc, PlayerPane pp) {
+	public TurnAdmissionChecker(DbTurnCollector dtc, String username, int gameId, DiceHolderController dhc, PlayerPane pp, TurnController tc) {
 		this.username = username;
 		this.gameId = gameId;
 		this.dtc = dtc;
 		this.dhc = dhc;
 		this.pp = pp;
-
+		this.tc = tc;
 	}
 	
 	public void run() {
-		while(true) {
+		while(playing) {
 			checkMyTurn();
+			tc.updatePass(); 
 		}
 	}
 	
@@ -52,6 +56,16 @@ public class TurnAdmissionChecker implements Runnable {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	public void start() {
+		playing = true;
+	}
+	
+	
+	public void stop() {
+		playing = false;
+		
 	}
 	
 	

@@ -426,14 +426,6 @@ public class DataBaseApplication {
 		return idToolCards;
 	}
 
-	// TODO verwijder dit ofzo
-	// public ArrayList<String> getPlayer() {
-	// Statement stmt = null;
-	// ArrayList<String> player = new ArrayList<>();
-	// //try etc..
-	// return player;
-	// }
-
 	// Stef
 	public int getPlayerPayStones(int playerId) {
 		Statement stmt = null;
@@ -1005,7 +997,7 @@ public class DataBaseApplication {
 	public int getStones(int playerId, int gameId) {
 		Statement stmt = null;
 		String query = "SELECT count(idplayer) FROM gamefavortoken WHERE idplayer = " + playerId + " AND idgame = "
-				+ gameId + "AND gametoolcard IS NULL;";
+				+ gameId + " AND gametoolcard = NULL;";
 		int amount = 0;
 		try {
 			stmt = m_Conn.createStatement();
@@ -1088,8 +1080,7 @@ public class DataBaseApplication {
 
 	public int getStonesOnCard(int cardId, int gameId) {
 		Statement stmt = null;
-		String query = "SELECT count(idfavortoken) FROM gamefavortoken WHERE gametoolcard = " + cardId + "AND idgame = "
-				+ gameId;
+		String query = "SELECT count(idfavortoken) FROM gamefavortoken WHERE gametoolcard = '" + cardId + "' AND idgame = '" + gameId + "';";
 		int amount = 0;
 		try {
 			stmt = m_Conn.createStatement();
@@ -1097,6 +1088,7 @@ public class DataBaseApplication {
 
 			while (rs.next()) {
 				amount = rs.getInt(1);
+
 			}
 			stmt.close();
 		} catch (SQLException e) {

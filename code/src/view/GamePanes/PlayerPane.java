@@ -26,7 +26,7 @@ public class PlayerPane extends VBox{
 	private PaystoneHolderPane paystoneHolder;
 	private PointsPane points;
 	private PersonalObjectiveCardPane pocp;
-	private PlayerBoardPane patternCardPane;
+	private PlayerBoardPane playerBoardPane;
 	private DiceHolderController dhc;
 	private PatterncardController dcc;
 	private GameController gc;
@@ -46,6 +46,7 @@ public class PlayerPane extends VBox{
 		setUp();
 		tc.givePane(this);
 		tc.TurnAdmissionGiving();
+		tc.startThread();
 	}
 	
 	private void setUp() {
@@ -67,14 +68,20 @@ public class PlayerPane extends VBox{
 		Button menu = new Button("Menu");
 		menu.setMinSize(60, 30);
 		menu.setMaxSize(60, 30);
-		menu.setOnAction(e -> myScene.setMenuPane());
+		menu.setOnAction(e -> menuAction());
 		
 		pass.setAlignment(Pos.CENTER_LEFT);
 		menu.setAlignment(Pos.CENTER_RIGHT);
+		pass.setVisible(false);
 		
-//		section.setLeft(pass);
+		section.setLeft(pass);
 		section.setRight(menu);
 		getChildren().add(section);
+	}
+
+	private void menuAction() {
+		myScene.setMenuPane();
+		tc.stopThread();
 	}
 
 	public void yourTurn() {
@@ -83,13 +90,14 @@ public class PlayerPane extends VBox{
 	
 	private void pass() {
 		tc.updatePass(); 
+		tc.updateSeqnrAndTurn();
 		pass.setVisible(false);
 	}
 
 	private void setPlayerBoardPane() {
 		int patID = gc.getGm().getPlayerModel(DiceHolderType.PLAYERWINDOW).getPatid();
-		patternCardPane = new PlayerBoardPane(dhc, dcc, patID);
-		getChildren().add(patternCardPane);
+		playerBoardPane = new PlayerBoardPane(dhc, dcc, patID);
+		getChildren().add(playerBoardPane);
 	}
 
 	private void setPersonalAttributes() {
@@ -117,6 +125,11 @@ public class PlayerPane extends VBox{
 	
 	public PersonalObjectiveCardPane getPOCP() {
 		return pocp;
+	}
+
+	public void updatePC() {
+		playerBoardPane.updatePC();
+		
 	}
 
 }
