@@ -981,6 +981,9 @@ public class DataBaseApplication {
 	}
 
 	public void addStonesToPlayer(int gameId, int playerId, int amount) {
+		System.out.println("gameId: " + gameId);
+		System.out.println("amount: " + amount);
+		System.out.println("playerId:" + playerId);
 		Statement stmt = null;
 		String query = "UPDATE gamefavortoken SET idplayer = " + playerId + " WHERE idgame = " + gameId
 				+ " AND idplayer IS NULL LIMIT " + amount;
@@ -997,7 +1000,7 @@ public class DataBaseApplication {
 	public int getStones(int playerId, int gameId) {
 		Statement stmt = null;
 		String query = "SELECT count(idplayer) FROM gamefavortoken WHERE idplayer = " + playerId + " AND idgame = "
-				+ gameId + " AND gametoolcard = NULL;";
+				+ gameId + " AND gametoolcard IS NULL;";
 		int amount = 0;
 		try {
 			stmt = m_Conn.createStatement();

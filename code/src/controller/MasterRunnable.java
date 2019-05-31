@@ -24,9 +24,10 @@ public class MasterRunnable implements Runnable {
             	menuController.updateIncomingInvite();
             	menuController.updateActiveGames();
             	menuController.updateWaitedGames();
+            	gameController.updatePaystones();
             	
 //            	System.out.println("aan het checken..");
-            	
+                gameController.updatePaystones();
             	gameController.updatePC();
             }
         };

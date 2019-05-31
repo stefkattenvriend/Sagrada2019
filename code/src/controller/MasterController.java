@@ -56,7 +56,7 @@ public class MasterController extends Application{//een controller die alle ande
 	public void start(Stage stage) throws Exception {
 		this.startMasterController();
 		this.stage = stage;
-		myScene = new MyScene(this);
+		myScene = new MyScene(this, pc);
 		stage.setResizable(false);
 		stage.setScene(myScene);
 		stage.setOnCloseRequest(e -> closeApp());
