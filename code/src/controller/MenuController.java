@@ -119,6 +119,7 @@ public class MenuController {
 			myScene.setLayerPane();
 		} else {
 			myScene.setGamePane();
+			lyc.setGameRunning(true);
 		}
 	}
 

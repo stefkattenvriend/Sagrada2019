@@ -83,4 +83,9 @@ public class GamePane extends StackPane {
 		
 	}
 
+	public void updatePCid(int i) {
+		playerPane.updatePCid(i);
+		
+	}
+
 }

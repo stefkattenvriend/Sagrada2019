@@ -82,6 +82,7 @@ public class PlayerPane extends VBox{
 	private void menuAction() {
 		myScene.setMenuPane();
 		tc.stopThread();
+		gc.setGameRunning(false);
 	}
 
 	public void yourTurn() {
@@ -129,6 +130,11 @@ public class PlayerPane extends VBox{
 
 	public void updatePC() {
 		playerBoardPane.updatePC();
+		
+	}
+
+	public void updatePCid(int i) {
+		playerBoardPane.updatePCid(i);
 		
 	}
 
