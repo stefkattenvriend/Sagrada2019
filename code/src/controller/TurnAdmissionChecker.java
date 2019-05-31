@@ -2,6 +2,7 @@ package controller;
 
 
 import databeest.DbTurnCollector;
+import view.GamePanes.ChatPane;
 import view.GamePanes.PlayerPane;
 
 public class TurnAdmissionChecker implements Runnable {
@@ -14,6 +15,7 @@ public class TurnAdmissionChecker implements Runnable {
 	private PlayerPane pp;
 	private boolean playing = true;
 	private TurnController tc;
+//	private ChatPane chatPane;
 	
 	public TurnAdmissionChecker(DbTurnCollector dtc, String username, int gameId, DiceHolderController dhc, PlayerPane pp, TurnController tc) {
 		this.username = username;
@@ -22,12 +24,15 @@ public class TurnAdmissionChecker implements Runnable {
 		this.dhc = dhc;
 		this.pp = pp;
 		this.tc = tc;
+		
 	}
 	
 	public void run() {
 		while(playing) {
 			checkMyTurn();
-			tc.updatePass(); 
+//			tc.updatePass(); //hoeft niet automatisch toch? aldus milan.
+			
+//			tc.updateChat(); //update chat automatisch hoop ik
 		}
 	}
 	

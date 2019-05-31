@@ -44,16 +44,15 @@ public class ChatController {
 		return name;
 	}
 
-	public ArrayList<String> getchat(int playerid) {
-		ArrayList<String> chat = chatdb.getChat(playerid);
+	public ArrayList<String> getchat(int amountOfPlayers, int playerid1, int playerid2, int playerid3, int playerid4) {
+		ArrayList<String> chat = chatdb.getChat(amountOfPlayers, playerid1, playerid2, playerid3, playerid4);
 		return chat;
 	}
 	
-	public ArrayList<String> getchatDate(int playerid) {
-		ArrayList<String> chatdate = chatdb.getChatDate(playerid);
+	public ArrayList<String> getchatDate(int amountOfPlayers, int playerid1, int playerid2, int playerid3, int playerid4) {
+		ArrayList<String> chatdate = chatdb.getChatDate(amountOfPlayers, playerid1, playerid2, playerid3, playerid4);
 		return chatdate;
 	}
-
 
 
 	public ArrayList<Integer> getPlayerIDs() {

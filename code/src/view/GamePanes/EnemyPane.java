@@ -25,7 +25,7 @@ public class EnemyPane extends BorderPane{
 	private void setUp() {
 		setPaneSize();
 		
-		chatPane = new ChatPane(gameController.getChatController(), gameController.getLoginController());
+		chatPane = new ChatPane(gameController, gameController.getChatController(), gameController.getLoginController());
 		flowPane = new FlowPane();
 		enemyWindow1 = new EnemyWindow(DiceHolderType.ENEMY1, gameController);
 		enemyWindow2 = new EnemyWindow(DiceHolderType.ENEMY2, gameController);

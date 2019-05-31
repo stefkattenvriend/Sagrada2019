@@ -11,6 +11,7 @@ import databeest.DbPlayerCollector;
 import databeest.DbToolCardCollector;
 import databeest.DbTurnCollector;
 import model.GameModel;
+import view.GamePanes.ChatPane;
 import view.GamePanes.GamePane;
 
 public class GameController {// deze classe wordt aangemaakt in de masterController en maakt uiteindelijk ook
@@ -41,6 +42,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private boolean gameRunning;
 	
 	private PlayerController pc;
+	private ChatPane chatPane;
 
 	public GameController(DbPatternCardInfoCollector DatabasePTCCollector, DbGameCollector dbGamecollector, LoginController lc, DbChatCollector dbChat, 
 			DbCardCollector dbCardCollector, GameUpdateController guc, DbPlayerCollector dpc, DbDieCollector ddc, DbDieUpdater ddu, 
@@ -121,7 +123,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		pcc = new PatterncardController(DatabasePTCCollector, gm);
 		lyc = new LayerController(pcc, this);
 		this.dhc = new DiceHolderController(pcc, dbDieCollector, gm.getGameId());
-		this.tc = new TurnController(dhc, dbDieUpdater, gm, dtc, username, gm.getGameId());
+		this.tc = new TurnController(this, dhc, dbDieUpdater, gm, dtc, username, gm.getGameId());
 		createCardsController();
 	}
 	
@@ -151,5 +153,19 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	public void setGameRunning(boolean gameRunning) {
 		this.gameRunning = gameRunning;
 	}
+
+	public void giveChatPane(ChatPane chatPane) {
+		this.chatPane = chatPane;
+	}
+	
+	public ChatPane getChatPane() {
+		return chatPane;
+	}
+	
+//	public void updateChatPane() {
+//		if(chatPane != null) {
+//		chatPane.updateChat();
+//		}
+//	}
 
 }
