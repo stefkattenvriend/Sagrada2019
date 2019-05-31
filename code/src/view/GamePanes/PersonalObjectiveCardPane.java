@@ -10,24 +10,34 @@ public class PersonalObjectiveCardPane extends VBox{
 	private Label label;
 	private Color myColor;
 	private double personalAttributesHeight = 75;
+	private Rectangle square;
 	
-	public PersonalObjectiveCardPane(Color color) {
-		this.myColor=color;
+	public PersonalObjectiveCardPane() {
+
 		setAlignment(Pos.CENTER);
 		setPaneSize();
 		label = new Label("Your personal Color is: ");
-		Rectangle square = new Rectangle();
+		square = new Rectangle();
 		square.setWidth(30);
 		square.setHeight(30);
-		square.setFill(myColor);
+		square.setStroke(Color.BLACK);
+		square.setStrokeWidth(2);
 		getChildren().addAll(label, square);
+
 	}
-	
+
 	private void setPaneSize() {
 		setMinSize((GamePane.windowMaxWidth / 3) / 3, personalAttributesHeight);
 	}
 	
 	public Color getColor() {
+
 		return myColor;
+	}
+
+	public void setMyColor(Color color) {
+		myColor = color;
+		square.setFill(myColor);
+
 	}
 }

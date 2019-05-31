@@ -10,7 +10,14 @@ import databeest.DbPayStoneRuler;
 import databeest.DbPlayerCollector;
 import databeest.DbToolCardCollector;
 import databeest.DbTurnCollector;
+import javafx.scene.paint.Color;
+import helpers.PatterncardType;
 import model.GameModel;
+import view.GamePanes.ChatPane;
+import model.PlayerPayStoneModel;
+import view.GamePanes.PersonalAttributes;
+import view.GamePanes.PlayerPane;
+import view.GamePanes.GamePane;
 
 public class GameController {// deze classe wordt aangemaakt in de masterController en maakt uiteindelijk ook
 								// de andere controllers aan ~Rens
@@ -36,8 +43,14 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private DbToolCardCollector dtcc;
 	private ToolCardController tcc;
 	private PayStoneController psc;
+	private PlayerPayStoneModel ppsm;
+	private GamePane gamepane;
+	private boolean gameRunning;
 	
 	private PlayerController pc;
+	private ChatPane chatPane;
+	private PlayerPane pp;
+	private PersonalAttributes pa;
 
 	public GameController(DbPatternCardInfoCollector DatabasePTCCollector, DbGameCollector dbGamecollector, LoginController lc, DbChatCollector dbChat, 
 			DbCardCollector dbCardCollector, GameUpdateController guc, DbPlayerCollector dpc, DbDieCollector ddc, DbDieUpdater ddu, 
@@ -47,10 +60,13 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		this.lc = lc;
 		this.dbCardCollector = dbCardCollector;
 		
+
 		cc = new ChatController(dbChat, this);
 		this.dbDieCollector = ddc;
 		this.guc = guc;
 		this.dbDieUpdater = ddu;
+		
+		ppsm = new PlayerPayStoneModel();
 		
 		pc = new PlayerController(dpc);
 		this.dbGameCollector = dbGamecollector;
@@ -58,6 +74,8 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		this.dtc = dtc;
 		dtcc = tcc;
 		this.psr = psr;
+		
+		this.gameRunning = false;
 	}
 	
 	public CardsController getCardsController() {
@@ -108,24 +126,88 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 
 		for (int i = 0; i < amountOfPlayers; i++) {
 			//kijk welke spelers er meedoen en maak ze
-
 			pc.setPlayerId(playerIDs[i]);
 			gm.addPlayer(i, playerIDs[i], username);
+			System.out.println("playerIds[i]" + playerIDs[i]);
 		}
 		pcc = new PatterncardController(DatabasePTCCollector, gm);
-		lyc = new LayerController(pcc);
+		lyc = new LayerController(pcc, this);
+		System.out.println("Player id in create game model: " + pc.getPlayerID());
 		this.dhc = new DiceHolderController(pcc, dbDieCollector, gm.getGameId());
-		this.tc = new TurnController(dhc, dbDieUpdater, gm, dtc, username, gm.getGameId());
+		this.tc = new TurnController(this, dhc, dbDieUpdater, gm, dtc, username, gm.getGameId());
+		createCardsController();
 	}
 	
 	public void createCardsController() {
-		tcc = new ToolCardController(dhc.getDiceController().getDMAL(), psc, dtcc, gm.getGameId());
 		psc = new PayStoneController(psr, pc.getPlayerID(), gm.getGameId());
+		tcc = new ToolCardController(dhc.getDiceController().getDMAL(), psc, dtcc, gm.getGameId());
 		crc = new CardsController(dbCardCollector, gm.getGameId(), tcc);
+		System.out.println("should be gameId: " + gm.getGameId());
 	}
 
 	public PayStoneController getPayStoneController() {
 		return psc;
+	}
+	
+	public void updatePaystones() {
+		if(gameRunning) {
+			int amount = psc.getPlayerStones();
+			System.out.println("amount: " + amount);
+			if (amount != ppsm.getStones()) {
+				System.out.println("ppsm amount: " + ppsm.getStones());
+				ppsm.setStones(amount);	
+				pa.refresh();
+			}
+		}
+	}
+	
+	public void setPersonalAttributes(PersonalAttributes pa) {
+		this.pa = pa;
+	}
+
+	public void updatePC() {
+		if (gameRunning) {
+			gm.updateEnemyPCid();
+			pcc.getPcModels(gm);
+			gamepane.updatePC();
+			
+		}
+		
+		
+	}
+
+	public void setGamepane(GamePane gamepane) {
+		this.gamepane = gamepane;
+	}
+	
+	public void setGameRunning(boolean gameRunning) {
+		this.gameRunning = gameRunning;
+	}
+
+	public void setMyColor()
+	{
+		if (gameRunning) {
+			gamepane.setMyColor(gm.getMyColor());
+		}
+	}
+	public void updatePCid(int i) {
+		//pcc.updatePCa(i, PatterncardType.PLAYER);
+		//gm.updatePCa(i);
+		gamepane.updatePCid(i);
+		
+	}
+	public void giveChatPane(ChatPane chatPane) {
+		this.chatPane = chatPane;
+	}
+	
+	public ChatPane getChatPane() {
+		return chatPane;
+	}
+	
+	public void updateChatPane() {
+		if(chatPane != null) {
+		chatPane.updateChat();
+		}
 	}
 
 }

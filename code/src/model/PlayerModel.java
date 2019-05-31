@@ -37,6 +37,7 @@ public class PlayerModel {
 		patid = dpc.getPatternCardID(playerid);
 		score = dpc.getScore(playerid);
 		stringcolor = dpc.getColor(playerid);
+		System.out.println("my color = " + stringcolor);
 		if (stringcolor != null) {
 			switch (stringcolor) {
 			case "geel":
@@ -45,11 +46,9 @@ public class PlayerModel {
 			case "groen":
 				color = Color.GREEN;
 				break;
-
 			case "rood":
 				color = Color.RED;
 				break;
-
 			case "blauw":
 				color = Color.BLUE;
 				break;
@@ -59,6 +58,10 @@ public class PlayerModel {
 				break;
 			}
 		}
+		else {
+			System.out.println("huh??");
+			color = Color.WHITE;
+		}
 	}
 
 	public int getPlayerId() {
@@ -67,6 +70,7 @@ public class PlayerModel {
 
 	public void setPlayerId(int playerid) {
 		this.playerid = playerid;
+		System.out.println("player id set to:" + playerid);
 	}
 
 	public void setPayStones(int payStones) {
@@ -99,6 +103,7 @@ public class PlayerModel {
 	}
 
 	public Color getObjectiveColor() {
+		System.out.println("kleurtje model: " + color);
 		return color;
 	}
 
@@ -158,6 +163,10 @@ public class PlayerModel {
 
 	public void setScore(int score) {
 		this.score = score;
+	}
+	
+	public void reloadPcID() {
+		patid = dpc.getPatternCardID(playerid);
 	}
 
 }

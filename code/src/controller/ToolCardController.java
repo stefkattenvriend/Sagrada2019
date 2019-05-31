@@ -21,8 +21,12 @@ public class ToolCardController {
 		this.gameid = gameid;
 	}
 	
-	public void useCard(int number) {	
-		if (psc.pay(tcc.getPrice(number, gameid), number)) {	
+	public void useCard(int number) {
+		System.out.println("You clicked card:" + number);
+		System.out.println("number" + number);
+		System.out.println("gameid" + gameid);
+		if (psc.pay(tcc.getPrice(number, gameid), number)) {
+			System.out.println("You used card:" + number);
 			if (number == 1) {
 				// na het kiezen dobbelsteen, waarde 1 verhogen of verlagen (bij 1 niet -1 bij 6
 				// niet +1)
@@ -90,10 +94,10 @@ public class ToolCardController {
 			}
 			
 			if (number == 12) {
+				
 				// verplaats 2 dobbelstenen van dezelfde kleur die overeenkomen met een steen op
 				// het rondespoor
 			}
-	
 		}
 	}
 }

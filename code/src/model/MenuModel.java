@@ -12,9 +12,9 @@ public class MenuModel {
 	private DbGameCollector gameCollector;
 
 	// runtime
+	private String currentAccount;
 	private ArrayList<String> challengers;
 	private ArrayList<String> invitedGameIDs;
-	private String currentAccount;
 	private ArrayList<Integer> activePlayerGames;
 	private ArrayList<Integer> waitedPlayerGames;
 	
@@ -25,9 +25,10 @@ public class MenuModel {
 		setInvitedGameIDs();
 		setChallengers();
 		setActiveGames();
+		setWaitedGames();
+		
 	}
 
-	// get & set invitedGamesIDs [MenuInvitePane] (OLD)
 	public void setInvitedGameIDs() {
 		this.invitedGameIDs = menuCollector.getInviteGameID(currentAccount);
 	}
@@ -36,7 +37,6 @@ public class MenuModel {
 		return invitedGameIDs;
 	}
 
-	// get & set challengers [MenuInvitePane]
 	public void setChallengers() {
 		this.challengers = menuCollector.getChallanger(currentAccount);
 	}
@@ -45,6 +45,7 @@ public class MenuModel {
 		return challengers;
 	}
 
+	
 	// START UPDATE METHODS
 	
 	public ArrayList<String> getInvitedGameIDsUpdate() {
@@ -66,6 +67,7 @@ public class MenuModel {
 	
 	// END UPDATE METHODS
 
+	
 	public void setActiveGames(){
 		this.activePlayerGames = gameCollector.startedGames(currentAccount);
 	}
@@ -81,13 +83,9 @@ public class MenuModel {
 	public ArrayList<Integer> getWaitedGames(){
 		return waitedPlayerGames;
 	}
-
-//	public void setWaitedPlayerGames(ArrayList<Integer> waitedPlayerGames) {
-//		this.waitedPlayerGames = waitedPlayerGames;
-//	}
-//
-//	public ArrayList<Integer> getWaitedPlayerGames() {
-//		return waitedPlayerGames;
-//	}
+	
+	public ArrayList<String> getPlayerStatus(int gameID){
+		return menuCollector.getPlayerStatus(gameID, currentAccount);
+	}
 
 }

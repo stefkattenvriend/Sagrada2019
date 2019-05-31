@@ -14,10 +14,12 @@ public class LayerController {
 	private ArrayList<Integer> patternCards = new ArrayList<Integer>(); //arraylist met alle patroonkaarten in zich.
 	private int[] randomPat = new int[4]; //array met 4 random gekozen patroonkaarten opgeslagen.
 	private PatterncardController pcc;
+	private GameController gc;
 	
-	public LayerController(PatterncardController pcc) {
+	public LayerController(PatterncardController pcc, GameController gc) {
 		totalAmoundOfptrnCards = pcc.numberOfPatternCards();
 		this.pcc = pcc;
+		this.gc = gc;
 		System.out.println();
 	}
 	
@@ -50,6 +52,14 @@ public class LayerController {
 	
 	public void setRandomID(int[] ids) {
 		this.randomPat = ids;
+	}
+
+	public void setGameRunning(boolean b) {
+		gc.setGameRunning(b);
+	}
+	
+	public void updatePCid(int i) {
+		gc.updatePCid(i);
 	}
 	
 	

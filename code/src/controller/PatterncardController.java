@@ -19,133 +19,154 @@ public class PatterncardController {
 	private int Patternnumber = 0;
 	private GameModel gModel;
 	private DbPatternCardInfoCollector DatabasePTCCollector;
-	
-	
+
 	public PatterncardController(DbPatternCardInfoCollector DatabasePTCCollector, GameModel gm) {
 		this.DatabasePTCCollector = DatabasePTCCollector;
 		gModel = gm;
 		setup(gm);
 	}
-	
+
 	public int numberOfPatternCards() {
 		int amount = 0;
 		amount = DatabasePTCCollector.numberOfPatCards();
 		return amount;
 	}
-	
+
 	private void setup(GameModel gm) {
-		getPcModels(gm);
-	}	
-	
+		//getPcModels(gm);
+	}
+
 	public int getGameid() {
 		int gameid = 0;
 		gameid = gModel.getGameId();
 		return gameid;
 	}
-	
+
 	public int getPlayerID(int gameid, String username) {
 		int playerid = 0;
 		playerid = DatabasePTCCollector.getPlayerID(gameid, username);
 		return playerid;
 	}
 
-	private void getPcModels(GameModel gm) {
-		
+	public void getPcModels(GameModel gm) {
+
+		ArrayList<PatterncardModel> newPC = new ArrayList<PatterncardModel>();
+
 		for (int i = 0; i < gm.getPma().length; i++) {
 			if (gm.getPma()[i] != null) {
 				if (gm.getPma()[i].getPatid() != 0) {
-					ArrayList<PatterncardModel> newPC = DatabasePTCCollector.getPatternCard(gm.getPma()[i].getPatid());
-					for (int j = 0; j < newPC.size(); j++) {
-						pcmodels.add(newPC.get(j));
-						if(newPC.get(j).getNumber() != 0) {
-							System.out.println(newPC.get(j).getX() + newPC.get(j).getY() + newPC.get(j).getNumber());
-						}
-						
-					}
+					newPC.addAll(DatabasePTCCollector.getPatternCard(gm.getPma()[i].getPatid()));
 				}
 			}
 		}
-		
-		
-		
+		if (newPC.size() < pcmodels.size()) {
+			return;
+		} else {
+			pcmodels.clear();
+			for (int j = 0; j < newPC.size(); j++) {
+				pcmodels.add(newPC.get(j));
+				if (newPC.get(j).getNumber() != 0) {
+					System.out.println(newPC.get(j).getX() + newPC.get(j).getY() + newPC.get(j).getNumber());
+				}
+			}
+		}
 	}
-	
 
-	
 	public PatterncardModel getPcModel(int i) {
-		
+
 		PatterncardModel model = pcmodels.get(i);
-		
+
 		return model;
 	}
-	
+
 	public int getPcModelsSize() {
 		return pcmodels.size();
 	}
-	
+
 	public void addPatternCardChoice(int patID) {
 		pcChoiceModels.addAll(DatabasePTCCollector.getPatternCard(patID));
-		
+
 	}
-	
+
 	public BorderPane PatterncardCreate(int x, int y, int PatterncardNumber, int size, PatterncardType pct) {
 		BorderPane pane = new BorderPane();
-		if(pct == PatterncardType.CHOICE || pct == PatterncardType.PLAYER) {
+		if (pct == PatterncardType.CHOICE || pct == PatterncardType.PLAYER) {
 			pane.setPrefSize(85, 85);
-		}else {
+		} else {
 			pane.setPrefSize(42, 42);
 		}
-		
-		//pane.setPrefSize(arg0, arg1);
-		
-		ArrayList<PatterncardModel> models= null;
-		
+
+		// pane.setPrefSize(arg0, arg1);
+
+		ArrayList<PatterncardModel> models = null;
+
 		if (pct == PatterncardType.CHOICE) {
 			models = pcChoiceModels;
-		}
-		else {
+		} else {
 			models = pcmodels;
 		}
-			
+
 		for (int i = 0; i < models.size(); i++) {
-			if (models.get(i).getPatterncardNumber() == PatterncardNumber && models.get(i).getX() == x && models.get(i).getY() == y) {
-				if(models.get(i).getNumber() >= 1 && models.get(i).getNumber() <= 6) {
+			if (models.get(i).getPatterncardNumber() == PatterncardNumber && models.get(i).getX() == x
+					&& models.get(i).getY() == y) {
+				if (models.get(i).getNumber() >= 1 && models.get(i).getNumber() <= 6) {
 					Text center = new Text(Integer.toString(models.get(i).getNumber()));
-					if(pct == PatterncardType.CHOICE || pct == PatterncardType.PLAYER) {
+					if (pct == PatterncardType.CHOICE || pct == PatterncardType.PLAYER) {
 						center.setScaleX(7);
 						center.setScaleY(7);
-					}else {
+					} else {
 						center.setScaleX(3.5);
-						center.setScaleY(3.5);	
+						center.setScaleY(3.5);
 					}
-					
+
 					pane.setCenter(center);
 					break;
-				}
-				else if(models.get(i).getColor() != null) {
+				} else if (models.get(i).getColor() != null) {
 					Pane center = new Pane();
 					center.setPrefSize(80, 80);
-					center.setBackground(new Background( new BackgroundFill(models.get(i).getColor(), null, null)));
+					center.setBackground(new Background(new BackgroundFill(models.get(i).getColor(), null, null)));
 					pane.setCenter(center);
 					break;
-				}
-				else {
+				} else {
 					break;
 				}
-				
+
 			}
 		}
-		
+
 		return pane;
 	}
 
 	public void givePatternCardToPlayer(int rdInt, int idplayer) {
-		String query = "UPDATE `mwmastbe_db2`.`player` SET `patterncard_idpatterncard` = '" + rdInt + "' WHERE (`idplayer` = '" + idplayer + "');";
+		String query = "UPDATE `mwmastbe_db2`.`player` SET `patterncard_idpatterncard` = '" + rdInt
+				+ "' WHERE (`idplayer` = '" + idplayer + "');";
 		DatabasePTCCollector.givePatternCardToPlayer(query);
 	}
 
 	public void insertChoice(String query) {
 		DatabasePTCCollector.insertChoice(query);
+
+	}
+
+	public void updatePCa(int pcChosen, PatterncardType pct) {
+		if (pct == PatterncardType.PLAYER) {
+			for (int j = pcChoiceModels.size() - 1; j >= 0; j--) {
+				if (pcChoiceModels.get(j).getPatterncardNumber() == pcChosen) {
+					pcChoiceModels.get(j).setPct(pct);
+					pcmodels.add(pcChoiceModels.get(j));
+					pcChoiceModels.remove(j);
+				}
+			}
+		}
+	}
+
+	public void loadEnemyPatterncards() {
+
+	}
+
+	public int getDifficulty(int rdInt) {
+		int diff = DatabasePTCCollector.getDifficulty(rdInt);
+		return diff;
 		
 	}
 }

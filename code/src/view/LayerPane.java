@@ -1,11 +1,14 @@
 package view;
 
+import controller.GameController;
 import controller.LayerController;
 import controller.LoginController;
 import controller.PatterncardController;
+import databeest.DbPatternCardInfoCollector;
 import helpers.PatterncardType;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -14,8 +17,11 @@ import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import view.GamePanes.GamePane;
 
 
@@ -34,12 +40,13 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 	private int[] randomPat;
 	private int playerid; 
 	private LoginController logc;
-	private GamePane gamePane;
+	private GameController gameController;
 	private MyScene myScene;
 	
-	public LayerPane(LayerController controller, PatterncardController pcc, LoginController loginController, MyScene myscene) {
+	public LayerPane(LayerController controller, PatterncardController pcc, LoginController loginController, MyScene myscene, GameController gameController) {
 //		randomPat = controller.getRandomPat();
 		this.myScene = myscene;
+		this.gameController = gameController;
 		logc = loginController;
 		this.lyc = controller;
 		this.pcc = pcc;
@@ -79,7 +86,8 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 	}
 	
 	private void backToMenu() {
-		myScene.setMenuPane();
+		myScene.goToMenuPane();
+		lyc.setGameRunning(false);
 	}
 
 	private void setChooserPane() {
@@ -121,16 +129,29 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 //		Label label = new Label(rdInt);
 //		label.setFont(new Font("Arial", 80));
 //		patternCard.getChildren().add(label);
-		
+		StackPane overlapPane = new StackPane();
 		patternCard.setAlignment(Pos.CENTER);
-		patternCard.setOnMouseClicked(e -> { 
+		overlapPane.setOnMouseClicked(e -> { 
 			pcc.givePatternCardToPlayer(Integer.parseInt(rdInt), playerid); //Wanneer je klikt op de tilepane krijg je die id in de database bij player
+			System.out.println("The patterncardId: " + Integer.parseInt(rdInt));
+			gameController.getPayStoneController().giveStones(Integer.parseInt(rdInt));
 			//get paystones
 			myScene.setGamePane(); //setgamePane
+			lyc.updatePCid(Integer.parseInt(rdInt));
+			lyc.setGameRunning(true);
+			
 		});
 		
 		
-		return patternCard;
+		VBox stipjes = new VBox();
+		int difficulty = pcc.getDifficulty(Integer.parseInt(rdInt));
+		Label label = new Label(" Moeilijkheidsgraad: " + difficulty);
+		label.setFont(new Font("TimesRoman", 20));
+		
+		stipjes.getChildren().add(label);
+		
+		overlapPane.getChildren().addAll(patternCard, stipjes);
+		return overlapPane;
 	}
 	
 	private void setLayerSize() {

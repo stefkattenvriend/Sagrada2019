@@ -1,9 +1,12 @@
 package view;
+import controller.GameController;
 import controller.LoginController;
 import controller.MasterController;
+import controller.PlayerController;
 //joery
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import model.GameModel;
 import view.GamePanes.GamePane;
 import view.MenuPanes.MenuPane;
 
@@ -11,18 +14,22 @@ public class MyScene extends Scene{
 	
 	private MasterController mc;
 	private LoginController lc;
+	private GameController gc;
 	private MenuPane menuPane;
 	private GamePane gamePane;
 	private LoginPane loginPane;
 	private Pane root;
+	private GameModel gameModel;
 //	private Stage stage;
 	
-	public MyScene(MasterController mc) {
+	public MyScene(MasterController mc, GameModel gameModel) {
 		super(new Pane());
 		this.mc = mc;
+		this.gameModel = gameModel;
 //		this.stage = stage;
 		this.
 		lc = mc.getLoginController();
+		gc = mc.getGameController();
 		
 		root = new Pane();
 		
@@ -63,7 +70,7 @@ public class MyScene extends Scene{
 	}
 
 	public void setGamePane() {
-		gamePane = new GamePane(mc.getGameController(), this, lc, mc.getPayStoneController());
+		gamePane = new GamePane(mc.getGameController(), this, lc, mc.getPayStoneController(), gameModel);
 		setNewRoot(gamePane);
 		mc.getStage().setHeight(gamePane.windowMaxHeight);
 		mc.getStage().setWidth(gamePane.windowMaxWidth);
@@ -72,7 +79,7 @@ public class MyScene extends Scene{
 	
 	public void setLayerPane() {
 		
-		LayerPane pcardChooser = new LayerPane(mc.getGameController().getLayerController(), mc.getGameController().getPatterncardController(), lc, this);
+		LayerPane pcardChooser = new LayerPane(mc.getGameController().getLayerController(), mc.getGameController().getPatterncardController(), lc, this, gc);
 		
 		setNewRoot(pcardChooser);
 		mc.getStage().setHeight(gamePane.windowMaxHeight);

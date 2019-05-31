@@ -5,9 +5,11 @@ import javafx.application.Platform;
 public class MasterRunnable implements Runnable {
 
 	private MenuController menuController;
+	private GameController gameController;
 	
 	public MasterRunnable(MenuController menuController, GameController gameController) {
 		this.menuController = menuController;
+		this.gameController = gameController;
 	}
 	
 	
@@ -20,14 +22,20 @@ public class MasterRunnable implements Runnable {
             public void run() {
             	
             	menuController.updateIncomingInvite();
-            	menuController.updateActiveGames(); //dit zou moeten werken, laadtijd van query moet gefixt worden.
-            	System.out.println("aan het checken..");
+            	menuController.updateActiveGames();
+            	menuController.updateWaitedGames();
+            	gameController.updatePaystones();
+            	
+//            	System.out.println("aan het checken..");
+                gameController.updatePaystones();
+            	gameController.updatePC();
+            	gameController.setMyColor();
             }
         };
 
         while (test) {
             try {
-                Thread.sleep(3000);
+                Thread.sleep(4000);
             } catch (InterruptedException ex) {
             }
 

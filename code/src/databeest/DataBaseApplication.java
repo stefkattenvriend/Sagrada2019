@@ -67,7 +67,7 @@ public class DataBaseApplication {
 			stmt = m_Conn.createStatement();
 
 			int rs = stmt.executeUpdate(query);
-//			System.out.println(rs);// Deze maakt de 1 in de console :D
+			// System.out.println(rs);// Deze maakt de 1 in de console :D
 			stmt.close();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -124,7 +124,8 @@ public class DataBaseApplication {
 
 	public boolean myTurn(String username, int gameId) {
 		Statement stmt = null;
-		String query = "SELECT isCurrentPlayer FROM player WHERE idplayer = '" + this.getPlayerID(username, gameId) + "';";
+		String query = "SELECT isCurrentPlayer FROM player WHERE idplayer = '" + this.getPlayerID(username, gameId)
+				+ "';";
 		int ifPlayer = 0;
 		try {
 			stmt = m_Conn.createStatement();
@@ -193,20 +194,20 @@ public class DataBaseApplication {
 				+ currentAccount
 				+ "' and p1.playstatus_playstatus = 'uitgedaagde' And p2.playstatus_playstatus = 'uitdager' Order by p1.game_idgame;";
 
-			try {
-				stmt = m_Conn.createStatement();
-				ResultSet rs = stmt.executeQuery(query);
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
 
-				while (rs.next()) {
+			while (rs.next()) {
 
-					challengers.add(rs.getString(1));
+				challengers.add(rs.getString(1));
 
-				}
-				stmt.close();
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
 			}
-		
+			stmt.close();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
 		return challengers;
 	}
 
@@ -217,20 +218,20 @@ public class DataBaseApplication {
 				+ currentAccount
 				+ "' and p1.playstatus_playstatus = 'uitgedaagde' And p2.playstatus_playstatus = 'uitdager' Order by p1.game_idgame;";
 
-			try {
-				stmt = m_Conn.createStatement();
-				ResultSet rs = stmt.executeQuery(query);
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
 
-				while (rs.next()) {
+			while (rs.next()) {
 
-					inviteGameID.add(rs.getString(1));
+				inviteGameID.add(rs.getString(1));
 
-				}
-				stmt.close();
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
 			}
-		
+			stmt.close();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
 		return inviteGameID;
 	}
 
@@ -323,9 +324,7 @@ public class DataBaseApplication {
 		return playersInGame;
 	}
 
-	public ArrayList<String> getPlayerStatus(String gameID, String currentAccount) { // alle afwachtend op reactie games
-																						// van de ingelogde speler
-																						// #joery
+	public ArrayList<String> getPlayerStatus(int gameID, String currentAccount) { 
 		Statement stmt = null;
 		ArrayList<String> playerStatus = new ArrayList<>();
 		String query = "SELECT playstatus_playstatus FROM player WHERE game_idgame = '" + gameID + "' AND username != '"
@@ -427,14 +426,6 @@ public class DataBaseApplication {
 		return idToolCards;
 	}
 
-	// TODO verwijder dit ofzo
-	// public ArrayList<String> getPlayer() {
-	// Statement stmt = null;
-	// ArrayList<String> player = new ArrayList<>();
-	// //try etc..
-	// return player;
-	// }
-
 	// Stef
 	public int getPlayerPayStones(int playerId) {
 		Statement stmt = null;
@@ -475,6 +466,27 @@ public class DataBaseApplication {
 		return chat;
 	}
 
+	public ArrayList<Integer> getChatPlayers(String query) {
+		Statement stmt = null;
+		ArrayList<Integer> chatPlayers = new ArrayList<>();
+
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			// return string in console
+			while (rs.next()) {
+
+				chatPlayers.add(rs.getInt(1));
+
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return chatPlayers;
+	}
+	
 	public ArrayList<String> getChatDate(String query) {
 		Statement stmt = null;
 		ArrayList<String> chat = new ArrayList<>();
@@ -895,14 +907,13 @@ public class DataBaseApplication {
 
 		Statement stmt = null;
 		ArrayList<Integer> waitedGames = new ArrayList<>();
-		String query = "SELECT game_idgame AS idgame1, (SELECT game_idgame FROM player WHERE username = '" + username
-				+ "' AND game_idgame = idgame1) AS personalgames, COUNT(idplayer) AS geaccepteerd, (SELECT COUNT(idplayer) FROM player WHERE game_idgame = idgame1) AS totaal_spelers FROM player WHERE (playstatus_playstatus = 'geaccepteerd' OR playstatus_playstatus = 'uitdager') GROUP BY game_idgame; ";
+		String query = "SELECT game_idgame AS idgame1, (SELECT game_idgame FROM player WHERE username = '"+ username+"' AND game_idgame = idgame1) AS personalgames, COUNT(idplayer) AS geaccepteerd, (SELECT COUNT(idplayer) FROM player WHERE game_idgame = idgame1) AS totaal_spelers, (SELECT COUNT(idplayer) FROM player WHERE game_idgame = idgame1 AND playstatus_playstatus = 'geweigerd') AS magniet FROM player WHERE (playstatus_playstatus = 'geaccepteerd' OR playstatus_playstatus = 'uitdager') GROUP BY game_idgame;";
 		try {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
-				if (rs.getInt(1) == rs.getInt(2) && rs.getInt(3) < rs.getInt(4)) {
+				if (rs.getInt(1) == rs.getInt(2) && rs.getInt(3) < rs.getInt(4) && rs.getInt(5) == 0) {
 					waitedGames.add(rs.getInt(1));
 				}
 			}
@@ -975,7 +986,8 @@ public class DataBaseApplication {
 		Statement stmt = null;
 		int idfavortoken = 0;
 		while (idfavortoken < 20) {
-		String query = "INSERT INTO gamefavortoken(idfavortoken, idgame) VALUES (" +  idfavortoken + ", " + gameId + ")";
+			String query = "INSERT INTO gamefavortoken(idfavortoken, idgame) VALUES (" + idfavortoken + ", " + gameId
+					+ ")";
 			try {
 				stmt = m_Conn.createStatement();
 				int rs = stmt.executeUpdate(query);
@@ -990,6 +1002,9 @@ public class DataBaseApplication {
 	}
 
 	public void addStonesToPlayer(int gameId, int playerId, int amount) {
+		System.out.println("gameId: " + gameId);
+		System.out.println("amount: " + amount);
+		System.out.println("playerId:" + playerId);
 		Statement stmt = null;
 		String query = "UPDATE gamefavortoken SET idplayer = " + playerId + " WHERE idgame = " + gameId
 				+ " AND idplayer IS NULL LIMIT " + amount;
@@ -1006,7 +1021,7 @@ public class DataBaseApplication {
 	public int getStones(int playerId, int gameId) {
 		Statement stmt = null;
 		String query = "SELECT count(idplayer) FROM gamefavortoken WHERE idplayer = " + playerId + " AND idgame = "
-				+ gameId + "AND gametoolcard IS NULL;";
+				+ gameId + " AND gametoolcard IS NULL;";
 		int amount = 0;
 		try {
 			stmt = m_Conn.createStatement();
@@ -1089,7 +1104,7 @@ public class DataBaseApplication {
 
 	public int getStonesOnCard(int cardId, int gameId) {
 		Statement stmt = null;
-		String query = "SELECT count(idfavortoken) FROM gamefavortoken WHERE gametoolcard = " + cardId + "AND idgame = " + gameId;
+		String query = "SELECT count(idfavortoken) FROM gamefavortoken WHERE gametoolcard = '" + cardId + "' AND idgame = '" + gameId + "';";
 		int amount = 0;
 		try {
 			stmt = m_Conn.createStatement();
@@ -1097,6 +1112,7 @@ public class DataBaseApplication {
 
 			while (rs.next()) {
 				amount = rs.getInt(1);
+
 			}
 			stmt.close();
 		} catch (SQLException e) {
@@ -1104,4 +1120,6 @@ public class DataBaseApplication {
 		}
 		return amount;
 	}
+
+	
 }

@@ -5,11 +5,14 @@ import controller.LayerController;
 import controller.LoginController;
 import controller.PatterncardController;
 import controller.PayStoneController;
+import controller.PlayerController;
 import controller.PointsController;
 import controller.TurnController;
 //joery
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import model.GameModel;
 import view.MyScene;
 
 public class GamePane extends StackPane {
@@ -32,8 +35,9 @@ public class GamePane extends StackPane {
 	private TurnController tc;
 	private LoginController logc;
 	private PayStoneController psc;
+	private GameModel gameModel;
 	
-	public GamePane(GameController gameController, MyScene myScene, LoginController loginController, PayStoneController psc) {
+	public GamePane(GameController gameController, MyScene myScene, LoginController loginController, PayStoneController psc, GameModel gameModel) {
 		logc = loginController;
 		this.psc = psc;
 		this.gc = gameController;
@@ -43,15 +47,17 @@ public class GamePane extends StackPane {
 		this.lyc = gc.getLayerController();
 		this.pc = gc.getPointsController();
 		this.tc = gc.getTurnController();
+		this.gameModel = gameModel;
 		
 		
 		setScreenSize();
 		setUp();
+		gc.setGamepane(this);
 	}
 
 	private void setUp() {
 		gamePane = new BorderPane();
-		playerPane = new PlayerPane(dhc, pcc, myScene, gc, pc, tc);
+		playerPane = new PlayerPane(dhc, pcc, myScene, gc, pc, tc, psc);
 		cardDisplayPane = new CardDisplayPane(gc.getCardsController(), psc);
 		enemyPane = new EnemyPane(gc);
 		gamePane.setLeft(cardDisplayPane);
@@ -74,6 +80,21 @@ public class GamePane extends StackPane {
 
 	private void setScreenSize() {
 		setPrefSize(windowMaxWidth, windowMaxHeight);
+	}
+
+	public void updatePC() {
+		playerPane.updatePC();
+		enemyPane.updatePC();
+		
+	}
+
+	public void setMyColor(Color color) {
+		playerPane.setMyColor(color);
+	}
+	
+	public void updatePCid(int i) {
+		playerPane.updatePCid(i);
+		
 	}
 
 }

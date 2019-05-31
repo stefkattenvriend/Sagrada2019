@@ -140,7 +140,7 @@ public class MenuDropdown extends VBox {// door joery
 			String splitBtnName[] = username.split(" ");
 			gameID = splitBtnName[1];
 			players = databeest.getPlayersInGame(gameID, loginController.getCurrentAccount());
-			status = databeest.getPlayerStatus(gameID, loginController.getCurrentAccount());
+			status = databeest.getPlayerStatus(Integer.parseInt(gameID), loginController.getCurrentAccount());
 			FlowPane inGamePlayers = new FlowPane();
 			inGamePlayers.setPrefSize(MenuPane.paneWidth - 60, 60);
 

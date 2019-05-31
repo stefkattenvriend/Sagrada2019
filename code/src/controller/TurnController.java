@@ -1,5 +1,6 @@
 package controller;
 
+
 import databeest.DbDieUpdater;
 import databeest.DbTurnCollector;
 import helpers.DiceHolderType;
@@ -7,6 +8,7 @@ import javafx.scene.layout.Pane;
 import model.DiceHolderModel;
 import model.GameModel;
 import model.PlayerModel;
+import view.GamePanes.ChatPane;
 import view.GamePanes.PlayerPane;
 
 public class TurnController {
@@ -15,22 +17,31 @@ public class TurnController {
 	private DbDieUpdater ddu;
 	private GameModel gm;
 	private DbTurnCollector dtc;
-	PlayerModel currentplayer;
-	String username;
-	int gameId;
+	private PlayerModel currentplayer;
+	private String username;
+	private int gameId;
 	private PlayerPane pp;
-
-	public TurnController(DiceHolderController dhc, DbDieUpdater ddu, GameModel gm, DbTurnCollector dtc, String username, int gameId) {
+	private TurnAdmissionChecker tac;
+	private GameController gController;
+	
+	public TurnController(GameController gc, DiceHolderController dhc, DbDieUpdater ddu, GameModel gm, DbTurnCollector dtc, String username, int gameId) {
 		this.gameId = gameId;
 		this.username = username;
 		this.dtc = dtc;
 		this.dhc = dhc;
 		this.ddu = ddu;
 		this.gm = gm;
+		this.gController = gc;
 	}
 	
 	public void givePane(PlayerPane pane) {
 		this.pp = pane;
+	}
+	
+	
+	
+	public void updateChat() {
+		gController.updateChatPane();
 	}
 
 	public void updatePass() {// update na pas knop
@@ -56,11 +67,11 @@ public class TurnController {
 			}
 
 		}
-		updateSeqnrAndTurn();
+//		updateSeqnrAndTurn();
 	}
 	
 	//milan
-		private void updateSeqnrAndTurn() {
+		public void updateSeqnrAndTurn() {
 			PlayerModel[] players = gm.getPma();
 			int amountOfPlayers = players.length;
 			int seqnr = 10;
@@ -253,12 +264,12 @@ public class TurnController {
 				System.out.println(amountOfPlayers + " players detected, passing the turn to the next!");
 				for (int i = 0; i < players.length; i++) {
 					int x = players[i].getSeqnr();
-					System.out.println("this is value x: " + x);
+//					System.out.println("this is value x: " + x);
 					if (x < seqnr) {
 						seqnr = x; 
 						System.out.println("this is value seqnr: " + seqnr);
 						currentplayer = players[i]; 
-						System.out.println("This is its actual seqnr: " + currentplayer.getSeqnr());
+//						System.out.println("This is its actual seqnr: " + currentplayer.getSeqnr());
 					}
 				}
 				switch (seqnr) {
@@ -312,10 +323,18 @@ public class TurnController {
 
 	
 	public void TurnAdmissionGiving() {
-		TurnAdmissionChecker tac = new TurnAdmissionChecker(dtc, username, gameId, dhc, pp);
+		tac = new TurnAdmissionChecker(dtc, username, gameId, dhc, pp, this);
 
 			Thread t1 = new Thread(tac);
 			t1.start();
+	}
+
+	public void startThread() {
+		tac.start();
+	}
+	
+	public void stopThread() {
+		tac.stop();
 	}
 
 

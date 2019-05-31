@@ -17,6 +17,7 @@ import databeest.DbUserInfoCollector;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import model.GameModel;
 import view.MyScene;
 
 public class MasterController extends Application{//een controller die alle andere aanmaakt? ~Rens
@@ -47,6 +48,7 @@ public class MasterController extends Application{//een controller die alle ande
 	private GameUpdateController guc;
 	private MenuUpdateController muc;
 	private DbToolCardCollector tcc;
+	private GameModel gameModel;
 	
 	public void startup(String[] args) {
 		launch(args);
@@ -56,7 +58,8 @@ public class MasterController extends Application{//een controller die alle ande
 	public void start(Stage stage) throws Exception {
 		this.startMasterController();
 		this.stage = stage;
-		myScene = new MyScene(this);
+		gameModel = gc.getGm();
+		myScene = new MyScene(this, gameModel);
 		stage.setResizable(false);
 		stage.setScene(myScene);
 		stage.setOnCloseRequest(e -> closeApp());

@@ -43,6 +43,7 @@ public class MenuWaitingPane extends FlowPane {
 		this.menuController = menuController;
 		this.loginController = loginController;
 		this.menuGamesPane = menuGamesPane;
+		menuController.setWaitedGamesPane(this);
 //		databeest = menuController.getDataBaseApplication();
 //		gameIDs = databeest.getWaitingGames(loginController.getCurrentAccount());
 		
@@ -114,13 +115,19 @@ public class MenuWaitingPane extends FlowPane {
 		getChildren().addAll(title, waitingList);
 	}
 
+	public void newWaitedGames(ArrayList<Integer> newWaitedGames) {
+		gameIDs.clear();
+		gameIDs = newWaitedGames;
+		updateWaitingPane();
+	}
+	
 	public void updateWaitingPane() {
 		getChildren().clear();
 		list.getChildren().clear();
 		games.clear();
 
 //		gameIDs = databeest.getWaitingGames(loginController.getCurrentAccount());
-		gameIDs = menuController.getNewActiveGames();
+//		gameIDs = menuController.getNewWaitedGames();
 		
 //		for (int i = 0; i < gameIDs.size(); i++) {
 //
@@ -128,7 +135,8 @@ public class MenuWaitingPane extends FlowPane {
 //			// ->view deze mag pas zichtbaar worden als invite is geaccepteerd
 //			status = databeest.getPlayerStatus(gameIDs.get(i), loginController.getCurrentAccount());
 //			currentPlayerStatus = databeest.getCurrentPlayerStatus(loginController.getCurrentAccount(), gameIDs.get(i));
-//			for (int s = 0; s < status.size(); s++) {
+//			
+//		for (int s = 0; s < status.size(); s++) {
 //				if (status.get(s).equals("uitdager") && !currentPlayerStatus.get(0).equals("geaccepteerd")) {
 //
 //					gameIDs.remove(i);

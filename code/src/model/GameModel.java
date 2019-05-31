@@ -4,6 +4,7 @@ import controller.DiceController;
 import databeest.DbGameCollector;
 import databeest.DbPlayerCollector;
 import helpers.DiceHolderType;
+import javafx.scene.paint.Color;
 
 public class GameModel {
 	
@@ -52,6 +53,7 @@ public class GameModel {
 	public void addPlayer(int i, int playerID, String username)
 	{
 		System.out.println("i=" + i);
+		System.out.println("playerId" + playerID);
 		pma[i] = new PlayerModel(dpc);
 		pma[i].setGameid(gameid);
 		pma[i].setPlayerId(playerID);
@@ -109,5 +111,24 @@ public class GameModel {
 
 	public int getGameId() {
 		return gameid;
+	}
+
+	public Color getMyColor() {
+		Color myColor = pma[0].getObjectiveColor();
+		return myColor;
+	}
+	
+	public void updatePCa(int i) {
+		pma[0].setPatid(i);
+		
+		
+	}
+
+	public void updateEnemyPCid() {
+		for (int i = 0; i < pma.length; i++) {
+			if (pma[i].getPatid() == 0) {
+				pma[i].reloadPcID();
+			}
+		}
 	}
 }

@@ -66,7 +66,9 @@ public class PlayerBoardPane extends Pane{//misschien hernoemen naar bord pane? 
 		
 		int pcnumber = patID;
 		
-		
+		if (pcnumber == 0) {
+			return;
+		}
 		
 		for (int i = 1; i < 5; i++) {
 			for (int j = 1; j < 6; j++) {
@@ -81,5 +83,16 @@ public class PlayerBoardPane extends Pane{//misschien hernoemen naar bord pane? 
 		Label text = new Label();
 		text.setText("PatternCard");
 		getChildren().addAll(text);
+	}
+
+	public void updatePC() {
+		patternCardView.getChildren().clear();
+		addPatternCard();
+		
+	}
+
+	public void updatePCid(int i) {
+		patID = i;
+		
 	}
 }

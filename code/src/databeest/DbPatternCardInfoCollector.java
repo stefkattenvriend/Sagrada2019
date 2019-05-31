@@ -34,5 +34,10 @@ public class DbPatternCardInfoCollector {
 		dataBaseApplication.insertQuery(query);
 		
 	}
+
+	public int getDifficulty(int rdInt) {
+		int diff = dataBaseApplication.getDifficulty(rdInt);
+		return diff;
+	}
     
 }
