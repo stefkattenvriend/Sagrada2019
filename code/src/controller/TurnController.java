@@ -1,5 +1,6 @@
 package controller;
 
+
 import databeest.DbDieUpdater;
 import databeest.DbTurnCollector;
 import helpers.DiceHolderType;
@@ -19,7 +20,8 @@ public class TurnController {
 	String username;
 	int gameId;
 	private PlayerPane pp;
-
+	private TurnAdmissionChecker tac;
+	
 	public TurnController(DiceHolderController dhc, DbDieUpdater ddu, GameModel gm, DbTurnCollector dtc, String username, int gameId) {
 		this.gameId = gameId;
 		this.username = username;
@@ -56,11 +58,11 @@ public class TurnController {
 			}
 
 		}
-		updateSeqnrAndTurn();
+//		updateSeqnrAndTurn();
 	}
 	
 	//milan
-		private void updateSeqnrAndTurn() {
+		public void updateSeqnrAndTurn() {
 			PlayerModel[] players = gm.getPma();
 			int amountOfPlayers = players.length;
 			int seqnr = 10;
@@ -253,12 +255,12 @@ public class TurnController {
 				System.out.println(amountOfPlayers + " players detected, passing the turn to the next!");
 				for (int i = 0; i < players.length; i++) {
 					int x = players[i].getSeqnr();
-					System.out.println("this is value x: " + x);
+//					System.out.println("this is value x: " + x);
 					if (x < seqnr) {
 						seqnr = x; 
 						System.out.println("this is value seqnr: " + seqnr);
 						currentplayer = players[i]; 
-						System.out.println("This is its actual seqnr: " + currentplayer.getSeqnr());
+//						System.out.println("This is its actual seqnr: " + currentplayer.getSeqnr());
 					}
 				}
 				switch (seqnr) {
@@ -312,10 +314,18 @@ public class TurnController {
 
 	
 	public void TurnAdmissionGiving() {
-		TurnAdmissionChecker tac = new TurnAdmissionChecker(dtc, username, gameId, dhc, pp);
+		tac = new TurnAdmissionChecker(dtc, username, gameId, dhc, pp, this);
 
 			Thread t1 = new Thread(tac);
 			t1.start();
+	}
+
+	public void startThread() {
+		tac.start();
+	}
+	
+	public void stopThread() {
+		tac.stop();
 	}
 
 
