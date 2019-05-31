@@ -4,6 +4,8 @@ package view.GamePanes;
 import controller.DiceHolderController;
 import controller.GameController;
 import controller.PatterncardController;
+import controller.PayStoneController;
+import controller.PayStonePlayerThread;
 import controller.PointsController;
 import controller.TurnController;
 import helpers.DiceHolderType;
@@ -22,8 +24,7 @@ public class PlayerPane extends VBox{
 	private FlowPane diceSection;
 	private RoundTrackPane roundTrackPane;
 	private DiceOfferPane diceOfferPane;
-	private HBox personalAttributes;
-	private PaystoneHolderPane paystoneHolder;
+	private PersonalAttributes personalAttributes;
 	private PointsPane points;
 	private PersonalObjectiveCardPane pocp;
 	private PlayerBoardPane patternCardPane;
@@ -34,8 +35,16 @@ public class PlayerPane extends VBox{
 	private PointsController pc;
 	private TurnController tc;
 	private Button pass;
+	private PayStoneController psc;
+	private PaystoneHolderPane psh;
 	
-	public PlayerPane(DiceHolderController dhc, PatterncardController dcc, MyScene myScene, GameController gc, PointsController pc, TurnController tc) {
+	public PersonalAttributes getPersonalAttributes() {
+		return personalAttributes;
+	}
+	
+	
+	public PlayerPane(DiceHolderController dhc, PatterncardController dcc, MyScene myScene, GameController gc, PointsController pc, TurnController tc, PayStoneController psc) {
+		this.psc = psc;
 		this.dhc = dhc;
 		this.dcc = dcc;
 		this.gc = gc;
@@ -101,14 +110,28 @@ public class PlayerPane extends VBox{
 	}
 
 	private void setPersonalAttributes() {
-		personalAttributes = new HBox();
-		paystoneHolder = new PaystoneHolderPane();
+		gc.setPersonalAttributes(personalAttributes);
+		psh = new PaystoneHolderPane(psc, psc.getPlayerStones());
 		points = new PointsPane(pc);
 		pocp = new PersonalObjectiveCardPane(Color.PURPLE);
-		personalAttributes.getChildren().addAll(paystoneHolder, points, pocp);
+		personalAttributes.getChildren().addAll(psh, points, pocp);
 		personalAttributes.setMinHeight(75);
 		getChildren().add(personalAttributes);
 	}
+	
+	public PaystoneHolderPane getpaystoneHolder() {
+		return psh;
+	}
+	
+	public PointsPane getPointsPane() {
+		return points;
+	}
+	
+	public PersonalObjectiveCardPane getpocp() {
+		return pocp;
+	}
+	
+	
 
 	private void setDiceSection() {
 		diceSection = new FlowPane();
@@ -126,5 +149,7 @@ public class PlayerPane extends VBox{
 	public PersonalObjectiveCardPane getPOCP() {
 		return pocp;
 	}
+	
+	
 
 }

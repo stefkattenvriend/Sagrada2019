@@ -11,6 +11,9 @@ import databeest.DbPlayerCollector;
 import databeest.DbToolCardCollector;
 import databeest.DbTurnCollector;
 import model.GameModel;
+import model.PlayerPayStoneModel;
+import view.GamePanes.PersonalAttributes;
+import view.GamePanes.PlayerPane;
 
 public class GameController {// deze classe wordt aangemaakt in de masterController en maakt uiteindelijk ook
 								// de andere controllers aan ~Rens
@@ -36,8 +39,10 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private DbToolCardCollector dtcc;
 	private ToolCardController tcc;
 	private PayStoneController psc;
-	
+	private PlayerPayStoneModel ppsm;
 	private PlayerController pc;
+	private PlayerPane pp;
+	private PersonalAttributes pa;
 
 	public GameController(DbPatternCardInfoCollector DatabasePTCCollector, DbGameCollector dbGamecollector, LoginController lc, DbChatCollector dbChat, 
 			DbCardCollector dbCardCollector, GameUpdateController guc, DbPlayerCollector dpc, DbDieCollector ddc, DbDieUpdater ddu, 
@@ -51,6 +56,8 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		this.dbDieCollector = ddc;
 		this.guc = guc;
 		this.dbDieUpdater = ddu;
+		
+		ppsm = new PlayerPayStoneModel();
 		
 		pc = new PlayerController(dpc);
 		this.dbGameCollector = dbGamecollector;
@@ -129,6 +136,20 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 
 	public PayStoneController getPayStoneController() {
 		return psc;
+	}
+	
+	public void updatePaystones() {
+		int amount = psc.getPlayerStones();
+		System.out.println("amount: " + amount);
+		if (amount != ppsm.getStones()) {
+			System.out.println("ppsm amount: " + ppsm.getStones());
+			ppsm.setStones(amount);	
+			pa.refresh();
+		}
+	}
+	
+	public void setPersonalAttributes(PersonalAttributes pa) {
+		this.pa = pa;
 	}
 
 }

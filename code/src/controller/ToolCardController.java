@@ -94,6 +94,7 @@ public class ToolCardController {
 			}
 			
 			if (number == 12) {
+				
 				// verplaats 2 dobbelstenen van dezelfde kleur die overeenkomen met een steen op
 				// het rondespoor
 			}
