@@ -80,7 +80,7 @@ public class PlayerPane extends VBox{
 	}
 
 	private void menuAction() {
-		myScene.setMenuPane();
+		myScene.goToMenuPane();
 		tc.stopThread();
 	}
 
