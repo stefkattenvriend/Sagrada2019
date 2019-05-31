@@ -4,6 +4,7 @@ package view.GamePanes;
 import controller.DiceHolderController;
 import controller.GameController;
 import controller.PatterncardController;
+import controller.PlayerController;
 import controller.PointsController;
 import controller.TurnController;
 import helpers.DiceHolderType;
@@ -34,14 +35,16 @@ public class PlayerPane extends VBox{
 	private PointsController pc;
 	private TurnController tc;
 	private Button pass;
+	private PlayerController playercontroller;
 	
-	public PlayerPane(DiceHolderController dhc, PatterncardController dcc, MyScene myScene, GameController gc, PointsController pc, TurnController tc) {
+	public PlayerPane(DiceHolderController dhc, PatterncardController dcc, MyScene myScene, GameController gc, PointsController pc, TurnController tc, PlayerController playercontroller) {
 		this.dhc = dhc;
 		this.dcc = dcc;
 		this.gc = gc;
 		this.myScene = myScene;
 		this.pc = pc;
 		this.tc = tc;
+		this.playercontroller = playercontroller;
 		setBackground(controller.Main.PLAYERPANE); // aanduiding voor pane
 		setUp();
 		tc.givePane(this);
@@ -104,7 +107,7 @@ public class PlayerPane extends VBox{
 		personalAttributes = new HBox();
 		paystoneHolder = new PaystoneHolderPane();
 		points = new PointsPane(pc);
-		pocp = new PersonalObjectiveCardPane(Color.PURPLE);
+		pocp = new PersonalObjectiveCardPane(playercontroller);
 		personalAttributes.getChildren().addAll(paystoneHolder, points, pocp);
 		personalAttributes.setMinHeight(75);
 		getChildren().add(personalAttributes);

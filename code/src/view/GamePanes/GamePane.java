@@ -5,6 +5,7 @@ import controller.LayerController;
 import controller.LoginController;
 import controller.PatterncardController;
 import controller.PayStoneController;
+import controller.PlayerController;
 import controller.PointsController;
 import controller.TurnController;
 //joery
@@ -32,8 +33,9 @@ public class GamePane extends StackPane {
 	private TurnController tc;
 	private LoginController logc;
 	private PayStoneController psc;
+	private PlayerController playercontroller;
 	
-	public GamePane(GameController gameController, MyScene myScene, LoginController loginController, PayStoneController psc) {
+	public GamePane(GameController gameController, MyScene myScene, LoginController loginController, PayStoneController psc, PlayerController playercontroller) {
 		logc = loginController;
 		this.psc = psc;
 		this.gc = gameController;
@@ -43,6 +45,7 @@ public class GamePane extends StackPane {
 		this.lyc = gc.getLayerController();
 		this.pc = gc.getPointsController();
 		this.tc = gc.getTurnController();
+		this.playercontroller = playercontroller;
 		
 		
 		setScreenSize();
@@ -52,7 +55,7 @@ public class GamePane extends StackPane {
 
 	private void setUp() {
 		gamePane = new BorderPane();
-		playerPane = new PlayerPane(dhc, pcc, myScene, gc, pc, tc);
+		playerPane = new PlayerPane(dhc, pcc, myScene, gc, pc, tc, playercontroller);
 		cardDisplayPane = new CardDisplayPane(gc.getCardsController(), psc);
 		enemyPane = new EnemyPane(gc);
 		gamePane.setLeft(cardDisplayPane);
