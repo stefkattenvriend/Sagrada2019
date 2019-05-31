@@ -5,6 +5,7 @@ import controller.DiceHolderController;
 import controller.GameController;
 import controller.PatterncardController;
 import controller.PayStoneController;
+import controller.PlayerController;
 import controller.PointsController;
 import controller.TurnController;
 import helpers.DiceHolderType;
@@ -43,6 +44,9 @@ public class PlayerPane extends VBox{
 	
 	public PlayerPane(DiceHolderController dhc, PatterncardController dcc, MyScene myScene, GameController gc, PointsController pc, TurnController tc, PayStoneController psc) {
 		this.psc = psc;
+	private PlayerController playercontroller;
+	
+	public PlayerPane(DiceHolderController dhc, PatterncardController dcc, MyScene myScene, GameController gc, PointsController pc, TurnController tc, PlayerController playercontroller) {
 		this.dhc = dhc;
 		this.dcc = dcc;
 		this.gc = gc;
@@ -50,6 +54,7 @@ public class PlayerPane extends VBox{
 		this.pc = pc;
 		this.tc = tc;
 		personalAttributes = new PersonalAttributes(this);
+		this.playercontroller = playercontroller;
 		setBackground(controller.Main.PLAYERPANE); // aanduiding voor pane
 		setUp();
 		tc.givePane(this);
@@ -88,7 +93,7 @@ public class PlayerPane extends VBox{
 	}
 
 	private void menuAction() {
-		myScene.setMenuPane();
+		myScene.goToMenuPane();
 		tc.stopThread();
 	}
 
@@ -114,6 +119,8 @@ public class PlayerPane extends VBox{
 		points = new PointsPane(pc);
 		pocp = new PersonalObjectiveCardPane(Color.PURPLE);
 		personalAttributes.getChildren().addAll(psh, points, pocp);
+		pocp = new PersonalObjectiveCardPane(playercontroller);
+		personalAttributes.getChildren().addAll(paystoneHolder, points, pocp);
 		personalAttributes.setMinHeight(75);
 		getChildren().add(personalAttributes);
 	}
