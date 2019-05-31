@@ -324,9 +324,7 @@ public class DataBaseApplication {
 		return playersInGame;
 	}
 
-	public ArrayList<String> getPlayerStatus(String gameID, String currentAccount) { // alle afwachtend op reactie games
-																						// van de ingelogde speler
-																						// #joery
+	public ArrayList<String> getPlayerStatus(int gameID, String currentAccount) { 
 		Statement stmt = null;
 		ArrayList<String> playerStatus = new ArrayList<>();
 		String query = "SELECT playstatus_playstatus FROM player WHERE game_idgame = '" + gameID + "' AND username != '"

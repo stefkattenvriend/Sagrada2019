@@ -23,5 +23,8 @@ public class DbMenuCollector {
 		return databeest.getInviteGameID(currentAccount);
 	}	
 	
+	public ArrayList<String> getPlayerStatus(int gameID, String currentAccount){
+		return databeest.getPlayerStatus(gameID, currentAccount);
+	}
 	
 }
