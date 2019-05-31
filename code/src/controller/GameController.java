@@ -10,6 +10,7 @@ import databeest.DbPayStoneRuler;
 import databeest.DbPlayerCollector;
 import databeest.DbToolCardCollector;
 import databeest.DbTurnCollector;
+import helpers.PatterncardType;
 import model.GameModel;
 import view.GamePanes.ChatPane;
 import model.PlayerPayStoneModel;
@@ -165,7 +166,10 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 
 	public void updatePC() {
 		if (gameRunning) {
+			gm.updateEnemyPCid();
+			pcc.getPcModels(gm);
 			gamepane.updatePC();
+			
 		}
 		
 		
@@ -179,6 +183,12 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		this.gameRunning = gameRunning;
 	}
 
+	public void updatePCid(int i) {
+		//pcc.updatePCa(i, PatterncardType.PLAYER);
+		//gm.updatePCa(i);
+		gamepane.updatePCid(i);
+		
+	}
 	public void giveChatPane(ChatPane chatPane) {
 		this.chatPane = chatPane;
 	}
