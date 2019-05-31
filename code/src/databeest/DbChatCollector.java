@@ -63,4 +63,18 @@ public class DbChatCollector {
 		int[] players = dataBaseApplication.GetPlayerIDs(gameid);
 		return players;
 	}
+
+	public ArrayList<Integer> getPlayers(int amountOfPlayers, int playerid1, int playerid2, int playerid3,
+			int playerid4) {
+		String query = "";
+		if(amountOfPlayers == 4) {
+		query = "SELECT player_idplayer FROM chatline WHERE player_idplayer = '" +playerid1+ "' OR player_idplayer = '" +playerid2+ "' OR player_idplayer = '" +playerid3+ "' OR player_idplayer = '" +playerid4+ "' ORDER BY time;";
+		} else if (amountOfPlayers == 3) {
+		query = "SELECT player_idplayer FROM chatline WHERE player_idplayer = '" +playerid1+ "' OR player_idplayer = '" +playerid2+ "' OR player_idplayer = '" +playerid3+ "' ORDER BY time;";
+		} else if (amountOfPlayers == 2) {
+		query = "SELECT player_idplayer FROM chatline WHERE player_idplayer = '" +playerid1+ "' OR player_idplayer = '" +playerid2+ "' ORDER BY time;";
+		}
+		ArrayList<Integer> chatPlayers = dataBaseApplication.getChatPlayers(query); 
+		return chatPlayers;
+	}
 }

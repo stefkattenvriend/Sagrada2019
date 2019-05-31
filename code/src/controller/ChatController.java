@@ -65,6 +65,12 @@ public class ChatController {
 		int[] players = chatdb.whichPlayers(gameid);
 		return players;
 	}
+
+	public ArrayList<Integer> getPlayers(int amountOfPlayers, int playerid1, int playerid2, int playerid3,
+			int playerid4) {
+		ArrayList<Integer> chatPlayers = chatdb.getPlayers(amountOfPlayers, playerid1, playerid2, playerid3, playerid4);
+		return chatPlayers;
+	}
 	
 	//methode om chat te lezen en door te geven naar model. (playerid, time, message)
 	

@@ -33,6 +33,7 @@ public class ChatPane extends BorderPane {
 	private DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 	private ChatController cc;
 	private ArrayList<String> chat;
+	private ArrayList<Integer> chatnames;
 	private ArrayList<String> chat_OLD;
 	private ArrayList<String> chatdate;
 	private LoginController loginController;
@@ -53,7 +54,7 @@ public class ChatPane extends BorderPane {
 		setUp();
 		gameid = cc.getGameid();
 		playerid = cc.getPlayerID(gameid, loginController.getCurrentAccount());
-//		chat_OLD = cc.getchat(playerid);
+		chat_OLD = new ArrayList<>();
 	}
 
 	private void setUp() {
@@ -96,7 +97,7 @@ public class ChatPane extends BorderPane {
 				// textArea.appendText("\n");
 				cc.sendChatToDatabase(playerid, "NOW()", message);
 				textField.clear();
-//				updateChat();
+				updateChat();
 
 			}
 			// buttonBar.getChildren().clear();
@@ -109,59 +110,38 @@ public class ChatPane extends BorderPane {
 
 	}
 
-//	public void updateChat() {
-//		int[] players = cc.whichPlayers(gameid);
-//		int amountOfPlayers = 0;
-//		for(int x = 0; x<5;x++) {
-//			if(players[x] != 0) {
-//				amountOfPlayers = amountOfPlayers + 1;
-//			}
-//		}
-//		int playerid1 = players[0];
-//		int playerid2 = players[1];
-//		int playerid3 = players[2];
-//		int playerid4 = players[3];
-//		chat = cc.getchat(amountOfPlayers, playerid1, playerid2, playerid3, playerid4);
-//		chatdate = cc.getchatDate(amountOfPlayers, playerid1, playerid2, playerid3, playerid4);
-//		
-//		
-//			if (chat.size() != chat_OLD.size()) {
-//				chat_OLD.clear();
-//				chat_OLD = chat;
-//				
-//				textArea.clear();
-//				for (int x = 0; x < chat.size(); x++) {
-//					String name = cc.getUsername(players[i]);
-//					textArea.appendText("(" + chatdate.get(x) + ") " + name + ": ");
-//					textArea.appendText(chat.get(x) + "\n");
-//				}
-//			}
-//		}
-//	
-//	
-//	
-////	public void updateChat() {
-////		int[] players = cc.whichPlayers(gameid);
-////		
-////		for (int i = 0; i < players.length; i++) {
-////			chat = cc.getchat(players[i]);
-////			if (chat.size() != chat_OLD.size()) {
-////				chat_OLD.clear();
-////				chat_OLD = chat;
-////				chatdate = cc.getchatDate(players[i]);
-////				textArea.clear();
-////				for (int x = 0; x < chat.size(); x++) {
-////					String name = cc.getUsername(players[i]);
-////					textArea.appendText("(" + chatdate.get(x) + ") " + name + ": ");
-////					textArea.appendText(chat.get(x) + "\n");
-////				}
-////			}
-////		}
-//
-//		// buttonBar.getChildren().clear();
-//		// buttonBar.getChildren().addAll(textField, submitbutton);
-//
-//	}
+	public void updateChat() {
+		int[] players = cc.whichPlayers(gameid);
+		int amountOfPlayers = 0;
+		for (int x = 0; x < players.length; x++) {
+			if (players[x] != 0) {
+				amountOfPlayers = amountOfPlayers + 1;
+			}
+		}
+		int playerid1 = players[0];
+		int playerid2 = players[1];
+		int playerid3 = 0;
+		int playerid4 = 0;
+		if (amountOfPlayers == 3) {
+			playerid3 = players[2];
+		}
+		if (amountOfPlayers == 4) {
+			playerid4 = players[3];
+		}
+
+		chat = cc.getchat(amountOfPlayers, playerid1, playerid2, playerid3, playerid4);
+		chatdate = cc.getchatDate(amountOfPlayers, playerid1, playerid2, playerid3, playerid4);
+		chatnames = cc.getPlayers(amountOfPlayers, playerid1, playerid2, playerid3, playerid4);
+		if (chat.size() != chat_OLD.size()) {
+			textArea.clear();
+			for (int x = 0; x < chat.size(); x++) {
+				String name = cc.getUsername(chatnames.get(x));
+				textArea.appendText("(" + chatdate.get(x) + ") " + name + ": ");
+				textArea.appendText(chat.get(x) + "\n");
+			}
+			chat_OLD = chat;
+		}
+	}
 
 	private void setPaneSize() {
 		setMinSize(panewidth, paneheight);

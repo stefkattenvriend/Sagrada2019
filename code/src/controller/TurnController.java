@@ -40,9 +40,9 @@ public class TurnController {
 	
 	
 	
-//	public void updateChat() {
-//		gController.updateChatPane();
-//	}
+	public void updateChat() {
+		gController.updateChatPane();
+	}
 
 	public void updatePass() {// update na pas knop
 		

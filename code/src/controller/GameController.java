@@ -187,10 +187,10 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		return chatPane;
 	}
 	
-//	public void updateChatPane() {
-//		if(chatPane != null) {
-//		chatPane.updateChat();
-//		}
-//	}
+	public void updateChatPane() {
+		if(chatPane != null) {
+		chatPane.updateChat();
+		}
+	}
 
 }
