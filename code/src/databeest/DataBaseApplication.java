@@ -124,7 +124,8 @@ public class DataBaseApplication {
 
 	public boolean myTurn(String username, int gameId) {
 		Statement stmt = null;
-		String query = "SELECT isCurrentPlayer FROM player WHERE idplayer = '" + this.getPlayerID(username, gameId) + "';";
+		String query = "SELECT isCurrentPlayer FROM player WHERE idplayer = '" + this.getPlayerID(username, gameId)
+				+ "';";
 		int ifPlayer = 0;
 		try {
 			stmt = m_Conn.createStatement();
@@ -426,14 +427,6 @@ public class DataBaseApplication {
 		}
 		return idToolCards;
 	}
-
-	// TODO verwijder dit ofzo
-	// public ArrayList<String> getPlayer() {
-	// Statement stmt = null;
-	// ArrayList<String> player = new ArrayList<>();
-	// //try etc..
-	// return player;
-	// }
 
 	// Stef
 	public int getPlayerPayStones(int playerId) {
