@@ -27,7 +27,7 @@ public class PlayerPane extends VBox{
 	private PersonalAttributes personalAttributes;
 	private PointsPane points;
 	private PersonalObjectiveCardPane pocp;
-	private PlayerBoardPane patternCardPane;
+	private PlayerBoardPane playerBoardPane;
 	private DiceHolderController dhc;
 	private PatterncardController dcc;
 	private GameController gc;
@@ -105,8 +105,8 @@ public class PlayerPane extends VBox{
 
 	private void setPlayerBoardPane() {
 		int patID = gc.getGm().getPlayerModel(DiceHolderType.PLAYERWINDOW).getPatid();
-		patternCardPane = new PlayerBoardPane(dhc, dcc, patID);
-		getChildren().add(patternCardPane);
+		playerBoardPane = new PlayerBoardPane(dhc, dcc, patID);
+		getChildren().add(playerBoardPane);
 	}
 
 	private void setPersonalAttributes() {
@@ -151,5 +151,10 @@ public class PlayerPane extends VBox{
 	}
 	
 	
+
+	public void updatePC() {
+		playerBoardPane.updatePC();
+		
+	}
 
 }

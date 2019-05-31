@@ -1,5 +1,6 @@
 package view;
 
+import controller.GameController;
 import controller.LayerController;
 import controller.LoginController;
 import controller.PatterncardController;
@@ -127,6 +128,7 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 			pcc.givePatternCardToPlayer(Integer.parseInt(rdInt), playerid); //Wanneer je klikt op de tilepane krijg je die id in de database bij player
 			//get paystones
 			myScene.setGamePane(); //setgamePane
+			lyc.setGameRunning(true);
 		});
 		
 		

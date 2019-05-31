@@ -14,6 +14,7 @@ import model.GameModel;
 import model.PlayerPayStoneModel;
 import view.GamePanes.PersonalAttributes;
 import view.GamePanes.PlayerPane;
+import view.GamePanes.GamePane;
 
 public class GameController {// deze classe wordt aangemaakt in de masterController en maakt uiteindelijk ook
 								// de andere controllers aan ~Rens
@@ -40,6 +41,9 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private ToolCardController tcc;
 	private PayStoneController psc;
 	private PlayerPayStoneModel ppsm;
+	private GamePane gamepane;
+	private boolean gameRunning;
+	
 	private PlayerController pc;
 	private PlayerPane pp;
 	private PersonalAttributes pa;
@@ -52,6 +56,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		this.lc = lc;
 		this.dbCardCollector = dbCardCollector;
 		
+
 		cc = new ChatController(dbChat, this);
 		this.dbDieCollector = ddc;
 		this.guc = guc;
@@ -65,6 +70,8 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		this.dtc = dtc;
 		dtcc = tcc;
 		this.psr = psr;
+		
+		this.gameRunning = false;
 	}
 	
 	public CardsController getCardsController() {
@@ -120,9 +127,8 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 			gm.addPlayer(i, playerIDs[i], username);
 		}
 		pcc = new PatterncardController(DatabasePTCCollector, gm);
-		lyc = new LayerController(pcc);
+		lyc = new LayerController(pcc, this);
 		this.dhc = new DiceHolderController(pcc, dbDieCollector, gm.getGameId());
-		createCardsController();
 		this.tc = new TurnController(dhc, dbDieUpdater, gm, dtc, username, gm.getGameId());
 		createCardsController();
 	}
@@ -150,6 +156,22 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	
 	public void setPersonalAttributes(PersonalAttributes pa) {
 		this.pa = pa;
+	}
+
+	public void updatePC() {
+		if (gameRunning) {
+			gamepane.updatePC();
+		}
+		
+		
+	}
+
+	public void setGamepane(GamePane gamepane) {
+		this.gamepane = gamepane;
+	}
+	
+	public void setGameRunning(boolean gameRunning) {
+		this.gameRunning = gameRunning;
 	}
 
 }

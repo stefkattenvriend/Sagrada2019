@@ -82,4 +82,10 @@ public class PlayerBoardPane extends Pane{//misschien hernoemen naar bord pane? 
 		text.setText("PatternCard");
 		getChildren().addAll(text);
 	}
+
+	public void updatePC() {
+		patternCardView.getChildren().clear();
+		addPatternCard();
+		
+	}
 }
