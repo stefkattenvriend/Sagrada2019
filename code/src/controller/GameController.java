@@ -184,8 +184,8 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	}
 
 	public void updatePCid(int i) {
-		pcc.updatePCa(i, PatterncardType.PLAYER);
-		gm.updatePCa(i);
+		//pcc.updatePCa(i, PatterncardType.PLAYER);
+		//gm.updatePCa(i);
 		gamepane.updatePCid(i);
 		
 	}
