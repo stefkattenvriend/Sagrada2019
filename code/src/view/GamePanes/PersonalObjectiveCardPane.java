@@ -28,7 +28,7 @@ public class PersonalObjectiveCardPane extends VBox{
 		square.setFill(myColor);
 		getChildren().addAll(label, square);
 	}
-	
+
 	private void setPaneSize() {
 		setMinSize((GamePane.windowMaxWidth / 3) / 3, personalAttributesHeight);
 	}
