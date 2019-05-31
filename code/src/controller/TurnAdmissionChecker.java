@@ -13,21 +13,21 @@ public class TurnAdmissionChecker implements Runnable {
 	private DiceHolderController dhc;
 	private PlayerPane pp;
 	private boolean playing = true;
+	private TurnController tc;
 	
-	
-	public TurnAdmissionChecker(DbTurnCollector dtc, String username, int gameId, DiceHolderController dhc, PlayerPane pp) {
+	public TurnAdmissionChecker(DbTurnCollector dtc, String username, int gameId, DiceHolderController dhc, PlayerPane pp, TurnController tc) {
 		this.username = username;
 		this.gameId = gameId;
 		this.dtc = dtc;
 		this.dhc = dhc;
 		this.pp = pp;
-
+		this.tc = tc;
 	}
 	
 	public void run() {
 		while(playing) {
 			checkMyTurn();
-			
+			tc.updatePass(); 
 		}
 	}
 	

@@ -90,6 +90,7 @@ public class PlayerPane extends VBox{
 	
 	private void pass() {
 		tc.updatePass(); 
+		tc.updateSeqnrAndTurn();
 		pass.setVisible(false);
 	}
 

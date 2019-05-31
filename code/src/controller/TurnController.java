@@ -58,11 +58,11 @@ public class TurnController {
 			}
 
 		}
-		updateSeqnrAndTurn();
+//		updateSeqnrAndTurn();
 	}
 	
 	//milan
-		private void updateSeqnrAndTurn() {
+		public void updateSeqnrAndTurn() {
 			PlayerModel[] players = gm.getPma();
 			int amountOfPlayers = players.length;
 			int seqnr = 10;
@@ -314,7 +314,7 @@ public class TurnController {
 
 	
 	public void TurnAdmissionGiving() {
-		tac = new TurnAdmissionChecker(dtc, username, gameId, dhc, pp);
+		tac = new TurnAdmissionChecker(dtc, username, gameId, dhc, pp, this);
 
 			Thread t1 = new Thread(tac);
 			t1.start();
