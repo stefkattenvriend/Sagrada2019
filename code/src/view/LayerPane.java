@@ -87,6 +87,7 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 	
 	private void backToMenu() {
 		myScene.goToMenuPane();
+		lyc.setGameRunning(false);
 	}
 
 	private void setChooserPane() {
@@ -136,7 +137,9 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 			gameController.getPayStoneController().giveStones(Integer.parseInt(rdInt));
 			//get paystones
 			myScene.setGamePane(); //setgamePane
+			lyc.updatePCid(Integer.parseInt(rdInt));
 			lyc.setGameRunning(true);
+			
 		});
 		
 		
