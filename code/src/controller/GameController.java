@@ -126,9 +126,6 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	}
 
 	public void createGameModel(int gameID) {
-		ArrayList<Integer> CardIds = new ArrayList<Integer>(DatabasePTCCollector.getNormalPatternCardIds());
-		Random rand  = new Random();
-
 		
 		String username = lc.getCurrentAccount();
 		int amountOfPlayers = dbGameCollector.getAmountOfPlayers(gameID);
@@ -138,11 +135,6 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		int[] playerIDs = dbGameCollector.getPlayers(gameID);
 
 		for (int i = 0; i < amountOfPlayers; i++) {
-			// kijk welke spelers er meedoen en maak ze plus geef ze de patterncars
-			for(int z = 0; z < 4; z++) {
-				int r = rand.nextInt(DatabasePTCCollector.countCards());
-				DatabasePTCCollector.giveCard(playerIDs[i], r);
-			}
 			gm.addPlayer(i, playerIDs[i], username);
 			pc.setPlayerId(playerIDs[i]);
 //			System.out.println("playerIds[i]" + playerIDs[i]);
