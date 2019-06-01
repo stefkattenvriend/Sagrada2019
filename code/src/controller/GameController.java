@@ -235,7 +235,8 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 
 	public void setMyColor() {
 		if (gameRunning) {
-			gamepane.setMyColor(gm.getMyColor());
+			int playerid = pcc.getPlayerID(pcc.getGameid(), lc.getCurrentAccount());
+			gamepane.setMyColor(pcc.getColor(playerid));
 		}
 	}
 
