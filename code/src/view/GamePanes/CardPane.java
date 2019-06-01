@@ -13,6 +13,7 @@ public class CardPane extends StackPane{
 	int stonesAmount = 0;
 	ImageView background;
 	boolean toolCard;
+	boolean selected;
 	
 	public CardPane(ImageView background, boolean toolCard, CardsController cardsController, int cardNr, GameController gc) {
 		this.background = background;
@@ -63,6 +64,10 @@ public class CardPane extends StackPane{
 	
 	public int getStonesAmount() {
 		return stonesAmount;
+	}
+	
+	public void Selected() {
+		
 	}
 	
 }

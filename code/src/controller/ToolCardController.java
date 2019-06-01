@@ -110,6 +110,8 @@ public class ToolCardController {
 			
 			else if(selected.get(0) == cardpane) {
 				selected.clear();
+			} else {
+				System.out.println("please deselect your current card first");
 			}
 		}
 	}
