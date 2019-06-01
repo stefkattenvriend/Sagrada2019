@@ -39,6 +39,7 @@ public class MenuController {
 	private int[] randomPat;
 	private DbPayStoneRuler psr;
 	private boolean nextCheck = true;
+	private boolean offerGenerated;
 
 	public MenuController(MyScene myScene, MasterController mc, DbGameCollector dbGameCollector,
 			MenuUpdateController menuUpdateController, DbPayStoneRuler psr) {
@@ -92,13 +93,19 @@ public class MenuController {
 
 	public void loadGame(String gID) {
 		int gameID = Integer.parseInt(gID);
-
+		
 		mc.getGameController().createGameModel(gameID);
+		offerGenerated = dbGameCollector.getOffer(gameID);
+		if(!offerGenerated) {
+		int amountOfPlayers = dbGameCollector.getAmountOfPlayers(gameID);
+		generateOffer(amountOfPlayers, gameID);
+		offerGenerated = true;
+		}
 		int round = dbGameCollector.getRound(gameID);
 		System.out.println("dit is het ronde nummer: " + round);// syso om ronde te checke
 		String username = mc.getLoginController().getCurrentAccount();
 		int playerid = databeest.getPlayerID(username, gameID);
-		int patcardid = databeest.getPaternCardNumber(playerid);
+		int patcardid = databeest.getPaternCardNumber(playerid);	//TODO mvc
 		int[] choice = databeest.getPcChoiche(playerid);
 
 		LayerController lyc = mc.getGameController().getLayerController();
@@ -173,6 +180,10 @@ public class MenuController {
 			}
 		}
 
+	}
+
+	private void generateOffer(int size, int gameid) {
+		mc.getGameController().updateFirstDice(size, gameid);		
 	}
 
 	private ArrayList<String> getColors() {

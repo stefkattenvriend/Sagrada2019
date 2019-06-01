@@ -82,7 +82,7 @@ public class DiceController {
 	
 	private ArrayList<Integer> generateRandomNumbers(int totaal, int aantal) {
 		ArrayList<Integer> list = new ArrayList<>();
-		for (int i = 1; i <= totaal; i++) {
+		for (int i = 0; i < totaal; i++) {
 			list.add(i);
 		}
 

@@ -153,5 +153,13 @@ public class DbGameCollector {
 	public void giveCard(int playerId, int cardId) {
 		dataBaseApplication.giveCard(cardId, playerId);
 	}
+
+	public boolean getOffer(int gameID) {
+		if(dataBaseApplication.getOffer(gameID) == 0) {
+			return false;
+		} 
+		
+		return true;
+	}
 	
 }
