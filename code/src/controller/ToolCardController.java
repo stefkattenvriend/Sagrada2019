@@ -23,6 +23,7 @@ public class ToolCardController {
 	
 	public void useCard(int number) {
 		System.out.println("You clicked card:" + number);
+		System.out.println("price: " + tcc.getPrice(number, gameid));
 		System.out.println("number" + number);
 		System.out.println("gameid" + gameid);
 		if (psc.pay(tcc.getPrice(number, gameid), number)) {
