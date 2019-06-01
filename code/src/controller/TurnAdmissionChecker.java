@@ -39,7 +39,7 @@ public class TurnAdmissionChecker implements Runnable {
 	private void checkMyTurn() {
 		if (dtc.myTurn(username, gameId)) {
 			pp.yourTurn();
-			System.out.println("myturn");
+//			System.out.println("myturn");
 			dhc.switchTurnInteractable(true);
 			
 			
@@ -51,7 +51,7 @@ public class TurnAdmissionChecker implements Runnable {
 			}
 		} else {
 			//dont allow something
-			System.out.println("not my turn");
+//			System.out.println("not my turn");
 			dhc.switchTurnInteractable(false);
 			
 			try {

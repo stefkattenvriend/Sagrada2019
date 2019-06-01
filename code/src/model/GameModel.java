@@ -52,8 +52,8 @@ public class GameModel {
 	
 	public void addPlayer(int i, int playerID, String username)
 	{
-		System.out.println("i=" + i);
-		System.out.println("playerId" + playerID);
+//		System.out.println("i=" + i);
+//		System.out.println("playerId" + playerID);
 		pma[i] = new PlayerModel(dpc);
 		pma[i].setGameid(gameid);
 		pma[i].setPlayerId(playerID);
@@ -134,5 +134,14 @@ public class GameModel {
 	
 	public int getPcID(int i) {
 		return pma[i].getPatid();
+	}
+	
+	public int getPcIdMainPlayer(String username) {//krijgt de pcid voor de speler die het programma draait
+		for (int i = 0; i < pma.length; i++) {
+			if(pma[i].getUsername().equals(username)) { // username is gelijk
+				return pma[i].getPatid();
+			}
+		}
+		return 0;
 	}
 }

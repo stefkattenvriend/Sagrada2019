@@ -1,6 +1,8 @@
 package databeest;
 
 import java.util.ArrayList;
+
+import javafx.scene.paint.Color;
 import model.PatterncardModel;
 
 public class DbPatternCardInfoCollector {
@@ -38,6 +40,11 @@ public class DbPatternCardInfoCollector {
 	public int getDifficulty(int rdInt) {
 		int diff = dataBaseApplication.getDifficulty(rdInt);
 		return diff;
+	}
+
+	public String getColor(int playerid) {
+		String color = dataBaseApplication.getPlayerColor(playerid);
+		return color;
 	}
     
 }

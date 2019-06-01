@@ -976,6 +976,7 @@ public class DataBaseApplication {
 			stmt = m_Conn.createStatement();
 			int rs = stmt.executeUpdate(query);
 			System.out.println("should have executed the query by now");
+//			System.out.println(rs);
 			stmt.close();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -991,10 +992,10 @@ public class DataBaseApplication {
 			try {
 				stmt = m_Conn.createStatement();
 				int rs = stmt.executeUpdate(query);
-				System.out.println("idfavortoken: " + idfavortoken + "  -gameId: " + gameId);
+//				System.out.println("idfavortoken: " + idfavortoken + "  -gameId: " + gameId);
 				stmt.close();
 				idfavortoken++;
-				System.out.println("favortoken++: " + idfavortoken);
+//				System.out.println("favortoken++: " + idfavortoken);
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 			}
@@ -1002,16 +1003,16 @@ public class DataBaseApplication {
 	}
 
 	public void addStonesToPlayer(int gameId, int playerId, int amount) {
-		System.out.println("gameId: " + gameId);
-		System.out.println("amount: " + amount);
-		System.out.println("playerId:" + playerId);
+//		System.out.println("gameId: " + gameId);
+//		System.out.println("amount: " + amount);
+//		System.out.println("playerId:" + playerId);
 		Statement stmt = null;
 		String query = "UPDATE gamefavortoken SET idplayer = " + playerId + " WHERE idgame = " + gameId
 				+ " AND idplayer IS NULL LIMIT " + amount;
 		try {
 			stmt = m_Conn.createStatement();
 			int rs = stmt.executeUpdate(query);
-			System.out.println(rs);
+//			System.out.println(rs);
 			stmt.close();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -1074,7 +1075,7 @@ public class DataBaseApplication {
 
 			while (rs.next()) {
 				pcIds[i] = rs.getInt(1);
-				System.out.println(pcIds[i]);
+//				System.out.println(pcIds[i]);
 				i++;
 
 			}
