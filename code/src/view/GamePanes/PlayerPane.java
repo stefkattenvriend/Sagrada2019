@@ -181,7 +181,12 @@ public class PlayerPane extends VBox{
 	}
 
 	public void setLabel(String text) {
-		turn.setText(text);
+//		turn.setText(text);
 	}
 
+	
+	public void setDisable()
+	{
+		
+	}
 }

@@ -3,7 +3,6 @@ package view.GamePanes;
 import controller.DiceHolderController;
 import controller.GameController;
 import controller.PatterncardController;
-import controller.TurnController;
 import helpers.DiceHolderType;
 import helpers.PatterncardType;
 import javafx.scene.control.Label;
@@ -11,10 +10,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
@@ -32,9 +28,13 @@ public class EnemyWindow extends VBox {
 	private PatterncardController pcc;
 	private GameController gc;
 	private PlayerModel enemy;
+	private boolean currentPlayer = true;
+	
+	private Label turn;
 	
 
 	public EnemyWindow(DiceHolderType dht, GameController gc) {
+		turn = new Label();
 		layers = new StackPane();
 		diceHolders = new TilePane();
 		patternCard = new TilePane();
@@ -46,7 +46,6 @@ public class EnemyWindow extends VBox {
 		this.pcc = gc.getPatterncardController();// later weghalen
 		this.dhc = gc.getDiceHolderController();
 		this.dht = dht;
-	
 		setUp();
 	}
 
@@ -58,31 +57,50 @@ public class EnemyWindow extends VBox {
 		createEnemyInfo();
 		addDiceHolders();
 		addPatternCard();
-
 	}
 
 	private void createEnemyInfo() {// enemy info moet later worden afgemaakt(en worden geupdate) ~ Rens
 		enemyInfo.setPrefSize((GamePane.windowMaxWidth / 3) / 2, (GamePane.windowMaxHeight / 3) / 3);
 
 		enemyInfo.setBackground(new Background(new BackgroundFill(Color.PINK, null, null)));
-		enemyInfo.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+//		enemyInfo.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
 		if (enemy != null) {
 			Label text = new Label();
 			text.setText(enemy.getUsername());
-			Label turn = new Label();
-			turn.setText("Aan de beurt: nee");
+			
+//			turn.setText("Aan de beurt: nee");
 			if(gc.getTurnController().getCurrentplayer()==enemy) {
 				turn.setText("Aan de beurt: ja");
+				currentPlayer = true;
 			}
 			if(gc.getTurnController().getCurrentplayer()!=enemy) {
-				turn.setText("Aan de beurt: nee");
+//				turn.setText("Aan de beurt: nee");
+				currentPlayer = false;
+			}
+			else {
+				System.out.println("enemy = null :(");
 			}
 			
 			enemyInfo.getChildren().addAll(text, turn);
+			
+		}else {
+			System.out.println("hier");
+			turn.setText("Howdy Doody");
 		}
-
+		
+		if(currentPlayer) {
+			enemyInfo.setBorder(new Border(new BorderStroke(Color.BLACK, null, null, new BorderWidths(5))));
+			turn.setTextFill(Color.YELLOW);
+			System.out.println("howdeedoodie");
+		}
+		else {
+			enemyInfo.setBorder(null);
+			turn.setTextFill(Color.LIME);
+			System.out.println("howdeedeedie");
+			
 		this.getChildren().add(enemyInfo);
+		}
 	}
 
 	private void getPlayerModel() {
@@ -94,13 +112,13 @@ public class EnemyWindow extends VBox {
 
 	}
 
-	private void aanduiding() { //TODO deze method wordt uiteindelijk verwijderd
-		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null))); // aanduiding van
-																									// chatvak
-		Label text = new Label();
-		text.setText("ENEMY");
-		getChildren().addAll(text);
-	}
+//	private void aanduiding() { //TODO deze method wordt uiteindelijk verwijderd
+//		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null))); // aanduiding van
+//																									// chatvak
+//		Label text = new Label();
+//		text.setText("ENEMY");
+//		getChildren().addAll(text);
+//	}
 
 	private void addDiceHolders() {
 		for (int i = 1; i < 5; i++) {
