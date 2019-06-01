@@ -147,14 +147,22 @@ public class MenuController {
 		dbGameCollector.pushFirstPlayer(challenger, colors.get(0), gameid);
 		insertPublicObjectiveCards(gameid);
 		insertToolCards(gameid);
-		createGameDie(gameid);
+		
 //		System.out.println("zise playerlist = " + playerList.size());
 		psr.addStonesToGame(gameid);
 		for (int i = 1; i < playerList.size(); i++) {
 //			System.out.println(playerList.get(i));
 			addPlayer(playerList.get(i), gameid, colors.get(i), i + 1);
 		}
+		
+		for (int i = 0; i < playerList.size(); i++) {
+			addPlayerFrameField(playerList.get(i), gameid);
+		}
+		
+		createGameDie(gameid);
 	}
+
+	
 
 	private ArrayList<String> getColors() {
 		ArrayList<String> colors = new ArrayList<>();
@@ -170,6 +178,12 @@ public class MenuController {
 
 	public void addPlayer(String username, int gameid, String color, int seq) {
 		dbGameCollector.addPlayer(username, gameid, color, seq);
+	}
+	
+	private void addPlayerFrameField(String username, int gameid) {
+		System.out.println(username);
+		dbGameCollector.addPlayerFrameField(username, gameid);
+		
 	}
 
 	private void createGameDie(int gameid) {
