@@ -60,6 +60,11 @@ public class PatterncardController {
 				}
 			}
 		}
+		for (int i = 0; i < newPC.size(); i++) {
+			if (newPC.get(i).getPatterncardNumber() == Patternnumber) {//zorgt voor het setten van player type
+				newPC.get(i).setPct(PatterncardType.PLAYER);
+			}
+		}
 		if (newPC.size() < pcmodels.size()) {
 			return;
 		} else {
@@ -72,6 +77,8 @@ public class PatterncardController {
 			}
 		}
 	}
+
+	
 
 	public PatterncardModel getPcModel(int i) {
 
@@ -143,12 +150,12 @@ public class PatterncardController {
 				+ "' WHERE (`idplayer` = '" + idplayer + "');";
 		DatabasePTCCollector.givePatternCardToPlayer(query);
 	}
-
+	
 	public void insertChoice(String query) {
-		DatabasePTCCollector.insertChoice(query);
+        DatabasePTCCollector.insertChoice(query);
 
-	}
-
+    }
+	
 	public void updatePCa(int pcChosen, PatterncardType pct) {
 		if (pct == PatterncardType.PLAYER) {
 			for (int j = pcChoiceModels.size() - 1; j >= 0; j--) {
@@ -161,9 +168,6 @@ public class PatterncardController {
 		}
 	}
 
-	public void loadEnemyPatterncards() {
-
-	}
 
 	public int getDifficulty(int rdInt) {
 		int diff = DatabasePTCCollector.getDifficulty(rdInt);
@@ -199,5 +203,32 @@ public class PatterncardController {
 			color = Color.WHITE;
 		}
 		return color;
+	
+	
+	public boolean checkAllPatternCards() {
+		ArrayList<Integer> allPlayersPC = new ArrayList<Integer>();
+		int totalPCright = 0;
+		
+		for (int i = 0; i < gModel.getAmountOfPlayers(); i++) {
+			allPlayersPC.add(i);
+		}
+		
+		
+		for (int i = 0; i < gModel.getAmountOfPlayers(); i++) {
+			for (int j = 0; j < pcmodels.size(); j++) {
+				if (pcmodels.get(j).getPatterncardNumber() == gModel.getPcID(i) && gModel.getPcID(i) != 0) {
+					totalPCright++;
+					break;
+				}
+			}
+			
+		}
+		
+		if (totalPCright == gModel.getAmountOfPlayers()) {
+			return true;
+		}else {
+			return false;
+		}
+		
 	}
 }
