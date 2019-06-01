@@ -17,7 +17,7 @@ public class PatterncardController {
 
 	private ArrayList<PatterncardModel> pcmodels = new ArrayList<PatterncardModel>();
 	private ArrayList<PatterncardModel> pcChoiceModels = new ArrayList<PatterncardModel>();
-	private int Patternnumber = 0;
+	private int Patternnumber = 0;//wordt alleen in eerste keer dat een pc wordt gekozen gebruikt
 	private GameModel gModel;
 	private DbPatternCardInfoCollector DatabasePTCCollector;
 
@@ -58,11 +58,6 @@ public class PatterncardController {
 				if (gm.getPma()[i].getPatid() != 0) {
 					newPC.addAll(DatabasePTCCollector.getPatternCard(gm.getPma()[i].getPatid()));
 				}
-			}
-		}
-		for (int i = 0; i < newPC.size(); i++) {
-			if (newPC.get(i).getPatterncardNumber() == Patternnumber) {//zorgt voor het setten van player type
-				newPC.get(i).setPct(PatterncardType.PLAYER);
 			}
 		}
 		if (newPC.size() < pcmodels.size()) {
@@ -230,5 +225,13 @@ public class PatterncardController {
 			return false;
 		}
 		
+	}
+	
+	public void updateCardType(int playerPCid) {
+		for (int i = 0; i < pcmodels.size(); i++) {
+			if (pcmodels.get(i).getPatterncardNumber() == playerPCid) {
+				pcmodels.get(i).setPct(PatterncardType.PLAYER);
+			}
+		}
 	}
 }

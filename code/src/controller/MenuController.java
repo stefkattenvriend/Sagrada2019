@@ -149,16 +149,25 @@ public class MenuController {
 		insertToolCards(gameid);
 		createGameDie(gameid);
 		generateOffer(gameid);
+		
+//		System.out.println("zise playerlist = " + playerList.size());
 		psr.addStonesToGame(gameid);
 		for (int i = 1; i < playerList.size(); i++) {
 //			System.out.println(playerList.get(i));
 			addPlayer(playerList.get(i), gameid, colors.get(i), i + 1);
 		}
+		
+		for (int i = 0; i < playerList.size(); i++) {
+			addPlayerFrameField(playerList.get(i), gameid);
+		}
+		
+		createGameDie(gameid);
 	}
 
 	private void generateOffer(int gameid) {
 		mc.getGameController().getDiceHolderController().getDiceController().generateOffer(4, gameid);//GehardCode TODO Wanneer moet dit gebeuren...
 	}
+	
 
 	private ArrayList<String> getColors() {
 		ArrayList<String> colors = new ArrayList<>();
@@ -174,6 +183,12 @@ public class MenuController {
 
 	public void addPlayer(String username, int gameid, String color, int seq) {
 		dbGameCollector.addPlayer(username, gameid, color, seq);
+	}
+	
+	private void addPlayerFrameField(String username, int gameid) {
+		System.out.println(username);
+		dbGameCollector.addPlayerFrameField(username, gameid);
+		
 	}
 
 	private void createGameDie(int gameid) {

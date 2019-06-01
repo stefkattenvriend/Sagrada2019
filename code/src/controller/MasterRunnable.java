@@ -30,6 +30,7 @@ public class MasterRunnable implements Runnable {
                 gameController.updatePaystones();
             	gameController.updatePC();
             	gameController.setMyColor();
+            	gameController.updateCardPane();
 //            	gameController.updateSeqnr();
             }
         };

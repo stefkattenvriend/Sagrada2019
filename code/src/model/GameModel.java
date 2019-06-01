@@ -135,4 +135,13 @@ public class GameModel {
 	public int getPcID(int i) {
 		return pma[i].getPatid();
 	}
+	
+	public int getPcIdMainPlayer(String username) {//krijgt de pcid voor de speler die het programma draait
+		for (int i = 0; i < pma.length; i++) {
+			if(pma[i].getUsername().equals(username)) { // username is gelijk
+				return pma[i].getPatid();
+			}
+		}
+		return 0;
+	}
 }
