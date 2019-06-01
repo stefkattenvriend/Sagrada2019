@@ -94,6 +94,7 @@ public class PlayerPane extends VBox{
 		myScene.goToMenuPane();
 		tc.stopThread();
 		gc.setGameRunning(false);
+		gc.setGenerateOffer(true);
 	}
 
 	public void yourTurn() {

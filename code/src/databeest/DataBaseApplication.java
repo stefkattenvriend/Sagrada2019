@@ -1123,5 +1123,80 @@ public class DataBaseApplication {
 		return amount;
 	}
 
+	public int getAmountOfGameDie(int gameid) {
+		Statement stmt = null;
+		String query = "SELECT 90-COUNT(round) FROM gamedie WHERE idgame = '" + gameid + "';";
+		int amount = 0;
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+				amount = rs.getInt(1);
+
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return amount;
+	}
+
+	public ArrayList<String> getDieColors(int gameid) {
+		Statement stmt = null;
+		String query = "SELECT diecolor FROM gamedie WHERE idgame = '" + gameid + "' AND round is null;";
+		ArrayList<String> dieColors = new ArrayList<>();
+
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+
+				dieColors.add(rs.getString(1));
+
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return dieColors;
+	}
+		
+	public ArrayList<Integer> getDieNumbers(int gameid) {
+		Statement stmt = null;
+		String query = "SELECT dienumber FROM gamedie WHERE idgame = '" + gameid + "' AND round is null;";
+		ArrayList<Integer> dieNumbers = new ArrayList<>();
+
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+
+				dieNumbers.add(rs.getInt(1));
+
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return dieNumbers;
+	}
+
+	public void addDieToRound(int eyes, int round, int gameid, int dienumber, String string) {
+		String query = "UPDATE `mwmastbe_db2`.`gamedie` SET `eyes` = " + eyes + ", `round` = " + round + " WHERE (`idgame` = " + gameid + ") and (`dienumber` = " + dienumber + ") and (`diecolor` = '" + string + "');";
+		Statement stmt = null;
+
+		try {
+			stmt = m_Conn.createStatement();
+
+			int rs = stmt.executeUpdate(query);
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
 	
 }

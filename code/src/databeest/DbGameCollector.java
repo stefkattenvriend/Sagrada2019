@@ -136,5 +136,14 @@ public class DbGameCollector {
 		return dataBaseApplication.getPcChoiche(playerid);
 	}
 
+	public int getPlayerID(int gameid, String username) {
+		int playerid = dataBaseApplication.getPlayerID(username, gameid);
+		return playerid;
+	}
+	
+	public int getSeqnr(int playerid) {
+		int seqnr = dataBaseApplication.getSeqnr(playerid);
+		return seqnr;
+	}
 	
 }

@@ -23,6 +23,7 @@ public class TurnController {
 	private PlayerPane pp;
 	private TurnAdmissionChecker tac;
 	private GameController gController;
+	private DiceController diceController;
 	
 	public TurnController(GameController gc, DiceHolderController dhc, DbDieUpdater ddu, GameModel gm, DbTurnCollector dtc, String username, int gameId) {
 		this.gameId = gameId;
@@ -32,6 +33,7 @@ public class TurnController {
 		this.ddu = ddu;
 		this.gm = gm;
 		this.gController = gc;
+		diceController = dhc.getDiceController();
 	}
 	
 	public void givePane(PlayerPane pane) {
@@ -153,7 +155,9 @@ public class TurnController {
 					break;
 				case 8:
 					currentplayer.setCurrentPlayer(false);
-					if (currentplayer == players[0]) { //verandert de volgorde van startspeler wanner de laatste persoon past.
+					diceController.putDieOnRoundTrack();
+					diceController.generateOffer(amountOfPlayers, gameId);
+					if (currentplayer == players[0]) { 
 						players[0].setSeqnr(4);
 						players[1].setSeqnr(1);
 						players[1].setCurrentPlayer(true);
@@ -183,7 +187,7 @@ public class TurnController {
 				}
 			}
 			if (amountOfPlayers == 3) {
-				System.out.println(amountOfPlayers + " players detected, passing the turn to the next!");
+				System.out.println(amountOfPlayers + " players detected, passing the turn to the next player!");
 				for (int i = 0; i < players.length; i++) {
 					int x = players[i].getSeqnr();
 					if (x < seqnr) {
@@ -239,6 +243,8 @@ public class TurnController {
 					break;
 				case 6:
 					currentplayer.setCurrentPlayer(false);
+					diceController.putDieOnRoundTrack();
+					diceController.generateOffer(amountOfPlayers, gameId);
 					if (currentplayer == players[0]) { //verandert de volgorde van startspeler wanner de laatste persoon past.
 						players[0].setSeqnr(3);
 						players[1].setSeqnr(1);
@@ -303,7 +309,9 @@ public class TurnController {
 					break;
 				case 4:
 					currentplayer.setCurrentPlayer(false);
-					if (currentplayer == players[0]) { //verandert de volgorde van startspeler wanner de laatste persoon past.
+					diceController.putDieOnRoundTrack();
+					diceController.generateOffer(amountOfPlayers, gameId);
+					if (currentplayer == players[0]) {
 						players[0].setSeqnr(2);
 						players[1].setSeqnr(1);
 						players[1].setCurrentPlayer(true);

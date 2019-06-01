@@ -29,7 +29,7 @@ public class CardPane extends StackPane{
 		this.getChildren().addAll(ppsh);
 		
 		if(toolCard) {
-			this.setOnMouseClicked(e -> cc.useCard(cardNr));
+			this.setOnMouseClicked(e -> cc.useCard(this));
 		}
 	}
 	public void addPlayerPayStone(FlowPane ppsh) {
