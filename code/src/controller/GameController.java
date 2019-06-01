@@ -183,6 +183,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 			if (allPatternCards == false) {
 				gm.updateEnemyPCid();
 				pcc.getPcModels(gm);
+				pcc.updateCardType(gm.getPcIdMainPlayer(lc.getUsername()));
 				gamepane.updatePC();
 				allPatternCards = pcc.checkAllPatternCards();
 			}
