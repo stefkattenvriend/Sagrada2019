@@ -131,4 +131,8 @@ public class GameModel {
 			}
 		}
 	}
+	
+	public int getPcID(int i) {
+		return pma[i].getPatid();
+	}
 }

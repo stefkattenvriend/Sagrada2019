@@ -46,38 +46,40 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private PlayerPayStoneModel ppsm;
 	private GamePane gamepane;
 	private boolean gameRunning;
-	
+	private boolean allPatternCards;
+
 	private PlayerController pc;
 	private ChatPane chatPane;
 	private PlayerPane pp;
 	private PersonalAttributes pa;
 
-	public GameController(DbPatternCardInfoCollector DatabasePTCCollector, DbGameCollector dbGamecollector, LoginController lc, DbChatCollector dbChat, 
-			DbCardCollector dbCardCollector, GameUpdateController guc, DbPlayerCollector dpc, DbDieCollector ddc, DbDieUpdater ddu, 
-			DbTurnCollector dtc, DbPayStoneRuler psr, DbToolCardCollector tcc) {
+	public GameController(DbPatternCardInfoCollector DatabasePTCCollector, DbGameCollector dbGamecollector,
+			LoginController lc, DbChatCollector dbChat, DbCardCollector dbCardCollector, GameUpdateController guc,
+			DbPlayerCollector dpc, DbDieCollector ddc, DbDieUpdater ddu, DbTurnCollector dtc, DbPayStoneRuler psr,
+			DbToolCardCollector tcc) {
 		this.DatabasePTCCollector = DatabasePTCCollector;
 		this.dpc = dpc;
 		this.lc = lc;
 		this.dbCardCollector = dbCardCollector;
-		
 
 		cc = new ChatController(dbChat, this);
 		this.dbDieCollector = ddc;
 		this.guc = guc;
 		this.dbDieUpdater = ddu;
-		
+
 		ppsm = new PlayerPayStoneModel();
-		
+
 		pc = new PlayerController(dpc);
 		this.dbGameCollector = dbGamecollector;
-		
+
 		this.dtc = dtc;
 		dtcc = tcc;
 		this.psr = psr;
-		
+
 		this.gameRunning = false;
+		this.allPatternCards = false;
 	}
-	
+
 	public CardsController getCardsController() {
 		return crc;
 	}
@@ -97,21 +99,23 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	public LayerController getLayerController() {
 		return lyc;
 	}
-	
+
 	public ChatController getChatController() {
 		return cc;
 	}
+
 	public void createPrivateObjective() {
 
 	}
-	
+
 	public LoginController getLoginController() {
 		return lc;
 	}
-	
+
 	public PointsController getPointsController() {
-		return ptsc; }
-	
+		return ptsc;
+	}
+
 	public GameModel getGm() {
 		return gm;
 	}
@@ -121,11 +125,11 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		int amountOfPlayers = dbGameCollector.getAmountOfPlayers(gameID);
 		GameModel gm = new GameModel(gameID, dbGameCollector, username, dpc, amountOfPlayers);
 		this.gm = gm;
-		
+
 		int[] playerIDs = dbGameCollector.getPlayers(gameID);
 
 		for (int i = 0; i < amountOfPlayers; i++) {
-			//kijk welke spelers er meedoen en maak ze
+			// kijk welke spelers er meedoen en maak ze
 			pc.setPlayerId(playerIDs[i]);
 			gm.addPlayer(i, playerIDs[i], username);
 			System.out.println("playerIds[i]" + playerIDs[i]);
@@ -137,7 +141,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		this.tc = new TurnController(this, dhc, dbDieUpdater, gm, dtc, username, gm.getGameId());
 		createCardsController();
 	}
-	
+
 	public void createCardsController() {
 		psc = new PayStoneController(psr, pc.getPlayerID(), gm.getGameId());
 		tcc = new ToolCardController(dhc.getDiceController().getDMAL(), psc, dtcc, gm.getGameId());
@@ -148,65 +152,67 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	public PayStoneController getPayStoneController() {
 		return psc;
 	}
-	
+
 	public void updatePaystones() {
-		if(gameRunning) {
+		if (gameRunning) {
 			int amount = psc.getPlayerStones();
 			System.out.println("amount: " + amount);
 			if (amount != ppsm.getStones()) {
 				System.out.println("ppsm amount: " + ppsm.getStones());
-				ppsm.setStones(amount);	
+				ppsm.setStones(amount);
 				pa.refresh();
 			}
 		}
 	}
-	
+
 	public void setPersonalAttributes(PersonalAttributes pa) {
 		this.pa = pa;
 	}
 
 	public void updatePC() {
 		if (gameRunning) {
-			gm.updateEnemyPCid();
-			pcc.getPcModels(gm);
-			gamepane.updatePC();
-			
+			if (allPatternCards == false) {
+				gm.updateEnemyPCid();
+				pcc.getPcModels(gm);
+				gamepane.updatePC();
+				allPatternCards = pcc.checkAllPatternCards();
+			}
 		}
-		
-		
+
 	}
 
 	public void setGamepane(GamePane gamepane) {
 		this.gamepane = gamepane;
 	}
-	
+
 	public void setGameRunning(boolean gameRunning) {
 		this.gameRunning = gameRunning;
 	}
 
-	public void setMyColor()
-	{
+	public void setMyColor() {
 		if (gameRunning) {
 			gamepane.setMyColor(gm.getMyColor());
 		}
 	}
+
 	public void updatePCid(int i) {
-		//pcc.updatePCa(i, PatterncardType.PLAYER);
-		//gm.updatePCa(i);
+		// pcc.updatePCa(i, PatterncardType.PLAYER);
+		// gm.updatePCa(i);
 		gamepane.updatePCid(i);
-		
+
 	}
+
 	public void giveChatPane(ChatPane chatPane) {
 		this.chatPane = chatPane;
 	}
-	
+
 	public ChatPane getChatPane() {
 		return chatPane;
 	}
-	
+
 	public void updateChatPane() {
-		if(chatPane != null) {
-		chatPane.updateChat();
+		if (chatPane != null) {
+			chatPane.updateChat();
 		}
 	}
 
