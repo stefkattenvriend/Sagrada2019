@@ -46,5 +46,9 @@ public class DbPatternCardInfoCollector {
 		String color = dataBaseApplication.getPlayerColor(playerid);
 		return color;
 	}
+	
+	public ArrayList<Integer> getNormalPatternCardIds() {
+		return dataBaseApplication.getNormalPatterncards();
+	}
     
 }

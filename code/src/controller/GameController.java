@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import databeest.DbCardCollector;
 import databeest.DbChatCollector;
@@ -144,6 +145,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		this.dhc = new DiceHolderController(pcc, dbDieCollector, gm.getGameId());
 		this.tc = new TurnController(this, dhc, dbDieUpdater, gm, dtc, username, gm.getGameId());
 		createCardsController();
+		
 	}
 
 	public void createCardsController() {
@@ -275,5 +277,10 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 				generateOffer = false;
 			}
 		}
+	}
+	
+	private void assignPatternCards() {
+		ArrayList<Integer> CardIds = new ArrayList<Integer>(DatabasePTCCollector.getNormalPatternCardIds());
+		Random rand  = new Random();
 	}
 }

@@ -986,7 +986,7 @@ public class DataBaseApplication {
 	public void addStones(int gameId) {
 		Statement stmt = null;
 		int idfavortoken = 0;
-		while (idfavortoken < 20) {
+		while (idfavortoken < 24) {
 			String query = "INSERT INTO gamefavortoken(idfavortoken, idgame) VALUES (" + idfavortoken + ", " + gameId
 					+ ")";
 			try {
@@ -1196,6 +1196,27 @@ public class DataBaseApplication {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
+	}
+	
+	public ArrayList<Integer> getNormalPatterncards() {
+		Statement stmt = null;
+		String query = "SELECT idpatterncard FROM patterncard WHERE standard = 1";
+		ArrayList<Integer> idpatterncards = new ArrayList<>();
+
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+
+				idpatterncards.add(rs.getInt(1));
+
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return idpatterncards;
 	}
 
 	
