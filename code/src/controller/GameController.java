@@ -13,6 +13,7 @@ import databeest.DbPlayerCollector;
 import databeest.DbToolCardCollector;
 import databeest.DbTurnCollector;
 import model.GameModel;
+import model.PlayerModel;
 import model.PlayerPayStoneModel;
 import view.GamePanes.CardPane;
 import view.GamePanes.ChatPane;
@@ -49,6 +50,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private GamePane gamepane;
 	private boolean gameRunning;
 	private boolean allPatternCards;
+	private boolean generateOffer;
 
 	private PlayerController pc;
 	private ChatPane chatPane;
@@ -77,7 +79,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		this.dtc = dtc;
 		dtcc = tcc;
 		this.psr = psr;
-
+		this.generateOffer = true;
 		this.gameRunning = false;
 		this.allPatternCards = false;
 	}
@@ -216,6 +218,10 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	public void setGameRunning(boolean gameRunning) {
 		this.gameRunning = gameRunning;
 	}
+	
+	public void setGenerateOffer(boolean generateOffer) {
+		this.generateOffer = generateOffer;
+	}
 
 	public void setMyColor() {
 		if (gameRunning) {
@@ -247,5 +253,27 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 
 	public void addCardPane(CardPane cardpane) {
 		CardPanes.add(cardpane);
+	}
+
+	public void updateFirstDice() {
+//    	System.out.println("Attempting to updating the dice.");
+		if(allPatternCards) {
+			System.out.println("Patterncards are chosen, updating dice.");
+			if(generateOffer) {
+				System.out.println("Generating offer");
+				int amountOfPlayers = gm.getAmountOfPlayers();
+				int gameid = gm.getGameId();
+				int playerid = 1;
+				playerid = dbGameCollector.getPlayerID(gameid, lc.getCurrentAccount());
+				int seqnr = 0;
+				seqnr = dbGameCollector.getSeqnr(playerid);
+				if (seqnr == 1) {
+					dhc.getDiceController().generateOffer(amountOfPlayers, gameid);
+				}
+				
+				
+				generateOffer = false;
+			}
+		}
 	}
 }

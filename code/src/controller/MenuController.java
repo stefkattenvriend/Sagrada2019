@@ -148,9 +148,6 @@ public class MenuController {
 		insertPublicObjectiveCards(gameid);
 		insertToolCards(gameid);
 		createGameDie(gameid);
-		generateOffer(gameid);
-		
-//		System.out.println("zise playerlist = " + playerList.size());
 		psr.addStonesToGame(gameid);
 		for (int i = 1; i < playerList.size(); i++) {
 //			System.out.println(playerList.get(i));
@@ -161,11 +158,7 @@ public class MenuController {
 			addPlayerFrameField(playerList.get(i), gameid);
 		}
 		
-		createGameDie(gameid);
-	}
 
-	private void generateOffer(int gameid) {
-		mc.getGameController().getDiceHolderController().getDiceController().generateOffer(4, gameid);//GehardCode TODO Wanneer moet dit gebeuren...
 	}
 	
 

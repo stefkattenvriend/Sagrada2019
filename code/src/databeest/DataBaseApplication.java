@@ -1184,5 +1184,19 @@ public class DataBaseApplication {
 		return dieNumbers;
 	}
 
+	public void addDieToRound(int eyes, int round, int gameid, int dienumber, String string) {
+		String query = "UPDATE `mwmastbe_db2`.`gamedie` SET `eyes` = " + eyes + ", `round` = " + round + " WHERE (`idgame` = " + gameid + ") and (`dienumber` = " + dienumber + ") and (`diecolor` = '" + string + "');";
+		Statement stmt = null;
+
+		try {
+			stmt = m_Conn.createStatement();
+
+			int rs = stmt.executeUpdate(query);
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
 	
 }

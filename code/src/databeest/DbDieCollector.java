@@ -36,8 +36,8 @@ public class DbDieCollector {
 	}
 
 	public void addDieToRound(int eyes, int round, int gameid, int dienumber, String string) {
-		String query = "UPDATE `mwmastbe_db2`.`gamedie` SET `eyes` = '" + eyes + "', `round` = '" + round + "' WHERE (`idgame` = '" + gameid + "') and (`dienumber` = '" + dienumber + "') and (`diecolor` = '" + string + "');";
-		dba.insertQuery(query);
+		
+		dba.addDieToRound(eyes, round, gameid, dienumber, string);
 	}
 
 	public int getRound(int idgame) {
