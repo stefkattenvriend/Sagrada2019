@@ -338,6 +338,12 @@ public class TurnController {
 			Thread t1 = new Thread(tac);
 			t1.start();
 	}
+	
+	
+	
+	public PlayerModel getCurrentplayer() {
+		return currentplayer;
+	}
 
 	public void startThread() {
 		tac.start();

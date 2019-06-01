@@ -31,6 +31,12 @@ public class TurnAdmissionChecker implements Runnable {
 		while(playing) {
 			checkMyTurn();
 //			tc.updatePass(); //hoeft niet automatisch toch? aldus milan.
+			if(myTurn) {
+				pp.setLabel("Aan de beurt: ja");
+			}
+			if(!myTurn) {
+				pp.setLabel("Aan de beurt: nee");
+			}
 			
 			tc.updateChat(); //update chat automatisch hoop ik
 		}

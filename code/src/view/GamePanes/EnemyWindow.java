@@ -3,6 +3,7 @@ package view.GamePanes;
 import controller.DiceHolderController;
 import controller.GameController;
 import controller.PatterncardController;
+import controller.TurnController;
 import helpers.DiceHolderType;
 import helpers.PatterncardType;
 import javafx.scene.control.Label;
@@ -24,19 +25,20 @@ public class EnemyWindow extends VBox {
 
 	private TilePane diceHolders;
 	private TilePane patternCard;
-	private FlowPane enemyInfo;// komt de enemy info in: Naam, publieke score, betaalstenen ~ Rens
+	private VBox enemyInfo;// komt de enemy info in: Naam, publieke score, betaalstenen ~ Rens
 	private StackPane layers;
 	private DiceHolderController dhc;
 	private DiceHolderType dht;
 	private PatterncardController pcc;
 	private GameController gc;
 	private PlayerModel enemy;
+	
 
 	public EnemyWindow(DiceHolderType dht, GameController gc) {
 		layers = new StackPane();
 		diceHolders = new TilePane();
 		patternCard = new TilePane();
-		enemyInfo = new FlowPane();
+		enemyInfo = new VBox();
 		layers.getChildren().add(patternCard);
 		layers.getChildren().add(diceHolders);
 		this.getChildren().add(layers);
@@ -44,6 +46,7 @@ public class EnemyWindow extends VBox {
 		this.pcc = gc.getPatterncardController();// later weghalen
 		this.dhc = gc.getDiceHolderController();
 		this.dht = dht;
+	
 		setUp();
 	}
 
@@ -67,8 +70,16 @@ public class EnemyWindow extends VBox {
 		if (enemy != null) {
 			Label text = new Label();
 			text.setText(enemy.getUsername());
-
-			enemyInfo.getChildren().add(text);
+			Label turn = new Label();
+			turn.setText("Aan de beurt: nee");
+			if(gc.getTurnController().getCurrentplayer()==enemy) {
+				turn.setText("Aan de beurt: ja");
+			}
+			if(gc.getTurnController().getCurrentplayer()!=enemy) {
+				turn.setText("Aan de beurt: nee");
+			}
+			
+			enemyInfo.getChildren().addAll(text, turn);
 		}
 
 		this.getChildren().add(enemyInfo);
