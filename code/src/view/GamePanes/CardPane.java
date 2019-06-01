@@ -3,7 +3,6 @@ package view.GamePanes;
 import controller.CardsController;
 import controller.GameController;
 import controller.PayStoneController;
-import controller.PayStoneThread;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
