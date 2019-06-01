@@ -37,7 +37,7 @@ public class PlayerModel {
 		patid = dpc.getPatternCardID(playerid);
 		score = dpc.getScore(playerid);
 		stringcolor = dpc.getColor(playerid);
-		System.out.println("my color = " + stringcolor);
+//		System.out.println("my color = " + stringcolor);
 		if (stringcolor != null) {
 			switch (stringcolor) {
 			case "geel":
