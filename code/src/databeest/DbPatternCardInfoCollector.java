@@ -50,5 +50,17 @@ public class DbPatternCardInfoCollector {
 	public ArrayList<Integer> getNormalPatternCardIds() {
 		return dataBaseApplication.getNormalPatterncards();
 	}
+
+	public void giveCard(int playerId, int cardId) {
+		dataBaseApplication.giveCard(cardId, playerId);
+	}
+	
+	public int countCards() {
+		return dataBaseApplication.countCards();
+	}
+	
+	public ArrayList<Integer> getPatternCards(int playerId) {
+		return dataBaseApplication.getPlayerPatternCards(playerId);
+	}
     
 }
