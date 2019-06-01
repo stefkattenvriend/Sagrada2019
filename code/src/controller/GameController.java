@@ -196,10 +196,10 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	public void updateCardPane() {
 		if (gameRunning) {
 			int i = 0;
-			System.out.println();
-			System.out.println("now running update card pane");
-			System.out.println("Stones on card: " + CardPanes.get(i).getStonesAmount());
-			System.out.println("get stones on database: " + psc.getStonesOnCard(CardPanes.get(i).getCardNr()));
+//			System.out.println();
+//			System.out.println("now running update card pane");
+//			System.out.println("Stones on card: " + CardPanes.get(i).getStonesAmount());
+//			System.out.println("get stones on database: " + psc.getStonesOnCard(CardPanes.get(i).getCardNr()));
 			while(i < CardPanes.size()) {
 				if(CardPanes.get(i).getStonesAmount() != psc.getStonesOnCard(CardPanes.get(i).getCardNr())) {
 					System.out.println("refresh the stones!");

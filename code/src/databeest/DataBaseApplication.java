@@ -1030,7 +1030,7 @@ public class DataBaseApplication {
 
 			while (rs.next()) {
 				amount = rs.getInt(1);
-				System.out.println("database says you should have: " + rs.getInt(1));
+//				System.out.println("database says you should have: " + rs.getInt(1));
 			}
 			stmt.close();
 		} catch (SQLException e) {
@@ -1142,9 +1142,16 @@ public class DataBaseApplication {
 		return amount;
 	}
 
-	public ArrayList<String> getDieColors(int gameid) {
+	public ArrayList<String> getDieColors(int gameid, int round) {
 		Statement stmt = null;
-		String query = "SELECT diecolor FROM gamedie WHERE idgame = '" + gameid + "' AND round is null;";
+		String query = "";
+		if (round == 0) {
+			String roundTrack = "null";
+			query = "SELECT diecolor FROM gamedie WHERE idgame = '" + gameid + "' AND round is " + roundTrack + ";";
+		} else {
+			query = "SELECT diecolor FROM gamedie WHERE idgame = '" + gameid + "' AND round = " + round + ";";
+		}
+
 		ArrayList<String> dieColors = new ArrayList<>();
 
 		try {
@@ -1163,9 +1170,17 @@ public class DataBaseApplication {
 		return dieColors;
 	}
 		
-	public ArrayList<Integer> getDieNumbers(int gameid) {
+	public ArrayList<Integer> getDieNumbers(int gameid, int round) {
 		Statement stmt = null;
-		String query = "SELECT dienumber FROM gamedie WHERE idgame = '" + gameid + "' AND round is null;";
+		String query = "";
+		if (round == 0) {
+			String roundTrack = "null";
+			query = "SELECT dienumber FROM gamedie WHERE idgame = '" + gameid + "' AND round is " + roundTrack + ";";
+		} else {
+			query = "SELECT dienumber FROM gamedie WHERE idgame = '" + gameid + "' AND round = " + round + ";";
+		}
+		
+		
 		ArrayList<Integer> dieNumbers = new ArrayList<>();
 
 		try {

@@ -25,13 +25,13 @@ public class DbDieCollector {
 		return i;
 	}
 
-	public ArrayList<String> getDieColor(int gameid) {
-		ArrayList<String> dieColors = dba.getDieColors(gameid);
+	public ArrayList<String> getDieColor(int gameid, int round) {
+		ArrayList<String> dieColors = dba.getDieColors(gameid, round);
 		return dieColors;
 	}
 	
-	public ArrayList<Integer> getDieNumbers(int gameid) {
-		ArrayList<Integer> dieNumbers = dba.getDieNumbers(gameid);
+	public ArrayList<Integer> getDieNumbers(int gameid, int round) {
+		ArrayList<Integer> dieNumbers = dba.getDieNumbers(gameid, round);
 		return dieNumbers;
 	}
 
