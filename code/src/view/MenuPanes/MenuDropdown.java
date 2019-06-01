@@ -131,9 +131,9 @@ public class MenuDropdown extends VBox {// door joery
 		if (playersPane) {
 			CheckBox inviteBtn = new CheckBox("Kies");
 			inviteBtn.setStyle("-fx-background-color: white");
-//			inviteBtn.setBorder(arg0);
+
 			inviteBtn.setStyle("-fx-border-color: black");
-//			inviteBtn.setPrefSize(40, 20);
+
 			inviteBtn.setPrefSize(80, 80);
 //			inviteBtn.setUserData("kies");
 			inviteBtn.setOnAction(e -> selectPlayer());
