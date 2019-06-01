@@ -36,6 +36,7 @@ public class GamePane extends StackPane {
 	private LoginController logc;
 	private PayStoneController psc;
 	private GameModel gameModel;
+
 	
 	public GamePane(GameController gameController, MyScene myScene, LoginController loginController, PayStoneController psc, GameModel gameModel) {
 		logc = loginController;
