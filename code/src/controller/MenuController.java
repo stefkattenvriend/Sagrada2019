@@ -147,6 +147,8 @@ public class MenuController {
 		dbGameCollector.pushFirstPlayer(challenger, colors.get(0), gameid);
 		insertPublicObjectiveCards(gameid);
 		insertToolCards(gameid);
+		createGameDie(gameid);
+		generateOffer(gameid);
 		
 //		System.out.println("zise playerlist = " + playerList.size());
 		psr.addStonesToGame(gameid);
@@ -162,6 +164,9 @@ public class MenuController {
 		createGameDie(gameid);
 	}
 
+	private void generateOffer(int gameid) {
+		mc.getGameController().getDiceHolderController().getDiceController().generateOffer(4, gameid);//GehardCode TODO Wanneer moet dit gebeuren...
+	}
 	
 
 	private ArrayList<String> getColors() {
