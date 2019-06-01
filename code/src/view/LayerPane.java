@@ -22,6 +22,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import view.GamePanes.GamePane;
 
@@ -43,27 +44,26 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 	private LoginController logc;
 	private GameController gameController;
 	private MyScene myScene;
-	private AnchorPane colorPane;
+	private Rectangle square;
 	
 	public LayerPane(LayerController controller, PatterncardController pcc, LoginController loginController, MyScene myscene, GameController gameController) {
-//		randomPat = controller.getRandomPat();
 		this.myScene = myscene;
 		this.gameController = gameController;
 		logc = loginController;
 		this.lyc = controller;
 		this.pcc = pcc;
-		setUp();
 		playerid = pcc.getPlayerID(pcc.getGameid(), logc.getCurrentAccount());
+		setUp();
+		
 //		System.out.println("dit is de playerid: " + playerid);
 	}
 	
 	public void setUp() {
 		setLayerSize();
 		setDesign();
+		setColor();
 		setButton();
 		setChooserPane();
-		setColor();
-		setTop(colorPane);
 		setLeft(buttonPane);
 		setRight(chooserPane);
 		
@@ -74,12 +74,13 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 	
 	private void setColor() {
 		Color color = pcc.getColor(playerid);
-		colorPane = new AnchorPane();
-		colorPane.setPrefSize(50, 50);
-		colorPane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null)));
-		colorPane.setBackground(new Background(new BackgroundFill(color, null, null)));
-		Label colorLabel = new Label("Je kleur");
-		colorPane.getChildren().add(colorLabel);
+		square = new Rectangle();
+		square.setWidth(80);
+		square.setHeight(80);
+		square.setStroke(Color.BLACK);
+		square.setStrokeWidth(2);
+		square.setFill(color);
+
 	}
 
 	private void setDesign() {
@@ -97,7 +98,7 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 		buttonPane.setAlignment(Pos.CENTER_LEFT);
 		buttonPane.setPrefSize(120, windowMaxHeight);
 		buttonPane.setBorder(new Border(new BorderStroke(Color.BLACK, null, null, null)));
-		buttonPane.getChildren().addAll(buttonMenu/*, button*/);
+		buttonPane.getChildren().addAll(buttonMenu);
 	}
 	
 	private void backToMenu() {
@@ -111,13 +112,16 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 	} 
 	
 	private void viewOffer() {
-		
+		Label labelcolor = new Label("Je kleur:");
+		labelcolor.setFont(new Font("Arial", 30));
 		randomPat = lyc.getRandomPat();
 		chooserPane.getChildren().clear();
 		chooserPane.getChildren().addAll(createPatternCard(String.valueOf(randomPat[0])), createPatternCard(String.valueOf(randomPat[1])), createPatternCard(String.valueOf(randomPat[2])), createPatternCard(String.valueOf(randomPat[3])));
 		chooserPane.setAlignment(Pos.CENTER_RIGHT);
 		buttonPane.getChildren().clear();// haalt de button weg
-		buttonPane.getChildren().add(buttonMenu);
+		buttonPane.setVgap(50);
+		buttonPane.setHgap(10);
+		buttonPane.getChildren().addAll(buttonMenu, labelcolor, square);
 	}
 	
 	private Pane createPatternCard(String rdInt) {
