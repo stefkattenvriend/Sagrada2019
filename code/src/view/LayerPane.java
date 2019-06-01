@@ -9,6 +9,7 @@ import helpers.PatterncardType;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -42,6 +43,7 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 	private LoginController logc;
 	private GameController gameController;
 	private MyScene myScene;
+	private AnchorPane colorPane;
 	
 	public LayerPane(LayerController controller, PatterncardController pcc, LoginController loginController, MyScene myscene, GameController gameController) {
 //		randomPat = controller.getRandomPat();
@@ -52,7 +54,7 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 		this.pcc = pcc;
 		setUp();
 		playerid = pcc.getPlayerID(pcc.getGameid(), logc.getCurrentAccount());
-		System.out.println("dit is de playerid: " + playerid);
+//		System.out.println("dit is de playerid: " + playerid);
 	}
 	
 	public void setUp() {
@@ -60,13 +62,26 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 		setDesign();
 		setButton();
 		setChooserPane();
+		setColor();
+		setTop(colorPane);
 		setLeft(buttonPane);
 		setRight(chooserPane);
+		
 		viewOffer();
 		
 		
 	}
 	
+	private void setColor() {
+		Color color = pcc.getColor(playerid);
+		colorPane = new AnchorPane();
+		colorPane.setPrefSize(50, 50);
+		colorPane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null)));
+		colorPane.setBackground(new Background(new BackgroundFill(color, null, null)));
+		Label colorLabel = new Label("Je kleur");
+		colorPane.getChildren().add(colorLabel);
+	}
+
 	private void setDesign() {
 		setBackground(new Background(new BackgroundFill(Color.rgb(255, 255, 255, 0.7), null, null)));
 	}
@@ -96,13 +111,7 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 	} 
 	
 	private void viewOffer() {
-//		lyc.generateRdmPatternCards();
-//		randomPat = lyc.getRandomPat();
-//		for(int i = 0; i < randomPat.length; i++) {
-//			lyc.insertChoice(i, playerid);					// zet keuzes in database
-//			System.out.println("patterncardID = : " + randomPat[i]);	//syso welke patterncards kunnen gekozen worden
-//			
-//		}
+		
 		randomPat = lyc.getRandomPat();
 		chooserPane.getChildren().clear();
 		chooserPane.getChildren().addAll(createPatternCard(String.valueOf(randomPat[0])), createPatternCard(String.valueOf(randomPat[1])), createPatternCard(String.valueOf(randomPat[2])), createPatternCard(String.valueOf(randomPat[3])));

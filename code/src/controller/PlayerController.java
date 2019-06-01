@@ -33,7 +33,7 @@ public class PlayerController {
 	
 	public Color getPersonalObjective()
 	{
-		System.out.println("colorje = " + playerModel.getObjectiveColor());
+//		System.out.println("colorje = " + playerModel.getObjectiveColor());
 		return playerModel.getObjectiveColor();
 	}
 	

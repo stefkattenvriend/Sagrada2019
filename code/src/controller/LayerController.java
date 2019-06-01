@@ -20,7 +20,7 @@ public class LayerController {
 		totalAmoundOfptrnCards = pcc.numberOfPatternCards();
 		this.pcc = pcc;
 		this.gc = gc;
-		System.out.println();
+//		System.out.println();
 	}
 	
 	public void generateRdmPatternCards() { //voor nu alleen een int, later wordt dit verwerkt met een pattroonkaart.
@@ -61,9 +61,5 @@ public class LayerController {
 	public void updatePCid(int i) {
 		gc.updatePCid(i);
 	}
-	
-	
-	
-	
 	
 }

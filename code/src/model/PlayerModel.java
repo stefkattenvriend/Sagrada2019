@@ -70,7 +70,7 @@ public class PlayerModel {
 
 	public void setPlayerId(int playerid) {
 		this.playerid = playerid;
-		System.out.println("player id set to:" + playerid);
+//		System.out.println("player id set to:" + playerid);
 	}
 
 	public void setPayStones(int payStones) {
@@ -102,12 +102,14 @@ public class PlayerModel {
 		dpc.setCurrentPlayer(playerid, i);
 	}
 
+	//Deze blijft loopen, zet uit aub
 	public Color getObjectiveColor() {
-		System.out.println("kleurtje model: " + color);
+//		System.out.println("kleurtje model: " + color);
 		return color;
 	}
 
 	public int getSeqnr() {
+		seqnr = dpc.getSeqnr(playerid);
 		return seqnr;
 	}
 

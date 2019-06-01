@@ -8,6 +8,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import model.GameModel;
 import model.PatterncardModel;
@@ -66,7 +67,7 @@ public class PatterncardController {
 			for (int j = 0; j < newPC.size(); j++) {
 				pcmodels.add(newPC.get(j));
 				if (newPC.get(j).getNumber() != 0) {
-					System.out.println(newPC.get(j).getX() + newPC.get(j).getY() + newPC.get(j).getNumber());
+//					System.out.println(newPC.get(j).getX() + newPC.get(j).getY() + newPC.get(j).getNumber());
 				}
 			}
 		}
@@ -168,5 +169,35 @@ public class PatterncardController {
 		int diff = DatabasePTCCollector.getDifficulty(rdInt);
 		return diff;
 		
+	}
+
+	public Color getColor(int playerid) {
+		String colorString = DatabasePTCCollector.getColor(playerid);
+		Color color = Color.WHITE;
+		if (colorString != null) {
+			switch (colorString) {
+			case "geel":
+				color = Color.YELLOW;
+				break;
+			case "groen":
+				color = Color.GREEN;
+				break;
+			case "rood":
+				color = Color.RED;
+				break;
+			case "blauw":
+				color = Color.BLUE;
+				break;
+
+			case "paars":
+				color = Color.PURPLE;
+				break;
+			}
+		}
+		else {
+			System.out.println("huh??");
+			color = Color.WHITE;
+		}
+		return color;
 	}
 }

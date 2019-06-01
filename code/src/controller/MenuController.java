@@ -140,7 +140,7 @@ public class MenuController {
 	public void newGame(ArrayList<String> playerList) {
 		colors = getColors(); // maakt 5 kleuren
 		int gameid = getGameid() + 1;
-		System.out.println(gameid);
+//		System.out.println(gameid);
 		dbGameCollector.pushGame(gameid);
 		System.out.println("dit is de gameid" + gameid);
 		String challenger = playerList.get(0);
@@ -148,10 +148,10 @@ public class MenuController {
 		insertPublicObjectiveCards(gameid);
 		insertToolCards(gameid);
 		createGameDie(gameid);
-		System.out.println("zise playerlist = " + playerList.size());
+//		System.out.println("zise playerlist = " + playerList.size());
 		psr.addStonesToGame(gameid);
 		for (int i = 1; i < playerList.size(); i++) {
-			System.out.println(playerList.get(i));
+//			System.out.println(playerList.get(i));
 			addPlayer(playerList.get(i), gameid, colors.get(i), i + 1);
 		}
 	}
