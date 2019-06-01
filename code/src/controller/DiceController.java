@@ -52,9 +52,14 @@ public class DiceController {
 		return dmodels;
 	}
 	
-	public void putDieOnRoundTrack() {
-		//Zet de overgebleven dobbelstenen op het roundtrack
-		//Database.putDiceOnRoundTrack
+	public void putDieOnRoundTrack(int gameid) {
+		ArrayList<String> diecolor = ddc.getDieColor(gameid);
+		ArrayList<Integer> dienumber = ddc.getDieNumbers(gameid);
+		int round = ddc.getRound(gameid);
+		for (int i = 0; i < dienumber.size(); i++) {
+			ddc.addDieToRoundTrack(round, gameid, dienumber.get(i), diecolor.get(i));
+			System.out.println("Adding " + dienumber.get(i)+ " to roundtrack: " + round);
+		}
 	}
 	
 	public void generateOffer(int amountOfPlayers, int gameid) {
@@ -68,7 +73,7 @@ public class DiceController {
 		
 		for(int i = 0; i < list.size();i++) {
 			int eyes = 1 + (int) (Math.random() * 6);
-			System.out.println(eyes);
+//			System.out.println(eyes);
 			ddc.addDieToRound(eyes, round, gameid, dienumber.get(list.get(i)), diecolor.get(list.get(i)));
 		}
 		

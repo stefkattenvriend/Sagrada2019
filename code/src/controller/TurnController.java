@@ -155,8 +155,8 @@ public class TurnController {
 					break;
 				case 8:
 					currentplayer.setCurrentPlayer(false);
-					diceController.putDieOnRoundTrack();
-					diceController.generateOffer(amountOfPlayers, gameId);
+					diceController.putDieOnRoundTrack(gameId);
+//					diceController.generateOffer(amountOfPlayers, gameId);
 					if (currentplayer == players[0]) { 
 						players[0].setSeqnr(4);
 						players[1].setSeqnr(1);
@@ -243,8 +243,8 @@ public class TurnController {
 					break;
 				case 6:
 					currentplayer.setCurrentPlayer(false);
-					diceController.putDieOnRoundTrack();
-					diceController.generateOffer(amountOfPlayers, gameId);
+					diceController.putDieOnRoundTrack(gameId);
+//					diceController.generateOffer(amountOfPlayers, gameId);
 					if (currentplayer == players[0]) { //verandert de volgorde van startspeler wanner de laatste persoon past.
 						players[0].setSeqnr(3);
 						players[1].setSeqnr(1);
@@ -309,8 +309,10 @@ public class TurnController {
 					break;
 				case 4:
 					currentplayer.setCurrentPlayer(false);
-					diceController.putDieOnRoundTrack();
-					diceController.generateOffer(amountOfPlayers, gameId);
+					System.out.println("--Ending the round--");
+					diceController.putDieOnRoundTrack(gameId);
+
+//					diceController.generateOffer(amountOfPlayers, gameId);
 					if (currentplayer == players[0]) {
 						players[0].setSeqnr(2);
 						players[1].setSeqnr(1);

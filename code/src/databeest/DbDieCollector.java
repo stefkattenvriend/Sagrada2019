@@ -44,6 +44,10 @@ public class DbDieCollector {
 		int round = dba.getRoundNumber(idgame);
 		return round;
 	}
+
+	public void addDieToRoundTrack(int round, int gameid, Integer integer, String string) {
+		dba.addDieToRoundTrack(round, gameid, integer, string);
+	}
 	
 
 }
