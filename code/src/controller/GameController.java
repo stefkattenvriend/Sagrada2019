@@ -258,9 +258,9 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	public void updateFirstDice() {
 //    	System.out.println("Attempting to updating the dice.");
 		if(allPatternCards) {
-			System.out.println("Patterncards are chosen, updating dice.");
+//			System.out.println("Patterncards are chosen, updating dice.");
 			if(generateOffer) {
-				System.out.println("Generating offer");
+//				System.out.println("Generating offer");
 				int amountOfPlayers = gm.getAmountOfPlayers();
 				int gameid = gm.getGameId();
 				int playerid = 1;
