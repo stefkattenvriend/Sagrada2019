@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.ArrayList;
+
 import databeest.DbCardCollector;
 import databeest.DbChatCollector;
 import databeest.DbDieCollector;
@@ -10,18 +12,18 @@ import databeest.DbPayStoneRuler;
 import databeest.DbPlayerCollector;
 import databeest.DbToolCardCollector;
 import databeest.DbTurnCollector;
-import javafx.scene.paint.Color;
-import helpers.PatterncardType;
 import model.GameModel;
-import view.GamePanes.ChatPane;
 import model.PlayerPayStoneModel;
+import view.GamePanes.CardPane;
+import view.GamePanes.ChatPane;
+import view.GamePanes.GamePane;
 import view.GamePanes.PersonalAttributes;
 import view.GamePanes.PlayerPane;
-import view.GamePanes.GamePane;
 
 public class GameController {// deze classe wordt aangemaakt in de masterController en maakt uiteindelijk ook
 								// de andere controllers aan ~Rens
 
+	private ArrayList<CardPane> CardPanes = new ArrayList<CardPane>(); 
 	private DiceHolderController dhc;
 	private PatterncardController pcc;
 	private DbPatternCardInfoCollector DatabasePTCCollector;
@@ -178,7 +180,23 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 				allPatternCards = pcc.checkAllPatternCards();
 			}
 		}
-
+	}
+	
+	public void updateCardPane() {
+		if (gameRunning) {
+			int i = 0;
+			System.out.println();
+			System.out.println("now running update card pane");
+			System.out.println("Stones on card: " + CardPanes.get(i).getStonesAmount());
+			System.out.println("get stones on database: " + psc.getStonesOnCard(CardPanes.get(i).getCardNr()));
+			while(i < CardPanes.size()) {
+				if(CardPanes.get(i).getStonesAmount() != psc.getStonesOnCard(CardPanes.get(i).getCardNr())) {
+					System.out.println("refresh the stones!");
+					CardPanes.get(i).refresh(psc.getStonesOnCard(CardPanes.get(i).getCardNr()));
+				}
+				i++;
+			}
+		}
 	}
 
 	public void setGamepane(GamePane gamepane) {
@@ -216,4 +234,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		}
 	}
 
+	public void addCardPane(CardPane cardpane) {
+		CardPanes.add(cardpane);
+	}
 }

@@ -971,11 +971,11 @@ public class DataBaseApplication {
 	public void setStoneToCard(int gameId, int playerId, int toolcardId, int amount) {
 		Statement stmt = null;
 		String query = "UPDATE gamefavortoken SET gametoolcard = " + toolcardId + " WHERE idgame = " + gameId
-				+ " AND idplayer = " + playerId + " LIMIT " + amount;
+				+ " AND gametoolcard IS NULL AND idplayer = " + playerId + " LIMIT " + amount;
 		try {
 			stmt = m_Conn.createStatement();
 			int rs = stmt.executeUpdate(query);
-			System.out.println(rs);
+			System.out.println("should have executed the query by now");
 			stmt.close();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -1029,6 +1029,7 @@ public class DataBaseApplication {
 
 			while (rs.next()) {
 				amount = rs.getInt(1);
+				System.out.println("database says you should have: " + rs.getInt(1));
 			}
 			stmt.close();
 		} catch (SQLException e) {

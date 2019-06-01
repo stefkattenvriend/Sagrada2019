@@ -121,6 +121,7 @@ public class PlayerPane extends VBox{
 	}
 	
 	public PaystoneHolderPane getpaystoneHolder() {
+		psh = new PaystoneHolderPane(psc, psc.getPlayerStones());
 		return psh;
 	}
 	
