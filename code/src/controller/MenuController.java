@@ -148,12 +148,16 @@ public class MenuController {
 		insertPublicObjectiveCards(gameid);
 		insertToolCards(gameid);
 		createGameDie(gameid);
-//		System.out.println("zise playerlist = " + playerList.size());
+		generateOffer(gameid);
 		psr.addStonesToGame(gameid);
 		for (int i = 1; i < playerList.size(); i++) {
 //			System.out.println(playerList.get(i));
 			addPlayer(playerList.get(i), gameid, colors.get(i), i + 1);
 		}
+	}
+
+	private void generateOffer(int gameid) {
+		mc.getGameController().getDiceHolderController().getDiceController().generateOffer(4, gameid);//GehardCode TODO Wanneer moet dit gebeuren...
 	}
 
 	private ArrayList<String> getColors() {
