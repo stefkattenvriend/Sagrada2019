@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import controller.LoginController;
 import controller.MenuController;
 import databeest.DataBaseApplication;
-import javafx.beans.property.StringProperty;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -38,6 +37,7 @@ public class MenuDropdown extends VBox {// door joery
 	private int playerID;
 	private MenuInvitePane menuInvitePane;
 	private MenuGamesPane menuGamesPane;
+	private Label test;
 
 	public MenuDropdown(MenuController menuController, boolean gamesPane, String btnName, boolean playersPane,
 			MenuPlayersPane menuPlayersPane, boolean waitPane, boolean invitesPane, MenuWaitingPane menuWaitingPane,
@@ -54,7 +54,8 @@ public class MenuDropdown extends VBox {// door joery
 		createInfoPane(gamesPane, playersPane, waitPane, invitesPane);
 		createButton(btnName);
 		getChildren().add(btn);
-
+		test = new Label();
+		
 		if (playersPane) {
 			getChildren().clear();
 			getChildren().addAll(btn, gameInfoPane);
@@ -116,7 +117,6 @@ public class MenuDropdown extends VBox {// door joery
 					}
 				}
 			}
-
 			playersList.getChildren().addAll(p1, p2, p3);
 
 			VBox gap = new VBox();

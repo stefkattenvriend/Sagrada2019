@@ -986,7 +986,7 @@ public class DataBaseApplication {
 	public void addStones(int gameId) {
 		Statement stmt = null;
 		int idfavortoken = 0;
-		while (idfavortoken < 20) {
+		while (idfavortoken < 24) {
 			String query = "INSERT INTO gamefavortoken(idfavortoken, idgame) VALUES (" + idfavortoken + ", " + gameId
 					+ ")";
 			try {
@@ -1212,6 +1212,27 @@ public class DataBaseApplication {
 			System.out.println(e.getMessage());
 		}
 	}
+	
+	public ArrayList<Integer> getNormalPatterncards() {
+		Statement stmt = null;
+		String query = "SELECT idpatterncard FROM patterncard WHERE standard = 1";
+		ArrayList<Integer> idpatterncards = new ArrayList<>();
+
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+
+				idpatterncards.add(rs.getInt(1));
+
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return idpatterncards;
+	}
 
 	public void addDieToRoundTrack(int round, int gameid, Integer integer, String string) {
 		String query = "UPDATE `mwmastbe_db2`.`gamedie` SET `roundtrack` = " + round + " WHERE (`idgame` = " + gameid + ") and (`dienumber` = " + integer + ") and (`diecolor` = '" + string + "');";
@@ -1219,12 +1240,66 @@ public class DataBaseApplication {
 
 		try {
 			stmt = m_Conn.createStatement();
-
 			int rs = stmt.executeUpdate(query);
 			stmt.close();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
+	}
+
+	public void giveCard(int cardId, int playerId) {
+		String query = "INSERT INTO patterncardoption (patterncard_idpatterncard, player_idplayer) VALUES ("+ cardId +", "+ playerId +")";
+		Statement stmt = null;
+
+		try {
+			stmt = m_Conn.createStatement();
+			int rs = stmt.executeUpdate(query);
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public int countCards() {
+		Statement stmt = null;
+		String query = "SELECT count(idpatterncard) FROM patterncard WHERE standard = 1";
+		int idpatterncards = 0;
+
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+
+				idpatterncards = rs.getInt(1);
+
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return idpatterncards;
+	}
+
+	public ArrayList<Integer> getPlayerPatternCards(int playerId) {
+		Statement stmt = null;
+		String query = "SELECT patterncard_idpatterncard FROM patterncardoption WHERE player_idplayer = " + playerId;
+		ArrayList<Integer> idpatterncards = new ArrayList<>();
+
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+
+				idpatterncards.add(rs.getInt(1));
+
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return idpatterncards;
 	}
 
 	
