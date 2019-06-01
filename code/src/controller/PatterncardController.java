@@ -59,6 +59,11 @@ public class PatterncardController {
 				}
 			}
 		}
+		for (int i = 0; i < newPC.size(); i++) {
+			if (newPC.get(i).getPatterncardNumber() == Patternnumber) {//zorgt voor het setten van player type
+				newPC.get(i).setPct(PatterncardType.PLAYER);
+			}
+		}
 		if (newPC.size() < pcmodels.size()) {
 			return;
 		} else {

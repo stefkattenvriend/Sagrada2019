@@ -183,6 +183,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 
 	public void setGamepane(GamePane gamepane) {
 		this.gamepane = gamepane;
+		allPatternCards = false;//zorgt ervoor dat patterncards opnieuw worden opgehaald als je een tweede game opent
 	}
 
 	public void setGameRunning(boolean gameRunning) {
@@ -199,6 +200,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		// pcc.updatePCa(i, PatterncardType.PLAYER);
 		// gm.updatePCa(i);
 		gamepane.updatePCid(i);
+		this.allPatternCards = false;
 
 	}
 
