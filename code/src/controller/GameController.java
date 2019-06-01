@@ -13,8 +13,6 @@ import databeest.DbPlayerCollector;
 import databeest.DbToolCardCollector;
 import databeest.DbTurnCollector;
 import model.GameModel;
-import model.PlayerModel;
-import view.GamePanes.ChatPane;
 import model.PlayerPayStoneModel;
 import view.GamePanes.CardPane;
 import view.GamePanes.ChatPane;
@@ -134,8 +132,8 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 
 		for (int i = 0; i < amountOfPlayers; i++) {
 			// kijk welke spelers er meedoen en maak ze
-			pc.setPlayerId(playerIDs[i]);
 			gm.addPlayer(i, playerIDs[i], username);
+			pc.setPlayerId(playerIDs[i]);
 //			System.out.println("playerIds[i]" + playerIDs[i]);
 		}
 		pcc = new PatterncardController(DatabasePTCCollector, gm);
@@ -147,7 +145,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	}
 
 	public void createCardsController() {
-		psc = new PayStoneController(psr, pc.getPlayerID(), gm.getGameId());
+		psc = new PayStoneController(psr, DatabasePTCCollector.getPlayerID(gm.getGameId(), lc.getCurrentAccount()), gm.getGameId());
 		tcc = new ToolCardController(dhc.getDiceController().getDMAL(), psc, dtcc, gm.getGameId());
 		crc = new CardsController(dbCardCollector, gm.getGameId(), tcc);
 //		System.out.println("should be gameId: " + gm.getGameId());

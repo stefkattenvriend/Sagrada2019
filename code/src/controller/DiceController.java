@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import databeest.DbDieCollector;
 import model.DiceModel;
@@ -50,4 +51,43 @@ public class DiceController {
 	public ArrayList<DiceModel> getDMAL() {
 		return dmodels;
 	}
+	
+	public void putDieOnRoundTrack() {
+		//Zet de overgebleven dobbelstenen op het roundtrack
+		//Database.putDiceOnRoundTrack
+	}
+	
+	public void generateOffer(int amountOfPlayers, int gameid) {
+		int amountOfDice = amountOfPlayers * 2 + 1;
+
+		ArrayList<String> diecolor = ddc.getDieColor(gameid);
+		ArrayList<Integer> dienumber = ddc.getDieNumbers(gameid);
+		
+		int round = ddc.getRound(gameid);
+		ArrayList<Integer> list = generateRandomNumbers(dienumber.size(), amountOfDice);
+		
+		for(int i = 0; i < list.size();i++) {
+			int eyes = 1 + (int) (Math.random() * 6);
+			System.out.println(eyes);
+			ddc.addDieToRound(eyes, round, gameid, dienumber.get(list.get(i)), diecolor.get(list.get(i)));
+		}
+		
+	}
+	
+	private ArrayList<Integer> generateRandomNumbers(int totaal, int aantal) {
+		ArrayList<Integer> list = new ArrayList<>();
+		for (int i = 1; i <= totaal; i++) {
+			list.add(i);
+		}
+
+		Collections.shuffle(list);
+
+		int x = list.size() - aantal;
+		for (int i = 0; i < x; i++) {
+			list.remove(0);
+
+		}
+		return list;
+	}
+	
 }
