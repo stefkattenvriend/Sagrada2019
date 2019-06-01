@@ -126,6 +126,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	}
 
 	public void createGameModel(int gameID) {
+		
 		String username = lc.getCurrentAccount();
 		int amountOfPlayers = dbGameCollector.getAmountOfPlayers(gameID);
 		GameModel gm = new GameModel(gameID, dbGameCollector, username, dpc, amountOfPlayers);
@@ -134,7 +135,6 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		int[] playerIDs = dbGameCollector.getPlayers(gameID);
 
 		for (int i = 0; i < amountOfPlayers; i++) {
-			// kijk welke spelers er meedoen en maak ze
 			gm.addPlayer(i, playerIDs[i], username);
 			pc.setPlayerId(playerIDs[i]);
 //			System.out.println("playerIds[i]" + playerIDs[i]);
@@ -143,7 +143,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		lyc = new LayerController(pcc, this);
 //		System.out.println("Player id in create game model: " + pc.getPlayerID());
 		this.dhc = new DiceHolderController(pcc, dbDieCollector, gm.getGameId());
-		this.tc = new TurnController(this, dhc, dbDieUpdater, gm, dtc, username, gm.getGameId());
+		this.tc = new TurnController(this, dhc, dbDieUpdater, gm, dtc, username, gm.getGameId(), tcc);
 		createCardsController();
 		
 	}
@@ -198,10 +198,10 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	public void updateCardPane() {
 		if (gameRunning) {
 			int i = 0;
-			System.out.println();
-			System.out.println("now running update card pane");
-			System.out.println("Stones on card: " + CardPanes.get(i).getStonesAmount());
-			System.out.println("get stones on database: " + psc.getStonesOnCard(CardPanes.get(i).getCardNr()));
+//			System.out.println();
+//			System.out.println("now running update card pane");
+//			System.out.println("Stones on card: " + CardPanes.get(i).getStonesAmount());
+//			System.out.println("get stones on database: " + psc.getStonesOnCard(CardPanes.get(i).getCardNr()));
 			while(i < CardPanes.size()) {
 				if(CardPanes.get(i).getStonesAmount() != psc.getStonesOnCard(CardPanes.get(i).getCardNr())) {
 					System.out.println("refresh the stones!");
@@ -227,7 +227,8 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 
 	public void setMyColor() {
 		if (gameRunning) {
-			gamepane.setMyColor(gm.getMyColor());
+			int playerid = pcc.getPlayerID(pcc.getGameid(), lc.getCurrentAccount());
+			gamepane.setMyColor(pcc.getColor(playerid));
 		}
 	}
 
@@ -277,10 +278,5 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 				generateOffer = false;
 			}
 		}
-	}
-	
-	private void assignPatternCards() {
-		ArrayList<Integer> CardIds = new ArrayList<Integer>(DatabasePTCCollector.getNormalPatternCardIds());
-		Random rand  = new Random();
 	}
 }

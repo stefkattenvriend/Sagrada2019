@@ -15,9 +15,11 @@ public class TurnAdmissionChecker implements Runnable {
 	private PlayerPane pp;
 	private boolean playing = true;
 	private TurnController tc;
+	private ToolCardController tcc;
 //	private ChatPane chatPane;
 	
-	public TurnAdmissionChecker(DbTurnCollector dtc, String username, int gameId, DiceHolderController dhc, PlayerPane pp, TurnController tc) {
+	public TurnAdmissionChecker(DbTurnCollector dtc, String username, int gameId, DiceHolderController dhc, PlayerPane pp, TurnController tc, ToolCardController tcc) {
+		this.tcc = tcc;
 		this.username = username;
 		this.gameId = gameId;
 		this.dtc = dtc;
@@ -32,10 +34,12 @@ public class TurnAdmissionChecker implements Runnable {
 			checkMyTurn();
 //			tc.updatePass(); //hoeft niet automatisch toch? aldus milan.
 			if(myTurn) {
-				pp.setLabel("Aan de beurt: ja");
+//				pp.setLabel("Aan de beurt: ja");
+				tcc.setTurn(true);
 			}
 			if(!myTurn) {
-				pp.setLabel("Aan de beurt: nee");
+//				pp.setLabel("Aan de beurt: nee");
+				tcc.setTurn(false);
 			}
 			
 			tc.updateChat(); //update chat automatisch hoop ik

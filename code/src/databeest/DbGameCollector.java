@@ -146,4 +146,12 @@ public class DbGameCollector {
 		return seqnr;
 	}
 	
+	public ArrayList<Integer> getNormalPatternCardIds() {
+		return dataBaseApplication.getNormalPatterncards();
+	}
+	
+	public void giveCard(int playerId, int cardId) {
+		dataBaseApplication.giveCard(cardId, playerId);
+	}
+	
 }

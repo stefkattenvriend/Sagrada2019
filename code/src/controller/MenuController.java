@@ -106,10 +106,11 @@ public class MenuController {
 		if (choice[0] == 0) {
 			lyc.generateRdmPatternCards();
 			randomPat = lyc.getRandomPat();
-			for(int i = 0; i < randomPat.length; i++) {
-				lyc.insertChoice(randomPat[i], playerid);					// zet keuzes in database
-//				System.out.println("patterncardID = : " + randomPat[i]);	//syso welke patterncards kunnen gekozen worden
-				
+			for (int i = 0; i < randomPat.length; i++) {
+				lyc.insertChoice(randomPat[i], playerid); // zet keuzes in database
+				// System.out.println("patterncardID = : " + randomPat[i]); //syso welke
+				// patterncards kunnen gekozen worden
+
 			}
 			myScene.setLayerPane();
 		} else {
@@ -140,7 +141,7 @@ public class MenuController {
 	public void newGame(ArrayList<String> playerList) {
 		colors = getColors(); // maakt 5 kleuren
 		int gameid = getGameid() + 1;
-//		System.out.println(gameid);
+		// System.out.println(gameid);
 		dbGameCollector.pushGame(gameid);
 		System.out.println("dit is de gameid" + gameid);
 		String challenger = playerList.get(0);
@@ -150,17 +151,29 @@ public class MenuController {
 		createGameDie(gameid);
 		psr.addStonesToGame(gameid);
 		for (int i = 1; i < playerList.size(); i++) {
-//			System.out.println(playerList.get(i));
+			// System.out.println(playerList.get(i));
 			addPlayer(playerList.get(i), gameid, colors.get(i), i + 1);
 		}
-		
+
 		for (int i = 0; i < playerList.size(); i++) {
 			addPlayerFrameField(playerList.get(i), gameid);
 		}
-		
+
+		ArrayList<Integer> cardIds = new ArrayList<Integer>(dbGameCollector.getNormalPatternCardIds());
+		Collections.shuffle(cardIds);
+		ArrayList<Integer> playerIDs = new ArrayList<Integer>();
+		for (int i = 0; i < playerList.size(); i++) {
+			playerIDs.add(dbGameCollector.getPlayerID(gameid, playerList.get(i)));
+		}
+
+		for (int i = 0; i < playerIDs.size(); i++) {
+			for (int z = 0; z < 4; z++) {
+				dbGameCollector.giveCard(playerIDs.get(i), cardIds.get(0));
+				cardIds.remove(0);
+			}
+		}
 
 	}
-	
 
 	private ArrayList<String> getColors() {
 		ArrayList<String> colors = new ArrayList<>();
@@ -177,11 +190,11 @@ public class MenuController {
 	public void addPlayer(String username, int gameid, String color, int seq) {
 		dbGameCollector.addPlayer(username, gameid, color, seq);
 	}
-	
+
 	private void addPlayerFrameField(String username, int gameid) {
 		System.out.println(username);
 		dbGameCollector.addPlayerFrameField(username, gameid);
-		
+
 	}
 
 	private void createGameDie(int gameid) {
@@ -219,7 +232,7 @@ public class MenuController {
 			list.remove(0);
 
 		}
-//		System.out.println(list);//syso to check which numbers are added to database
+		// System.out.println(list);//syso to check which numbers are added to database
 		return list;
 	}
 

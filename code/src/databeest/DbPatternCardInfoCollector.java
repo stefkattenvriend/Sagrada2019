@@ -47,8 +47,12 @@ public class DbPatternCardInfoCollector {
 		return color;
 	}
 	
-	public ArrayList<Integer> getNormalPatternCardIds() {
-		return dataBaseApplication.getNormalPatterncards();
+	public int countCards() {
+		return dataBaseApplication.countCards();
+	}
+	
+	public ArrayList<Integer> getPatternCards(int playerId) {
+		return dataBaseApplication.getPlayerPatternCards(playerId);
 	}
     
 }

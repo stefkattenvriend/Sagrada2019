@@ -53,9 +53,10 @@ public class DiceController {
 	}
 	
 	public void putDieOnRoundTrack(int gameid) {
-		ArrayList<String> diecolor = ddc.getDieColor(gameid);
-		ArrayList<Integer> dienumber = ddc.getDieNumbers(gameid);
 		int round = ddc.getRound(gameid);
+		ArrayList<String> diecolor = ddc.getDieColor(gameid, round);
+		ArrayList<Integer> dienumber = ddc.getDieNumbers(gameid, round);
+	
 		for (int i = 0; i < dienumber.size(); i++) {
 			ddc.addDieToRoundTrack(round, gameid, dienumber.get(i), diecolor.get(i));
 			System.out.println("Adding " + dienumber.get(i)+ " to roundtrack: " + round);
@@ -65,8 +66,8 @@ public class DiceController {
 	public void generateOffer(int amountOfPlayers, int gameid) {
 		int amountOfDice = amountOfPlayers * 2 + 1;
 
-		ArrayList<String> diecolor = ddc.getDieColor(gameid);
-		ArrayList<Integer> dienumber = ddc.getDieNumbers(gameid);
+		ArrayList<String> diecolor = ddc.getDieColor(gameid, 0);
+		ArrayList<Integer> dienumber = ddc.getDieNumbers(gameid, 0);
 		
 		int round = ddc.getRound(gameid);
 		ArrayList<Integer> list = generateRandomNumbers(dienumber.size(), amountOfDice);

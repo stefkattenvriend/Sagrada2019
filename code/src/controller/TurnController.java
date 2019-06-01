@@ -24,8 +24,10 @@ public class TurnController {
 	private TurnAdmissionChecker tac;
 	private GameController gController;
 	private DiceController diceController;
+	private ToolCardController tcc;
 	
-	public TurnController(GameController gc, DiceHolderController dhc, DbDieUpdater ddu, GameModel gm, DbTurnCollector dtc, String username, int gameId) {
+	public TurnController(GameController gc, DiceHolderController dhc, DbDieUpdater ddu, GameModel gm, DbTurnCollector dtc, String username, int gameId, ToolCardController tcc) {
+		this.tcc = tcc;
 		this.gameId = gameId;
 		this.username = username;
 		this.dtc = dtc;
@@ -333,7 +335,7 @@ public class TurnController {
 
 	
 	public void TurnAdmissionGiving() {
-		tac = new TurnAdmissionChecker(dtc, username, gameId, dhc, pp, this);
+		tac = new TurnAdmissionChecker(dtc, username, gameId, dhc, pp, this, tcc);
 
 			Thread t1 = new Thread(tac);
 			t1.start();
