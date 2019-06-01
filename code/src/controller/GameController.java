@@ -146,8 +146,8 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 
 	public void createCardsController() {
 		psc = new PayStoneController(psr, DatabasePTCCollector.getPlayerID(gm.getGameId(), lc.getCurrentAccount()), gm.getGameId());
-		tcc = new ToolCardController(dhc.getDiceController().getDMAL(), psc, dtcc, gm.getGameId());
-		crc = new CardsController(dbCardCollector, gm.getGameId(), tcc);
+		tcc = new ToolCardController(psc, dtcc, gm.getGameId());
+		crc = new CardsController(dbCardCollector, gm.getGameId(), tcc, dhc.getDiceController().getDMAL());
 //		System.out.println("should be gameId: " + gm.getGameId());
 	}
 
