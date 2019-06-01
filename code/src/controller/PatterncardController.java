@@ -203,7 +203,7 @@ public class PatterncardController {
 			color = Color.WHITE;
 		}
 		return color;
-	
+	}
 	
 	public boolean checkAllPatternCards() {
 		ArrayList<Integer> allPlayersPC = new ArrayList<Integer>();
