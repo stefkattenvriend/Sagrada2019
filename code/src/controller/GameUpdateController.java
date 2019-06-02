@@ -79,6 +79,18 @@ public class GameUpdateController {
 							// loop door de dhma, zoek een dobbelsteen in de andere dhm die overeen komt met
 							// die van de pffa,
 							// haal dat model daar weg en plaats deze in de juiste dhm
+							if (dhmad.size() == 0) {
+								ArrayList<DiceModel> dicelist = dhc.getDiceController().getDMAL();
+								for (int k = 0; k < dicelist.size(); k++) {
+									if (dicelist.get(k).getDieNumber() == pffa.get(j).getDienumber() && dicelist.get(k).getDieColor() == pffa.get(j).getDiecolor()) {
+										dhma.get(i).setDie(dicelist.get(k));
+									}
+									
+									
+								}
+								
+							}
+							
 							for (int k = 0; k < dhmad.size(); k++) {
 
 								if (dhmad.get(k).getDie().getDieNumber() == pffa.get(j).getDienumber()
@@ -93,6 +105,8 @@ public class GameUpdateController {
 									}
 									gmc.setUpdateDice(true);
 								}
+								
+								
 							}
 						}
 					}
