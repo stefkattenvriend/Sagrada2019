@@ -91,12 +91,12 @@ public class GamePane extends StackPane {
 		playerPane.setStyle("-fx-background-color: rgba(255, 0, 0, 0.7);");
 		
 		//zet enemy pane op groen
-//		enemyPane.setColor();
+		enemyPane.setColor();
 	}
 
 	public void yourTurn() {
 		//zet enemy pane op rood
-//		enemyPane.setColor();
+		enemyPane.setColor();
 
 		//zet jou pane op groen
 		playerPane.setStyle("-fx-background-color: rgba(0, 255, 0, 0.7);");
