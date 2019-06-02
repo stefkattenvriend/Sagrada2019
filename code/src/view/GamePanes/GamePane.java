@@ -121,4 +121,9 @@ public class GamePane extends StackPane {
 		enemyPane.redrawDice();
 	}
 
+	public void redrawOffer() {
+		playerPane.redrawOffer();
+		
+	}
+
 }

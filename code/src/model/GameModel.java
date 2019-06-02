@@ -1,6 +1,7 @@
 package model;
 
 import controller.DiceController;
+import controller.GameController;
 import controller.ToolCardController;
 import databeest.DbGameCollector;
 import databeest.DbPlayerCollector;
@@ -44,12 +45,13 @@ public class GameModel {
 		return gameRound;
 	}
 
-	public void updateRound() {
+	public void updateRound(GameController gc) {
 		
 		int newRound = dgc.getRoundNumber(gameid);
 		
 		if (gameRound < newRound) {
 			gameRound = newRound;
+			gc.updateRoundtrack(newRound - 1);
 		}
 		
 	}

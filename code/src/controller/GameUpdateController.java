@@ -29,7 +29,7 @@ public class GameUpdateController {
 
 	public void testRun() {
 		if (gm != null) {
-			gm.updateRound();
+			//gm.updateRound();
 		}
 
 	}

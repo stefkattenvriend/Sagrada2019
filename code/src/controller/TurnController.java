@@ -320,7 +320,6 @@ public class TurnController {
 					currentplayer.setCurrentPlayer(false);
 					System.out.println("--Ending the round--");
 					diceController.putDieOnRoundTrack(gameId);
-					gController.createRoundOffer();
 				
 					if (currentplayer == players[0]) {
 						players[0].setSeqnr(2);

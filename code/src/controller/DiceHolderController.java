@@ -484,4 +484,16 @@ public class DiceHolderController {
 	public int getMoves() {
 		return gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getMovesAllowed1();
 	}
+
+
+
+	public void clearDiceOffer() {
+		for (int i = 0; i < dhmodels.size(); i++) {
+			if(dhmodels.get(i).getType() == DiceHolderType.OFFER) {
+				dhmodels.get(i).setDie(null);
+				dhpanes.get(i).updateDiceHolderPane();
+			}
+		}
+		
+	}
 }
