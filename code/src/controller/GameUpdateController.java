@@ -92,7 +92,12 @@ public class GameUpdateController {
 							}
 							
 							for (int k = 0; k < dhmad.size(); k++) {
-
+								
+								if (k == dhmad.size()) {
+									System.out.println("Mistake on k:" + k);
+									
+								}
+								
 								if (dhmad.get(k).getDie().getDieNumber() == pffa.get(j).getDienumber()
 										&& dhmad.get(k).getDie().getDieColor() == pffa.get(j).getDiecolor()) {// mvc fix
 

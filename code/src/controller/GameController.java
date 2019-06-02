@@ -156,7 +156,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		pcc = new PatterncardController(DatabasePTCCollector, gm);
 		lyc = new LayerController(pcc, this);
 		// System.out.println("Player id in create game model: " + pc.getPlayerID());
-		this.dhc = new DiceHolderController(pcc, dbDieCollector, gm.getGameId(), gm);
+		this.dhc = new DiceHolderController(pcc, dbDieCollector, gm.getGameId(), gm, dbDieUpdater);
 		createCardsController();
 		guc.setGameModel(gm);
 		this.ptsc = new PointsController(this);
@@ -375,9 +375,12 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	//
 	// }
 	public void updateRoundtrack(int oldRoundId) {
-		/*
-		 * guc.reloadRoundTrack(); dhc.clearDiceOffer(); this.forcedUpdateDice();
-		 */
+		
+		
+		 guc.reloadRoundTrack(); 
+		 dhc.clearDiceOffer(); 
+//		 this.forcedUpdateDice();
+		 
 		System.out.println("aye, im working here!");
 
 	}

@@ -20,7 +20,7 @@ public class CardBackgroundModel {
 //		System.out.println("toolcards: " + this.dbCardCollector.getToolcards(gameId).get(0));
 		ToolCard1 = 2;
 		ToolCard2 = 6;
-		ToolCard3 = 8;
+		ToolCard3 = 1;
 		
 		TargetCard1 = this.dbCardCollector.getObjectivecards(gameId).get(0);
 		TargetCard2 = this.dbCardCollector.getObjectivecards(gameId).get(1);
