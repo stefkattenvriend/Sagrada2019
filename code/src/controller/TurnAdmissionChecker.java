@@ -54,7 +54,12 @@ public class TurnAdmissionChecker implements Runnable {
 		if (!tcc.exception()) {
 			if (dtc.myTurn(username, gameId)) {
 				dhc.switchTurnInteractable(true);
-				gc.setCurrentPlayer(true);
+				
+				if (myTurn) {
+					gc.setCurrentPlayer(true);	//zou ervoor moeten zorgen dat zodra het jouw turn is de game nog 1 keer update voor laatste gegevens
+				}
+				myTurn = true;
+				
 				
 				pp.yourTurn();
 				
@@ -68,6 +73,7 @@ public class TurnAdmissionChecker implements Runnable {
 				//dont allow something
 	//			System.out.println("not my turn");
 				dhc.switchTurnInteractable(false);
+				myTurn = false;
 				gc.setCurrentPlayer(false);
 				allInteractible = false;
 				
