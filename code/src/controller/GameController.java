@@ -316,7 +316,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 			if (allPatternCards) {
 				if (dhc.getDhmodels().size() == 99) {
 					if (old_round < gm.getGameRound()) {
-						guc.getDiceOffer(gm.getGameRound() + 1);// update de dice in de offerpane
+						guc.getDiceOffer(gm.getGameRound());// update de dice in de offerpane
 						old_round++;
 						dhc.reloadDiceHolderPanes();
 						gamepane.redrawDice();
