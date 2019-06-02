@@ -104,7 +104,7 @@ public class MenuWaitingPane extends FlowPane {
 
 		for (int i = 0; i < gameIDs.size(); i++) { // voegt knop toe
 			games.add(new MenuDropdown(menuController, false, "Sagrada " + gameIDs.get(i), false, null, true, false,
-					this, loginController, null, menuGamesPane));
+					this, loginController, null, menuGamesPane, false));
 		}
 
 		for (int x = 0; x < games.size(); x++) { // voegt alle knoppen toe aan de lijst
@@ -128,7 +128,7 @@ public class MenuWaitingPane extends FlowPane {
 
 		for (int i = 0; i < gameIDs.size(); i++) { // voegt knop toe
 			games.add(new MenuDropdown(menuController, false, "Sagrada " + gameIDs.get(i), false, null, true, false,
-					this, loginController, null, null));
+					this, loginController, null, null, false));
 		}
 
 		for (int i = 0; i < games.size(); i++) { // voegt alle knoppen toe aan de lijst
