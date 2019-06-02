@@ -80,4 +80,9 @@ public class DbPlayerCollector {
 		dbApplication.insertQuery(query);
 	}
 	
+	public int getDiceAmountOnFrame(int playerid) {
+		int amount = dbApplication.getDiceAmountOnFrame(playerid);
+		return amount;
+	}
+	
 }

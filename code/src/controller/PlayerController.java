@@ -54,4 +54,9 @@ public class PlayerController {
 	public String getPlayerName() {
 		return playerModel.getUsername();
 	}
+	
+	public void getDiceHolderController()
+	{
+
+	}
 }
