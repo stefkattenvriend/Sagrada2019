@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import databeest.DbDieCollector;
 import helpers.DiceHolderType;
 import helpers.PatterncardType;
-import javafx.scene.Node;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
 import model.DiceHolderModel;
 import model.DiceModel;
+import model.GameModel;
 import view.GamePanes.DiceHolderPane;
 import view.GamePanes.DicePane;
 
@@ -25,9 +25,10 @@ public class DiceHolderController {
 	private boolean checkColor = true;
 	private boolean checkEyes = true;
 	private boolean checkNextTo = true;
+	GameModel gm;
 	
-	
-	public DiceHolderController(PatterncardController pcc, DbDieCollector ddc, int gameid) {
+	public DiceHolderController(PatterncardController pcc, DbDieCollector ddc, int gameid, GameModel gm) {
+		this.gm = gm;
 		this.pcc = pcc;
 		dc = new DiceController(ddc, gameid);
 	}
@@ -118,23 +119,53 @@ public class DiceHolderController {
 						return;
 
 					} else if (selectedModel.getDie() == null && dhmodels.get(i).getDie() != null) {// switch een
-																									// dobbelsteen
-						
-						if(checkDiceMovement(selectedModel, dhmodels.get(i).getDie()) == true) {
-							selectedModel.setDie(dhmodels.get(i).getDie());// wiselt de models
-						movedDice.add(dhmodels.get(i).getDie());
-						dhmodels.get(i).setDie(null);
+						System.out.println("check");	//dobbelsteen verplaatsen
+						System.out.println("moves 2: " + gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getMovesAllowed2());
+						System.out.println("turn: " + gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getTurn());
+						boolean allowed = false;
+						if(gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getTurn() != 0) {
+							if(gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getTurn() == 1) {
+								if(gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getMovesAllowed1() != 0) {
+									allowed = true;
+									System.out.println("allowed: " + allowed);
+									gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).doMove1();
+									System.out.println("moves 1: " + gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getMovesAllowed1());
+								}
+							}
+							if(gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getTurn() == 2) {
+								if(gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getMovesAllowed2() != 0) {
+									allowed = true;
+									System.out.println("allowed: " + allowed);
+									gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).doMove2();
+									System.out.println("moves 2: " + gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getMovesAllowed2());
+								}
+							}
+							
+							if (allowed) {
+								if(checkDiceMovement(selectedModel, dhmodels.get(i).getDie()) == true) {
+									selectedModel.setDie(dhmodels.get(i).getDie());// wiselt de models
+									movedDice.add(dhmodels.get(i).getDie());
+									dhmodels.get(i).setDie(null);
+			
+									dhmodels.get(i).switchSelected();// zet achtergrond en selected naar nul van oude pane
+									dhpanes.get(i).setBackground(null);
+			
+									dp.setCenter(dhpanes.get(i).getCenter());// wiselt de panes
+									dhpanes.get(i).setCenter(null);
+	//								return; //vgm moet ie hier weet ik niet zeker, jami
+								}
+							} else {
+								dhmodels.get(i).switchSelected();
+								dhpanes.get(i).setBackground(null);// zet background en selected status naar null van de pane
+																	// die eerder selected was
 
-						dhmodels.get(i).switchSelected();// zet achtergrond en selected naar nul van oude pane
-						dhpanes.get(i).setBackground(null);
-
-						dp.setCenter(dhpanes.get(i).getCenter());// wiselt de panes
-						dhpanes.get(i).setCenter(null);
+								selectedModel.switchSelected();
+								dp.setBackground(new Background(new BackgroundFill(Color.rgb(10, 10, 10, 0.8), null, null)));
+							}
 						
-						
-
 						return;
-						}else {
+						} else {
+							System.out.println("gm.getplayermodel = 0");
 							dhmodels.get(i).switchSelected();
 							dhpanes.get(i).setBackground(null);// zet background en selected status naar null van de pane
 																// die eerder selected was

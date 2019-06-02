@@ -131,6 +131,7 @@ public class ToolCardController {
 		}
 		
 		if (cardpane.getCardNr() == 7) {
+			
 			// Werp alle dobbelstenen in het aanbod opnieuw, enkel bij 2e beurt
 		}
 		

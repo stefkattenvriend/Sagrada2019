@@ -2,6 +2,7 @@ package databeest;
 
 import java.util.ArrayList;
 
+import model.DiceHolderModel;
 import model.DiceModel;
 import model.PlayerFieldFrameModel;
 
@@ -47,6 +48,10 @@ public class DbDieCollector {
 
 	public void addDieToRoundTrack(int round, int gameid, Integer integer, String string) {
 		dba.addDieToRoundTrack(round, gameid, integer, string);
+	}
+	
+	public ArrayList<DiceModel> getDiceOffer(int idgame, int round) {
+		return dba.getDiceOffer(idgame, round);
 	}
 	
 
