@@ -368,9 +368,16 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 //		
 //	}
 	public void updateRoundtrack(int oldRoundId) {
+		/*guc.reloadRoundTrack();
 		dhc.clearDiceOffer();
+		this.forcedUpdateDice();*/
+		System.out.println("aye, im working here!");
 
 		
+	}
+
+	public DbPlayerCollector getdbPlayerCollector() {
+		return dpc;
 	}
 
 }

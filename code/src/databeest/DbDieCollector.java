@@ -52,6 +52,10 @@ public class DbDieCollector {
 	public ArrayList<DiceModel> getDiceOffer(int idgame, int round) {
 		return dba.getDiceOffer(idgame, round);
 	}
+
+	public ArrayList<DiceModel> getRoundTrack(int gameID) {
+		return dba.getRoundTrack(gameID);
+	}
 	
 
 }

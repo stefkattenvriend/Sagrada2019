@@ -39,7 +39,7 @@ public class MenuLeftPane extends VBox{
 	
 	private void createPanes() {		
 		resultsPane = new MenuInvitePane(menuController, loginController, menuWaitingPane);
-		invitePane = new MenuResultsPane();
+		invitePane = new MenuResultsPane(menuController);
 		logoutPane = new MenuLogoutPane(loginController, myScene);
 		
 		setAlignment(Pos.CENTER);
