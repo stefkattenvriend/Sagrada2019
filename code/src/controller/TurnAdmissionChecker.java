@@ -48,38 +48,29 @@ public class TurnAdmissionChecker implements Runnable {
 	}
 	
 	private void checkMyTurn() {
-		if (dtc.myTurn(username, gameId)) {
-			pp.yourTurn();
-//			System.out.println("myturn");
-			if(tcc.exception()) {
-				if (allInteractible) {
-					dhc.switchTurnInteractable(false);
-					allInteractible = false;
+		if (!tcc.exception()) {
+			if (dtc.myTurn(username, gameId)) {
+				pp.yourTurn();
+				dhc.switchTurnInteractable(true);
+				
+				try {
+					Thread.sleep(3000);
+				} catch (InterruptedException e) {
+					System.out.println("TurnAdmissionController checkMyTurn sleep error");
+					e.printStackTrace();
 				}
 			} else {
-				if (!allInteractible) {
-					dhc.switchTurnInteractable(true);
-					allInteractible = true;
+				//dont allow something
+	//			System.out.println("not my turn");
+				dhc.switchTurnInteractable(false);
+				allInteractible = false;
+				
+				try {
+					Thread.sleep(3000);
+				} catch (InterruptedException e) {
+					System.out.println("TurnAdmissionController checkMyTurn sleep error");
+					e.printStackTrace();
 				}
-			}
-			
-			try {
-				Thread.sleep(3000);
-			} catch (InterruptedException e) {
-				System.out.println("TurnAdmissionController checkMyTurn sleep error");
-				e.printStackTrace();
-			}
-		} else {
-			//dont allow something
-//			System.out.println("not my turn");
-			dhc.switchTurnInteractable(false);
-			allInteractible = false;
-			
-			try {
-				Thread.sleep(3000);
-			} catch (InterruptedException e) {
-				System.out.println("TurnAdmissionController checkMyTurn sleep error");
-				e.printStackTrace();
 			}
 		}
 	}

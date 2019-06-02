@@ -33,10 +33,6 @@ public class DiceHolderPane extends BorderPane{
 		getChildren().clear();
 	}
 	
-//	public void updateStone(Dice dice) {
-//		
-//	}
-	
 	public void addPlusAndMinus(int dienr) {
 		if(dienr != 6) {
 			higher = new Button("+");
@@ -50,7 +46,19 @@ public class DiceHolderPane extends BorderPane{
 			lower.setFont(Font.font("Verdana", 10));
 			this.setLeft(lower);
 		}
-		higher.setOnMouseClicked(e -> dhc.higherClicked(this));
-		lower.setOnMouseClicked(e -> dhc.lowerClicked(this));
+		higher.setOnMouseClicked(e -> higherClicked());
+		lower.setOnMouseClicked(e -> lowerClicked());
 	}
+
+	
+	private void higherClicked() {
+		this.getChildren().removeAll(higher, lower);
+		dhc.higherClicked();
+	}
+	
+	private void lowerClicked() {
+		this.getChildren().removeAll(higher, lower);
+		dhc.lowerClicked();
+	}
+	
 }
