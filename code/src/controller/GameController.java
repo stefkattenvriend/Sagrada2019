@@ -323,8 +323,10 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 					if (old_round < gm.getGameRound()) {
 						guc.getDiceOffer(gm.getGameRound());// update de dice in de offerpane
 						old_round++;
+						System.out.println("diceoffer has been updated");
 						dhc.reloadDiceHolderPanes();
 						gamepane.redrawDice();
+						forcedUpdateDice();
 					}
 				} else {
 					System.out.println("uncomplete model");
@@ -332,6 +334,12 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 			}
 		}
 
+	}
+	
+	public void forcedUpdateDice() {
+		guc.checkDiceMovementPlayerFields();
+		dhc.reloadDiceHolderPanes();// reload de panes van dice en diceholder die izjn opgeslagen
+		gamepane.redrawDice();
 	}
 
 	public void createRoundOffer() {
@@ -341,7 +349,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	public void updateGameRound() {
 		if (gameRunning) {
 			if (allPatternCards) {
-				gm.updateRound();
+				gm.updateRound(this);
 			}
 		}
 	}
@@ -354,5 +362,10 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 //			}
 //		
 //	}
+	public void updateRoundtrack(int oldRoundId) {
+		dhc.clearDiceOffer();
+
+		
+	}
 
 }

@@ -199,4 +199,9 @@ public class PlayerPane extends VBox{
 		diceOfferPane.redrawDice();
 		
 	}
+
+	public void redrawOffer() {
+		diceOfferPane.redrawDice();
+		
+	}
 }
