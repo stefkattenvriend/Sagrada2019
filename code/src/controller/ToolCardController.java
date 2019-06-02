@@ -157,8 +157,10 @@ public class ToolCardController {
 				
 				if (cardpane.getCardNr() == 8) {
 					// na eerste beurt gelijk nieuwe dobbelsteen kiezen tweede beurt overslaan.
-					if(psc.canPay(tcc.getPrice(8, gameid))) {
-						gc.getPlayerPaneController().setNumber8(true);
+					if(!gc.getPlayerPaneController().getNumber8()) {
+						if(psc.canPay(tcc.getPrice(8, gameid))) {
+							gc.getPlayerPaneController().setNumber8(true);
+							psc.pay(8, gameid);
 						}
 					}
 				}
@@ -185,7 +187,7 @@ public class ToolCardController {
 				}
 			}
 		}
-	
+	}
 	
 	public void setTurn(boolean turn) {
 		this.turn = turn;

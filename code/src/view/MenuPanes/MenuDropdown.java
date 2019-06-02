@@ -144,18 +144,18 @@ public class MenuDropdown extends VBox {// door joery
 			gameInfoPane.setCenter(playerStats);
 		}
 		
-		if(playersPaneOff) {
-			VBox playerStats = new VBox();
-
-			Label winGames = new Label("Gewonnen: " + 3);	
-			
-			Label lostGames = new Label("Verloren: " + 7);
-
-			playerStats.setAlignment(Pos.CENTER_LEFT);
-			playerStats.getChildren().addAll(winGames, lostGames);
-			
-			gameInfoPane.setCenter(playerStats);
-		}
+//		if(playersPaneOff) {
+//			VBox playerStats = new VBox();
+//
+//			Label winGames = new Label("Gewonnen: " + 3);	
+//			
+//			Label lostGames = new Label("Verloren: " + 7);
+//
+//			playerStats.setAlignment(Pos.CENTER_LEFT);
+//			playerStats.getChildren().addAll(winGames, lostGames);
+//			
+//			gameInfoPane.setCenter(playerStats);
+//		}
 
 		if (waitPane) {
 			String splitBtnName[] = username.split(" ");

@@ -28,4 +28,8 @@ public class PlayerPaneController {
 	public void setNumber8(boolean i) {
 		number8 = i;
 	}
+
+	public boolean getNumber8() {
+		return number8;
+	}
 }
