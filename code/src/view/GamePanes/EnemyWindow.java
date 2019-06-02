@@ -182,4 +182,13 @@ public class EnemyWindow extends VBox {
 		patternCard.getChildren().clear();
 		addPatternCard();
 	}
+
+	public void redrawDice() {
+		diceHolders.getChildren().clear();
+		for (int y = 1; y < 5; y++) {
+			for (int x = 1; x < 6; x++) {
+					diceHolders.getChildren().add(dhc.getPlayerWindowDiceHolders(x, y, dht));
+			}	
+		}
+	}
 }

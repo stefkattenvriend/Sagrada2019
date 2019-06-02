@@ -47,6 +47,13 @@ public class EnemyPane extends BorderPane{
 		enemyWindow2.updatePC();
 		enemyWindow3.updatePC();
 	}
+
+	public void redrawDice() {
+		enemyWindow1.redrawDice();
+		enemyWindow2.redrawDice();
+		enemyWindow3.redrawDice();
+		
+	}
 	
 	
 

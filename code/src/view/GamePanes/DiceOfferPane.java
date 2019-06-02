@@ -53,4 +53,11 @@ public class DiceOfferPane extends FlowPane{
 		dhc.addDie(DiceHolderType.OFFER, 3, 0, 42);
 		dhc.addDie(DiceHolderType.OFFER, 4, 0, 90);
 	}
+
+	public void redrawDice() {
+		this.getChildren().clear();
+			for (int x = 1; x < 10; x++) {
+					this.getChildren().add(dhc.getPlayerWindowDiceHolders(x, 0, DiceHolderType.OFFER));	
+		}
+	}
 	}

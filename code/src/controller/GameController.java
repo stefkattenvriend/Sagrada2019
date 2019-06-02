@@ -1,7 +1,6 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import databeest.DbCardCollector;
 import databeest.DbChatCollector;
@@ -14,7 +13,6 @@ import databeest.DbPlayerCollector;
 import databeest.DbToolCardCollector;
 import databeest.DbTurnCollector;
 import model.GameModel;
-import model.PlayerModel;
 import model.PlayerPayStoneModel;
 import view.GamePanes.CardPane;
 import view.GamePanes.ChatPane;
@@ -51,6 +49,8 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private GamePane gamepane;
 	private boolean gameRunning;
 	private boolean allPatternCards;
+	private boolean currentPlayer;
+	private boolean updateDice;
 //	private boolean generateOffer;
 
 	private PlayerController pc;
@@ -59,17 +59,16 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private PersonalAttributes pa;
 
 	public GameController(DbPatternCardInfoCollector DatabasePTCCollector, DbGameCollector dbGamecollector,
-			LoginController lc, DbChatCollector dbChat, DbCardCollector dbCardCollector, GameUpdateController guc,
+			LoginController lc, DbChatCollector dbChat, DbCardCollector dbCardCollector,
 			DbPlayerCollector dpc, DbDieCollector ddc, DbDieUpdater ddu, DbTurnCollector dtc, DbPayStoneRuler psr,
 			DbToolCardCollector tcc) {
 		this.DatabasePTCCollector = DatabasePTCCollector;
 		this.dpc = dpc;
 		this.lc = lc;
 		this.dbCardCollector = dbCardCollector;
-
 		cc = new ChatController(dbChat, this);
 		this.dbDieCollector = ddc;
-		this.guc = guc;
+		
 		this.dbDieUpdater = ddu;
 
 		ppsm = new PlayerPayStoneModel();
@@ -83,6 +82,8 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 //		this.generateOffer = true;
 		this.gameRunning = false;
 		this.allPatternCards = false;
+		this.currentPlayer = false;
+		this.updateDice = false;
 	}
 
 	public CardsController getCardsController() {
@@ -125,6 +126,10 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		return gm;
 	}
 
+	public DbDieCollector getDbDieCollector() {
+		return dbDieCollector;
+	}
+
 	public void createGameModel(int gameID) {
 		
 		String username = lc.getCurrentAccount();
@@ -144,6 +149,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 //		System.out.println("Player id in create game model: " + pc.getPlayerID());
 		this.dhc = new DiceHolderController(pcc, dbDieCollector, gm.getGameId());
 		createCardsController();
+		guc.setGameModel(gm);
 		
 	}
 
@@ -151,6 +157,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		psc = new PayStoneController(psr, DatabasePTCCollector.getPlayerID(gm.getGameId(), lc.getCurrentAccount()), gm.getGameId());
 		tcc = new ToolCardController(psc, dtcc, gm.getGameId(), dhc);
 		crc = new CardsController(dbCardCollector, gm.getGameId(), tcc, dhc.getDiceController().getDMAL());
+		this.guc = new GameUpdateController(this);
 		this.tc = new TurnController(this, dhc, dbDieUpdater, gm, dtc, lc.getCurrentAccount(), gm.getGameId(), tcc);
 //		System.out.println("should be gameId: " + gm.getGameId());
 	}
@@ -254,5 +261,44 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	public void updateFirstDice(int amountOfPlayers, int gameid) {
 		dhc.getDiceController().generateOffer(amountOfPlayers, gameid);
 
+	}
+
+	public void updateDicePlacement() {
+		if (gameRunning) {
+			if (allPatternCards) {
+				if(currentPlayer == false) {
+					if (dhc.getDhmodels().size() == 99) {
+						guc.checkDiceMovement();// update de dice models
+						if (updateDice) {
+							dhc.reloadDiceHolderPanes();// reload de panes van dice en diceholder die izjn opgeslagen
+							gamepane.redrawDice();
+							setUpdateDice(false);
+						}
+					}
+					else {
+						System.out.println("uncomplete model");
+					}
+					
+				
+					}
+				
+			}
+			
+		}
+		
+		
+	}
+
+	public int getGameId() {
+		return gm.getGameId();
+	}
+
+	public void setCurrentPlayer(boolean b) {
+		this.currentPlayer = b;
+	}
+
+	public void setUpdateDice(boolean b) {
+		this.updateDice = b;
+		
 	}
 }

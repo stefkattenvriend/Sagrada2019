@@ -2,6 +2,7 @@ package controller;
 
 
 import databeest.DbTurnCollector;
+import model.GameModel;
 import view.GamePanes.ChatPane;
 import view.GamePanes.PlayerPane;
 
@@ -16,10 +17,11 @@ public class TurnAdmissionChecker implements Runnable {
 	private boolean playing = true;
 	private TurnController tc;
 	private ToolCardController tcc;
+	private GameController gc;
 	private boolean allInteractible;
 //	private ChatPane chatPane;
 	
-	public TurnAdmissionChecker(DbTurnCollector dtc, String username, int gameId, DiceHolderController dhc, PlayerPane pp, TurnController tc, ToolCardController tcc) {
+	public TurnAdmissionChecker(DbTurnCollector dtc, String username, int gameId, DiceHolderController dhc, PlayerPane pp, TurnController tc, ToolCardController tcc, GameController gc) {
 		this.tcc = tcc;
 		this.username = username;
 		this.gameId = gameId;
@@ -27,6 +29,7 @@ public class TurnAdmissionChecker implements Runnable {
 		this.dhc = dhc;
 		this.pp = pp;
 		this.tc = tc;
+		this.gc = gc;
 		
 	}
 	
@@ -50,9 +53,10 @@ public class TurnAdmissionChecker implements Runnable {
 	private void checkMyTurn() {
 		if (!tcc.exception()) {
 			if (dtc.myTurn(username, gameId)) {
+				dhc.switchTurnInteractable(true);
+				gc.setCurrentPlayer(true);
 				
 				pp.yourTurn();
-				dhc.switchTurnInteractable(true);
 				
 				try {
 					Thread.sleep(3000);
@@ -64,6 +68,7 @@ public class TurnAdmissionChecker implements Runnable {
 				//dont allow something
 	//			System.out.println("not my turn");
 				dhc.switchTurnInteractable(false);
+				gc.setCurrentPlayer(false);
 				allInteractible = false;
 				
 				try {

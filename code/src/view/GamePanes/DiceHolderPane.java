@@ -18,21 +18,30 @@ public class DiceHolderPane extends BorderPane{
 	private Button lower;
 	private double size;
 
-	public DiceHolderPane(double size, DiceHolderController dhc) {
+	public DiceHolderPane(double size, DiceHolderController dhc, int id, boolean diceUpdate) {
 		super();
 		this.size = size;
 		this.dhc = dhc;
 		this.setPrefSize(size, size);
 		this.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(0), new BorderWidths(3) )));
-		this.setOnMouseClicked(e -> dhc.DiceHolderClick(this));
 		this.setOnMouseEntered(e -> dhc.DiceHolderHover(this));
 		this.setOnMouseExited(e -> dhc.DiceHolderLeaveHover(this));
+		this.setOnMouseClicked(e -> dhc.DiceHolderClick(this));
+		
+		if (diceUpdate) {
+			placeDice(id);
+		}
+		
 	}
 
 	public void updateDiceHolderPane(){
 		getChildren().clear();
 	}
 	
+	public void placeDice(int id) {
+			this.setCenter(dhc.getDice(id));
+		
+	}
 	public void addPlusAndMinus(int dienr) {
 		if(dienr != 6) {
 			higher = new Button("+");

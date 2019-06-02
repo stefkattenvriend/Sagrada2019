@@ -189,4 +189,11 @@ public class PlayerPane extends VBox{
 	{
 		
 	}
+
+	public void redrawDice() {
+		playerBoardPane.redrawDice();
+		roundTrackPane.redrawDice();
+		diceOfferPane.redrawDice();
+		
+	}
 }
