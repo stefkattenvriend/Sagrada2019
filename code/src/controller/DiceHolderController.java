@@ -119,12 +119,15 @@ public class DiceHolderController {
 						return;
 
 					} else if (selectedModel.getDie() == null && dhmodels.get(i).getDie() != null) {// switch een
-																									// dobbelsteen
+						System.out.println("check");	//dobbelsteen verplaatsen
+						System.out.println("moves 2: " + gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getMovesAllowed2());
+						System.out.println("turn: " + gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getTurn());
 						boolean allowed = false;
 						if(gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getTurn() != 0) {
 							if(gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getTurn() == 1) {
 								if(gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getMovesAllowed1() != 0) {
 									allowed = true;
+									System.out.println("allowed: " + allowed);
 									gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).doMove1();
 									System.out.println("moves 1: " + gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getMovesAllowed1());
 								}
@@ -132,6 +135,7 @@ public class DiceHolderController {
 							if(gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getTurn() == 2) {
 								if(gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getMovesAllowed2() != 0) {
 									allowed = true;
+									System.out.println("allowed: " + allowed);
 									gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).doMove2();
 									System.out.println("moves 2: " + gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getMovesAllowed2());
 								}
@@ -148,7 +152,7 @@ public class DiceHolderController {
 			
 									dp.setCenter(dhpanes.get(i).getCenter());// wiselt de panes
 									dhpanes.get(i).setCenter(null);
-									return; //vgm moet ie hier weet ik niet zeker, jami
+	//								return; //vgm moet ie hier weet ik niet zeker, jami
 								}
 							} else {
 								dhmodels.get(i).switchSelected();
@@ -159,8 +163,9 @@ public class DiceHolderController {
 								dp.setBackground(new Background(new BackgroundFill(Color.rgb(10, 10, 10, 0.8), null, null)));
 							}
 						
-//						return;
-						}else {
+						return;
+						} else {
+							System.out.println("gm.getplayermodel = 0");
 							dhmodels.get(i).switchSelected();
 							dhpanes.get(i).setBackground(null);// zet background en selected status naar null van de pane
 																// die eerder selected was
