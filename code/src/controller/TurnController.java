@@ -4,11 +4,9 @@ package controller;
 import databeest.DbDieUpdater;
 import databeest.DbTurnCollector;
 import helpers.DiceHolderType;
-import javafx.scene.layout.Pane;
 import model.DiceHolderModel;
 import model.GameModel;
 import model.PlayerModel;
-import view.GamePanes.ChatPane;
 import view.GamePanes.PlayerPane;
 
 public class TurnController {
