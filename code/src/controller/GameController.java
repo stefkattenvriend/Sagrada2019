@@ -53,7 +53,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private boolean currentPlayer;
 	private boolean updateDice;
 	private PlayerPaneController ppc;
-//	private boolean generateOffer;
+	// private boolean generateOffer;
 	// private boolean generateOffer;
 	private int old_round;
 
@@ -73,11 +73,10 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		this.dbDieCollector = ddc;
 
 		this.dbDieUpdater = ddu;
-		
+
 		ppc = new PlayerPaneController();
 		ppsm = new PlayerPayStoneModel();
-		
-		
+
 		this.dbGameCollector = dbGamecollector;
 
 		this.dtc = dtc;
@@ -109,7 +108,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	public PlayerPaneController getPlayerPaneController() {
 		return ppc;
 	}
-	
+
 	public LayerController getLayerController() {
 		return lyc;
 	}
@@ -161,13 +160,14 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		createCardsController();
 		guc.setGameModel(gm);
 		this.ptsc = new PointsController(this);
-		
+
 		old_round = gm.getGameRound() - 1;
 
 	}
 
 	public void createCardsController() {
-		psc = new PayStoneController(psr, DatabasePTCCollector.getPlayerID(gm.getGameId(), lc.getCurrentAccount()), gm.getGameId());
+		psc = new PayStoneController(psr, DatabasePTCCollector.getPlayerID(gm.getGameId(), lc.getCurrentAccount()),
+				gm.getGameId());
 		tcc = new ToolCardController(psc, dtcc, dhc, this);
 		crc = new CardsController(dbCardCollector, gm.getGameId(), tcc, dhc.getDiceController().getDMAL());
 		this.guc = new GameUpdateController(this);
@@ -302,17 +302,17 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 
 	public void setCurrentPlayer(boolean b) {
 		this.currentPlayer = b;
-		if(gamepane != null && b) {
-		gamepane.yourTurn();	//hoort de playerpane groen of rood te zetten als je aan de beurt bent of niet
+		if (gamepane != null && b) {
+			gamepane.yourTurn(); // hoort de playerpane groen of rood te zetten als je aan de beurt bent of niet
 		} else if (gamepane != null && !b) {
 			gamepane.notYourTurn();
 		}
 	}
 
 	public void setUpdateDice(boolean b) {
-		this.updateDice = b;		
+		this.updateDice = b;
 	}
-	
+
 	public ToolCardController getToolCardController() {
 		return tcc;
 	}
@@ -336,11 +336,17 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		}
 
 	}
-	
+
 	public void forcedUpdateDice() {
-		guc.checkDiceMovementPlayerFields();
-		dhc.reloadDiceHolderPanes();// reload de panes van dice en diceholder die izjn opgeslagen
-		gamepane.redrawDice();
+		if (gameRunning) {
+			if (allPatternCards) {
+				if (dhc.getDhmodels().size() == 99) {
+					guc.checkDiceMovementPlayerFields();
+					dhc.reloadDiceHolderPanes();// reload de panes van dice en diceholder die izjn opgeslagen
+					gamepane.redrawDice();
+				}
+			}
+		}
 	}
 
 	public void createRoundOffer() {
@@ -354,26 +360,26 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 			}
 		}
 	}
-	
+
 	public PlayerModel getPlayerModel() {
 		return pc.getPM();
 	}
 
-//	public void updateColors() {
-//		if(gamepane != null && currentPlayer) {
-//			gamepane.yourTurn();	//hoort de playerpane groen of rood te zetten als je aan de beurt bent of niet
-//			} else if (gamepane != null && !currentPlayer) {
-//				gamepane.notYourTurn();
-//			}
-//		
-//	}
+	// public void updateColors() {
+	// if(gamepane != null && currentPlayer) {
+	// gamepane.yourTurn(); //hoort de playerpane groen of rood te zetten als je aan
+	// de beurt bent of niet
+	// } else if (gamepane != null && !currentPlayer) {
+	// gamepane.notYourTurn();
+	// }
+	//
+	// }
 	public void updateRoundtrack(int oldRoundId) {
-		/*guc.reloadRoundTrack();
-		dhc.clearDiceOffer();
-		this.forcedUpdateDice();*/
+		/*
+		 * guc.reloadRoundTrack(); dhc.clearDiceOffer(); this.forcedUpdateDice();
+		 */
 		System.out.println("aye, im working here!");
 
-		
 	}
 
 	public DbPlayerCollector getdbPlayerCollector() {

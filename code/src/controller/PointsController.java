@@ -14,24 +14,30 @@ public class PointsController {
 	private PlayerModel[] pma;
 	private GameModel gameModel;
 	private GameController gameController;
+	private boolean gameEnd;
 	private DbPlayerCollector dbPlayerCollector;
 	
 	public PointsController(GameController gameController) {
 		this.gameController = gameController;
 		this.gameModel = gameController.getGm();
+		gameEnd = false;
 		this.dbPlayerCollector = gameController.getdbPlayerCollector();
 		allowCounting();
+	}
+	
+	public void setEnd(Boolean end) {	//be�indigt het spel
+		gameEnd = end;
 	}
 	
 	public void allowCounting()
 	{
 		pma = gameModel.getPma();
-		if (true /*TODO StartSpeler */) {
-			if (true /*TODO Einde van de Game */) {
-				//TODO er moet nog ergens de volgorde worden aangepast, want nu worden de betaalstenen niet meegenomen
+//		if (true /*TODO StartSpeler */) { //TODO er moet nog ergens de volgorde worden aangepast, want nu worden de betaalstenen niet meegenomen
+			if (gameEnd) {
+				
 				calculatePoints();
 			}
-		}
+//		}
 	}
 	
 	private void calculatePoints() {
