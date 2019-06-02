@@ -2,6 +2,7 @@ package controller;
 
 
 import databeest.DbTurnCollector;
+import model.GameModel;
 import view.GamePanes.ChatPane;
 import view.GamePanes.PlayerPane;
 
@@ -16,9 +17,10 @@ public class TurnAdmissionChecker implements Runnable {
 	private boolean playing = true;
 	private TurnController tc;
 	private ToolCardController tcc;
+	private GameController gc;
 //	private ChatPane chatPane;
 	
-	public TurnAdmissionChecker(DbTurnCollector dtc, String username, int gameId, DiceHolderController dhc, PlayerPane pp, TurnController tc, ToolCardController tcc) {
+	public TurnAdmissionChecker(DbTurnCollector dtc, String username, int gameId, DiceHolderController dhc, PlayerPane pp, TurnController tc, ToolCardController tcc, GameController gc) {
 		this.tcc = tcc;
 		this.username = username;
 		this.gameId = gameId;
@@ -26,6 +28,7 @@ public class TurnAdmissionChecker implements Runnable {
 		this.dhc = dhc;
 		this.pp = pp;
 		this.tc = tc;
+		this.gc = gc;
 		
 	}
 	
@@ -35,11 +38,11 @@ public class TurnAdmissionChecker implements Runnable {
 //			tc.updatePass(); //hoeft niet automatisch toch? aldus milan.
 			if(myTurn) {
 //				pp.setLabel("Aan de beurt: ja");
-				tcc.setTurn(true);
+//				tcc.setTurn(true);
 			}
 			if(!myTurn) {
 //				pp.setLabel("Aan de beurt: nee");
-				tcc.setTurn(false);
+//				tcc.setTurn(false);
 			}
 			
 			tc.updateChat(); //update chat automatisch hoop ik
@@ -49,6 +52,7 @@ public class TurnAdmissionChecker implements Runnable {
 	private void checkMyTurn() {
 		if (dtc.myTurn(username, gameId)) {
 			pp.yourTurn();
+			gc.setCurrentPlayer(true);
 //			System.out.println("myturn");
 			dhc.switchTurnInteractable(true);
 			

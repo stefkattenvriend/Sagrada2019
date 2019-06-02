@@ -96,4 +96,20 @@ public class DiceController {
 		return list;
 	}
 	
+	public void reloadDicePanes() {
+		dpanes.clear();
+		createDicePane();
+	}
+
+
+
+	public DicePane getDicePaneFromModel(DiceModel die) {
+		for (int i = 0; i < dmodels.size(); i++) {
+			if (dmodels.get(i) == die) {//moet mischien .equals zijn
+				return dpanes.get(i);
+			}
+		}
+		return null;
+	}
+	
 }

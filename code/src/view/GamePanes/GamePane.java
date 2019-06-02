@@ -98,4 +98,9 @@ public class GamePane extends StackPane {
 		
 	}
 
+	public void redrawDice() {
+		playerPane.redrawDice();
+		enemyPane.redrawDice();
+	}
+
 }

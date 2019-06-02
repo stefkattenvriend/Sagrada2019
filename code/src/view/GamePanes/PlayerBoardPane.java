@@ -95,4 +95,13 @@ public class PlayerBoardPane extends Pane{//misschien hernoemen naar bord pane? 
 		patID = i;
 		
 	}
+
+	public void redrawDice() {
+		patternCardDice.getChildren().clear();
+		for (int y = 1; y < 5; y++) {
+			for (int x = 1; x < 6; x++) {
+					patternCardDice.getChildren().add(dhc.getPlayerWindowDiceHolders(x, y, DiceHolderType.PLAYERWINDOW));
+			}	
+		}
+	}
 }

@@ -32,6 +32,7 @@ public class MasterRunnable implements Runnable {
             	gameController.setMyColor();
             	gameController.updateCardPane();
             	gameController.updateFirstDice();
+            	gameController.updateDicePlacement();
             	
             }
         };

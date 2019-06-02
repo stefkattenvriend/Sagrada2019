@@ -44,8 +44,6 @@ public class MasterController extends Application{//een controller die alle ande
 	private Stage stage;
 	private MenuController mnController;
 	private StatsController sc;
-	private UpdateTimerController utc;
-	private GameUpdateController guc;
 	private MenuUpdateController muc;
 	private DbToolCardCollector tcc;
 	private GameModel gameModel;
@@ -94,7 +92,7 @@ public class MasterController extends Application{//een controller die alle ande
 		
 		this.lc = new LoginController(dbUserInfoCollector,this);
 		this.pc = new PlayerController(dbPlayerCollector);
-		this.gc = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector, dbCardCollector, guc, dbPlayerCollector, dbDieCollector, dbDieUpdater, dbTurnCollector, psr, tcc);
+		this.gc = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector, dbCardCollector, dbPlayerCollector, dbDieCollector, dbDieUpdater, dbTurnCollector, psr, tcc);
 		this.sc = new StatsController(dbPlayerStatsCollector);
 //		this.chat = new ChatController(dbChatCollector);
 		
@@ -113,7 +111,6 @@ public class MasterController extends Application{//een controller die alle ande
 	
 	private void startUpdate() {
 		//Game refresher/checker
-//	this.guc = new GameUpdateController(this);
 //	this.muc = new MenuUpdateController(this);
 //	this.utc = new UpdateTimerController(guc, muc);
 	
@@ -157,15 +154,7 @@ public class MasterController extends Application{//een controller die alle ande
 		return this.mnController;
 	}
 	
-	public GameUpdateController getGameUpdateController() {
-		
-		return this.guc;
-	}
 	
-//	public void setGuc(GameUpdateController guc) {
-//		this.guc = guc;
-//		utc.setGuc(guc);
-//	}
 //
 //	public UpdateTimerController getUtc() {
 //		return utc;

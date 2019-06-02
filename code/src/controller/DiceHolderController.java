@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import databeest.DbDieCollector;
 import helpers.DiceHolderType;
 import helpers.PatterncardType;
+import javafx.scene.Node;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
@@ -30,20 +31,21 @@ public class DiceHolderController {
 																							// diceHolder model en pane
 																							// aan en geeft de pane
 																							// terug aan de view
-		DiceHolderModel model = new DiceHolderModel(null, x, y, type);
-		
-		if(type == DiceHolderType.ENEMY1 || type == DiceHolderType.ENEMY2 || type == DiceHolderType.ENEMY3) {
+		DiceHolderModel model = new DiceHolderModel(null, x, y, type, size);
+		if(type == DiceHolderType.ENEMY1 || type == DiceHolderType.ENEMY2 || type == DiceHolderType.ENEMY3 || type == DiceHolderType.ROUNDTRACK) {
 			model.setInteractable(false);
 		}
 		else {
 			model.setInteractable(true);
 		}
 		
-		DiceHolderPane pane = new DiceHolderPane(size, this);
+		DiceHolderPane pane = new DiceHolderPane(size, this, dhpanes.size(), false);
 		dhmodels.add(model);
 		dhpanes.add(pane);
 		return pane;
 	}
+	
+	
 
 	public void DiceHolderClick(DiceHolderPane dp) {
 		DiceHolderModel selectedModel = null;
@@ -306,5 +308,42 @@ public class DiceHolderController {
 				dhmodels.get(i).setInteractable(b);
 			}
 		}
+	}
+	
+	public void reloadDiceHolderPanes() {
+		dc.reloadDicePanes();
+		dhpanes.clear();
+		for (int i = 0; i < dhmodels.size(); i++) {
+			dhpanes.add(new DiceHolderPane(dhmodels.get(i).getSize(), this, i, true));
+		}
+	}
+
+	public DicePane getDice(int id) {
+		if (dhmodels.size() == 0) {
+			return null;
+		}
+		if (dhmodels.get(id) == null) {
+			return null;
+		}
+		if (dhmodels.get(id ).getDie() == null) {
+			return null;
+		}else {
+			return dc.getDicePaneFromModel(dhmodels.get(id).getDie());
+		}
+		
+	}
+
+	public DiceHolderPane getPlayerWindowDiceHolders(int x, int y, DiceHolderType type) {
+		for (int i = 0; i < dhmodels.size(); i++) {
+			if (dhmodels.get(i).getX() == x && dhmodels.get(i).getY() == y && dhmodels.get(i).getType() == type) {
+				return dhpanes.get(i);
+			}
+		}
+		return null;
+	}
+
+	public void setDiceHolderModels(ArrayList<DiceHolderModel> dhma) {
+		this.dhmodels = dhma;
+		
 	}
 }

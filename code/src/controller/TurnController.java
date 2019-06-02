@@ -50,6 +50,8 @@ public class TurnController {
 
 	public void updatePass() {// update na pas knop
 		
+		gController.setCurrentPlayer(false);
+		
 		dhc.switchTurnInteractable(false);
 		
 		DiceHolderModel dm = null;
@@ -335,7 +337,7 @@ public class TurnController {
 
 	
 	public void TurnAdmissionGiving() {
-		tac = new TurnAdmissionChecker(dtc, username, gameId, dhc, pp, this, tcc);
+		tac = new TurnAdmissionChecker(dtc, username, gameId, dhc, pp, this, tcc, gController);
 
 			Thread t1 = new Thread(tac);
 			t1.start();

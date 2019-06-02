@@ -11,14 +11,16 @@ public class DiceHolderModel {
 	private DiceHolderType type;
 	private boolean selected = false;
 	private boolean interactable;
+	private double size;
 	
 
 
-	public DiceHolderModel(DiceModel die, int x, int y, DiceHolderType type) {
+	public DiceHolderModel(DiceModel die, int x, int y, DiceHolderType type, double size) {
 		this.die = die;
 		this.x = x;
 		this.y = y;
 		this.type = type;
+		this.size = size;
 		
 	}
 	
@@ -52,6 +54,14 @@ public class DiceHolderModel {
 
 	public void setDie(DiceModel die) {
 		this.die = die;
+	}
+
+	public double getSize() {
+		return size;
+	}
+
+	public void setSize(double size) {
+		this.size = size;
 	}
 
 	public DiceHolderType getType() {
