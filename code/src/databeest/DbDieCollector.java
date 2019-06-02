@@ -2,7 +2,6 @@ package databeest;
 
 import java.util.ArrayList;
 
-import model.DiceHolderModel;
 import model.DiceModel;
 import model.PlayerFieldFrameModel;
 

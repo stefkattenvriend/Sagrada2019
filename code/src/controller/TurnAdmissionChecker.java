@@ -2,8 +2,6 @@ package controller;
 
 
 import databeest.DbTurnCollector;
-import model.GameModel;
-import view.GamePanes.ChatPane;
 import view.GamePanes.PlayerPane;
 
 public class TurnAdmissionChecker implements Runnable {

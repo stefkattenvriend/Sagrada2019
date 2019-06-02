@@ -2,14 +2,13 @@ package view;
 import controller.GameController;
 import controller.LoginController;
 import controller.MasterController;
-import controller.PlayerController;
-//joery
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import model.GameModel;
 import view.GamePanes.GamePane;
 import view.MenuPanes.MenuPane;
 
+//joery
 public class MyScene extends Scene{
 	
 	private MasterController mc;
