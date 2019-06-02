@@ -1,4 +1,5 @@
 package view.GamePanes;
+
 import controller.DiceHolderController;
 import controller.GameController;
 import controller.LayerController;
@@ -13,15 +14,16 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import model.GameModel;
+import model.PlayerModel;
 import view.MyScene;
 
 public class GamePane extends StackPane {
-	
-	//constants
+
+	// constants
 	public final static double windowMaxWidth = 1280;
 	public final static double windowMaxHeight = 800;
-	
-	//instance
+
+	// instance
 	private PlayerPane playerPane;
 	private CardDisplayPane cardDisplayPane;
 	private EnemyPane enemyPane;
@@ -37,8 +39,8 @@ public class GamePane extends StackPane {
 	private PayStoneController psc;
 	private GameModel gameModel;
 
-	
-	public GamePane(GameController gameController, MyScene myScene, LoginController loginController, PayStoneController psc, GameModel gameModel) {
+	public GamePane(GameController gameController, MyScene myScene, LoginController loginController,
+			PayStoneController psc, GameModel gameModel) {
 		logc = loginController;
 		this.psc = psc;
 		this.gc = gameController;
@@ -49,8 +51,7 @@ public class GamePane extends StackPane {
 		this.pc = gc.getPointsController();
 		this.tc = gc.getTurnController();
 		this.gameModel = gameModel;
-		
-		
+
 		setScreenSize();
 		setUp();
 		gc.setGamepane(this);
@@ -64,17 +65,31 @@ public class GamePane extends StackPane {
 		gamePane.setLeft(cardDisplayPane);
 		gamePane.setCenter(playerPane);
 		gamePane.setRight(enemyPane);
-		
+
 		getChildren().add(gamePane);
 	}
-	
 
-	
+	public void notYourTurn() {
+		//zet jou pane op rood
+		playerPane.setStyle("-fx-background-color: rgba(255, 0, 0, 0.7);");
+		
+		//zet enemy pane op groen
+//		enemyPane.setColor();
+	}
+
+	public void yourTurn() {
+		//zet enemy pane op rood
+//		enemyPane.setColor();
+
+		//zet jou pane op groen
+		playerPane.setStyle("-fx-background-color: rgba(0, 255, 0, 0.7);");
+	}
+
 	public void setGamePane() {
 		getChildren().clear();
 		getChildren().add(gamePane);
 	}
-	
+
 	public PlayerPane getPlayerPane() {
 		return playerPane;
 	}
@@ -86,16 +101,16 @@ public class GamePane extends StackPane {
 	public void updatePC() {
 		playerPane.updatePC();
 		enemyPane.updatePC();
-		
+
 	}
 
 	public void setMyColor(Color color) {
 		playerPane.setMyColor(color);
 	}
-	
+
 	public void updatePCid(int i) {
 		playerPane.updatePCid(i);
-		
+
 	}
 
 	public void redrawDice() {

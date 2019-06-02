@@ -332,7 +332,7 @@ public class TurnController {
 						System.out.println("Something went wrong, check turncontroller 300~");
 					}
 					int round = diceController.getRound(gameId);
-					if(round == 10) {
+					if(round == 11) {
 						System.out.println("---THE GAME HAS ENDED, YOU WIN!!!!---");
 						//TODO end game
 					} else {
