@@ -223,7 +223,6 @@ public class PlayerModel {
 		}
 	}
 
-
 	public void setPlaceInArrayList(int i) {
 		turnPlace = i;
 	}

@@ -310,10 +310,12 @@ public class DiceHolderController {
 				}
 			}
 		
+		System.out.println("checkNextTo: " + checkNextTo);
 		if(checkNextTo) {
 			for(int i = 0; i < dhmodels.size(); i++) {
 				if(dhmodels.get(i).getDie() != null) {
-					if(dhmodels.get(i).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(i).getY() == location.getY() + 1 && dhmodels.get(i).getX() == location.getX()) {
+					System.out.println("Theres a die here!");
+					if(dhmodels.get(i).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(i).getY() != location.getY() && dhmodels.get(i).getX() != location.getX()) {
 						if(nextTo == false) {
 							System.out.println("check should return false");
 							check = false;
@@ -510,8 +512,6 @@ public class DiceHolderController {
 	public int getMoves() {
 		return gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getMovesAllowed1();
 	}
-
-
 
 	public void clearDiceOffer() {
 		for (int i = 0; i < dhmodels.size(); i++) {
