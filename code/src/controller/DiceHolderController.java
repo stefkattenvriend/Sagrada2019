@@ -122,6 +122,7 @@ public class DiceHolderController {
 						System.out.println("check");	//dobbelsteen verplaatsen
 						System.out.println("moves 2: " + gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getMovesAllowed2());
 						System.out.println("turn: " + gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getTurn());
+						System.out.println("moves 1" + gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getMovesAllowed2());
 						boolean allowed = false;
 						if(gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getTurn() != 0) {
 							if(gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getTurn() == 1) {

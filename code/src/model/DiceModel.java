@@ -8,6 +8,7 @@ public class DiceModel {
 	private int dieNumber;
 	private Color dieColor;
 	private int eyes;
+	private int roundtrack;
 	
 
 	public DiceModel(int dieNumber, Color dieColor, int eyes) {
@@ -38,6 +39,14 @@ public class DiceModel {
 
 	public void setEyes(int eyes) {
 		this.eyes = eyes;
+	}
+
+	public int getRoundtrack() {
+		return roundtrack;
+	}
+
+	public void setRoundtrack(int roundtrack) {
+		this.roundtrack = roundtrack;
 	}
 
 }
