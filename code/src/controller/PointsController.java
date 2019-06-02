@@ -1,6 +1,8 @@
 package controller;
 
 import java.util.ArrayList;
+
+import databeest.DbPlayerCollector;
 import model.DiceHolderModel;
 import model.DiceModel;
 import model.GameModel;
@@ -12,10 +14,12 @@ public class PointsController {
 	private PlayerModel[] pma;
 	private GameModel gameModel;
 	private GameController gameController;
+	private DbPlayerCollector dbPlayerCollector;
 	
 	public PointsController(GameController gameController) {
 		this.gameController = gameController;
 		this.gameModel = gameController.getGm();
+		this.dbPlayerCollector = gameController.getdbPlayerCollector();
 		allowCounting();
 	}
 	
@@ -47,6 +51,7 @@ public class PointsController {
 			totalPoints = getTotalPoints(personalObjectivePoints, emptySpotsPenalty, sharedObjectivePoints, paystones);
 			System.out.println("Totalpoints for player " + pma[i].getUsername() + " = " + totalPoints);
 			pma[i].setScore(totalPoints);
+			dbPlayerCollector.setScore(pma[i].getPlayerId(), totalPoints);
 		}
 		
 	}

@@ -47,6 +47,14 @@ public class DbMenuCollector {
 		return databeest.getPlayers();
 	}
 	
+	public String getWinner(int gameID) {
+		return databeest.getWinner(gameID);
+	}
+	
+	public ArrayList<Integer> getFinishedGames(String username){
+		return databeest.getFinishedGames(username);
+	}
+	
 	
 	
 }

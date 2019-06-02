@@ -29,9 +29,8 @@ public class EnemyWindow extends VBox {
 	private GameController gc;
 	private PlayerModel enemy;
 	private boolean currentPlayer = true;
-	
+
 	private Label turn;
-	
 
 	public EnemyWindow(DiceHolderType dht, GameController gc) {
 		turn = new Label();
@@ -61,48 +60,52 @@ public class EnemyWindow extends VBox {
 
 	private void createEnemyInfo() {// enemy info moet later worden afgemaakt(en worden geupdate) ~ Rens
 		enemyInfo.setPrefSize((GamePane.windowMaxWidth / 3) / 2, (GamePane.windowMaxHeight / 3) / 3);
-//		setColor("-fx-background-color: rgba(0, 255, 0, 0.6);");
+		// setColor("-fx-background-color: rgba(0, 255, 0, 0.6);");
 		enemyInfo.setBackground(new Background(new BackgroundFill(Color.PINK, null, null)));
-//		enemyInfo.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+		// enemyInfo.setBorder(new Border(new BorderStroke(Color.BLACK,
+		// BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
 		if (enemy != null) {
 			Label text = new Label();
 			text.setText(enemy.getUsername());
-			
-//			turn.setText("Aan de beurt: nee");
-			if(gc.getTurnController().getCurrentplayer()==enemy) {
-//				turn.setText("Aan de beurt: ja");
-//				enemyInfo.setStyle("-fx-background-color: rgba(0, 255, 0, 0.7);");
+
+			// turn.setText("Aan de beurt: nee");
+			if (gc.getTurnController().getCurrentplayer() == enemy) {
+				// turn.setText("Aan de beurt: ja");
+				// enemyInfo.setStyle("-fx-background-color: rgba(0, 255, 0, 0.7);");
 				currentPlayer = true;
 			}
-			if(gc.getTurnController().getCurrentplayer()!=enemy) {
-//				turn.setText("Aan de beurt: nee");
-//				enemyInfo.setStyle("-fx-background-color: rgba(255, 0, 0, 0.7);");
-//				text.setText(enemy.getUsername());
+			if (gc.getTurnController().getCurrentplayer() != enemy) {
+				// turn.setText("Aan de beurt: nee");
+				// enemyInfo.setStyle("-fx-background-color: rgba(255, 0, 0, 0.7);");
+				// text.setText(enemy.getUsername());
 				currentPlayer = false;
 			}
 
 			enemyInfo.getChildren().addAll(text, turn);
-			
+
 		}
-		
-		if(currentPlayer) {
+
+		if (currentPlayer) {
 			enemyInfo.setBorder(new Border(new BorderStroke(Color.BLACK, null, null, new BorderWidths(5))));
 			turn.setTextFill(Color.YELLOW);
-		}
-		else {
+		} else {
 			enemyInfo.setBorder(null);
 			turn.setTextFill(Color.LIME);
-		this.getChildren().add(enemyInfo);
+			this.getChildren().add(enemyInfo);
 		}
 	}
 
 	public void updateColor() {
-		
-		
-		getPlayerModel();
+		for (int i = 0; i < gc.getGm().getPma().length; i++) {
+			if (gc.getGm().getPma()[i].isCurrentPlayer()) {
+				setColor(Color.PINK);
+			} else if (!gc.getGm().getPma()[i].isCurrentPlayer()) {
+				setColor(Color.LIGHTGREEN);
+			}
+		}
 	}
-	
+
 	public void setColor(Color color) {
 		enemyInfo.setBackground(new Background(new BackgroundFill(color, null, null)));
 	}
@@ -111,18 +114,17 @@ public class EnemyWindow extends VBox {
 		for (int i = 0; i < gc.getGm().getPma().length; i++) {
 			if (dht == gc.getGm().getPma()[i].getDht()) {
 				this.enemy = gc.getGm().getPma()[i];
-				
+
 			}
-			
-//			if (gc.getGm().getPma()[i].isCurrentPlayer()) {
-//				setColor(Color.LIGHTGREEN);
-//			} else if(!gc.getGm().getPma()[i].isCurrentPlayer()) {
-//				setColor(Color.PINK);
-//			}
+
+			// if (gc.getGm().getPma()[i].isCurrentPlayer()) {
+			// setColor(Color.LIGHTGREEN);
+			// } else if(!gc.getGm().getPma()[i].isCurrentPlayer()) {
+			// setColor(Color.PINK);
+			// }
 		}
 
 	}
-
 
 	private void addDiceHolders() {
 		for (int i = 1; i < 5; i++) {
@@ -191,8 +193,8 @@ public class EnemyWindow extends VBox {
 		diceHolders.getChildren().clear();
 		for (int y = 1; y < 5; y++) {
 			for (int x = 1; x < 6; x++) {
-					diceHolders.getChildren().add(dhc.getPlayerWindowDiceHolders(x, y, dht));
-			}	
+				diceHolders.getChildren().add(dhc.getPlayerWindowDiceHolders(x, y, dht));
+			}
 		}
 	}
 }

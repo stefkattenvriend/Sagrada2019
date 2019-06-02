@@ -102,6 +102,18 @@ public class MenuController {
 	public ArrayList<String> getPlayers(){
 		return menuModel.getPlayers();
 	}
+	
+	public String getWinner(int gameID) {
+		return menuModel.getWinner(gameID);
+	}
+	
+	public ArrayList<Integer> getFinishedGames(String username){
+		return menuModel.getFinishedGames(username);
+	}
+	
+	public String getCurrentUsername() {
+		return menuModel.getCurrentUsername();
+	}
 
 	public void loadGame(String gID) {
 		int gameID = Integer.parseInt(gID);
@@ -109,9 +121,9 @@ public class MenuController {
 		mc.getGameController().createGameModel(gameID);
 		offerGenerated = dbGameCollector.getOffer(gameID);
 		if(!offerGenerated) {
-		int amountOfPlayers = dbGameCollector.getAmountOfPlayers(gameID);
-		generateOffer(amountOfPlayers, gameID);
-		offerGenerated = true;
+			int amountOfPlayers = dbGameCollector.getAmountOfPlayers(gameID);
+			generateOffer(amountOfPlayers, gameID);
+			offerGenerated = true;
 		}
 		int round = dbGameCollector.getRound(gameID);
 		System.out.println("dit is het ronde nummer: " + round);// syso om ronde te checke

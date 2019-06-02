@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import databeest.DbDieCollector;
 import helpers.DiceHolderType;
@@ -122,46 +123,16 @@ public class DiceHolderController {
 						System.out.println("check");	//dobbelsteen verplaatsen
 						System.out.println("moves 2: " + gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getMovesAllowed2());
 						System.out.println("turn: " + gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getTurn());
-						System.out.println("moves 1" + gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getMovesAllowed2());
-						boolean allowed = false;
-						if(gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getTurn() != 0) {
-							if(gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getTurn() == 1) {
-								if(gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getMovesAllowed1() != 0) {
-									allowed = true;
-									System.out.println("allowed: " + allowed);
-									gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).doMove1();
-									System.out.println("moves 1: " + gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getMovesAllowed1());
-								}
-							}
-							if(gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getTurn() == 2) {
-								if(gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getMovesAllowed2() != 0) {
-									allowed = true;
-									System.out.println("allowed: " + allowed);
-									gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).doMove2();
-									System.out.println("moves 2: " + gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getMovesAllowed2());
-								}
-							}
-							
-							if (allowed) {
-								if(checkDiceMovement(selectedModel, dhmodels.get(i).getDie()) == true) {
-									selectedModel.setDie(dhmodels.get(i).getDie());// wiselt de models
-									movedDice.add(dhmodels.get(i).getDie());
-									dhmodels.get(i).setDie(null);
-			
-									dhmodels.get(i).switchSelected();// zet achtergrond en selected naar nul van oude pane
-									dhpanes.get(i).setBackground(null);
-			
-									dp.setCenter(dhpanes.get(i).getCenter());// wiselt de panes
-									dhpanes.get(i).setCenter(null);
-	//								return; //vgm moet ie hier weet ik niet zeker, jami
-								} else {
-									dhmodels.get(i).switchSelected();
-									dhpanes.get(i).setBackground(null);// zet background en selected status naar null van de pane
-																		// die eerder selected was
-
-									selectedModel.switchSelected();
-									dp.setBackground(new Background(new BackgroundFill(Color.rgb(10, 10, 10, 0.8), null, null)));
-								}
+							if(checkDiceMovement(selectedModel, dhmodels.get(i).getDie()) == true) {
+								selectedModel.setDie(dhmodels.get(i).getDie());// wiselt de models
+								movedDice.add(dhmodels.get(i).getDie());
+								dhmodels.get(i).setDie(null);
+		
+								dhmodels.get(i).switchSelected();// zet achtergrond en selected naar nul van oude pane
+								dhpanes.get(i).setBackground(null);
+		
+								dp.setCenter(dhpanes.get(i).getCenter());// wiselt de panes
+								dhpanes.get(i).setCenter(null);
 							} else {
 								dhmodels.get(i).switchSelected();
 								dhpanes.get(i).setBackground(null);// zet background en selected status naar null van de pane
@@ -169,23 +140,10 @@ public class DiceHolderController {
 
 								selectedModel.switchSelected();
 								dp.setBackground(new Background(new BackgroundFill(Color.rgb(10, 10, 10, 0.8), null, null)));
-							}
+						} 
 						
 						return;
-						} else {
-							System.out.println("gm.getplayermodel = 0");
-							dhmodels.get(i).switchSelected();
-							dhpanes.get(i).setBackground(null);// zet background en selected status naar null van de pane
-																// die eerder selected was
-
-							selectedModel.switchSelected();
-							dp.setBackground(new Background(new BackgroundFill(Color.rgb(10, 10, 10, 0.8), null, null)));
-
-							return;
-						}
-						
-						
-					} else if (selectedModel.getDie() != null && dhmodels.get(i).getDie() == null) {
+						} else if (selectedModel.getDie() != null && dhmodels.get(i).getDie() == null) {
 						
 						dhmodels.get(i).switchSelected();
 						dhpanes.get(i).setBackground(null);// zet background en selected status naar null van de pane
@@ -253,8 +211,9 @@ public class DiceHolderController {
 	
 	public boolean checkDiceMovement(DiceHolderModel location, DiceModel die) {
 		boolean check = true;
-			if(location.getType() == DiceHolderType.PLAYERWINDOW) {
-		
+		if(location.getType() == DiceHolderType.PLAYERWINDOW) {
+		boolean nextTo = false;
+		System.out.println(nextTo);
 		if(checkColor) {
 			for (int i = 0; i < pcc.getPcModelsSize(); i++) {//vergelijkt kleur van patroonkaart en die
 				if(location.getX() == pcc.getPcModel(i).getX() && location.getY() == pcc.getPcModel(i).getY() && pcc.getPcModel(i).getPct() == PatterncardType.PLAYER) {
@@ -265,7 +224,7 @@ public class DiceHolderController {
 				}
 			}		
 		}
-		
+
 		if(checkEyes) {
 			for (int i = 0; i < pcc.getPcModelsSize(); i++) {//vergelijkt waarde van patroonkaart en die
 				if(location.getX() == pcc.getPcModel(i).getX() && location.getY() == pcc.getPcModel(i).getY() && pcc.getPcModel(i).getPct() == PatterncardType.PLAYER) {
@@ -286,10 +245,12 @@ public class DiceHolderController {
 						DiceModel leftDie = dhmodels.get(i).getDie();
 							if (leftDie == die) {
 								break;
-							}else if (leftDie.getEyes() == die.getEyes() || leftDie.getDieColor() == die.getDieColor()) {
+							} else if (leftDie.getEyes() == die.getEyes() || leftDie.getDieColor() == die.getDieColor()) {
 								check = false;
 								return check;
 							}
+						nextTo = true;
+						System.out.println("changed to true");
 						}
 					}
 				}
@@ -306,6 +267,8 @@ public class DiceHolderController {
 								check = false;
 								return check;
 							}
+						nextTo = true;
+						System.out.println("changed to true");
 						}
 					}
 				}
@@ -322,6 +285,8 @@ public class DiceHolderController {
 								check = false;
 								return check;
 							}
+						nextTo = true;
+						System.out.println("changed to true");
 						}
 					}
 				}
@@ -338,9 +303,55 @@ public class DiceHolderController {
 								check = false;
 								return check;
 							}
+						nextTo = true;
+						System.out.println("changed to true");
 						}
 					}
 				}
+			}
+		
+		if(checkNextTo) {
+			for(int i = 0; i < dhmodels.size(); i++) {
+				if(dhmodels.get(i).getDie() != null) {
+					if(dhmodels.get(i).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(i).getY() == location.getY() + 1 && dhmodels.get(i).getX() == location.getX()) {
+						if(nextTo == false) {
+							System.out.println("check should return false");
+							check = false;
+							return false;
+						} else {
+							System.out.println("should be besides one");
+							break;
+						}
+					}
+				}
+			}	
+		}
+		
+		
+		if(gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getTurn() != 0) {
+			if(gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getTurn() == 1) {
+				if(gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getMovesAllowed1() != 0) {
+					gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).doMove1();
+					
+				} else {
+					check = false;
+					return check;
+				}
+			} else if(gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getTurn() == 2) {
+				if(gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getMovesAllowed2() != 0) {					
+					gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).doMove2();
+					
+					} else {
+						check = false;
+						return check;
+					}
+				} else {
+					check = false;
+					return check;
+				}
+			} else {
+				check = false;
+				return check;
 			}
 		}
 		
@@ -453,6 +464,16 @@ public class DiceHolderController {
 		tcc.finish1();
 	}
 	
+	public void reroll() {
+		Random rand = new Random();
+		for(int i = 0; i < dhmodels.size(); i++) {
+			if (dhmodels.get(i).getType() == DiceHolderType.OFFER) {
+				int dienr = rand.nextInt(5) + 1;
+				dhmodels.get(i).getDie().setEyes(dienr);
+			}
+		}
+	}
+	
 	public void changeDieEyes(int nr, DiceHolderModel dh) {
 		dh.getDie().setEyes(nr);
 		System.out.println(dh.getDie().getEyes());
@@ -476,6 +497,10 @@ public class DiceHolderController {
 		} else {
 			gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).giveMove2();
 		}
+	}
+	
+	public int getTurn() {
+		return gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getTurn();
 	}
 	
 	public void removeMove2() {
