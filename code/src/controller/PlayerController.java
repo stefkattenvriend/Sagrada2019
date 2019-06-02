@@ -28,6 +28,7 @@ public class PlayerController {
 	public void setCurrentPlayer(Boolean current)
 	{
 		playerModel.setCurrentPlayer(current);
+		System.out.println("update player to: " + current);
 	}
 
 	public boolean isCurrentPlayer()
@@ -42,6 +43,7 @@ public class PlayerController {
 	
 	public int getPayStones()
 	{
+		
 		playerModel.setPayStones(dbPlayerCollector.amountOfPaystones(playerModel.getPlayerId()));
 		return playerModel.getPayStones();
 	}
@@ -54,4 +56,7 @@ public class PlayerController {
 		return playerModel.getUsername();
 	}
 	
+	public PlayerModel getPM() {
+		return playerModel;
+	}
 }

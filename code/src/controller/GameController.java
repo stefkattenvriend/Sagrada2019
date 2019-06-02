@@ -13,6 +13,7 @@ import databeest.DbPlayerCollector;
 import databeest.DbToolCardCollector;
 import databeest.DbTurnCollector;
 import model.GameModel;
+import model.PlayerModel;
 import model.PlayerPayStoneModel;
 import view.GamePanes.CardPane;
 import view.GamePanes.ChatPane;
@@ -352,6 +353,10 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 				gm.updateRound(this);
 			}
 		}
+	}
+	
+	public PlayerModel getPlayerModel() {
+		return pc.getPM();
 	}
 
 //	public void updateColors() {
