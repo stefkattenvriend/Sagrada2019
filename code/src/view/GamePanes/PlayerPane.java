@@ -17,6 +17,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import view.MyScene;
+import view.MenuPanes.MenuPane;
 
 
 public class PlayerPane extends VBox{
@@ -124,6 +125,7 @@ public class PlayerPane extends VBox{
 		pocp = new PersonalObjectiveCardPane();
 		personalAttributes.getChildren().addAll(getpaystoneHolder(), turn, points, pocp);
 		personalAttributes.setMinHeight(75);
+		personalAttributes.setMinWidth(MenuPane.paneWidth / 3);
 		getChildren().add(personalAttributes);
 	}
 	
@@ -139,8 +141,6 @@ public class PlayerPane extends VBox{
 	public PersonalObjectiveCardPane getpocp() {
 		return pocp;
 	}
-	
-	
 
 	private void setDiceSection() {
 		diceSection = new FlowPane();
@@ -159,8 +159,6 @@ public class PlayerPane extends VBox{
 		return pocp;
 	}
 	
-	
-
 	public void updatePC() {
 		playerBoardPane.updatePC();
 		
