@@ -1,6 +1,7 @@
 package model;
 
 import controller.DiceController;
+import controller.ToolCardController;
 import databeest.DbGameCollector;
 import databeest.DbPlayerCollector;
 import helpers.DiceHolderType;
@@ -9,7 +10,7 @@ import javafx.scene.paint.Color;
 public class GameModel {
 	
 	//instance 
-	private int gameRound = 0; //nu hardcoded, in toekomst wordt dit uit database gehaald.
+	private int gameRound;
 	private int gameid;
 	private boolean inGame;
 	private int amountOfPlayers;
@@ -19,13 +20,14 @@ public class GameModel {
 	private DiceController dc;
 	private DiceModel[] dm;
 	private int enemies = 1;
+	private ToolCardController tcc;
 	
-	public GameModel(int gameid, DbGameCollector dgc, String username, DbPlayerCollector dpc, int amountOfPlayers) {
+	public GameModel(int gameid, DbGameCollector dgc, String username, DbPlayerCollector dpc, int amountOfPlayers, ToolCardController tcc) {
 		this.gameid = gameid;
 		this.dgc = dgc;
 		this.dpc = dpc;
 		this.amountOfPlayers = amountOfPlayers;
-		
+		this.tcc = tcc;
 		inGame = true;
 		pma = new PlayerModel[amountOfPlayers];
 //		addPlayerModel(username);
@@ -43,7 +45,7 @@ public class GameModel {
 	}
 
 	public void updateRound() {
-		dgc.getRoundNumber(gameid);
+		gameRound = dgc.getRoundNumber(gameid);
 	}
 	
 	public PlayerModel[] getPma() {
@@ -54,7 +56,7 @@ public class GameModel {
 	{
 //		System.out.println("i=" + i);
 //		System.out.println("playerId" + playerID);
-		pma[i] = new PlayerModel(dpc);
+		pma[i] = new PlayerModel(dpc, this, tcc);
 		pma[i].setGameid(gameid);
 		pma[i].setPlayerId(playerID);
 		pma[i].getDatabaseInfo(dpc);
@@ -62,6 +64,7 @@ public class GameModel {
 		
 		if(pma[i].getUsername().equals(username)) { // username is gelijk
 			pma[i].setDht(DiceHolderType.PLAYERWINDOW);
+			pma[i].setPlaceInArrayList(i);
 		}
 		else if(enemies == 1) {
 			pma[i].setDht(DiceHolderType.ENEMY1);
@@ -92,7 +95,7 @@ public class GameModel {
 	}
 	
 	public void addPlayerModel(String username) {
-		pma[0] = new PlayerModel(dpc);
+		pma[0] = new PlayerModel(dpc, this, tcc);
 		pma[0].setDht(DiceHolderType.PLAYERWINDOW);
 		pma[0].setUsername(username);
 		pma[0].setGameid(gameid);

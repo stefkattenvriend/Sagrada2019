@@ -4,12 +4,10 @@ import java.util.ArrayList;
 
 import databeest.DbDieCollector;
 import helpers.DiceHolderType;
-import javafx.scene.paint.Color;
 import model.DiceHolderModel;
 import model.DiceModel;
 import model.GameModel;
 import model.PlayerFieldFrameModel;
-import view.GamePanes.DicePane;
 
 public class GameUpdateController {
 	// beurt
@@ -41,15 +39,15 @@ public class GameUpdateController {
 	}
 
 	// deze methode checkt op dice movement op andere spelers
-	public void checkDiceMovement() {// dit hoeft niet gedaan te worden als jij aan de beurt bent, maar maakt wss
-										// niet uit(testen)
+	public void checkDiceMovementPlayerFields() {// dit hoeft niet gedaan te worden als jij aan de beurt bent, maar
+													// maakt wss
+		// niet uit(testen)
 		ArrayList<DiceHolderModel> dhma = new ArrayList<DiceHolderModel>();
-				dhma.addAll(dhc.getDhmodels());
+		dhma.addAll(dhc.getDhmodels());
 		ArrayList<PlayerFieldFrameModel> pffa = ddc.getPlayerFrame(gmc.getGameId());
 		ArrayList<DiceHolderModel> dhmad = new ArrayList<DiceHolderModel>();
-				dhmad.addAll(dhc.getDhmodels());
-				//arraylist met alle diceholder die een dice hebben
-		
+		dhmad.addAll(dhc.getDhmodels());
+		// arraylist met alle diceholder die een dice hebben
 
 		if (pffa.size() == 0) {
 			return;
@@ -61,7 +59,7 @@ public class GameUpdateController {
 				i--;
 			}
 		}
-		
+
 		for (int i = 0; i < dhma.size(); i++) {// loopt door alle diceholders
 
 			for (int j = 0; j < pffa.size(); j++) {// loopt door alle opgehaalde playerframefields, dus alle waar iets
@@ -69,8 +67,9 @@ public class GameUpdateController {
 
 				for (int j2 = 0; j2 < gm.getAmountOfPlayers(); j2++) {// loopt door alle spelers
 
-					if (pffa.get(j).getPlayerid() == gm.getPma()[j2].getPlayerId()) {// checkt van wie de diceholder is vergeleken met
-																		// van wie het playerframefield is
+					if (pffa.get(j).getPlayerid() == gm.getPma()[j2].getPlayerId()) {// checkt van wie de diceholder is
+																						// vergeleken met
+						// van wie het playerframefield is
 
 						if (dhma.get(i).getType() == gm.getPma()[j2].getDht()// vergelijkt of het de DiceHolder van het
 																				// type is dat verwacht wordt
@@ -92,11 +91,8 @@ public class GameUpdateController {
 											break;
 										}
 									}
-									
 									gmc.setUpdateDice(true);
-
 								}
-
 							}
 						}
 					}
@@ -106,48 +102,38 @@ public class GameUpdateController {
 		dhc.setDiceHolderModels(dhma);
 	}
 
-	/*
-	 * public void checkDiceMovement() { oud
-	 * 
-	 * ArrayList<DiceHolderModel> dhma = dhc.getDhmodels();
-	 * ArrayList<PlayerFieldFrameModel> pffa =
-	 * ddc.getPlayerFrame(gmc.getGm().getGameId());// ombouwen met tussen //
-	 * methodes
-	 * 
-	 * if (pffa.size() == 0) { return; }
-	 * 
-	 * for (int i = 0; i < dhma.size(); i++) { if (dhma.get(i).getType() ==
-	 * DiceHolderType.ENEMY1) { int playerid =
-	 * gmc.getGm().getPlayerModel(DiceHolderType.ENEMY1).getPlayerId();
-	 * PlayerFieldFrameModel pffm = null; if (pffa.isEmpty()) { return; } for (int j
-	 * = 0; j < pffa.size(); j++) {
-	 * 
-	 * if (pffa.get(j).getX() == dhma.get(i).getX() && pffa.get(j).getY() ==
-	 * dhma.get(i).getY() && pffa.get(j).getPlayerid() == playerid) { pffm =
-	 * pffa.get(j); }
-	 * 
-	 * else if (j == pffa.size() - 1) { break; }
-	 * 
-	 * } int dienumber; Color diecolor; if (dhma.get(i).getDie() == null) {
-	 * dienumber = 0; diecolor = Color.WHITE; } else { dienumber =
-	 * dhma.get(i).getDie().getDieNumber(); diecolor =
-	 * dhma.get(i).getDie().getDieColor(); } if (dienumber != pffm.getDienumber() ||
-	 * diecolor != pffm.getDiecolor()) { DiceModel die = null; for (int j = 0; j <
-	 * gmc.getDiceHolderController().getDiceController().getDMAL().size(); j++) { if
-	 * (gmc.getDiceHolderController().getDiceController().getDiceModel(j).
-	 * getDieNumber() == pffm .getDienumber() &&
-	 * gmc.getDiceHolderController().getDiceController().getDiceModel(j)
-	 * .getDieColor() == pffm.getDiecolor()) {
-	 * 
-	 * die = gmc.getDiceHolderController().getDiceController().getDiceModel(j);
-	 * 
-	 * for (int j2 = 0; j2 < gmc.getDiceHolderController().getDhmodels().size();
-	 * j2++) { if (gmc.getDiceHolderController().getDhmodels().get(j2).getDie() ==
-	 * die) { gmc.getDiceHolderController().getDhmodels().get(j2).setDie(null);
-	 * gmc.getDiceHolderController().getDhpanes().get(j2).setCenter(null); } } } }
-	 * 
-	 * dhma.get(i).setDie(die); gmc.getDiceHolderController().getDhpanes().get(i)
-	 * .setCenter(gmc.getDiceHolderController().getDiceController().getDicePane(i));
-	 * this.gameUpdate = true; } } } }
-	 */
+	public void getDiceOffer(int round) {
+		ArrayList<DiceModel> dmnew = ddc.getDiceOffer(gmc.getGameId(), round);
+		ArrayList<DiceModel> dm = new ArrayList<DiceModel>();
+		dm.addAll(dhc.getDiceController().getDMAL());
+		ArrayList<DiceModel> offer = new ArrayList<DiceModel>();
+		
+		//loop door alle opgehaalde dice, update de dice models, plaats de geupdate models in offer
+
+		for (int i = 0; i < dmnew.size(); i++) {
+			for (int j = 0; j < dm.size(); j++) {
+				if (dmnew.get(i).getDieNumber() == dm.get(j).getDieNumber() && dmnew.get(i).getDieColor() == dm.get(j).getDieColor()) {
+					dm.get(j).setEyes(dmnew.get(i).getEyes());
+					offer.add(dm.get(j));
+					break;
+				}
+			}
+		}
+		
+		ArrayList<DiceHolderModel> dhm = dhc.getDhmodels();
+		
+		int z = 0;
+		
+		for (int i = 0; i < dhm.size() ; i++) {
+			if (z < offer.size()) {
+				if (dhm.get(i).getType() == DiceHolderType.OFFER && dhm.get(i).getDie() == null) {
+				dhm.get(i).setDie(offer.get(z));
+				z++;
+			}
+				
+			
+			}
+			
+		}
+	}
 }

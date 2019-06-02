@@ -25,7 +25,7 @@ public class DiceOfferPane extends FlowPane{
 		//aanduiding();//engels
 		addDiceHolders();
 		
-		addDie();
+		//addDie();
 		}
 	
 	private void setPaneSize() {
