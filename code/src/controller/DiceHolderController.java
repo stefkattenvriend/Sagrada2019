@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import databeest.DbDieCollector;
+import databeest.DbDieUpdater;
 import helpers.DiceHolderType;
 import helpers.PatterncardType;
 import javafx.scene.layout.Background;
@@ -26,11 +27,15 @@ public class DiceHolderController {
 	private boolean checkColor = true;
 	private boolean checkEyes = true;
 	private boolean checkNextTo = true;
-	GameModel gm;
+	private int gameid;
+	private GameModel gm;
+	private DbDieUpdater dieUpdator;
 	
-	public DiceHolderController(PatterncardController pcc, DbDieCollector ddc, int gameid, GameModel gm) {
+	public DiceHolderController(PatterncardController pcc, DbDieCollector ddc, int gameid, GameModel gm, DbDieUpdater dieUpdator) {
+		this.dieUpdator = dieUpdator;
 		this.gm = gm;
 		this.pcc = pcc;
+		this.gameid = gameid;
 		dc = new DiceController(ddc, gameid);
 	}
 	
@@ -440,44 +445,25 @@ public class DiceHolderController {
 	public void setDiceHolderModels(ArrayList<DiceHolderModel> dhma) {
 		this.dhmodels = dhma;
 	}
-		
-	public void solveTC1(ToolCardController tcc) {
-		this.tcc = tcc;
-		this.setAllUninteractable();
-		//make it so you cant end turn
-		//make it so you cant move any other stone till youve moved this one
-		int dienr = this.GetSelectedDiceHolder().getDie().getEyes();
-		GetSelectedDicePane().addPlusAndMinus(dienr);
-	}
-	
-	public void higherClicked() {
-		System.out.println("die eyes: " + this.GetSelectedDiceHolder().getDie().getEyes());
-		int nr = this.GetSelectedDiceHolder().getDie().getEyes() + 1;
-		System.out.println("new die eyes" + nr);
-		this.GetSelectedDiceHolder().getDie().setEyes(nr);
-		tcc.finish1();
-	}
-	
-	public void lowerClicked() {
-		System.out.println("die eyes: " + this.GetSelectedDiceHolder().getDie().getEyes());
-		int nr = this.GetSelectedDiceHolder().getDie().getEyes() - 1;
-		System.out.println("new die eyes" + nr);
-		this.changeDieEyes(nr, this.GetSelectedDiceHolder());
-		tcc.finish1();
-	}
 	
 	public void reroll() {
 		Random rand = new Random();
 		for(int i = 0; i < dhmodels.size(); i++) {
 			if (dhmodels.get(i).getType() == DiceHolderType.OFFER) {
 				int dienr = rand.nextInt(5) + 1;
-				dhmodels.get(i).getDie().setEyes(dienr);
+				this.setEyes(dienr, dhmodels.get(i).getDie());
 			}
 		}
 	}
 	
+	public void setEyes(int eyes, DiceModel die) {
+		die.setEyes(eyes);
+		dieUpdator.updateDieEyes(eyes, gameid, die);
+		
+	}
+	
 	public void changeDieEyes(int nr, DiceHolderModel dh) {
-		dh.getDie().setEyes(nr);
+		this.setEyes(nr, dh.getDie());
 		System.out.println(dh.getDie().getEyes());
 	}
 	
@@ -520,6 +506,36 @@ public class DiceHolderController {
 				dhpanes.get(i).updateDiceHolderPane();
 			}
 		}
+		
+	}
+
+	public void solveTC1(ToolCardController tcc) {
+		this.tcc = tcc;
+		this.setAllUninteractable();
+		//make it so you cant end turn
+		//make it so you cant move any other stone till youve moved this one
+		int dienr = this.GetSelectedDiceHolder().getDie().getEyes();
+		GetSelectedDicePane().addPlusAndMinus(dienr);
+	}
+	
+	public void higherClicked() {
+		System.out.println("die eyes: " + this.GetSelectedDiceHolder().getDie().getEyes());
+		int nr = this.GetSelectedDiceHolder().getDie().getEyes() + 1;
+		System.out.println("new die eyes" + nr);
+		this.setEyes(nr, this.GetSelectedDiceHolder().getDie());
+		tcc.finish1();
+	}
+	
+	public void lowerClicked() {
+		System.out.println("die eyes: " + this.GetSelectedDiceHolder().getDie().getEyes());
+		int nr = this.GetSelectedDiceHolder().getDie().getEyes() - 1;
+		System.out.println("new die eyes" + nr);
+		this.setEyes(nr, this.GetSelectedDiceHolder().getDie());
+		tcc.finish1();
+	}
+
+	public void solveTC11(ToolCardController toolCardController) {
+		
 		
 	}
 }

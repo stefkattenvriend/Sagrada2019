@@ -345,6 +345,7 @@ public class TurnController {
 						break;
 					} else {
 					System.out.println("Now starting round number: " + round + ".");
+					diceController.generateOffer(amountOfPlayers, gameId);
 					gController.updateDiceOffer();
 					}
 					break;

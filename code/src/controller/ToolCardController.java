@@ -51,7 +51,7 @@ public class ToolCardController {
 					if(dhc.GetSelectedDiceHolder() != null) {
 						if(dhc.GetSelectedDiceHolder().getDie() != null) {	//check if it has a die
 							if(dhc.GetSelectedDiceHolder().getType() == DiceHolderType.OFFER) {		//if it has a die, then check if its in offer pane
-								if(psc.canPay(tcc.getPrice(1, gameid))) {
+	//							if(psc.canPay(tcc.getPrice(1, gameid))) {
 									System.out.println("price: " + tcc.getPrice(1, gameid));
 									if (dhc.getMoves() > 0) {
 										exception = true;
@@ -59,8 +59,8 @@ public class ToolCardController {
 										amountOfMoves = 0;
 										waitTill = 1;
 										selectedToolcard = 1;
-										psc.pay(1, tcc.getPrice(1, gameid));
-									}
+	//									psc.pay(1, tcc.getPrice(1, gameid));
+	//								}
 								}
 							}
 						}
@@ -151,7 +151,7 @@ public class ToolCardController {
 				}
 				
 				if (cardpane.getCardNr() == 7) {
-					if(psc.canPay(tcc.getPrice(8, gameid))) {
+					if(psc.canPay(tcc.getPrice(7, gameid))) {
 						if(dhc.getTurn() == 2) {
 							dhc.reroll();
 							psc.pay(7, tcc.getPrice(7,gameid));
@@ -163,32 +163,82 @@ public class ToolCardController {
 				if (cardpane.getCardNr() == 8) {
 					// na eerste beurt gelijk nieuwe dobbelsteen kiezen tweede beurt overslaan.
 					if(!gc.getPlayerPaneController().getNumber8()) {
-//						if(psc.canPay(tcc.getPrice(8, gameid))) {
+						if(psc.canPay(tcc.getPrice(8, gameid))) {
 							if(dhc.getTurn() == 1) {
 								gc.getPlayerPaneController().setNumber8(true);
 								dhc.addMove();
 								dhc.removeMove2();
 								System.out.println("moves: " + dhc.getMoves());
-//								psc.pay(8, tcc.getPrice(8, gameid));
+								psc.pay(8, tcc.getPrice(8, gameid));
 							}
-//						}
+						}
+					}
+				}
+				if (cardpane.getCardNr() == 9) {
+					if(dhc.GetSelectedDiceHolder() != null) {
+						if(dhc.GetSelectedDiceHolder().getDie() != null) {									//check if it has a die
+							if(dhc.GetSelectedDiceHolder().getType() == DiceHolderType.PLAYERWINDOW) {		//if it has a die, then check if its in offer pane
+								if(psc.canPay(tcc.getPrice(9, gameid))) {											
+									System.out.println("price: " + tcc.getPrice(1, gameid));
+									exception = true;
+									dhc.setAllUninteractable();
+									dhc.setTypeToInteractable(DiceHolderType.PLAYERWINDOW, true);						//make it so you can only move in the window
+									dhc.setCheckNextTo(false); 															//make it ignore eyes
+									dhc.addMove();
+									amountOfMoves = 0;
+									waitTill = 1;
+									selectedToolcard = 3;
+									psc.pay(9, tcc.getPrice(9, gameid));												//pay
+								}
+										// nadat dobbelsteen gekozen, leggen in een vak dat niet grenst aan andere steen
+							}
+						}
 					}
 				}
 				
-				if (cardpane.getCardNr() == 9) {
-					
-					// nadat dobbelsteen gekozen, leggen in een vak dat niet grenst aan andere steen
-				}
-				
 				if (cardpane.getCardNr() == 10) {
+					if(dhc.GetSelectedDiceHolder() != null) {
+						if(dhc.GetSelectedDiceHolder().getDie() != null) {									//check if it has a die
+							if(dhc.GetSelectedDiceHolder().getType() == DiceHolderType.PLAYERWINDOW) {		//if it has a die, then check if its in offer pane
+								if(psc.canPay(tcc.getPrice(10, gameid))) {											
+									System.out.println("price: " + tcc.getPrice(1, gameid));
+									exception = true;
+									dhc.setAllUninteractable();
+									dhc.setTypeToInteractable(DiceHolderType.PLAYERWINDOW, true);						//make it so you can only move in the window				
+									dhc.addMove();
+									dhc.GetSelectedDiceHolder().getDie().setEyes(7 - dhc.GetSelectedDiceHolder().getDie().getEyes());
+									amountOfMoves = 0;
+									waitTill = 1;
+									selectedToolcard = 3;
+									psc.pay(10, tcc.getPrice(10, gameid));												//pay
+								}
+							}
+						}
+					}
+					
 					// nadat dobbelsteen gekozen, mag draaien naar tegenovergestelde zijde
-		//			dice.get(0).setEyes(7 - dice.get(0).getEyes());
+					//dice.get(0).setEyes(7 - dice.get(0).getEyes());
 					// dobbelsteen.waarde = 7 - dobbelsteen.waarde;
 				}
 				
 				if (cardpane.getCardNr() == 11) {
-					// nadat dobbelsteen gekozen, nieuwe dobbelsteen pakken uit zak en waarde kiezen
-					// op je bord of in het aanbodleggen
+					if(dhc.GetSelectedDiceHolder() != null) {
+						if(dhc.GetSelectedDiceHolder().getDie() != null) {	//check if it has a die
+							if(dhc.GetSelectedDiceHolder().getType() == DiceHolderType.OFFER) {		//if it has a die, then check if its in offer pane
+								if(psc.canPay(tcc.getPrice(1, gameid))) {
+									System.out.println("price: " + tcc.getPrice(1, gameid));
+									if (dhc.getMoves() > 0) {
+										exception = true;
+										dhc.solveTC11(this);
+										amountOfMoves = 0;
+										waitTill = 1;
+										selectedToolcard = 1;
+										psc.pay(1, tcc.getPrice(1, gameid));
+									}
+								}
+							}
+						}
+					}
 				}
 				
 				if (cardpane.getCardNr() == 12) {
@@ -215,24 +265,9 @@ public class ToolCardController {
 	public void setamountOfMoves(int i) {
 		amountOfMoves += 1;
 		if(amountOfMoves == waitTill) {
-				switch(selectedToolcard)  {
-				case 1:
-					returnToNormal();
-				case 2:
-					returnToNormal();
-					return;
-				case 3:
-					returnToNormal();
-					return;
-				case 4:
-					returnToNormal();
-					return;
-				case 5:
-					returnToNormal();
-					return;
-				}
-			}
+			returnToNormal();
 		}
+	}
 	
 	
 	public void returnToNormal() {
