@@ -54,4 +54,8 @@ public class PlayerController {
 		return playerModel.getUsername();
 	}
 	
+	public void setScore(int playerid) {
+		dbPlayerCollector.setScore(playerid, playerModel.getScore());
+	}
+	
 }

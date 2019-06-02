@@ -360,4 +360,8 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		
 	}
 
+	public DbPlayerCollector getdbPlayerCollector() {
+		return dpc;
+	}
+
 }
