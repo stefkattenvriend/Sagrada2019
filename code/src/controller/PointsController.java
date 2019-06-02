@@ -28,7 +28,7 @@ public class PointsController {
 		pma = gameModel.getPma();
 		if (true /*TODO StartSpeler */) {
 			if (true /*TODO Einde van de Game */) {
-				
+				//TODO er moet nog ergens de volgorde worden aangepast, want nu worden de betaalstenen niet meegenomen
 				calculatePoints();
 			}
 		}
