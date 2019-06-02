@@ -26,6 +26,10 @@ public class PlayerPaneController {
 		}
 	}
 	
+	public void setMovedStonesToDatabase(TurnController tc) {
+		tc.updatePass(); 
+	}
+	
 	public void setNumber8(boolean i) {
 		number8 = i;
 	}

@@ -1494,4 +1494,17 @@ public class DataBaseApplication {
 		return roundtrack;
 	}
 
+	public void updateDiceEyes(int eyes, int gameId, int dieNumber, String dieColor) {
+		String query = "UPDATE gamedie SET eyes = " + eyes + " WHERE idgame = " + gameId + " AND dienumber = " + dieNumber + " AND diecolor LIKE '" + dieColor + "'";
+		Statement stmt = null;
+		try {
+			stmt = m_Conn.createStatement();
+			int rs = stmt.executeUpdate(query);
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		
+	}
+
 }

@@ -32,5 +32,27 @@ public class DbDieUpdater {
 		
 		dba.UpdateDiceLocation(x, y, playerid, dm.getDieNumber(), color, gameID);
 	}
+	
+	public void updateDieEyes(int eyes, int gameId, DiceModel dm) {
+String color = null;
+		
+		if(dm.getDieColor() == Color.RED) {
+			color = "rood";
+		}
+		if(dm.getDieColor() == Color.BLUE) {
+			color = "blauw";
+		}
+		if(dm.getDieColor() == Color.YELLOW) {
+			color = "geel";
+		}
+		if(dm.getDieColor() == Color.PURPLE) {
+			color = "paars";
+		}
+		if(dm.getDieColor() == Color.GREEN) {
+			color = "groen";
+		}
+		
+		dba.updateDiceEyes(eyes, gameId, dm.getDieNumber(), color);
+	}
 
 }
