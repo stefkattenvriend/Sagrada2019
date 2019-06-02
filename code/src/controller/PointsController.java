@@ -16,7 +16,7 @@ public class PointsController {
 	private GameController gameController;
 	private boolean gameEnd;
 	private DbPlayerCollector dbPlayerCollector;
-	
+
 	public PointsController(GameController gameController) {
 		this.gameController = gameController;
 		this.gameModel = gameController.getGm();
@@ -24,81 +24,89 @@ public class PointsController {
 		this.dbPlayerCollector = gameController.getdbPlayerCollector();
 		allowCounting();
 	}
-	
-	public void setEnd(Boolean end) {	//be�indigt het spel
+
+	public void setEnd(Boolean end) { // be�indigt heat spell
 		gameEnd = end;
 	}
-	
-	public void allowCounting()
-	{
+
+	public void allowCounting() {
 		pma = gameModel.getPma();
-//		if (true /*TODO StartSpeler */) { //TODO er moet nog ergens de volgorde worden aangepast, want nu worden de betaalstenen niet meegenomen
-			if (gameEnd) {
-				
-				calculatePoints();
-			}
-//		}
+		// if (true /*TODO StartSpeler */) { //TODO er moat nog origins de volgorde
+		// warden aangepast, want nut worden de betaalstenen diet meegenomen
+		if (gameEnd) {
+
+			calculatePoints();
+		}
+		// }
 	}
-	
+
 	private void calculatePoints() {
-		// voor elke speler
+		// voor elke speller
 		for (int i = 0; i < pma.length; i++) {
 			int personalObjectivePoints;
 			int emptySpotsPenalty;
 			int sharedObjectivePoints;
 			int paystones;
 			int totalPoints = 0;
-			
-			personalObjectivePoints = getPersonalObjectivePoints(pma[i]); 
+
+			personalObjectivePoints = getPersonalObjectivePoints(pma[i]);
 			emptySpotsPenalty = getEmptySpotsPenalty(pma[i]);
-/*TODO*/	sharedObjectivePoints = getSharedObjectivePoints(pma[i]); 
-			paystones = getAmountOfPaystones(pma[i]); 
-			
+			/* TODO */ sharedObjectivePoints = getSharedObjectivePoints(pma[i]);
+			paystones = getAmountOfPaystones(pma[i]);
+
 			totalPoints = getTotalPoints(personalObjectivePoints, emptySpotsPenalty, sharedObjectivePoints, paystones);
 			System.out.println("Totalpoints for player " + pma[i].getUsername() + " = " + totalPoints);
 			pma[i].setScore(totalPoints);
 			dbPlayerCollector.setScore(pma[i].getPlayerId(), totalPoints);
 		}
-		
+
 	}
-	
-	private int getPersonalObjectivePoints(PlayerModel pm)
-	{
+
+	private int getPersonalObjectivePoints(PlayerModel pm) {
 		ArrayList<DiceHolderModel> diceHolder;
 		ArrayList<DiceModel> dice = new ArrayList<>();
 		int personalObjectivePoints = 0;
 		diceHolder = gameController.getDiceHolderController().getDhmodels();
-		
-		for(int i = 0; i < diceHolder.size(); i++) {
+
+		for (int i = 0; i < diceHolder.size(); i++) {
 			dice.add(diceHolder.get(i).getDie());
 		}
-		
-		for(int i = 0; i < dice.size(); i++) {
-			if(dice.get(i).getDieColor().equals(pm.getObjectiveColor())) {
+
+		for (int i = 0; i < dice.size(); i++) {
+			if (dice.get(i).getDieColor().equals(pm.getObjectiveColor())) {
 				personalObjectivePoints = personalObjectivePoints + dice.get(i).getEyes();
 			}
 		}
 		return personalObjectivePoints;
 	}
-	
-	private int getAmountOfPaystones(PlayerModel pm) 
-	{
+
+	private int getAmountOfPaystones(PlayerModel pm) {
 		System.out.println("amount of Paystones: " + pm.getPayStones());
 		return pm.getPayStones();
 	}
 
-	private int getEmptySpotsPenalty(PlayerModel pm)
-	{ 
+	private int getEmptySpotsPenalty(PlayerModel pm) {
 		return pm.getDiceAmountOnFrame() - 20;
 	}
-	
-	private int getSharedObjectivePoints(PlayerModel pm) 
-	{
-		//TODO
-		return 0;
+
+	private int getSharedObjectivePoints(PlayerModel pm) {
+		int points = 0;
+		int[] objectiveCards = new int[3]; // database get welke objective cards in de game zitten
+
+		for (int i = 1; i < objectiveCards.length + 1; i++) {
+			int playerid = pm.getPlayerId();
+			int gameid = pm.getGameid();
+			pm.getSharedObjectivePoints(objectiveCards[i], gameid, playerid);
+			
+			
+
+		}
+
+		return points;
 	}
-	
-	private int getTotalPoints(int personalObjectivePoints, int emptySpotsPenalty, int sharedObjectivePoints, int paystones) {
+
+	private int getTotalPoints(int personalObjectivePoints, int emptySpotsPenalty, int sharedObjectivePoints,
+			int paystones) {
 		int totalPoints = personalObjectivePoints + sharedObjectivePoints + paystones + emptySpotsPenalty;
 		return totalPoints;
 	}

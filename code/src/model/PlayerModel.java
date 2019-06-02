@@ -227,4 +227,9 @@ public class PlayerModel {
 		turnPlace = i;
 	}
 
+	public int getSharedObjectivePoints(int i, int gameid, int playerid) {
+		int points = dpc.getSharedObjectivePoints(i, gameid, playerid);
+		return points;
+	}
+
 }

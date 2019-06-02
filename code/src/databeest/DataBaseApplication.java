@@ -1494,4 +1494,70 @@ public class DataBaseApplication {
 		return roundtrack;
 	}
 
+	public int getEyes(int dienumber, int idgame, String color) {
+		String query = "SELECT eyes FROM gamedie WHERE dienumber = " + dienumber + " AND diecolor = '" + color + "' AND idgame = "+idgame+";";
+		Statement stmt = null;
+
+		int eyes = 0;
+
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+
+				eyes = rs.getInt(1);
+
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return eyes;
+	}
+
+	public int getDieNumberinos(int playerid, int x, int y) {
+		String query = "SELECT dienumber FROM playerframefield WHERE player_idplayer = " + playerid + " AND position_x = " + x + " AND position_y =  " + y + ";";
+		Statement stmt = null;
+
+		int dienumber = 0;
+
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+
+				dienumber = rs.getInt(1);
+
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return dienumber;
+	}
+
+	public String getDieColorinos(int playerid, int x, int y) {
+		String query = "SELECT diecolor FROM playerframefield WHERE player_idplayer = " + playerid + " AND position_x = " + x + " AND position_y =  " + y + ";";
+		Statement stmt = null;
+
+		String diecolor = "";
+
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+
+				diecolor = rs.getString(1);
+
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return diecolor;
+	}
+
 }

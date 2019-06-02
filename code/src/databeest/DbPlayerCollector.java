@@ -1,5 +1,7 @@
 package databeest;
 
+import java.util.ArrayList;
+
 //Stef
 public class DbPlayerCollector {
 	
@@ -88,6 +90,77 @@ public class DbPlayerCollector {
 	public void setScore(int playerid, int score) {
 		String query = "UPDATE `mwmastbe_db2`.`player` SET `score` = '" + score + "' WHERE (`idplayer` = '" + playerid + "');";
 		dbApplication.insertQuery(query);
+	}
+
+	public int getSharedObjectivePoints(int i, int gameid, int playerid) {	//i is de objectivecard
+		int points = 0;
+		switch (i) {	//Voor objective kaart [i], voeg punten toe..
+		
+		case 1:	//Tintvarieteit, Sets van één van elke waarde (5 punten)
+		
+			int amount = getDiceAmountOnFrame(playerid);
+			int totalEyes[] = new int[amount];
+			ArrayList<Integer> dienumbers = new ArrayList<>(); 
+			ArrayList<String> diecolors = new ArrayList<>(); 
+
+			for(int x = 1; x < 6; x++) {
+				for(int y = 1; x < 5; y++) {
+					dienumbers.add(dbApplication.getDieNumberinos(playerid, x, y));
+					diecolors.add(dbApplication.getDieColorinos(playerid, x, y));
+				}
+			}
+			
+			for(int z = 0; z < amount; z++) {
+				int dienumber = dienumbers.get(z);
+				String diecolor = diecolors.get(z);
+				int eyes = getEyes(dienumber, gameid, diecolor);
+				totalEyes[z] = eyes;
+				
+			}
+
+			
+			
+			
+			break;
+		case 2: //Halfdonkere tinten, sets van waardes 3 & 4 ( 2 punten)
+
+			break;	
+		case 3:	//Tintvarieteit per kolom ( 4 punten)
+
+
+			break;
+		case 4:	//kleurvarieteit per kolom (5 punten)
+
+			break;
+		case 5: // Donkere tinten, sets van waardes 5 & 6 (2 punten)
+
+			break;
+		case 6:	// kleurvarieteit, sets van een van elke kleur ( 4 punten)
+
+			break;
+		case 7: //kleurvarieteit per rij, rijen zonder herhaalde kleuren( 6 punten)
+
+			break;
+		case 8:	//kleurdiagonalen, aantal diagonaal aangrenzende stene in dezelfde kleur ( # punten )
+
+			break;
+		case 9:	// lichte tinten, waardes van 1 & 2 ( 2punten)
+
+			break;
+
+		case 10:	// tintvarieteit per rij ( 5 punten)
+
+			break;
+		default:
+			points = 0;
+			break;
+		}
+		return points;
+	}
+	
+	public int getEyes(int dienumber, int idgame, String color) {
+		int i = dbApplication.getEyes(dienumber, idgame, color);
+		return i;
 	}
 	
 }
