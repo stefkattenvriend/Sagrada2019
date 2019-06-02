@@ -84,5 +84,10 @@ public class DbPlayerCollector {
 		int amount = dbApplication.getDiceAmountOnFrame(playerid);
 		return amount;
 	}
+
+	public void setScore(int playerid, int score) {
+		String query = "UPDATE `mwmastbe_db2`.`player` SET `score` = '" + score + "' WHERE (`idplayer` = '" + playerid + "');";
+		dbApplication.insertQuery(query);
+	}
 	
 }

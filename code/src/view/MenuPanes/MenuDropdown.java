@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import controller.LoginController;
 import controller.MenuController;
-import databeest.DataBaseApplication;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;

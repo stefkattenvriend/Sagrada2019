@@ -5,7 +5,6 @@ import java.util.Random;
 
 import databeest.DbToolCardCollector;
 import helpers.DiceHolderType;
-import model.DiceModel;
 import view.GamePanes.CardPane;
 
 // gemaakt door TESS!!!!!!!!!!
@@ -151,22 +150,32 @@ public class ToolCardController {
 				}
 				
 				if (cardpane.getCardNr() == 7) {
-					
+					if(psc.canPay(tcc.getPrice(8, gameid))) {
+						if(dhc.getTurn() == 2) {
+							dhc.reroll();
+							psc.pay(7, tcc.getPrice(7,gameid));
+						}
+					}
 					// Werp alle dobbelstenen in het aanbod opnieuw, enkel bij 2e beurt
 				}
 				
 				if (cardpane.getCardNr() == 8) {
 					// na eerste beurt gelijk nieuwe dobbelsteen kiezen tweede beurt overslaan.
 					if(!gc.getPlayerPaneController().getNumber8()) {
-						if(psc.canPay(tcc.getPrice(8, gameid))) {
-							gc.getPlayerPaneController().setNumber8(true);
-							dhc.addMove();
-							psc.pay(8, tcc.getPrice(8, gameid));
-						}
+//						if(psc.canPay(tcc.getPrice(8, gameid))) {
+							if(dhc.getTurn() == 1) {
+								gc.getPlayerPaneController().setNumber8(true);
+								dhc.addMove();
+								dhc.removeMove2();
+								System.out.println("moves: " + dhc.getMoves());
+//								psc.pay(8, tcc.getPrice(8, gameid));
+							}
+//						}
 					}
 				}
 				
 				if (cardpane.getCardNr() == 9) {
+					
 					// nadat dobbelsteen gekozen, leggen in een vak dat niet grenst aan andere steen
 				}
 				

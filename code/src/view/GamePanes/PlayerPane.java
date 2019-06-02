@@ -107,7 +107,7 @@ public class PlayerPane extends VBox{
 	}
 	
 	public void setPassVisible() {
-		pass.setVisible(true);
+		pass.setVisible(false);
 	}
 
 	private void setPlayerBoardPane() {
@@ -196,6 +196,11 @@ public class PlayerPane extends VBox{
 	public void redrawDice() {
 		playerBoardPane.redrawDice();
 		roundTrackPane.redrawDice();
+		diceOfferPane.redrawDice();
+		
+	}
+
+	public void redrawOffer() {
 		diceOfferPane.redrawDice();
 		
 	}

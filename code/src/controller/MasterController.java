@@ -15,7 +15,6 @@ import databeest.DbToolCardCollector;
 import databeest.DbTurnCollector;
 import databeest.DbUserInfoCollector;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.stage.Stage;
 import model.GameModel;
 import view.MyScene;

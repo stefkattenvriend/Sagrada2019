@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import javafx.scene.paint.Color;
-import model.DiceHolderModel;
 import model.DiceModel;
 import model.PatterncardModel;
 import model.PlayerFieldFrameModel;
