@@ -36,6 +36,10 @@ public class MenuDropdown extends VBox {// door joery
 	private int playerID;
 	private MenuInvitePane menuInvitePane;
 	private MenuGamesPane menuGamesPane;
+	private ArrayList<Integer> finishedGames;
+	private String winner;
+	private int wingames;
+	private int lostgames;
 
 	public MenuDropdown(MenuController menuController, boolean gamesPane, String btnName, boolean playersPaneOn,
 			MenuPlayersPane menuPlayersPane, boolean waitPane, boolean invitesPane, MenuWaitingPane menuWaitingPane,
@@ -118,7 +122,6 @@ public class MenuDropdown extends VBox {// door joery
 			VBox gap = new VBox();
 			gap.setPrefWidth(20);
 			
-//			inGamePlayers.getChildren().addAll(gap, playersList, loadGame);
 			inGamePlayers.setLeft(playersList);
 			inGamePlayers.setRight(loadGame);
 			gameInfoPane.setCenter(inGamePlayers);
@@ -130,31 +133,32 @@ public class MenuDropdown extends VBox {// door joery
 			inviteBtn.setPrefSize(80, 80);
 			inviteBtn.setOnAction(e -> selectPlayer());
 			
-			VBox playerStats = new VBox();
-
-			Label winGames = new Label("Gewonnen: " + 3);	
+			calculateWinner();
 			
-			Label lostGames = new Label("Verloren: " + 7);
-
+			VBox playerStats = new VBox();
+			Label winGames = new Label("Gewonnen: " + wingames);	
+			Label lostGames = new Label("Verloren: " + lostgames);
 			playerStats.setAlignment(Pos.CENTER);
 			playerStats.getChildren().addAll(winGames, lostGames);
-			
 			gameInfoPane.setLeft(inviteBtn);
 			gameInfoPane.setCenter(playerStats);
 		}
 		
-//		if(playersPaneOff) {
-//			VBox playerStats = new VBox();
-//
-//			Label winGames = new Label("Gewonnen: " + 3);	
-//			
-//			Label lostGames = new Label("Verloren: " + 7);
-//
-//			playerStats.setAlignment(Pos.CENTER_LEFT);
-//			playerStats.getChildren().addAll(winGames, lostGames);
-//			
-//			gameInfoPane.setCenter(playerStats);
-//		}
+		if(playersPaneOff) {
+			//bereken alle gewonnen en verloren potjes per speler
+			finishedGames = menuController.getFinishedGames(username);
+
+			calculateWinner();
+					
+			VBox playerStats = new VBox();
+			Label winGames = new Label("Gewonnen: " + wingames);	
+			Label lostGames = new Label("Verloren: " + lostgames);
+
+			playerStats.setAlignment(Pos.CENTER);
+			playerStats.getChildren().addAll(winGames, lostGames);
+			
+			gameInfoPane.setCenter(playerStats);
+		}
 
 		if (waitPane) {
 			String splitBtnName[] = username.split(" ");
@@ -304,5 +308,19 @@ public class MenuDropdown extends VBox {// door joery
 	
 	public String getAcceptedGameID() {
 		return gameID;
+	}
+	
+	private void calculateWinner() {
+		finishedGames = menuController.getFinishedGames(username);
+		for(int i = 0; i < finishedGames.size(); i++) {
+			winner = menuController.getWinner(finishedGames.get(i));
+			
+			if(winner.equals(username)) {
+				wingames++;
+			} else if(!winner.equals(username)){
+				lostgames++;
+			}
+			
+		}
 	}
 }

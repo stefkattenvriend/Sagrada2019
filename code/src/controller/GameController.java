@@ -359,10 +359,25 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		return pc.getPM();
 	}
 
+//	public void updateColors() {
+//		if(gamepane != null && currentPlayer) {
+//			gamepane.yourTurn();	//hoort de playerpane groen of rood te zetten als je aan de beurt bent of niet
+//			} else if (gamepane != null && !currentPlayer) {
+//				gamepane.notYourTurn();
+//			}
+//		
+//	}
 	public void updateRoundtrack(int oldRoundId) {
+		/*guc.reloadRoundTrack();
 		dhc.clearDiceOffer();
+		this.forcedUpdateDice();*/
+		System.out.println("aye, im working here!");
 
 		
+	}
+
+	public DbPlayerCollector getdbPlayerCollector() {
+		return dpc;
 	}
 
 }

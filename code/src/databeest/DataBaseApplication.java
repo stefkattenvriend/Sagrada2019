@@ -948,6 +948,29 @@ public class DataBaseApplication {
 		return PlayerFieldFrameList;
 
 	}
+	
+	public ArrayList<Integer> getFinishedGames(String username) {
+
+		Statement stmt = null;
+		ArrayList<Integer> finishedGames = new ArrayList<>();
+		String query = "SELECT game_idgame AS idgame1, (SELECT game_idgame FROM player WHERE username = '" + username
+				+ "' AND game_idgame = idgame1) AS personalgames, COUNT(idplayer) AS geaccepteerd, (SELECT COUNT(idplayer) FROM player WHERE game_idgame = idgame1) AS totaal_spelers FROM player WHERE (playstatus_playstatus = 'uitgespeeld') GROUP BY game_idgame; ";
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+				if (rs.getInt(1) == rs.getInt(2) && rs.getInt(3) == rs.getInt(4)) {
+					finishedGames.add(rs.getInt(1));
+				}
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+
+		return finishedGames;
+	}
 
 	public int numberOfPatternCards() {
 		Statement stmt = null;
@@ -1396,6 +1419,79 @@ public class DataBaseApplication {
 		}
 		return offer;
 
+	}
+	
+	public String getWinner(int gameID){
+		String winner = "";
+		Statement stmt = null;
+		String query = "select score, username from player where game_idgame = '" + gameID + "' AND playstatus_playstatus = 'uitgespeeld' order by score desc limit 1;";
+		
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+
+				winner = rs.getString(2);
+
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return winner;
+	}
+
+	public ArrayList<DiceModel> getRoundTrack(int gameID) {
+		Statement stmt = null;
+		String query = "SELECT * FROM gamedie WHERE idgame = " + gameID + " AND roundtrack <= (SELECT MAX(roundtrack) FROM gamedie WHERE idgame = " + gameID + ");";
+		ArrayList<DiceModel> roundtrack = new ArrayList<DiceModel>();
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			int i = 0;
+			
+			while (rs.next()) {
+
+				String colorstring = rs.getString(3);
+				Color dcolor = Color.WHITE;
+
+				if (colorstring != null) {
+
+					switch (colorstring) {
+					case "geel":
+						dcolor = Color.YELLOW;
+						break;
+					case "groen":
+						dcolor = Color.GREEN;
+						break;
+
+					case "rood":
+						dcolor = Color.RED;
+						break;
+
+					case "blauw":
+						dcolor = Color.BLUE;
+						break;
+
+					case "paars":
+						dcolor = Color.PURPLE;
+						break;
+					}
+
+					if (rs.getInt(2) != 0 && rs.getString(3) != null && rs.getInt(4) != 0 && rs.getInt(6) != 0) {
+						roundtrack.add(new DiceModel(rs.getInt(2), dcolor, rs.getInt(4)));
+						roundtrack.get(i).setRoundtrack(rs.getInt(6));
+						i++;
+					}
+				}
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return roundtrack;
 	}
 
 }

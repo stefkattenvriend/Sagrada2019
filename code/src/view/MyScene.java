@@ -26,7 +26,6 @@ public class MyScene extends Scene{
 		this.mc = mc;
 		this.gameModel = gameModel;
 //		this.stage = stage;
-		this.
 		lc = mc.getLoginController();
 		gc = mc.getGameController();
 		
@@ -39,6 +38,7 @@ public class MyScene extends Scene{
 		// daarna is pas de menupane te zien. Er wordt geswitched met de method: setNewRoot.
 		// via de constructor worden de aangemaakte classes doorgegeven.
 		
+		mc.getStage().setTitle("Sagrada");
 		setRoot(root);
 		setNewRoot(loginPane);
 		

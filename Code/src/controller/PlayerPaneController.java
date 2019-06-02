@@ -20,6 +20,7 @@ public class PlayerPaneController {
 		tc.updatePass(); 
 		tc.updateSeqnrAndTurn();
 		pp.setPassVisible();
+//		gc.updateColors();
 		if(number8) {
 			gc.getToolCardController().setAllowed(false);
 		}
