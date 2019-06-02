@@ -1,11 +1,12 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import databeest.DbToolCardCollector;
 import helpers.DiceHolderType;
+import model.DiceModel;
 import view.GamePanes.CardPane;
-import view.GamePanes.DiceHolderPane;
 
 // gemaakt door TESS!!!!!!!!!!
 public class ToolCardController {
@@ -16,6 +17,7 @@ public class ToolCardController {
 	private boolean turn = true;
 	DiceHolderController dhc;
 	private boolean exception = false;
+	private int amountOfMoves = 0;
 
 	public ToolCardController(PayStoneController psc, DbToolCardCollector tcc, int gameid, DiceHolderController dhc) {
 		this.dhc = dhc;
@@ -41,9 +43,10 @@ public class ToolCardController {
 				if(dhc.GetSelectedDiceHolder().getDie() != null) {	//check if it has a die
 					if(dhc.GetSelectedDiceHolder().getType() == DiceHolderType.OFFER) {		//if it has a die, then check if its in offer pane
 						if(psc.canPay(tcc.getPrice(1, gameid))) {
+							System.out.println("price: " + tcc.getPrice(1, gameid));
 							exception = true;
 							dhc.solveTC1(this);
-							psc.pay(tcc.getPrice(1, gameid), 1);
+							psc.pay(1, tcc.getPrice(1, gameid));
 							//pay for the card.
 						}
 					}
@@ -53,22 +56,65 @@ public class ToolCardController {
 		
 		if (cardpane.getCardNr() == 2) {
 			// verplaats dobbelsteen in raam. kleur voorwaardes negeren
+			if(psc.canPay(tcc.getPrice(2, gameid))) {
+				System.out.println("price: " + tcc.getPrice(1, gameid));
+				exception = true;
+				dhc.setAllUninteractable();
+				dhc.setTypeToInteractable(DiceHolderType.PLAYERWINDOW, true);						//make it so you can only move in the window
+				dhc.setCheckColor(false); 															//make it ignore color
+				psc.pay(2, tcc.getPrice(2, gameid));					//pay
+			}
 		}
 		
 		if (cardpane.getCardNr() == 3) {
 			// verplaats dobbelsteen in raam voorwaarde voor waardes negeren
+			if(psc.canPay(tcc.getPrice(3, gameid))) {
+				System.out.println("price: " + tcc.getPrice(1, gameid));
+				exception = true;
+				dhc.setAllUninteractable();
+				dhc.setTypeToInteractable(DiceHolderType.PLAYERWINDOW, true);						//make it so you can only move in the window
+				dhc.setCheckEyes(false); 															//make it ignore eyes
+				psc.pay(2, tcc.getPrice(3, gameid));												//pay
+			}
 		}
 		
 		if (cardpane.getCardNr() == 4) {
 			// verplaats 2 dobbelstenen
+			if(psc.canPay(tcc.getPrice(4, gameid))) {
+				System.out.println("price: " + tcc.getPrice(1, gameid));
+				exception = true;
+				dhc.setAllUninteractable();
+				dhc.setTypeToInteractable(DiceHolderType.PLAYERWINDOW, true);						//make it so you can only move in the window
+				psc.pay(2, tcc.getPrice(4, gameid));												//pay
+			}
 		}
 		
 		if (cardpane.getCardNr() == 5) {
+			if(dhc.GetSelectedDiceHolder() != null) {
+				if(dhc.GetSelectedDiceHolder().getDie() != null) {	//check if it has a die
+					if(dhc.GetSelectedDiceHolder().getType() == DiceHolderType.PLAYERWINDOW) {		//if it has a die, then check if its in offer pane
+						if(psc.canPay(tcc.getPrice(5, gameid))) {
+							System.out.println("price: " + tcc.getPrice(1, gameid));
+							exception = true;
+							dhc.setAllUninteractable();
+							dhc.setTypeToInteractable(DiceHolderType.ROUNDTRACK, true);
+							psc.pay(1, tcc.getPrice(5, gameid));
+							//pay for the card.
+						}
+					}
+				}
+			}
 			// dobbelsteen kiezen daarna wisselen met eentje van roundtrack
 		}
 		
 		if (cardpane.getCardNr() == 6) {
-			
+			if(psc.canPay(tcc.getPrice(6, gameid))) {
+				Random rand = new Random();
+				int nr = rand.nextInt(5 + 1);
+				dhc.changeDieEyes(nr, dhc.GetSelectedDiceHolder());
+				psc.pay(6, tcc.getPrice(5, gameid));
+		}
+			// reroll a dice in offer
 		}
 		
 		if (cardpane.getCardNr() == 7) {
@@ -111,5 +157,9 @@ public class ToolCardController {
 	
 	public void finish1() {
 		exception = false;
+	}
+	
+	public void setamountOfMoves(int i) {
+		amountOfMoves = i;
 	}
 }
