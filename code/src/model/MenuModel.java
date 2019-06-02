@@ -27,10 +27,11 @@ public class MenuModel {
 		setChallengers();
 		setActiveGames();
 		setWaitedGames();
+		setPlayers();
 		
 	}
 
-	public void setInvitedGameIDs() {
+	private void setInvitedGameIDs() {
 		this.invitedGameIDs = menuCollector.getInviteGameID(currentAccount);
 	}
 
@@ -38,7 +39,7 @@ public class MenuModel {
 		return invitedGameIDs;
 	}
 
-	public void setChallengers() {
+	private void setChallengers() {
 		this.challengers = menuCollector.getChallanger(currentAccount);
 	}
 
@@ -69,7 +70,7 @@ public class MenuModel {
 	// END UPDATE METHODS
 
 	
-	public void setActiveGames(){
+	private void setActiveGames(){
 		this.activePlayerGames = menuCollector.startedGames(currentAccount);
 	}
 	
@@ -77,7 +78,7 @@ public class MenuModel {
 		return activePlayerGames;
 	}
 	
-	public void setWaitedGames(){
+	private void setWaitedGames(){
 		this.waitedPlayerGames = menuCollector.waitedGames(currentAccount);
 	}
 	
@@ -97,12 +98,24 @@ public class MenuModel {
 		return menuCollector.getPlayerID(gameID, currentAccount);
 	}
 	
-	public void setPlayers(){
+	private void setPlayers(){
 		this.players = menuCollector.getPlayers();
 	}
 	
 	public ArrayList<String> getPlayers(){
 		return players;
+	}
+	
+	public String getWinner(int gameID) {
+		return menuCollector.getWinner(gameID);
+	} 
+	
+	public ArrayList<Integer> getFinishedGames(String username){
+		return menuCollector.getFinishedGames(username);
+	}
+	
+	public String getCurrentUsername() {
+		return currentAccount;
 	}
 
 }
