@@ -1442,4 +1442,56 @@ public class DataBaseApplication {
 		return winner;
 	}
 
+	public ArrayList<DiceModel> getRoundTrack(int gameID) {
+		Statement stmt = null;
+		String query = "SELECT * FROM gamedie WHERE idgame = " + gameID + " AND roundtrack <= (SELECT MAX(roundtrack) FROM gamedie WHERE idgame = " + gameID + ");";
+		ArrayList<DiceModel> roundtrack = new ArrayList<DiceModel>();
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			int i = 0;
+			
+			while (rs.next()) {
+
+				String colorstring = rs.getString(3);
+				Color dcolor = Color.WHITE;
+
+				if (colorstring != null) {
+
+					switch (colorstring) {
+					case "geel":
+						dcolor = Color.YELLOW;
+						break;
+					case "groen":
+						dcolor = Color.GREEN;
+						break;
+
+					case "rood":
+						dcolor = Color.RED;
+						break;
+
+					case "blauw":
+						dcolor = Color.BLUE;
+						break;
+
+					case "paars":
+						dcolor = Color.PURPLE;
+						break;
+					}
+
+					if (rs.getInt(2) != 0 && rs.getString(3) != null && rs.getInt(4) != 0 && rs.getInt(6) != 0) {
+						roundtrack.add(new DiceModel(rs.getInt(2), dcolor, rs.getInt(4)));
+						roundtrack.get(i).setRoundtrack(rs.getInt(6));
+						i++;
+					}
+				}
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return roundtrack;
+	}
+
 }

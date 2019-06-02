@@ -29,7 +29,7 @@ public class GameUpdateController {
 
 	public void testRun() {
 		if (gm != null) {
-			//gm.updateRound();
+			// gm.updateRound();
 		}
 
 	}
@@ -107,33 +107,52 @@ public class GameUpdateController {
 		ArrayList<DiceModel> dm = new ArrayList<DiceModel>();
 		dm.addAll(dhc.getDiceController().getDMAL());
 		ArrayList<DiceModel> offer = new ArrayList<DiceModel>();
-		
-		//loop door alle opgehaalde dice, update de dice models, plaats de geupdate models in offer
+
+		// loop door alle opgehaalde dice, update de dice models, plaats de geupdate
+		// models in offer
 
 		for (int i = 0; i < dmnew.size(); i++) {
 			for (int j = 0; j < dm.size(); j++) {
-				if (dmnew.get(i).getDieNumber() == dm.get(j).getDieNumber() && dmnew.get(i).getDieColor() == dm.get(j).getDieColor()) {
+				if (dmnew.get(i).getDieNumber() == dm.get(j).getDieNumber()
+						&& dmnew.get(i).getDieColor() == dm.get(j).getDieColor()) {
 					dm.get(j).setEyes(dmnew.get(i).getEyes());
 					offer.add(dm.get(j));
 					break;
 				}
 			}
 		}
-		
+
 		ArrayList<DiceHolderModel> dhm = dhc.getDhmodels();
-		
+
 		int z = 0;
-		
-		for (int i = 0; i < dhm.size() ; i++) {
+
+		for (int i = 0; i < dhm.size(); i++) {
 			if (z < offer.size()) {
-				if (dhm.get(i).getType() == DiceHolderType.OFFER && dhm.get(i).getDie() == null) {
-				dhm.get(i).setDie(offer.get(z));
-				z++;
+				if (dhm.get(i).getType() == DiceHolderType.OFFER) {
+					dhm.get(i).setDie(offer.get(z));
+					z++;
+				}
+
 			}
-				
-			
+
+		}
+	}
+
+	public void reloadRoundTrack() {
+		ArrayList<DiceModel> roundtrackdb = ddc.getRoundTrack(gmc.getGameId());
+		// kijk naar de opgehaalde dice, plaats deze op de juiste plek in de roundtrack
+
+		ArrayList<DiceHolderModel> dhm = dhc.getDhmodels();
+
+		for (int i = 0; i < dhm.size(); i++) {
+			if (dhm.get(i).getType() == DiceHolderType.ROUNDTRACK) {
+				for (int z = 0; z < roundtrackdb.size(); z++) {
+					if (dhm.get(i).getX() == roundtrackdb.get(z).getRoundtrack()) {
+						dhm.get(i).setDie(roundtrackdb.get(z));// zet op moment max 1 die
+						roundtrackdb.remove(z);
+					}
+				}
 			}
-			
 		}
 	}
 }
