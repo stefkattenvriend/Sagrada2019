@@ -160,7 +160,8 @@ public class ToolCardController {
 					if(!gc.getPlayerPaneController().getNumber8()) {
 						if(psc.canPay(tcc.getPrice(8, gameid))) {
 							gc.getPlayerPaneController().setNumber8(true);
-							psc.pay(8, gameid);
+							dhc.addMove();
+							psc.pay(tcc.getPrice(8, gameid), gameid);
 						}
 					}
 				}
