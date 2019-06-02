@@ -20,10 +20,35 @@ public class DiceHolderController {
 	private ArrayList<DiceModel> movedDice = new ArrayList<DiceModel>();
 	private DiceController dc;
 	private PatterncardController pcc;
+	private ToolCardController tcc;
 	
 	public DiceHolderController(PatterncardController pcc, DbDieCollector ddc, int gameid) {
 		this.pcc = pcc;
 		dc = new DiceController(ddc, gameid);
+	}
+	
+	public DiceHolderModel GetSelectedDiceHolder() {
+		for(int i = 0; i < dhmodels.size(); i++) {
+			if(dhmodels.get(i).getSelected()) {
+				return dhmodels.get(i);
+			}
+		}
+		return null;
+	}
+	
+	private DiceHolderPane GetSelectedDicePane() {
+		for(int i = 0; i < dhmodels.size(); i++) {
+			if(dhmodels.get(i).getSelected()) {
+				return dhpanes.get(i);
+			}
+		}
+		return null;
+	}
+	
+	public void setAllUninteractable() {
+		for(int i = 0; i < dhmodels.size(); i++) {
+			dhmodels.get(i).setInteractable(false);
+		}
 	}
 
 	public DiceHolderPane CreateDiceHolder(double size, int x, int y, DiceHolderType type) {// deze methode maakt de
@@ -307,4 +332,30 @@ public class DiceHolderController {
 			}
 		}
 	}
+	
+	public void solveTC1(ToolCardController tcc) {
+		this.tcc = tcc;
+		//make it so you cant end turn
+		//make it so you cant move any other stone till youve moved this one
+		int dienr = this.GetSelectedDiceHolder().getDie().getEyes();
+		GetSelectedDicePane().addPlusAndMinus(dienr);
+	}
+	
+	public void higherClicked(DiceHolderPane dhc) {
+		System.out.println("die eyes: " + this.GetSelectedDiceHolder().getDie().getEyes());
+		int nr = this.GetSelectedDiceHolder().getDie().getEyes() + 1;
+		System.out.println("new die eyes" + nr);
+		this.GetSelectedDiceHolder().getDie().setEyes(nr);
+		tcc.finish1();
+	}
+	
+	public void lowerClicked(DiceHolderPane dhc) {
+		System.out.println("die eyes: " + this.GetSelectedDiceHolder().getDie().getEyes());
+		int nr = this.GetSelectedDiceHolder().getDie().getEyes() - 1;
+		System.out.println("new die eyes" + nr);
+		this.GetSelectedDiceHolder().getDie().setEyes(nr);
+		dhc.updateDiceHolderPane();
+		tcc.finish1();
+	}
+	
 }

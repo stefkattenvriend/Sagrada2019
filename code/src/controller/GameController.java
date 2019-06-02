@@ -143,15 +143,15 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		lyc = new LayerController(pcc, this);
 //		System.out.println("Player id in create game model: " + pc.getPlayerID());
 		this.dhc = new DiceHolderController(pcc, dbDieCollector, gm.getGameId());
-		this.tc = new TurnController(this, dhc, dbDieUpdater, gm, dtc, username, gm.getGameId(), tcc);
 		createCardsController();
 		
 	}
 
 	public void createCardsController() {
 		psc = new PayStoneController(psr, DatabasePTCCollector.getPlayerID(gm.getGameId(), lc.getCurrentAccount()), gm.getGameId());
-		tcc = new ToolCardController(psc, dtcc, gm.getGameId());
+		tcc = new ToolCardController(psc, dtcc, gm.getGameId(), dhc);
 		crc = new CardsController(dbCardCollector, gm.getGameId(), tcc, dhc.getDiceController().getDMAL());
+		this.tc = new TurnController(this, dhc, dbDieUpdater, gm, dtc, lc.getCurrentAccount(), gm.getGameId(), tcc);
 //		System.out.println("should be gameId: " + gm.getGameId());
 	}
 

@@ -16,6 +16,7 @@ public class TurnAdmissionChecker implements Runnable {
 	private boolean playing = true;
 	private TurnController tc;
 	private ToolCardController tcc;
+	private boolean allInteractible;
 //	private ChatPane chatPane;
 	
 	public TurnAdmissionChecker(DbTurnCollector dtc, String username, int gameId, DiceHolderController dhc, PlayerPane pp, TurnController tc, ToolCardController tcc) {
@@ -35,11 +36,11 @@ public class TurnAdmissionChecker implements Runnable {
 //			tc.updatePass(); //hoeft niet automatisch toch? aldus milan.
 			if(myTurn) {
 //				pp.setLabel("Aan de beurt: ja");
-				tcc.setTurn(true);
+//				tcc.setTurn(true);
 			}
 			if(!myTurn) {
 //				pp.setLabel("Aan de beurt: nee");
-				tcc.setTurn(false);
+//				tcc.setTurn(false);
 			}
 			
 			tc.updateChat(); //update chat automatisch hoop ik
@@ -50,8 +51,17 @@ public class TurnAdmissionChecker implements Runnable {
 		if (dtc.myTurn(username, gameId)) {
 			pp.yourTurn();
 //			System.out.println("myturn");
-			dhc.switchTurnInteractable(true);
-			
+			if(tcc.exception()) {
+				if (allInteractible) {
+					dhc.switchTurnInteractable(false);
+					allInteractible = false;
+				}
+			} else {
+				if (!allInteractible) {
+					dhc.switchTurnInteractable(true);
+					allInteractible = true;
+				}
+			}
 			
 			try {
 				Thread.sleep(3000);
@@ -63,6 +73,7 @@ public class TurnAdmissionChecker implements Runnable {
 			//dont allow something
 //			System.out.println("not my turn");
 			dhc.switchTurnInteractable(false);
+			allInteractible = false;
 			
 			try {
 				Thread.sleep(3000);

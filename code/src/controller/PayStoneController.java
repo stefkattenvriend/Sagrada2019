@@ -13,9 +13,12 @@ public class PayStoneController {
 		this.psr = psr;
 	}
 	
-	public boolean pay(int cost, int toolcardId) {
-		if(psr.getStones(playerId, gameId) >= cost){
-			psr.setStoneToCard(gameId, playerId, toolcardId, cost);
+	public void pay(int toolcardId, int cost) {
+		psr.setStoneToCard(gameId, playerId, toolcardId, cost);
+	}
+	
+	public boolean canPay(int cost) {
+		if(psr.getStones(playerId, gameId) >= cost) {
 			return true;
 		} else {
 			return false;

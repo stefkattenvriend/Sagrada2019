@@ -19,7 +19,6 @@ public class DiceController {
 	}
 	
 	
-	
 	private void setup(int gameid) {
 		createDieModel(gameid);
 		createDicePane();
