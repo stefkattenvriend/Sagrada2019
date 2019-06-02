@@ -118,17 +118,23 @@ public class ChatPane extends BorderPane {
 				amountOfPlayers = amountOfPlayers + 1;
 			}
 		}
-		int playerid1 = players[0];
-		int playerid2 = players[1];
+		int playerid1 = 0;
+		int playerid2 = 0;
 		int playerid3 = 0;
 		int playerid4 = 0;
-		if (amountOfPlayers == 3) {
-			playerid3 = players[2];
+		
+		if (players != null) {
+			
+			playerid1 = players[0];
+			playerid2 = players[1];
+			
+			if (amountOfPlayers == 3) {
+				playerid3 = players[2];
+			}
+			if (amountOfPlayers == 4) {
+				playerid4 = players[3];
+			}
 		}
-		if (amountOfPlayers == 4) {
-			playerid4 = players[3];
-		}
-
 		chat = cc.getchat(amountOfPlayers, playerid1, playerid2, playerid3, playerid4);
 		chatdate = cc.getchatDate(amountOfPlayers, playerid1, playerid2, playerid3, playerid4);
 		chatnames = cc.getPlayers(amountOfPlayers, playerid1, playerid2, playerid3, playerid4);
@@ -144,7 +150,7 @@ public class ChatPane extends BorderPane {
 			} catch (Exception e) {
 				System.out.println("Something went wrong with the chat.");
 			}
-			
+
 		}
 	}
 
