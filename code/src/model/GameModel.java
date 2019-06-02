@@ -54,7 +54,7 @@ public class GameModel {
 	{
 //		System.out.println("i=" + i);
 //		System.out.println("playerId" + playerID);
-		pma[i] = new PlayerModel(dpc);
+		pma[i] = new PlayerModel(dpc, this);
 		pma[i].setGameid(gameid);
 		pma[i].setPlayerId(playerID);
 		pma[i].getDatabaseInfo(dpc);
@@ -62,6 +62,7 @@ public class GameModel {
 		
 		if(pma[i].getUsername().equals(username)) { // username is gelijk
 			pma[i].setDht(DiceHolderType.PLAYERWINDOW);
+			pma[i].setPlaceInArrayList(i);
 		}
 		else if(enemies == 1) {
 			pma[i].setDht(DiceHolderType.ENEMY1);
@@ -92,7 +93,7 @@ public class GameModel {
 	}
 	
 	public void addPlayerModel(String username) {
-		pma[0] = new PlayerModel(dpc);
+		pma[0] = new PlayerModel(dpc, this);
 		pma[0].setDht(DiceHolderType.PLAYERWINDOW);
 		pma[0].setUsername(username);
 		pma[0].setGameid(gameid);

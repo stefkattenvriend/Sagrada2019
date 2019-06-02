@@ -2,6 +2,7 @@ package controller;
 
 import databeest.DbPlayerCollector;
 import javafx.scene.paint.Color;
+import model.GameModel;
 import model.PlayerModel;
 
 public class PlayerController {
@@ -10,9 +11,9 @@ public class PlayerController {
 	private PlayerModel playerModel;
 	private DbPlayerCollector dbPlayerCollector;
 	
-	public PlayerController(DbPlayerCollector dbPlayerCollector)
+	public PlayerController(DbPlayerCollector dbPlayerCollector, GameModel gm)
 	{
-		playerModel = new PlayerModel(dbPlayerCollector);
+		playerModel = new PlayerModel(dbPlayerCollector, gm);
 		this.dbPlayerCollector = dbPlayerCollector;
 	}
 	
