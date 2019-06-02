@@ -1321,6 +1321,27 @@ public class DataBaseApplication {
 		}
 		return idpatterncards;
 	}
+
+	public int getDiceAmountOnFrame(int playerid) {
+		Statement stmt = null;
+		String query = "SELECT COUNT(dienumber) FROM mwmastbe_db2.playerframefield where player_idplayer = " + playerid + " AND dienumber IS NOT NULL;";
+		int amount = 0;
+
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+
+				amount = rs.getInt(1);
+
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return amount;
+	}
 	
 
 	

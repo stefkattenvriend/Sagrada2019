@@ -1,6 +1,5 @@
 package model;
 
-import helpers.DiceHolderType;
 import javafx.scene.paint.Color;
 
 //Rens

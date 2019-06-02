@@ -85,8 +85,6 @@ public class MasterController extends Application{//een controller die alle ande
 		psr = new DbPayStoneRuler(databeest);
 		tcc = new DbToolCardCollector(databeest);
 		
-		
-		
 		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
 				&& (databeest.makeConnection()))
 		
@@ -94,6 +92,7 @@ public class MasterController extends Application{//een controller die alle ande
 		this.pc = new PlayerController(dbPlayerCollector);
 		this.gc = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector, dbCardCollector, dbPlayerCollector, dbDieCollector, dbDieUpdater, dbTurnCollector, psr, tcc);
 		this.sc = new StatsController(dbPlayerStatsCollector);
+		
 //		this.chat = new ChatController(dbChatCollector);
 		
 		
@@ -184,7 +183,4 @@ public class MasterController extends Application{//een controller die alle ande
 	public PayStoneController getPayStoneController() {
 		return gc.getPayStoneController();
 	}
-	
-	
-
 }

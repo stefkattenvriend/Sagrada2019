@@ -150,6 +150,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		this.dhc = new DiceHolderController(pcc, dbDieCollector, gm.getGameId());
 		createCardsController();
 		guc.setGameModel(gm);
+		this.ptsc = new PointsController(this);
 		
 	}
 
@@ -278,15 +279,9 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 					else {
 						System.out.println("uncomplete model");
 					}
-					
-				
-					}
-				
+				}
 			}
-			
 		}
-		
-		
 	}
 
 	public int getGameId() {

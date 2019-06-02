@@ -20,6 +20,7 @@ public class PlayerModel {
 	private Color color;
 	private int score;
 	private int movesAllowed = 1;
+	private int amountOfDiceOnFrame;
 
 	private DiceHolderType dht;// welke diceholder er bij deze speler hoort dus welke speler is het ~ Rens
 	private DbPlayerCollector dpc;
@@ -182,6 +183,12 @@ public class PlayerModel {
 	
 	public void reloadPcID() {
 		patid = dpc.getPatternCardID(playerid);
+	}
+	
+	public int getDiceAmountOnFrame()
+	{
+		amountOfDiceOnFrame = dpc.getDiceAmountOnFrame(playerid);
+		return amountOfDiceOnFrame;
 	}
 
 }

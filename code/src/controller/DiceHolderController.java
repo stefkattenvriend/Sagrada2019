@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import databeest.DbDieCollector;
 import helpers.DiceHolderType;
 import helpers.PatterncardType;
-import javafx.scene.Node;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
