@@ -5,7 +5,6 @@ import controller.LayerController;
 import controller.LoginController;
 import controller.PatterncardController;
 import controller.PayStoneController;
-import controller.PlayerController;
 import controller.PointsController;
 import controller.TurnController;
 import javafx.scene.image.Image;

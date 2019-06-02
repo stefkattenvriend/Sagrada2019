@@ -1,7 +1,6 @@
 package view.GamePanes;
 import controller.CardsController;
 import controller.GameController;
-import controller.PayStoneController;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 

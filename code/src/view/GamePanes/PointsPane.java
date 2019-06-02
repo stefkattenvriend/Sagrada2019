@@ -1,6 +1,5 @@
 package view.GamePanes;
 import controller.PointsController;
-//joery
 import javafx.scene.control.Label;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
@@ -8,6 +7,7 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
+//joery
 public class PointsPane extends Pane{
 	
 	private double personalAttributesHeight = 75;

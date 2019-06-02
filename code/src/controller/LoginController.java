@@ -2,7 +2,6 @@ package controller;
 
 import databeest.DbUserInfoCollector;
 import model.AccountModel;
-import view.MyScene;
 
 //Stef
 public class LoginController {
