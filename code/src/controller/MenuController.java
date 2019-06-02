@@ -87,8 +87,16 @@ public class MenuController {
 		return menuModel.getWaitedGamesUpdate();
 	}
 
-	public ArrayList<String> getPlayerStatus(int gameID) {
+	public ArrayList<String> getPlayerStatus(String gameID) {
 		return menuModel.getPlayerStatus(gameID);
+	}
+	
+	public ArrayList<String> getPlayersInGame(String gameID){
+		return menuModel.getPlayersInGame(gameID);
+	}
+	
+	public int getPlayerID(String gameID) {
+		return menuModel.getPlayerID(gameID);
 	}
 
 	public void loadGame(String gID) {

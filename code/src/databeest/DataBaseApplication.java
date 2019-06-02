@@ -301,9 +301,8 @@ public class DataBaseApplication {
 		return waitingGames;
 	}
 
-	public ArrayList<String> getPlayersInGame(String gameID, String currentAccount) { // alle afwachtend op reactie
-																						// games van de ingelogde speler
-																						// #joery
+	public ArrayList<String> getPlayersInGame(String gameID, String currentAccount) { 
+		
 		Statement stmt = null;
 		ArrayList<String> playersInGame = new ArrayList<>();
 		String query = "SELECT username FROM player WHERE game_idgame = '" + gameID + "' AND username != '"
@@ -324,7 +323,7 @@ public class DataBaseApplication {
 		return playersInGame;
 	}
 
-	public ArrayList<String> getPlayerStatus(int gameID, String currentAccount) { 
+	public ArrayList<String> getPlayerStatus(String gameID, String currentAccount) { 
 		Statement stmt = null;
 		ArrayList<String> playerStatus = new ArrayList<>();
 		String query = "SELECT playstatus_playstatus FROM player WHERE game_idgame = '" + gameID + "' AND username != '"
