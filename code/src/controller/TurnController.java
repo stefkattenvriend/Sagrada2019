@@ -338,11 +338,13 @@ public class TurnController {
 					int round = diceController.getRound(gameId);
 					
 					
-					if(round == 10) {
-						System.out.println("---THE GAME HAS ENDED, YOU WIN!!!!---");
-						//TODO end game
+					if(round == 11) {
+//						System.out.println("---THE GAME HAS ENDED, YOU WIN!!!!---");
+						gController.getPointsController().setEnd(true);
+						break;
 					} else {
 					System.out.println("Now starting round number: " + round + ".");
+					diceController.generateOffer(amountOfPlayers, gameId);
 					gController.updateDiceOffer();
 					}
 					break;
