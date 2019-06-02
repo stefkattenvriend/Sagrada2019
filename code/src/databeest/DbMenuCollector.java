@@ -27,12 +27,24 @@ public class DbMenuCollector {
 		return databeest.getPlayerStatus(gameID, currentAccount);
 	}
 	
-	public ArrayList<String> getPlayersInGame(String gameID, String currentAccount){
+	public ArrayList<String> getPlayersInGame(int gameID, String currentAccount){
 		return databeest.getPlayersInGame(gameID, currentAccount);
 	}
 	
 	public int getPlayerID(String gameID, String currentAccount){
 		return databeest.getPlayerID(gameID, currentAccount);
+	}
+	
+	public ArrayList<Integer> startedGames(String username) {
+		return databeest.getStartedGames(username);
+	}
+	
+	public ArrayList<Integer> waitedGames(String username) {
+		return databeest.getWaitedGames(username);
+	}
+	
+	public ArrayList<String> getPlayers(){
+		return databeest.getPlayers();
 	}
 	
 	

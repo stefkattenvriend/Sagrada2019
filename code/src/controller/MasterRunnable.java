@@ -27,11 +27,14 @@ public class MasterRunnable implements Runnable {
             	gameController.updatePaystones();
             	
 //            	System.out.println("aan het checken..");
+                gameController.updateGameRound();
                 gameController.updatePaystones();
             	gameController.updatePC();
             	gameController.setMyColor();
             	gameController.updateCardPane();
+            	gameController.updateDiceOffer();
             	gameController.updateDicePlacement();
+            	
 //            	gameController.updateFirstDice(); // ga ik in menucontroller new game zetten
             	
             }

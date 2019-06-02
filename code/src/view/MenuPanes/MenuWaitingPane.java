@@ -104,7 +104,7 @@ public class MenuWaitingPane extends FlowPane {
 
 		for (int i = 0; i < gameIDs.size(); i++) { // voegt knop toe
 			games.add(new MenuDropdown(menuController, false, "Sagrada " + gameIDs.get(i), false, null, true, false,
-					this, loginController, null, menuGamesPane));
+					this, loginController, null, menuGamesPane, false));
 		}
 
 		for (int x = 0; x < games.size(); x++) { // voegt alle knoppen toe aan de lijst
@@ -126,28 +126,9 @@ public class MenuWaitingPane extends FlowPane {
 		list.getChildren().clear();
 		games.clear();
 
-//		gameIDs = databeest.getWaitingGames(loginController.getCurrentAccount());
-//		gameIDs = menuController.getNewWaitedGames();
-		
-//		for (int i = 0; i < gameIDs.size(); i++) {
-//
-//			// check of de uitdager in het lijstje staat van gameID
-//			// ->view deze mag pas zichtbaar worden als invite is geaccepteerd
-//			status = databeest.getPlayerStatus(gameIDs.get(i), loginController.getCurrentAccount());
-//			currentPlayerStatus = databeest.getCurrentPlayerStatus(loginController.getCurrentAccount(), gameIDs.get(i));
-//			
-//		for (int s = 0; s < status.size(); s++) {
-//				if (status.get(s).equals("uitdager") && !currentPlayerStatus.get(0).equals("geaccepteerd")) {
-//
-//					gameIDs.remove(i);
-//				}
-//			}
-//
-//		}
-
 		for (int i = 0; i < gameIDs.size(); i++) { // voegt knop toe
 			games.add(new MenuDropdown(menuController, false, "Sagrada " + gameIDs.get(i), false, null, true, false,
-					this, loginController, null, null));
+					this, loginController, null, null, false));
 		}
 
 		for (int i = 0; i < games.size(); i++) { // voegt alle knoppen toe aan de lijst

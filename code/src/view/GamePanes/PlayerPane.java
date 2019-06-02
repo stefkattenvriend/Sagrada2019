@@ -5,7 +5,7 @@ import controller.DiceHolderController;
 import controller.GameController;
 import controller.PatterncardController;
 import controller.PayStoneController;
-import controller.PlayerController;
+import controller.PlayerPaneController;
 import controller.PointsController;
 import controller.TurnController;
 import helpers.DiceHolderType;
@@ -16,7 +16,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import model.GameModel;
 import view.MyScene;
 
 
@@ -54,32 +53,32 @@ public class PlayerPane extends VBox{
 		this.tc = tc;
 		personalAttributes = new PersonalAttributes(this);
 		setBackground(controller.Main.PLAYERPANE); // aanduiding voor pane
-		setUp();
+		setUp(gc.getPlayerPaneController());
 		tc.givePane(this);
 		tc.TurnAdmissionGiving();
 		tc.startThread();
 	}
 	
-	private void setUp() {
+	private void setUp(PlayerPaneController ppc) {
 		setPaneSize();
 		setDiceSection();
 		setPersonalAttributes();
 		setPlayerBoardPane();
-		setTinyButtonSection();
+		setTinyButtonSection(ppc);
 	}
 
-	private void setTinyButtonSection() {
+	private void setTinyButtonSection(PlayerPaneController ppc) {
 		BorderPane section = new BorderPane();
 		
 		pass = new Button("Pass");
 		pass.setMinSize(60, 30);
 		pass.setMaxSize(60, 30);
-		pass.setOnAction(e -> pass());
+		pass.setOnAction(e -> ppc.pass(tc, this, gc));
 		
 		Button menu = new Button("Menu");
 		menu.setMinSize(60, 30);
 		menu.setMaxSize(60, 30);
-		menu.setOnAction(e -> menuAction());
+		menu.setOnAction(e -> ppc.menuAction(myScene, tc, gc));
 		
 		pass.setAlignment(Pos.CENTER_LEFT);
 		menu.setAlignment(Pos.CENTER_RIGHT);
@@ -105,6 +104,10 @@ public class PlayerPane extends VBox{
 		tc.updatePass(); 
 		tc.updateSeqnrAndTurn();
 		pass.setVisible(false);
+	}
+	
+	public void setPassVisible() {
+		pass.setVisible(true);
 	}
 
 	private void setPlayerBoardPane() {

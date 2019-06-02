@@ -2,8 +2,6 @@ package controller;
 
 
 import databeest.DbTurnCollector;
-import model.GameModel;
-import view.GamePanes.ChatPane;
 import view.GamePanes.PlayerPane;
 
 public class TurnAdmissionChecker implements Runnable {
@@ -19,6 +17,7 @@ public class TurnAdmissionChecker implements Runnable {
 	private ToolCardController tcc;
 	private GameController gc;
 	private boolean allInteractible;
+	private boolean offerGenerated;
 //	private ChatPane chatPane;
 	
 	public TurnAdmissionChecker(DbTurnCollector dtc, String username, int gameId, DiceHolderController dhc, PlayerPane pp, TurnController tc, ToolCardController tcc, GameController gc) {
@@ -30,6 +29,7 @@ public class TurnAdmissionChecker implements Runnable {
 		this.pp = pp;
 		this.tc = tc;
 		this.gc = gc;
+		this.offerGenerated = true;
 		
 	}
 	
@@ -53,7 +53,15 @@ public class TurnAdmissionChecker implements Runnable {
 	private void checkMyTurn() {
 		if (!tcc.exception()) {
 			if (dtc.myTurn(username, gameId)) {
+				if(offerGenerated == false) {
+					
+					
+					offerGenerated = true;
+				}
+				
 				dhc.switchTurnInteractable(true);
+				
+				
 				
 				if (myTurn) {
 					gc.setCurrentPlayer(true);	//zou ervoor moeten zorgen dat zodra het jouw turn is de game nog 1 keer update voor laatste gegevens
@@ -95,6 +103,10 @@ public class TurnAdmissionChecker implements Runnable {
 	public void stop() {
 		playing = false;
 		
+	}
+
+	public void setOfferGenerated(boolean offerGenerated) {
+		this.offerGenerated = offerGenerated;
 	}
 	
 	

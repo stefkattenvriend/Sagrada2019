@@ -6,9 +6,13 @@ import controller.LayerController;
 import controller.LoginController;
 import controller.PatterncardController;
 import controller.PayStoneController;
-import controller.PlayerController;
 import controller.PointsController;
 import controller.TurnController;
+import javafx.scene.image.Image;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 //joery
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
@@ -38,6 +42,8 @@ public class GamePane extends StackPane {
 	private LoginController logc;
 	private PayStoneController psc;
 	private GameModel gameModel;
+	private Image image;
+	private BackgroundImage background;
 
 	public GamePane(GameController gameController, MyScene myScene, LoginController loginController,
 			PayStoneController psc, GameModel gameModel) {
@@ -55,6 +61,17 @@ public class GamePane extends StackPane {
 		setScreenSize();
 		setUp();
 		gc.setGamepane(this);
+		setBackgroundImage();
+	}
+
+	private void setBackgroundImage() {
+		image = new Image("layout_images/menuBackground.png");
+		background = new BackgroundImage(image,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER,
+                BackgroundSize.DEFAULT);
+		
 	}
 
 	private void setUp() {

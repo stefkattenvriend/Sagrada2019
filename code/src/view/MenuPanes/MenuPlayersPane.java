@@ -36,6 +36,7 @@ public class MenuPlayersPane extends VBox {// door joery
 	private Button createGame;
 	private LoginController loginController;
 	private MenuWaitingPane menuWaitingPane;
+	private boolean alreadyPlaying = false;
 
 	public MenuPlayersPane(MenuController menuController, LoginController loginController,
 			MenuWaitingPane menuWaitingPane) {
@@ -97,7 +98,7 @@ public class MenuPlayersPane extends VBox {// door joery
 
 		for (int i = 0; i < players.size(); i++) {// vult verzameling met alle knoppen met bijbehorende username
 			menuItems.add(new MenuDropdown(menuController, false, players.get(i), false, this, false, false, null,
-					loginController, null, null)); // spelersnaam moet uit
+					loginController, null, null, true));
 
 		}
 
@@ -128,7 +129,7 @@ public class MenuPlayersPane extends VBox {// door joery
 		message.setText(" ");
 		for (int i = 0; i < players.size(); i++) {// vult verzameling met alle knoppen
 			menuItems.add(new MenuDropdown(menuController, false, players.get(i), true, this, false, false, null,
-					loginController, null, null)); // spelersnaam moet uit
+					loginController, null, null, false)); // spelersnaam moet uit
 			// database worden getrokken
 		}
 
@@ -152,16 +153,16 @@ public class MenuPlayersPane extends VBox {// door joery
 				message.setText("Uitnodigingen zijn verzonden!");
 				message.setTextFill(Color.GREEN);
 			}
-			menuController.newGame(selectedPlayers);
 
-			// [START] testing in console
-//			System.out.println("send invite to:");
-//
-//			for (int i = 0; i < selectedPlayers.size(); i++) {
-//				System.out.println("- " + selectedPlayers.get(i));
-//			}
-			// [END] testing in console
-			turnOff();
+			if (alreadyPlaying) {
+				message.setText("Je moet eerst wachten tot je een reactie hebt gekregen");
+				message.setTextFill(Color.RED);
+				alreadyPlaying = false;
+			} else {
+				menuController.newGame(selectedPlayers);
+				turnOff();
+			}
+
 		} else if (selectedPlayers.size() > 4) {
 			message.setText("Je hebt te veel spelers geselecteerd.");
 			message.setTextFill(Color.RED);
@@ -182,7 +183,7 @@ public class MenuPlayersPane extends VBox {// door joery
 
 		for (int i = 0; i < players.size(); i++) {// vult verzameling met alle knoppen
 			menuItems.add(new MenuDropdown(menuController, false, players.get(i), false, this, false, false, null,
-					loginController, null, null));
+					loginController, null, null, true));
 		}
 
 		for (int x = 0; x < menuItems.size(); x++) { // voegt alle knoppen toe aan de lijst
@@ -194,13 +195,29 @@ public class MenuPlayersPane extends VBox {// door joery
 	}
 
 	public final void addPlayer(String username) { // voegt speler toe in arraylist
+		ArrayList<String> waitingGames = new ArrayList<>();
+		waitingGames = databeest.getWaitingGames(loginController.getCurrentAccount());
+		ArrayList<String> playersInGame = new ArrayList<>();
 
 		selectedPlayers.add(username);
-//		System.out.println("added " + username);
 
 		if (selectedPlayers.size() > 4) {
 			message.setText("Je kunt niet meer dan 3 spelers uitnodigen");
 			message.setTextFill(Color.RED);
+		}
+
+		for (int a = 0; a < waitingGames.size(); a++) {
+			playersInGame = databeest.getPlayersInGame(Integer.parseInt(waitingGames.get(a)),
+					loginController.getCurrentAccount());
+
+			for (int b = 0; b < playersInGame.size(); b++) {
+
+				if (playersInGame.get(b).equals(username)) {
+					message.setText("Je hebt al een game open staan met " + username);
+					message.setTextFill(Color.RED);
+					alreadyPlaying = true;
+				}
+			}
 		}
 
 	}

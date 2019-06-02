@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import controller.LoginController;
 import controller.MenuController;
-import databeest.DataBaseApplication;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -37,9 +37,9 @@ public class MenuDropdown extends VBox {// door joery
 	private MenuInvitePane menuInvitePane;
 	private MenuGamesPane menuGamesPane;
 
-	public MenuDropdown(MenuController menuController, boolean gamesPane, String btnName, boolean playersPane,
+	public MenuDropdown(MenuController menuController, boolean gamesPane, String btnName, boolean playersPaneOn,
 			MenuPlayersPane menuPlayersPane, boolean waitPane, boolean invitesPane, MenuWaitingPane menuWaitingPane,
-			LoginController loginController, MenuInvitePane menuInvitePane, MenuGamesPane menuGamesPane) {
+			LoginController loginController, MenuInvitePane menuInvitePane, MenuGamesPane menuGamesPane, boolean playersPaneOff) {
 		this.menuController = menuController;
 		username = btnName;
 		this.menuPlayersPane = menuPlayersPane;
@@ -48,11 +48,11 @@ public class MenuDropdown extends VBox {// door joery
 		this.loginController = loginController;
 		this.menuInvitePane = menuInvitePane;
 		this.menuGamesPane = menuGamesPane;
-		createInfoPane(gamesPane, playersPane, waitPane, invitesPane);
+		createInfoPane(gamesPane, playersPaneOn, waitPane, invitesPane, playersPaneOff);
 		createButton(btnName);
 		getChildren().add(btn);
 		
-		if (playersPane) {
+		if (playersPaneOn) {
 			getChildren().clear();
 			getChildren().addAll(btn, gameInfoPane);
 			clicked = true;
@@ -80,7 +80,7 @@ public class MenuDropdown extends VBox {// door joery
 
 	}
 
-	private void createInfoPane(boolean gamePane, boolean playersPane, boolean waitPane, boolean invitesPane) {
+	private void createInfoPane(boolean gamePane, boolean playersPane, boolean waitPane, boolean invitesPane, boolean playersPaneOff) {
 		gameInfoPane = new BorderPane();
 		gameInfoPane.setMinSize(MenuPane.paneWidth - 60, 60);
 		gameInfoPane.setMaxSize(MenuPane.paneWidth - 60, 60);
@@ -93,7 +93,7 @@ public class MenuDropdown extends VBox {// door joery
 			loadGame.setMaxSize(160, 40);
 			loadGame.setOnAction(e -> menuController.loadGame(gameID));
 			
-			players = menuController.getPlayersInGame(gameID);
+			players = menuController.getPlayersInGame(Integer.parseInt(gameID));
 			BorderPane inGamePlayers = new BorderPane();
 			inGamePlayers.setPrefSize(MenuPane.paneWidth - 60, 60);
 
@@ -127,16 +127,39 @@ public class MenuDropdown extends VBox {// door joery
 		if (playersPane) {
 			CheckBox inviteBtn = new CheckBox("Kies");
 			inviteBtn.setStyle("-fx-background-color: white");
-			//stats [aantal keer gewonnen] en [aantal keer verloren] voor elke speler toevoegen in infopane.
 			inviteBtn.setPrefSize(80, 80);
 			inviteBtn.setOnAction(e -> selectPlayer());
+			
+			VBox playerStats = new VBox();
+
+			Label winGames = new Label("Gewonnen: " + 3);	
+			
+			Label lostGames = new Label("Verloren: " + 7);
+
+			playerStats.setAlignment(Pos.CENTER);
+			playerStats.getChildren().addAll(winGames, lostGames);
+			
 			gameInfoPane.setLeft(inviteBtn);
+			gameInfoPane.setCenter(playerStats);
 		}
+		
+//		if(playersPaneOff) {
+//			VBox playerStats = new VBox();
+//
+//			Label winGames = new Label("Gewonnen: " + 3);	
+//			
+//			Label lostGames = new Label("Verloren: " + 7);
+//
+//			playerStats.setAlignment(Pos.CENTER_LEFT);
+//			playerStats.getChildren().addAll(winGames, lostGames);
+//			
+//			gameInfoPane.setCenter(playerStats);
+//		}
 
 		if (waitPane) {
 			String splitBtnName[] = username.split(" ");
 			gameID = splitBtnName[1];
-			players = menuController.getPlayersInGame(gameID);
+			players = menuController.getPlayersInGame(Integer.parseInt(gameID));
 			status = menuController.getPlayerStatus(gameID);
 			FlowPane inGamePlayers = new FlowPane();
 			inGamePlayers.setPrefSize(MenuPane.paneWidth - 60, 60);

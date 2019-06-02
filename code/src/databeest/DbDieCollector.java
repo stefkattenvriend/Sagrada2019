@@ -49,5 +49,9 @@ public class DbDieCollector {
 		dba.addDieToRoundTrack(round, gameid, integer, string);
 	}
 	
+	public ArrayList<DiceModel> getDiceOffer(int idgame, int round) {
+		return dba.getDiceOffer(idgame, round);
+	}
+	
 
 }

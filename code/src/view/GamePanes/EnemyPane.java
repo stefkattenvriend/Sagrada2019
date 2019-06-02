@@ -1,7 +1,6 @@
 package view.GamePanes;
 
 import controller.GameController;
-import controller.TurnController;
 import helpers.DiceHolderType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;

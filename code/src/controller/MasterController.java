@@ -15,7 +15,6 @@ import databeest.DbToolCardCollector;
 import databeest.DbTurnCollector;
 import databeest.DbUserInfoCollector;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.stage.Stage;
 import model.GameModel;
 import view.MyScene;
@@ -85,15 +84,13 @@ public class MasterController extends Application{//een controller die alle ande
 		psr = new DbPayStoneRuler(databeest);
 		tcc = new DbToolCardCollector(databeest);
 		
-		
-		
 		if ((databeest.loadDataBaseDriver("com.mysql.cj.jdbc.Driver"))
 				&& (databeest.makeConnection()))
 		
 		this.lc = new LoginController(dbUserInfoCollector,this);
-		this.pc = new PlayerController(dbPlayerCollector);
 		this.gc = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector, dbCardCollector, dbPlayerCollector, dbDieCollector, dbDieUpdater, dbTurnCollector, psr, tcc);
 		this.sc = new StatsController(dbPlayerStatsCollector);
+		
 //		this.chat = new ChatController(dbChatCollector);
 		
 		
@@ -159,11 +156,6 @@ public class MasterController extends Application{//een controller die alle ande
 //	public UpdateTimerController getUtc() {
 //		return utc;
 //	}
-
-	public PlayerController getPlayerController()
-	{
-		return this.pc;
-	}
 	
 	public DbDieCollector getDbDieCollector() {
 		return dbDieCollector;
@@ -184,7 +176,4 @@ public class MasterController extends Application{//een controller die alle ande
 	public PayStoneController getPayStoneController() {
 		return gc.getPayStoneController();
 	}
-	
-	
-
 }

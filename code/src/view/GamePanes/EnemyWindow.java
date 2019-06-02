@@ -81,27 +81,18 @@ public class EnemyWindow extends VBox {
 //				text.setText(enemy.getUsername());
 				currentPlayer = false;
 			}
-			else {
-				System.out.println("enemy = null :(");
-			}
-			
+
 			enemyInfo.getChildren().addAll(text, turn);
 			
-		}else {
-//			System.out.println("hier");
-			turn.setText("Howdy Doody");
 		}
 		
 		if(currentPlayer) {
 			enemyInfo.setBorder(new Border(new BorderStroke(Color.BLACK, null, null, new BorderWidths(5))));
 			turn.setTextFill(Color.YELLOW);
-//			System.out.println("howdeedoodie");
 		}
 		else {
 			enemyInfo.setBorder(null);
 			turn.setTextFill(Color.LIME);
-//			System.out.println("howdeedeedie");
-			
 		this.getChildren().add(enemyInfo);
 		}
 	}

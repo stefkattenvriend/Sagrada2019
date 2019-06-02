@@ -67,7 +67,7 @@ public class MenuInvitePane extends FlowPane {
 		for (int i = 0; i < invitedGameIDs.size(); i++) {
 			games.add(new MenuDropdown(menuController, false,
 					"Uitnodiging voor Sagrada " + invitedGameIDs.get(i) + " door " + challengers.get(i), false, null,
-					false, true, null, lc, this, null));
+					false, true, null, lc, this, null, false));
 		}
 
 		for (int x = 0; x < games.size(); x++) { // voegt alle knoppen toe aan de lijst
@@ -102,7 +102,7 @@ public class MenuInvitePane extends FlowPane {
 		for (int i = 0; i < invitedGameIDs.size(); i++) {
 			games.add(new MenuDropdown(menuController, false,
 					"Uitnodiging voor Sagrada " + invitedGameIDs.get(i) + " door " + challengers.get(i), false, null,
-					false, true, menuWaitingPane, lc, this, null));
+					false, true, menuWaitingPane, lc, this, null, false));
 		}
 
 		for (int x = 0; x < games.size(); x++) { // voegt alle knoppen toe aan de lijst

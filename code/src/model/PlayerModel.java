@@ -1,5 +1,6 @@
 package model;
 
+import controller.ToolCardController;
 import databeest.DbPlayerCollector;
 import helpers.DiceHolderType;
 import javafx.scene.paint.Color;
@@ -19,14 +20,21 @@ public class PlayerModel {
 	private String stringcolor;
 	private Color color;
 	private int score;
-	private int movesAllowed = 1;
+	private int movesAllowed1 = 1;
+	private int movesAllowed2 = 1;
+	private int turnPlace;
+	private GameModel gm;
+	private int amountOfDiceOnFrame;
 
 	private DiceHolderType dht;// welke diceholder er bij deze speler hoort dus welke speler is het ~ Rens
 	private DbPlayerCollector dpc;
+	private ToolCardController tcc;
 	
 	
-	public PlayerModel(DbPlayerCollector dpc) {
-	this.dpc = dpc;
+	public PlayerModel(DbPlayerCollector dpc, GameModel gm, ToolCardController tcc) {
+		this.tcc = tcc;
+		this.gm = gm;
+		this.dpc = dpc;
 	}
 
 	public void getDatabaseInfo(DbPlayerCollector dpc) {
@@ -74,16 +82,30 @@ public class PlayerModel {
 //		System.out.println("player id set to:" + playerid);
 	}
 	
-	public int getMovesAllowed() {
-		return movesAllowed;
+	public int getMovesAllowed1() {
+		return movesAllowed1;
 	}
 	
-	public void doMove() {		//roep deze aan nadat je een actie hebt uitgevoerd
-		movesAllowed = movesAllowed -1;
+	public void doMove1() {		//roep deze aan nadat je een actie hebt uitgevoerd
+		movesAllowed1 = movesAllowed1 -1;
+//		tcc.setamountOfMoves(1);
 	}
 	
-	public void getMove() {		//roep deze aan als je een move mag doen
-		movesAllowed = movesAllowed +1;
+	public void giveMove1() {		//roep deze aan als je een move mag doen
+		movesAllowed1 = movesAllowed1 +1;
+	}
+	
+	public int getMovesAllowed2() {
+		return movesAllowed2;
+	}
+	
+	public void doMove2() {		//roep deze aan nadat je een actie hebt uitgevoerd
+		movesAllowed2 = movesAllowed2 -1;
+		tcc.setamountOfMoves(1);
+	}
+	
+	public void giveMove2() {		//roep deze aan als je een move mag doen
+		movesAllowed2 = movesAllowed2 +1;
 	}
 	
 	public void setPayStones(int payStones) {
@@ -182,6 +204,29 @@ public class PlayerModel {
 	
 	public void reloadPcID() {
 		patid = dpc.getPatternCardID(playerid);
+	}
+	
+	public int getDiceAmountOnFrame()
+	{
+		amountOfDiceOnFrame = dpc.getDiceAmountOnFrame(playerid);
+		return amountOfDiceOnFrame;
+
+	}
+	
+	public int getTurn() {
+		if(isCurrentPlayer) {
+			if(seqnr <= gm.getPma().length) {
+				return 1;
+			} else {
+				return 2;
+			}
+		} else {
+			return 0;
+		}
+	}
+
+	public void setPlaceInArrayList(int i) {
+		turnPlace = i;
 	}
 
 }

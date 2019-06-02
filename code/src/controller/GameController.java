@@ -23,7 +23,7 @@ import view.GamePanes.PlayerPane;
 public class GameController {// deze classe wordt aangemaakt in de masterController en maakt uiteindelijk ook
 								// de andere controllers aan ~Rens
 
-	private ArrayList<CardPane> CardPanes = new ArrayList<CardPane>(); 
+	private ArrayList<CardPane> CardPanes = new ArrayList<CardPane>();
 	private DiceHolderController dhc;
 	private PatterncardController pcc;
 	private DbPatternCardInfoCollector DatabasePTCCollector;
@@ -51,7 +51,10 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private boolean allPatternCards;
 	private boolean currentPlayer;
 	private boolean updateDice;
+	private PlayerPaneController ppc;
 //	private boolean generateOffer;
+	// private boolean generateOffer;
+	private int old_round;
 
 	private PlayerController pc;
 	private ChatPane chatPane;
@@ -59,27 +62,27 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private PersonalAttributes pa;
 
 	public GameController(DbPatternCardInfoCollector DatabasePTCCollector, DbGameCollector dbGamecollector,
-			LoginController lc, DbChatCollector dbChat, DbCardCollector dbCardCollector,
-			DbPlayerCollector dpc, DbDieCollector ddc, DbDieUpdater ddu, DbTurnCollector dtc, DbPayStoneRuler psr,
-			DbToolCardCollector tcc) {
+			LoginController lc, DbChatCollector dbChat, DbCardCollector dbCardCollector, DbPlayerCollector dpc,
+			DbDieCollector ddc, DbDieUpdater ddu, DbTurnCollector dtc, DbPayStoneRuler psr, DbToolCardCollector tcc) {
 		this.DatabasePTCCollector = DatabasePTCCollector;
 		this.dpc = dpc;
 		this.lc = lc;
 		this.dbCardCollector = dbCardCollector;
 		cc = new ChatController(dbChat, this);
 		this.dbDieCollector = ddc;
-		
+
 		this.dbDieUpdater = ddu;
-
+		
+		ppc = new PlayerPaneController();
 		ppsm = new PlayerPayStoneModel();
-
-		pc = new PlayerController(dpc);
+		
+		
 		this.dbGameCollector = dbGamecollector;
 
 		this.dtc = dtc;
 		dtcc = tcc;
 		this.psr = psr;
-//		this.generateOffer = true;
+		// this.generateOffer = true;
 		this.gameRunning = false;
 		this.allPatternCards = false;
 		this.currentPlayer = false;
@@ -102,6 +105,10 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		return pcc;
 	}
 
+	public PlayerPaneController getPlayerPaneController() {
+		return ppc;
+	}
+	
 	public LayerController getLayerController() {
 		return lyc;
 	}
@@ -131,10 +138,12 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	}
 
 	public void createGameModel(int gameID) {
-		
+		tcc = new ToolCardController(psc, dtcc, dhc, this);
+		pc = new PlayerController(dpc, gm, tcc);
+
 		String username = lc.getCurrentAccount();
 		int amountOfPlayers = dbGameCollector.getAmountOfPlayers(gameID);
-		GameModel gm = new GameModel(gameID, dbGameCollector, username, dpc, amountOfPlayers);
+		GameModel gm = new GameModel(gameID, dbGameCollector, username, dpc, amountOfPlayers, tcc);
 		this.gm = gm;
 
 		int[] playerIDs = dbGameCollector.getPlayers(gameID);
@@ -142,24 +151,27 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		for (int i = 0; i < amountOfPlayers; i++) {
 			gm.addPlayer(i, playerIDs[i], username);
 			pc.setPlayerId(playerIDs[i]);
-//			System.out.println("playerIds[i]" + playerIDs[i]);
+			// System.out.println("playerIds[i]" + playerIDs[i]);
 		}
 		pcc = new PatterncardController(DatabasePTCCollector, gm);
 		lyc = new LayerController(pcc, this);
-//		System.out.println("Player id in create game model: " + pc.getPlayerID());
-		this.dhc = new DiceHolderController(pcc, dbDieCollector, gm.getGameId());
+		// System.out.println("Player id in create game model: " + pc.getPlayerID());
+		this.dhc = new DiceHolderController(pcc, dbDieCollector, gm.getGameId(), gm);
 		createCardsController();
 		guc.setGameModel(gm);
+		this.ptsc = new PointsController(this);
 		
+		old_round = gm.getGameRound() - 1;
+
 	}
 
 	public void createCardsController() {
 		psc = new PayStoneController(psr, DatabasePTCCollector.getPlayerID(gm.getGameId(), lc.getCurrentAccount()), gm.getGameId());
-		tcc = new ToolCardController(psc, dtcc, gm.getGameId(), dhc);
+		tcc = new ToolCardController(psc, dtcc, dhc, this);
 		crc = new CardsController(dbCardCollector, gm.getGameId(), tcc, dhc.getDiceController().getDMAL());
 		this.guc = new GameUpdateController(this);
 		this.tc = new TurnController(this, dhc, dbDieUpdater, gm, dtc, lc.getCurrentAccount(), gm.getGameId(), tcc);
-//		System.out.println("should be gameId: " + gm.getGameId());
+		// System.out.println("should be gameId: " + gm.getGameId());
 	}
 
 	public PayStoneController getPayStoneController() {
@@ -169,10 +181,10 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	public void updatePaystones() {
 		if (gameRunning) {
 			int amount = psc.getPlayerStones();
-//			System.out.println("amount: " + amount);
+			// System.out.println("amount: " + amount);
 			if (amount != ppsm.getStones()) {
-//				System.out.println("ppsm amount: " + ppsm.getStones());
-				ppsm.setStones(amount);	
+				// System.out.println("ppsm amount: " + ppsm.getStones());
+				ppsm.setStones(amount);
 				pa.refresh();
 			}
 		}
@@ -181,7 +193,6 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	public void setPersonalAttributes(PersonalAttributes pa) {
 		this.pa = pa;
 	}
-	
 
 	public void updatePC() {
 		if (gameRunning) {
@@ -194,16 +205,17 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 			}
 		}
 	}
-	
+
 	public void updateCardPane() {
 		if (gameRunning) {
 			int i = 0;
-//			System.out.println();
-//			System.out.println("now running update card pane");
-//			System.out.println("Stones on card: " + CardPanes.get(i).getStonesAmount());
-//			System.out.println("get stones on database: " + psc.getStonesOnCard(CardPanes.get(i).getCardNr()));
-			while(i < CardPanes.size()) {
-				if(CardPanes.get(i).getStonesAmount() != psc.getStonesOnCard(CardPanes.get(i).getCardNr())) {
+			// System.out.println();
+			// System.out.println("now running update card pane");
+			// System.out.println("Stones on card: " + CardPanes.get(i).getStonesAmount());
+			// System.out.println("get stones on database: " +
+			// psc.getStonesOnCard(CardPanes.get(i).getCardNr()));
+			while (i < CardPanes.size()) {
+				if (CardPanes.get(i).getStonesAmount() != psc.getStonesOnCard(CardPanes.get(i).getCardNr())) {
 					System.out.println("refresh the stones!");
 					CardPanes.get(i).refresh(psc.getStonesOnCard(CardPanes.get(i).getCardNr()));
 				}
@@ -214,16 +226,17 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 
 	public void setGamepane(GamePane gamepane) {
 		this.gamepane = gamepane;
-		allPatternCards = false;//zorgt ervoor dat patterncards opnieuw worden opgehaald als je een tweede game opent
+		allPatternCards = false;// zorgt ervoor dat patterncards opnieuw worden opgehaald als je een tweede game
+								// opent
 	}
 
 	public void setGameRunning(boolean gameRunning) {
 		this.gameRunning = gameRunning;
 	}
-	
-//	public void setGenerateOffer(boolean generateOffer) {
-//		this.generateOffer = generateOffer;
-//	}
+
+	// public void setGenerateOffer(boolean generateOffer) {
+	// this.generateOffer = generateOffer;
+	// }
 
 	public void setMyColor() {
 		if (gameRunning) {
@@ -266,27 +279,20 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	public void updateDicePlacement() {
 		if (gameRunning) {
 			if (allPatternCards) {
-				if(currentPlayer == false) {
+				if (currentPlayer == false) {
 					if (dhc.getDhmodels().size() == 99) {
-						guc.checkDiceMovement();// update de dice models
+						guc.checkDiceMovementPlayerFields();// update de dice models
 						if (updateDice) {
 							dhc.reloadDiceHolderPanes();// reload de panes van dice en diceholder die izjn opgeslagen
 							gamepane.redrawDice();
 							setUpdateDice(false);
 						}
-					}
-					else {
+					} else {
 						System.out.println("uncomplete model");
 					}
-					
-				
-					}
-				
+				}
 			}
-			
 		}
-		
-		
 	}
 
 	public int getGameId() {
@@ -303,7 +309,41 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	}
 
 	public void setUpdateDice(boolean b) {
-		this.updateDice = b;
-		
+		this.updateDice = b;		
 	}
+	
+	public ToolCardController getToolCardController() {
+		return tcc;
+	}
+
+	public void updateDiceOffer() {
+		if (gameRunning) {
+			if (allPatternCards) {
+				if (dhc.getDhmodels().size() == 99) {
+					if (old_round < gm.getGameRound()) {
+						guc.getDiceOffer(gm.getGameRound());// update de dice in de offerpane
+						old_round++;
+						dhc.reloadDiceHolderPanes();
+						gamepane.redrawDice();
+					}
+				} else {
+					System.out.println("uncomplete model");
+				}
+			}
+		}
+
+	}
+
+	public void createRoundOffer() {
+		dhc.getDiceController().generateOffer(gm.getAmountOfPlayers(), gm.getGameId());
+	}
+
+	public void updateGameRound() {
+		if (gameRunning) {
+			if (allPatternCards) {
+				gm.updateRound();
+			}
+		}
+	}
+
 }
