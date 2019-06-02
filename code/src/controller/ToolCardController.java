@@ -26,6 +26,10 @@ public class ToolCardController {
 		this.gameid = gameid;
 	}
 	
+	public void addAmountOfMoves() {
+		amountOfMoves = amountOfMoves + 1;
+	}
+	
 	public void useCard(CardPane cardpane) {
 		
 		System.out.println();								//Debug

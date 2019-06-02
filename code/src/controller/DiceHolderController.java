@@ -304,7 +304,9 @@ public class DiceHolderController {
 		}
 		
 		
-			
+		if(check) {
+			tcc.addAmountOfMoves();
+		}
 			
 		return check;
 	}

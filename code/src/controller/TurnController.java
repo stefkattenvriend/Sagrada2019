@@ -25,6 +25,7 @@ public class TurnController {
 	private GameController gController;
 	private DiceController diceController;
 	private ToolCardController tcc;
+
 	
 	public TurnController(GameController gc, DiceHolderController dhc, DbDieUpdater ddu, GameModel gm, DbTurnCollector dtc, String username, int gameId, ToolCardController tcc) {
 		this.tcc = tcc;
