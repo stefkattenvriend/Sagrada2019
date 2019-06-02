@@ -33,9 +33,9 @@ public class DiceHolderPane extends BorderPane{
 		getChildren().clear();
 	}
 	
-	public void updateStone(Dice dice) {
-		
-	}
+//	public void updateStone(Dice dice) {
+//		
+//	}
 	
 	public void addPlusAndMinus(int dienr) {
 		if(dienr != 6) {
