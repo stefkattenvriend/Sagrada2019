@@ -50,6 +50,7 @@ public class TurnAdmissionChecker implements Runnable {
 	private void checkMyTurn() {
 		if (!tcc.exception()) {
 			if (dtc.myTurn(username, gameId)) {
+				
 				pp.yourTurn();
 				dhc.switchTurnInteractable(true);
 				
