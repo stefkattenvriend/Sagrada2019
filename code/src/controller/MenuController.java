@@ -128,6 +128,7 @@ public class MenuController {
 		} else {
 			myScene.setGamePane();
 			lyc.setGameRunning(true);
+			mc.getGameController().setCurrentPlayer(false);//zorgt ervoor dat je game een keer update als je aan de beurt bent
 		}
 	}
 

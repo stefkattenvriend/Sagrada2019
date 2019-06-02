@@ -306,9 +306,9 @@ public class DiceHolderController {
 		}
 		
 		
-		if(check) {
+		/*if(check) {
 			tcc.addAmountOfMoves();
-		}
+		}*/
 			
 		return check;
 	}
@@ -387,6 +387,7 @@ public class DiceHolderController {
 
 	public void setDiceHolderModels(ArrayList<DiceHolderModel> dhma) {
 		this.dhmodels = dhma;
+	}
 		
 	public void solveTC1(ToolCardController tcc) {
 		this.tcc = tcc;

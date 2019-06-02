@@ -44,4 +44,11 @@ public class RoundTrackPane extends FlowPane{
 		text.setText("RoundTrackPane");
 		getChildren().addAll(text);
 	}
+	
+	public void redrawDice() {
+		this.getChildren().clear();
+		for (int x = 1; x < 11; x++) {
+					this.getChildren().add(dhc.getPlayerWindowDiceHolders(x, 0, DiceHolderType.ROUNDTRACK));	
+		}
+	}
 }
