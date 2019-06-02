@@ -43,12 +43,12 @@ public class MenuController {
 
 	public MenuController(MyScene myScene, MasterController mc, DbGameCollector dbGameCollector,
 			MenuUpdateController menuUpdateController, DbPayStoneRuler psr) {
+		this.menuModel = new MenuModel(mc);
 		this.psr = psr;
 		this.myScene = myScene;
 		this.mc = mc;
 		this.dbGameCollector = dbGameCollector;
 		this.menuUpdateController = menuUpdateController;
-		this.menuModel = new MenuModel(mc);
 		databeest = mc.getDatabaseApplication();
 		invitedGamesID_OLD = getInvitedGamesID();
 		gameIDs_OLD = getActiveGames();
@@ -91,12 +91,16 @@ public class MenuController {
 		return menuModel.getPlayerStatus(gameID);
 	}
 	
-	public ArrayList<String> getPlayersInGame(String gameID){
+	public ArrayList<String> getPlayersInGame(int gameID){
 		return menuModel.getPlayersInGame(gameID);
 	}
 	
 	public int getPlayerID(String gameID) {
 		return menuModel.getPlayerID(gameID);
+	}
+
+	public ArrayList<String> getPlayers(){
+		return menuModel.getPlayers();
 	}
 
 	public void loadGame(String gID) {
@@ -136,7 +140,8 @@ public class MenuController {
 		} else {
 			myScene.setGamePane();
 			lyc.setGameRunning(true);
-			mc.getGameController().setCurrentPlayer(false);//zorgt ervoor dat je game een keer update als je aan de beurt bent
+			//mc.getGameController().setCurrentPlayer(false);//zorgt ervoor dat je game een keer update als je aan de beurt bent
+			mc.getGameController().updateDiceOffer();
 		}
 	}
 

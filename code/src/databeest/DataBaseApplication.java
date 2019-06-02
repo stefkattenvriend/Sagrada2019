@@ -302,8 +302,8 @@ public class DataBaseApplication {
 		return waitingGames;
 	}
 
-	public ArrayList<String> getPlayersInGame(String gameID, String currentAccount) {
-
+	public ArrayList<String> getPlayersInGame(int gameID, String currentAccount) { 
+		
 		Statement stmt = null;
 		ArrayList<String> playersInGame = new ArrayList<>();
 		String query = "SELECT username FROM player WHERE game_idgame = '" + gameID + "' AND username != '"
@@ -1339,7 +1339,7 @@ public class DataBaseApplication {
 
 			while (rs.next()) {
 
-				String colorstring = rs.getString(4);
+				String colorstring = rs.getString(3);
 				Color dcolor = Color.WHITE;
 
 				if (colorstring != null) {

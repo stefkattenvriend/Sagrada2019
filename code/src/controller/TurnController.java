@@ -161,6 +161,8 @@ public class TurnController {
 					currentplayer.setCurrentPlayer(false);
 					diceController.putDieOnRoundTrack(gameId);
 					diceController.generateOffer(amountOfPlayers, gameId);
+					gController.updateDiceOffer();
+					
 					if (currentplayer == players[0]) { 
 						players[0].setSeqnr(4);
 						players[1].setSeqnr(1);
@@ -318,8 +320,8 @@ public class TurnController {
 					currentplayer.setCurrentPlayer(false);
 					System.out.println("--Ending the round--");
 					diceController.putDieOnRoundTrack(gameId);
-					
-					diceController.generateOffer(amountOfPlayers, gameId);
+					gController.createRoundOffer();
+				
 					if (currentplayer == players[0]) {
 						players[0].setSeqnr(2);
 						players[1].setSeqnr(1);
@@ -329,6 +331,8 @@ public class TurnController {
 						players[0].setSeqnr(1);
 						players[1].setSeqnr(2);
 						players[0].setCurrentPlayer(true);
+						
+						
 					} else {
 						System.out.println("Something went wrong, check turncontroller 300~");
 					}
@@ -338,6 +342,7 @@ public class TurnController {
 						//TODO end game
 					} else {
 					System.out.println("Now starting round number: " + round + ".");
+					gController.updateDiceOffer();
 					}
 					break;
 				default: System.out.println("something went wrong here...");
