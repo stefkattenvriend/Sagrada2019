@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 public class GameModel {
 	
 	//instance 
-	private int gameRound = 0; //nu hardcoded, in toekomst wordt dit uit database gehaald.
+	private int gameRound;
 	private int gameid;
 	private boolean inGame;
 	private int amountOfPlayers;
@@ -43,7 +43,7 @@ public class GameModel {
 	}
 
 	public void updateRound() {
-		dgc.getRoundNumber(gameid);
+		gameRound = dgc.getRoundNumber(gameid);
 	}
 	
 	public PlayerModel[] getPma() {

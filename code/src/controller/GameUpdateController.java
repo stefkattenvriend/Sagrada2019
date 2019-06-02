@@ -4,12 +4,10 @@ import java.util.ArrayList;
 
 import databeest.DbDieCollector;
 import helpers.DiceHolderType;
-import javafx.scene.paint.Color;
 import model.DiceHolderModel;
 import model.DiceModel;
 import model.GameModel;
 import model.PlayerFieldFrameModel;
-import view.GamePanes.DicePane;
 
 public class GameUpdateController {
 	// beurt
@@ -114,9 +112,10 @@ public class GameUpdateController {
 
 		for (int i = 0; i < dmnew.size(); i++) {
 			for (int j = 0; j < dm.size(); j++) {
-				if (dmnew.get(j).getDieNumber() == dm.get(i).getDieNumber() && dmnew.get(j).getDieColor() == dm.get(i).getDieColor()) {
-					dm.get(i).setEyes(dmnew.get(j).getEyes());
-					offer.add(dm.get(i));
+				if (dmnew.get(i).getDieNumber() == dm.get(j).getDieNumber() && dmnew.get(i).getDieColor() == dm.get(j).getDieColor()) {
+					dm.get(j).setEyes(dmnew.get(i).getEyes());
+					offer.add(dm.get(j));
+					break;
 				}
 			}
 		}
@@ -126,13 +125,15 @@ public class GameUpdateController {
 		int z = 0;
 		
 		for (int i = 0; i < dhm.size() ; i++) {
-			if (z >= offer.size()) {
-				
-			}
-			if (dhm.get(i).getType() == DiceHolderType.OFFER && dhm.get(i).getDie() == null) {
+			if (z < offer.size()) {
+				if (dhm.get(i).getType() == DiceHolderType.OFFER && dhm.get(i).getDie() == null) {
 				dhm.get(i).setDie(offer.get(z));
 				z++;
 			}
+				
+			
+			}
+			
 		}
 	}
 }

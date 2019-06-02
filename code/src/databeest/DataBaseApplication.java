@@ -1339,7 +1339,7 @@ public class DataBaseApplication {
 
 			while (rs.next()) {
 
-				String colorstring = rs.getString(4);
+				String colorstring = rs.getString(3);
 				Color dcolor = Color.WHITE;
 
 				if (colorstring != null) {
