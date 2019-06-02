@@ -1,5 +1,6 @@
 package model;
 
+import controller.ToolCardController;
 import databeest.DbPlayerCollector;
 import helpers.DiceHolderType;
 import javafx.scene.paint.Color;
@@ -22,13 +23,15 @@ public class PlayerModel {
 	private int movesAllowed1 = 1;
 	private int movesAllowed2 = 1;
 	private int turnPlace;
-	GameModel gm;
+	private GameModel gm;
 
 	private DiceHolderType dht;// welke diceholder er bij deze speler hoort dus welke speler is het ~ Rens
 	private DbPlayerCollector dpc;
+	private ToolCardController tcc;
 	
 	
-	public PlayerModel(DbPlayerCollector dpc, GameModel gm) {
+	public PlayerModel(DbPlayerCollector dpc, GameModel gm, ToolCardController tcc) {
+		this.tcc = tcc;
 		this.gm = gm;
 		this.dpc = dpc;
 	}
@@ -84,6 +87,7 @@ public class PlayerModel {
 	
 	public void doMove1() {		//roep deze aan nadat je een actie hebt uitgevoerd
 		movesAllowed1 = movesAllowed1 -1;
+//		tcc.setamountOfMoves(1);
 	}
 	
 	public void giveMove1() {		//roep deze aan als je een move mag doen
@@ -96,6 +100,7 @@ public class PlayerModel {
 	
 	public void doMove2() {		//roep deze aan nadat je een actie hebt uitgevoerd
 		movesAllowed2 = movesAllowed2 -1;
+		tcc.setamountOfMoves(1);
 	}
 	
 	public void giveMove2() {		//roep deze aan als je een move mag doen

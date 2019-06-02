@@ -10,10 +10,13 @@ public class PlayerController {
 	//instance variables
 	private PlayerModel playerModel;
 	private DbPlayerCollector dbPlayerCollector;
+	private ToolCardController tcc;
 	
-	public PlayerController(DbPlayerCollector dbPlayerCollector, GameModel gm)
+	
+	public PlayerController(DbPlayerCollector dbPlayerCollector, GameModel gm, ToolCardController tcc)
 	{
-		playerModel = new PlayerModel(dbPlayerCollector, gm);
+		this.tcc = tcc;
+		playerModel = new PlayerModel(dbPlayerCollector, gm, this.tcc);
 		this.dbPlayerCollector = dbPlayerCollector;
 	}
 	

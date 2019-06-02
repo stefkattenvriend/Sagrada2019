@@ -51,6 +51,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private boolean allPatternCards;
 	private boolean currentPlayer;
 	private boolean updateDice;
+	private PlayerPaneController ppc;
 //	private boolean generateOffer;
 
 	private PlayerController pc;
@@ -70,10 +71,11 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		this.dbDieCollector = ddc;
 		
 		this.dbDieUpdater = ddu;
-
+		
+		ppc = new PlayerPaneController();
 		ppsm = new PlayerPayStoneModel();
-
-		pc = new PlayerController(dpc, gm);
+		
+		
 		this.dbGameCollector = dbGamecollector;
 
 		this.dtc = dtc;
@@ -102,6 +104,10 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		return pcc;
 	}
 
+	public PlayerPaneController getPlayerPaneController() {
+		return ppc;
+	}
+	
 	public LayerController getLayerController() {
 		return lyc;
 	}
@@ -131,10 +137,11 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	}
 
 	public void createGameModel(int gameID) {
-		
+		tcc = new ToolCardController(psc, dtcc, dhc, this);
+		pc = new PlayerController(dpc, gm, tcc);
 		String username = lc.getCurrentAccount();
 		int amountOfPlayers = dbGameCollector.getAmountOfPlayers(gameID);
-		GameModel gm = new GameModel(gameID, dbGameCollector, username, dpc, amountOfPlayers);
+		GameModel gm = new GameModel(gameID, dbGameCollector, username, dpc, amountOfPlayers, tcc);
 		this.gm = gm;
 
 		int[] playerIDs = dbGameCollector.getPlayers(gameID);
@@ -155,7 +162,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 
 	public void createCardsController() {
 		psc = new PayStoneController(psr, DatabasePTCCollector.getPlayerID(gm.getGameId(), lc.getCurrentAccount()), gm.getGameId());
-		tcc = new ToolCardController(psc, dtcc, gm.getGameId(), dhc);
+		tcc = new ToolCardController(psc, dtcc, dhc, this);
 		crc = new CardsController(dbCardCollector, gm.getGameId(), tcc, dhc.getDiceController().getDMAL());
 		this.guc = new GameUpdateController(this);
 		this.tc = new TurnController(this, dhc, dbDieUpdater, gm, dtc, lc.getCurrentAccount(), gm.getGameId(), tcc);
@@ -298,7 +305,10 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	}
 
 	public void setUpdateDice(boolean b) {
-		this.updateDice = b;
-		
+		this.updateDice = b;		
+	}
+	
+	public ToolCardController getToolCardController() {
+		return tcc;
 	}
 }

@@ -153,6 +153,13 @@ public class DiceHolderController {
 									dp.setCenter(dhpanes.get(i).getCenter());// wiselt de panes
 									dhpanes.get(i).setCenter(null);
 	//								return; //vgm moet ie hier weet ik niet zeker, jami
+								} else {
+									dhmodels.get(i).switchSelected();
+									dhpanes.get(i).setBackground(null);// zet background en selected status naar null van de pane
+																		// die eerder selected was
+
+									selectedModel.switchSelected();
+									dp.setBackground(new Background(new BackgroundFill(Color.rgb(10, 10, 10, 0.8), null, null)));
 								}
 							} else {
 								dhmodels.get(i).switchSelected();
@@ -447,6 +454,7 @@ public class DiceHolderController {
 	
 	public void changeDieEyes(int nr, DiceHolderModel dh) {
 		dh.getDie().setEyes(nr);
+		System.out.println(dh.getDie().getEyes());
 	}
 	
 	public void setCheckColor(boolean i) {
@@ -459,5 +467,21 @@ public class DiceHolderController {
 	
 	public void setCheckNextTo(boolean i) {
 		checkNextTo = i;
+	}
+	
+	public void addMove() {
+		if(gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getTurn() == 1) {
+			gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).giveMove1();
+		} else {
+			gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).giveMove2();
+		}
+	}
+	
+	public void removeMove2() {
+		gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).doMove2();
+	}
+	
+	public int getMoves() {
+		return gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getMovesAllowed1();
 	}
 }
