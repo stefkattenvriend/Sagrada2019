@@ -425,4 +425,8 @@ public class DiceHolderController {
 	public void setCheckEyes(boolean i) {
 		checkEyes = i;
 	}
+	
+	public void setCheckNextTo(boolean i) {
+		checkNextTo = i;
+	}
 }

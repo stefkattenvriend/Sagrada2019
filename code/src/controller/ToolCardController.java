@@ -18,6 +18,8 @@ public class ToolCardController {
 	DiceHolderController dhc;
 	private boolean exception = false;
 	private int amountOfMoves = 0;
+	private int waitTill = 0;
+	private int selectedToolcard = 0;
 
 	public ToolCardController(PayStoneController psc, DbToolCardCollector tcc, int gameid, DiceHolderController dhc) {
 		this.dhc = dhc;
@@ -67,6 +69,7 @@ public class ToolCardController {
 				dhc.setTypeToInteractable(DiceHolderType.PLAYERWINDOW, true);						//make it so you can only move in the window
 				dhc.setCheckColor(false); 															//make it ignore color
 				psc.pay(2, tcc.getPrice(2, gameid));					//pay
+				
 			}
 		}
 		
@@ -111,13 +114,19 @@ public class ToolCardController {
 			// dobbelsteen kiezen daarna wisselen met eentje van roundtrack
 		}
 		
-		if (cardpane.getCardNr() == 6) {
-			if(psc.canPay(tcc.getPrice(6, gameid))) {
-				Random rand = new Random();
-				int nr = rand.nextInt(5 + 1);
-				dhc.changeDieEyes(nr, dhc.GetSelectedDiceHolder());
-				psc.pay(6, tcc.getPrice(5, gameid));
-		}
+		if(cardpane.getCardNr() == 6) {
+			if(dhc.GetSelectedDiceHolder() != null) {
+				if(dhc.GetSelectedDiceHolder().getDie() != null) {
+					if(dhc.GetSelectedDiceHolder().getType() == DiceHolderType.OFFER) {
+						if(psc.canPay(tcc.getPrice(6, gameid))) {
+							Random rand = new Random();
+							int nr = rand.nextInt(5 + 1);
+							dhc.changeDieEyes(nr, dhc.GetSelectedDiceHolder());
+							psc.pay(6, tcc.getPrice(5, gameid));
+						}
+					}
+				}
+			}
 			// reroll a dice in offer
 		}
 		
@@ -165,5 +174,31 @@ public class ToolCardController {
 	
 	public void setamountOfMoves(int i) {
 		amountOfMoves = i;
+		if(waitTill != 0) {
+			if(i == waitTill) {
+				switch(selectedToolcard)  {
+				case 2:
+					returnToNormal();
+					return;
+				case 3:
+					returnToNormal();
+					return;
+				case 4:
+					returnToNormal();
+					return;
+				case 5:
+					returnToNormal();
+					return;
+				}
+			}
+		}
+	}
+	
+	
+	public void returnToNormal() {
+		exception = false;
+		dhc.setCheckColor(true);
+		dhc.setCheckEyes(true);
+		dhc.setCheckNextTo(true);
 	}
 }
