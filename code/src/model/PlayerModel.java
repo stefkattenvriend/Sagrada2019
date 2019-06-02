@@ -121,6 +121,7 @@ public class PlayerModel {
 	
 	//milan
 	//updates the database with current player
+	
 	public void setCurrentPlayer(boolean isCurrentPlayer) {
 		this.isCurrentPlayer = isCurrentPlayer;
 		int i = 0;
@@ -206,16 +207,14 @@ public class PlayerModel {
 	}
 	
 	public int getTurn() {
-		if(isCurrentPlayer) {
-			if(seqnr <= gm.getPma().length) {
-				return 1;
-			} else {
-				return 2;
-			}
+		System.out.println("isCurrentPlayer: " + isCurrentPlayer);
+		if(seqnr <= gm.getPma().length) {
+			return 1;
 		} else {
-			return 0;
+			return 2;
 		}
 	}
+
 
 	public void setPlaceInArrayList(int i) {
 		turnPlace = i;

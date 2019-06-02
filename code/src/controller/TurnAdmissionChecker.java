@@ -47,7 +47,6 @@ public class TurnAdmissionChecker implements Runnable {
 ////				pp.setLabel("Aan de beurt: nee");
 //				tcc.setTurn(false);
 //			}
-			
 			tc.updateChat(); //update chat automatisch hoop ik
 		}
 	}
@@ -56,8 +55,6 @@ public class TurnAdmissionChecker implements Runnable {
 		if (!tcc.exception()) {
 			if (dtc.myTurn(username, gameId)) {
 				if(offerGenerated == false) {
-					
-					
 					offerGenerated = true;
 				}
 				
