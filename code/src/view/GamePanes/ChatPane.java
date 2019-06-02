@@ -134,12 +134,17 @@ public class ChatPane extends BorderPane {
 		chatnames = cc.getPlayers(amountOfPlayers, playerid1, playerid2, playerid3, playerid4);
 		if (chat.size() != chat_OLD.size()) {
 			textArea.clear();
-			for (int x = 0; x < chat.size(); x++) {
-				String name = cc.getUsername(chatnames.get(x));
-				textArea.appendText("(" + chatdate.get(x) + ") " + name + ": ");
-				textArea.appendText(chat.get(x) + "\n");
+			try {
+				for (int x = 0; x < chat.size(); x++) {
+					String name = cc.getUsername(chatnames.get(x));
+					textArea.appendText("(" + chatdate.get(x) + ") " + name + ": ");
+					textArea.appendText(chat.get(x) + "\n");
+				}
+				chat_OLD = chat;
+			} catch (Exception e) {
+				System.out.println("Something went wrong with the chat.");
 			}
-			chat_OLD = chat;
+			
 		}
 	}
 

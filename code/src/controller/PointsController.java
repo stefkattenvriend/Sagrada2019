@@ -1,7 +1,6 @@
 package controller;
 
 import java.util.ArrayList;
-
 import model.DiceHolderModel;
 import model.DiceModel;
 import model.GameModel;
@@ -9,31 +8,10 @@ import model.PlayerModel;
 
 //Tjess Wjest & Stjef vjan Ojsch
 public class PointsController {
-//	private int totalPoints;
-//	ArrayList<DiceModel> dice;
-//	private PersonalObjectiveCardPane pocp;
+
 	private PlayerModel[] pma;
 	private GameModel gameModel;
 	private GameController gameController;
-	
-//	public PointsController(ArrayList<DiceHolderModel> diceHolder) {
-//		for(int i=0; i<diceHolder.size(); i++) {
-//			dice.add(diceHolder.get(i).getDie());
-//		}
-////		getPersonalObjectivePoints(dice);
-//		getEmptySpots();
-//		getSharedObjectivePoints();
-//		getTotalPoints();
-//	}
-	
-//	private void getPersonalObjectivePoints(ArrayList<DiceModel> dice) {
-//		for(int i = 0; i<dice.size(); i++) {
-//			if(dice.get(i).getPaint().equals(pocp.getColor())) {
-//				personalObjectivePoints = personalObjectivePoints + dice.get(i).getEyes();
-//			}
-//		}
-//		
-//	}
 	
 	public PointsController(GameController gameController) {
 		this.gameController = gameController;
@@ -94,6 +72,7 @@ public class PointsController {
 	
 	private int getAmountOfPaystones(PlayerModel pm) 
 	{
+		System.out.println("amount of Paystones: " + pm.getPayStones());
 		return pm.getPayStones();
 	}
 

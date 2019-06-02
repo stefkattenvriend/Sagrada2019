@@ -61,7 +61,7 @@ public class EnemyWindow extends VBox {
 
 	private void createEnemyInfo() {// enemy info moet later worden afgemaakt(en worden geupdate) ~ Rens
 		enemyInfo.setPrefSize((GamePane.windowMaxWidth / 3) / 2, (GamePane.windowMaxHeight / 3) / 3);
-
+//		setColor("-fx-background-color: rgba(0, 255, 0, 0.6);");
 		enemyInfo.setBackground(new Background(new BackgroundFill(Color.PINK, null, null)));
 //		enemyInfo.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
@@ -71,54 +71,58 @@ public class EnemyWindow extends VBox {
 			
 //			turn.setText("Aan de beurt: nee");
 			if(gc.getTurnController().getCurrentplayer()==enemy) {
-				turn.setText("Aan de beurt: ja");
+//				turn.setText("Aan de beurt: ja");
+//				enemyInfo.setStyle("-fx-background-color: rgba(0, 255, 0, 0.7);");
 				currentPlayer = true;
 			}
 			if(gc.getTurnController().getCurrentplayer()!=enemy) {
 //				turn.setText("Aan de beurt: nee");
+//				enemyInfo.setStyle("-fx-background-color: rgba(255, 0, 0, 0.7);");
+//				text.setText(enemy.getUsername());
 				currentPlayer = false;
 			}
-			else {
-				System.out.println("enemy = null :(");
-			}
-			
+
 			enemyInfo.getChildren().addAll(text, turn);
 			
-		}else {
-			System.out.println("hier");
-			turn.setText("Howdy Doody");
 		}
 		
 		if(currentPlayer) {
 			enemyInfo.setBorder(new Border(new BorderStroke(Color.BLACK, null, null, new BorderWidths(5))));
 			turn.setTextFill(Color.YELLOW);
-			System.out.println("howdeedoodie");
 		}
 		else {
 			enemyInfo.setBorder(null);
 			turn.setTextFill(Color.LIME);
-			System.out.println("howdeedeedie");
-			
 		this.getChildren().add(enemyInfo);
 		}
+	}
+
+	public void updateColor() {
+		
+		
+		getPlayerModel();
+	}
+	
+	public void setColor(Color color) {
+		enemyInfo.setBackground(new Background(new BackgroundFill(color, null, null)));
 	}
 
 	private void getPlayerModel() {
 		for (int i = 0; i < gc.getGm().getPma().length; i++) {
 			if (dht == gc.getGm().getPma()[i].getDht()) {
 				this.enemy = gc.getGm().getPma()[i];
+				
 			}
+			
+//			if (gc.getGm().getPma()[i].isCurrentPlayer()) {
+//				setColor(Color.LIGHTGREEN);
+//			} else if(!gc.getGm().getPma()[i].isCurrentPlayer()) {
+//				setColor(Color.PINK);
+//			}
 		}
 
 	}
 
-//	private void aanduiding() { //TODO deze method wordt uiteindelijk verwijderd
-//		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null))); // aanduiding van
-//																									// chatvak
-//		Label text = new Label();
-//		text.setText("ENEMY");
-//		getChildren().addAll(text);
-//	}
 
 	private void addDiceHolders() {
 		for (int i = 1; i < 5; i++) {

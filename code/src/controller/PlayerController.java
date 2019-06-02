@@ -37,7 +37,6 @@ public class PlayerController {
 	
 	public Color getPersonalObjective()
 	{
-//		System.out.println("colorje = " + playerModel.getObjectiveColor());
 		return playerModel.getObjectiveColor();
 	}
 	
@@ -55,8 +54,4 @@ public class PlayerController {
 		return playerModel.getUsername();
 	}
 	
-	public void getDiceHolderController()
-	{
-
-	}
 }

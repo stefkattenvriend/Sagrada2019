@@ -336,6 +336,8 @@ public class TurnController {
 						System.out.println("Something went wrong, check turncontroller 300~");
 					}
 					int round = diceController.getRound(gameId);
+					
+					
 					if(round == 10) {
 						System.out.println("---THE GAME HAS ENDED, YOU WIN!!!!---");
 						//TODO end game
@@ -344,6 +346,7 @@ public class TurnController {
 					gController.updateDiceOffer();
 					}
 					break;
+					
 				default: System.out.println("something went wrong here...");
 				}
 			}

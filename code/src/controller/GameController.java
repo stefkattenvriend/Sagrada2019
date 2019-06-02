@@ -301,6 +301,11 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 
 	public void setCurrentPlayer(boolean b) {
 		this.currentPlayer = b;
+		if(gamepane != null && b) {
+		gamepane.yourTurn();	//hoort de playerpane groen of rood te zetten als je aan de beurt bent of niet
+		} else if (gamepane != null && !b) {
+			gamepane.notYourTurn();
+		}
 	}
 
 	public void setUpdateDice(boolean b) {
