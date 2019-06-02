@@ -45,7 +45,13 @@ public class GameModel {
 	}
 
 	public void updateRound() {
-		gameRound = dgc.getRoundNumber(gameid);
+		
+		int newRound = dgc.getRoundNumber(gameid);
+		
+		if (gameRound < newRound) {
+			gameRound = newRound;
+		}
+		
 	}
 	
 	public PlayerModel[] getPma() {
