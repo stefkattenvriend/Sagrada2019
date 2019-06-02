@@ -36,6 +36,7 @@ public class GamePane extends StackPane {
 	private LoginController logc;
 	private PayStoneController psc;
 	private GameModel gameModel;
+
 	
 	public GamePane(GameController gameController, MyScene myScene, LoginController loginController, PayStoneController psc, GameModel gameModel) {
 		logc = loginController;
@@ -58,7 +59,7 @@ public class GamePane extends StackPane {
 	private void setUp() {
 		gamePane = new BorderPane();
 		playerPane = new PlayerPane(dhc, pcc, myScene, gc, pc, tc, psc);
-		cardDisplayPane = new CardDisplayPane(gc.getCardsController(), psc);
+		cardDisplayPane = new CardDisplayPane(gc.getCardsController(), gc);
 		enemyPane = new EnemyPane(gc);
 		gamePane.setLeft(cardDisplayPane);
 		gamePane.setCenter(playerPane);
@@ -95,6 +96,11 @@ public class GamePane extends StackPane {
 	public void updatePCid(int i) {
 		playerPane.updatePCid(i);
 		
+	}
+
+	public void redrawDice() {
+		playerPane.redrawDice();
+		enemyPane.redrawDice();
 	}
 
 }

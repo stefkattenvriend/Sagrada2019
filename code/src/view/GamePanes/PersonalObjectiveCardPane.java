@@ -16,7 +16,7 @@ public class PersonalObjectiveCardPane extends VBox{
 
 		setAlignment(Pos.CENTER);
 		setPaneSize();
-		label = new Label("Your personal Color is: ");
+		label = new Label("Je persoonlijke kleur is: ");
 		square = new Rectangle();
 		square.setWidth(30);
 		square.setHeight(30);

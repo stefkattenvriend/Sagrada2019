@@ -84,8 +84,16 @@ public class MenuModel {
 		return waitedPlayerGames;
 	}
 	
-	public ArrayList<String> getPlayerStatus(int gameID){
+	public ArrayList<String> getPlayerStatus(String gameID){
 		return menuCollector.getPlayerStatus(gameID, currentAccount);
+	}
+	
+	public ArrayList<String> getPlayersInGame(String gameID){
+		return menuCollector.getPlayersInGame(gameID, currentAccount);
+	}
+	
+	public int getPlayerID(String gameID) {
+		return menuCollector.getPlayerID(gameID, currentAccount);
 	}
 
 }

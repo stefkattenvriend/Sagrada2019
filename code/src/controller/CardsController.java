@@ -1,24 +1,31 @@
 package controller;
 
+import java.util.ArrayList;
+
 import databeest.DbCardCollector;
 import javafx.scene.image.ImageView;
 import model.CardBackgroundModel;
+import model.DiceModel;
+import view.GamePanes.CardPane;
 
 public class CardsController {
 	
 	private DbCardCollector dbCardCollector;
 	private CardBackgroundModel cardBackgroundModel;
 	private ToolCardController tcc;
+	private ArrayList<DiceModel> dice;
 	
-	public CardsController(DbCardCollector dbCardCollector, int gameId, ToolCardController tcc){
+	public CardsController(DbCardCollector dbCardCollector, int gameId, ToolCardController tcc, ArrayList<DiceModel> dice){
+		this.dice = dice;
 		this.tcc = tcc;
 		this.dbCardCollector = dbCardCollector;
 		cardBackgroundModel = new CardBackgroundModel(this.dbCardCollector, gameId);
+		
 	}
 	
 	
-	public void useCard(int CardNr) {
-		tcc.useCard(CardNr);
+	public void useCard(CardPane cardPane) {
+		tcc.useCard(cardPane);
 	}
 	
 	public ImageView getTc1(){

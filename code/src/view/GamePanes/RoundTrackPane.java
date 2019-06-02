@@ -27,9 +27,9 @@ public class RoundTrackPane extends FlowPane{
 	}
 	
 	private void addDiceHolders() {
-		for (int i = 0; i < 10; i++) {
+		for (int i = 1; i < 11; i++) {
 			double size = ((GamePane.windowMaxWidth / 3) / 10) - 1; 
-			getChildren().add(dhc.CreateDiceHolder(size, i, 0, DiceHolderType.OFFER));
+			getChildren().add(dhc.CreateDiceHolder(size, i, 0, DiceHolderType.ROUNDTRACK));
 			}
 	}
 	
@@ -43,5 +43,12 @@ public class RoundTrackPane extends FlowPane{
 		Label text = new Label();
 		text.setText("RoundTrackPane");
 		getChildren().addAll(text);
+	}
+	
+	public void redrawDice() {
+		this.getChildren().clear();
+		for (int x = 1; x < 11; x++) {
+					this.getChildren().add(dhc.getPlayerWindowDiceHolders(x, 0, DiceHolderType.ROUNDTRACK));	
+		}
 	}
 }

@@ -1,6 +1,7 @@
 package view.GamePanes;
 
 import controller.GameController;
+import controller.TurnController;
 import helpers.DiceHolderType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
@@ -12,6 +13,7 @@ public class EnemyPane extends BorderPane{
 	private EnemyWindow enemyWindow2;
 	private EnemyWindow enemyWindow3;
 	private FlowPane flowPane;
+	
 	
 	private GameController gameController;
 	
@@ -44,6 +46,13 @@ public class EnemyPane extends BorderPane{
 		enemyWindow1.updatePC();
 		enemyWindow2.updatePC();
 		enemyWindow3.updatePC();
+	}
+
+	public void redrawDice() {
+		enemyWindow1.redrawDice();
+		enemyWindow2.redrawDice();
+		enemyWindow3.redrawDice();
+		
 	}
 	
 	

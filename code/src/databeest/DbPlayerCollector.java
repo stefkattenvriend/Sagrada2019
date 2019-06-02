@@ -65,7 +65,7 @@ public class DbPlayerCollector {
 	}
 
 	public void setSeqnr(int playerid, int seqnr) {
-		System.out.println("Updating database so " + playerid + "'s seqnr becomes: " + seqnr);
+//		System.out.println("Updating database so " + playerid + "'s seqnr becomes: " + seqnr);
 		String query = "UPDATE `mwmastbe_db2`.`player` SET `seqnr` = '" + seqnr + "' WHERE (`idplayer` = '" + playerid + "');";
 		dbApplication.insertQuery(query);
 	}

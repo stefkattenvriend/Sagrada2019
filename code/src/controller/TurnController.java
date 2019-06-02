@@ -23,8 +23,12 @@ public class TurnController {
 	private PlayerPane pp;
 	private TurnAdmissionChecker tac;
 	private GameController gController;
+	private DiceController diceController;
+	private ToolCardController tcc;
+
 	
-	public TurnController(GameController gc, DiceHolderController dhc, DbDieUpdater ddu, GameModel gm, DbTurnCollector dtc, String username, int gameId) {
+	public TurnController(GameController gc, DiceHolderController dhc, DbDieUpdater ddu, GameModel gm, DbTurnCollector dtc, String username, int gameId, ToolCardController tcc) {
+		this.tcc = tcc;
 		this.gameId = gameId;
 		this.username = username;
 		this.dtc = dtc;
@@ -32,6 +36,7 @@ public class TurnController {
 		this.ddu = ddu;
 		this.gm = gm;
 		this.gController = gc;
+		diceController = dhc.getDiceController();
 	}
 	
 	public void givePane(PlayerPane pane) {
@@ -45,6 +50,8 @@ public class TurnController {
 	}
 
 	public void updatePass() {// update na pas knop
+		
+		gController.setCurrentPlayer(false);
 		
 		dhc.switchTurnInteractable(false);
 		
@@ -153,7 +160,9 @@ public class TurnController {
 					break;
 				case 8:
 					currentplayer.setCurrentPlayer(false);
-					if (currentplayer == players[0]) { //verandert de volgorde van startspeler wanner de laatste persoon past.
+					diceController.putDieOnRoundTrack(gameId);
+					diceController.generateOffer(amountOfPlayers, gameId);
+					if (currentplayer == players[0]) { 
 						players[0].setSeqnr(4);
 						players[1].setSeqnr(1);
 						players[1].setCurrentPlayer(true);
@@ -183,7 +192,7 @@ public class TurnController {
 				}
 			}
 			if (amountOfPlayers == 3) {
-				System.out.println(amountOfPlayers + " players detected, passing the turn to the next!");
+				System.out.println(amountOfPlayers + " players detected, passing the turn to the next player!");
 				for (int i = 0; i < players.length; i++) {
 					int x = players[i].getSeqnr();
 					if (x < seqnr) {
@@ -239,7 +248,9 @@ public class TurnController {
 					break;
 				case 6:
 					currentplayer.setCurrentPlayer(false);
-					if (currentplayer == players[0]) { //verandert de volgorde van startspeler wanner de laatste persoon past.
+					diceController.putDieOnRoundTrack(gameId);
+					diceController.generateOffer(amountOfPlayers, gameId);
+					if (currentplayer == players[0]) {
 						players[0].setSeqnr(3);
 						players[1].setSeqnr(1);
 						players[1].setCurrentPlayer(true);
@@ -261,13 +272,14 @@ public class TurnController {
 				}
 			}
 			if (amountOfPlayers == 2) {
+				System.out.println();
 				System.out.println(amountOfPlayers + " players detected, passing the turn to the next!");
 				for (int i = 0; i < players.length; i++) {
 					int x = players[i].getSeqnr();
 //					System.out.println("this is value x: " + x);
 					if (x < seqnr) {
 						seqnr = x; 
-						System.out.println("this is value seqnr: " + seqnr);
+//						System.out.println("this is value seqnr: " + seqnr);
 						currentplayer = players[i]; 
 //						System.out.println("This is its actual seqnr: " + currentplayer.getSeqnr());
 					}
@@ -303,7 +315,11 @@ public class TurnController {
 					break;
 				case 4:
 					currentplayer.setCurrentPlayer(false);
-					if (currentplayer == players[0]) { //verandert de volgorde van startspeler wanner de laatste persoon past.
+					System.out.println("--Ending the round--");
+					diceController.putDieOnRoundTrack(gameId);
+					
+					diceController.generateOffer(amountOfPlayers, gameId);
+					if (currentplayer == players[0]) {
 						players[0].setSeqnr(2);
 						players[1].setSeqnr(1);
 						players[1].setCurrentPlayer(true);
@@ -315,6 +331,13 @@ public class TurnController {
 					} else {
 						System.out.println("Something went wrong, check turncontroller 300~");
 					}
+					int round = diceController.getRound(gameId);
+					if(round == 10) {
+						System.out.println("---THE GAME HAS ENDED, YOU WIN!!!!---");
+						//TODO end game
+					} else {
+					System.out.println("Now starting round number: " + round + ".");
+					}
 					break;
 				default: System.out.println("something went wrong here...");
 				}
@@ -323,10 +346,16 @@ public class TurnController {
 
 	
 	public void TurnAdmissionGiving() {
-		tac = new TurnAdmissionChecker(dtc, username, gameId, dhc, pp, this);
+		tac = new TurnAdmissionChecker(dtc, username, gameId, dhc, pp, this, tcc, gController);
 
 			Thread t1 = new Thread(tac);
 			t1.start();
+	}
+	
+	
+	
+	public PlayerModel getCurrentplayer() {
+		return currentplayer;
 	}
 
 	public void startThread() {

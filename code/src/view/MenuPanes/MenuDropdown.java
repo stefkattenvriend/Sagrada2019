@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import controller.LoginController;
 import controller.MenuController;
 import databeest.DataBaseApplication;
-import javafx.beans.property.StringProperty;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -31,7 +30,6 @@ public class MenuDropdown extends VBox {// door joery
 	private boolean waitPane;
 	private MenuWaitingPane menuWaitingPane;
 	private LoginController loginController;
-	private DataBaseApplication databeest;
 	private ArrayList<String> players;
 	private ArrayList<String> status;
 	private String gameID;
@@ -50,11 +48,10 @@ public class MenuDropdown extends VBox {// door joery
 		this.loginController = loginController;
 		this.menuInvitePane = menuInvitePane;
 		this.menuGamesPane = menuGamesPane;
-		databeest = menuController.getDataBaseApplication();
 		createInfoPane(gamesPane, playersPane, waitPane, invitesPane);
 		createButton(btnName);
 		getChildren().add(btn);
-
+		
 		if (playersPane) {
 			getChildren().clear();
 			getChildren().addAll(btn, gameInfoPane);
@@ -96,7 +93,7 @@ public class MenuDropdown extends VBox {// door joery
 			loadGame.setMaxSize(160, 40);
 			loadGame.setOnAction(e -> menuController.loadGame(gameID));
 			
-			players = databeest.getPlayersInGame(gameID, loginController.getCurrentAccount());
+			players = menuController.getPlayersInGame(gameID);
 			BorderPane inGamePlayers = new BorderPane();
 			inGamePlayers.setPrefSize(MenuPane.paneWidth - 60, 60);
 
@@ -116,7 +113,6 @@ public class MenuDropdown extends VBox {// door joery
 					}
 				}
 			}
-
 			playersList.getChildren().addAll(p1, p2, p3);
 
 			VBox gap = new VBox();
@@ -130,8 +126,9 @@ public class MenuDropdown extends VBox {// door joery
 
 		if (playersPane) {
 			CheckBox inviteBtn = new CheckBox("Kies");
-			inviteBtn.setPrefSize(40, 20);
-//			inviteBtn.setUserData("kies");
+			inviteBtn.setStyle("-fx-background-color: white");
+			//stats [aantal keer gewonnen] en [aantal keer verloren] voor elke speler toevoegen in infopane.
+			inviteBtn.setPrefSize(80, 80);
 			inviteBtn.setOnAction(e -> selectPlayer());
 			gameInfoPane.setLeft(inviteBtn);
 		}
@@ -139,8 +136,8 @@ public class MenuDropdown extends VBox {// door joery
 		if (waitPane) {
 			String splitBtnName[] = username.split(" ");
 			gameID = splitBtnName[1];
-			players = databeest.getPlayersInGame(gameID, loginController.getCurrentAccount());
-			status = databeest.getPlayerStatus(Integer.parseInt(gameID), loginController.getCurrentAccount());
+			players = menuController.getPlayersInGame(gameID);
+			status = menuController.getPlayerStatus(gameID);
 			FlowPane inGamePlayers = new FlowPane();
 			inGamePlayers.setPrefSize(MenuPane.paneWidth - 60, 60);
 
@@ -214,16 +211,7 @@ public class MenuDropdown extends VBox {// door joery
 						}
 					}
 				}
-				
-//				if(countAccept == players.size()) {
-//					
-////					menuGamesPane.addGame(gameID);
-////					menuWaitingPane.newAcceptedGame(gameID);
-//					
-//					System.out.println(gameID + "IEDEREEN HEEFT GEACCEPT");
-//				}
-//				System.out.println(countAccept);
-				
+							
 			}
 
 			statusList.getChildren().addAll(s1, s2, s3);
@@ -234,7 +222,7 @@ public class MenuDropdown extends VBox {// door joery
 		if (invitesPane) {
 			String splitBtnName[] = username.split(" ");
 			gameID = splitBtnName[3];
-			playerID = databeest.getPlayerID(gameID, loginController.getCurrentAccount());
+			playerID = menuController.getPlayerID(gameID);
 
 			HBox choicePane = new HBox();
 			choicePane.setPrefSize(MenuPane.paneWidth - 60, 60);

@@ -39,6 +39,7 @@ public class MenuController {
 	private int[] randomPat;
 	private DbPayStoneRuler psr;
 	private boolean nextCheck = true;
+	private boolean offerGenerated;
 
 	public MenuController(MyScene myScene, MasterController mc, DbGameCollector dbGameCollector,
 			MenuUpdateController menuUpdateController, DbPayStoneRuler psr) {
@@ -86,19 +87,33 @@ public class MenuController {
 		return menuModel.getWaitedGamesUpdate();
 	}
 
-	public ArrayList<String> getPlayerStatus(int gameID) {
+	public ArrayList<String> getPlayerStatus(String gameID) {
 		return menuModel.getPlayerStatus(gameID);
+	}
+	
+	public ArrayList<String> getPlayersInGame(String gameID){
+		return menuModel.getPlayersInGame(gameID);
+	}
+	
+	public int getPlayerID(String gameID) {
+		return menuModel.getPlayerID(gameID);
 	}
 
 	public void loadGame(String gID) {
 		int gameID = Integer.parseInt(gID);
-
+		
 		mc.getGameController().createGameModel(gameID);
+		offerGenerated = dbGameCollector.getOffer(gameID);
+		if(!offerGenerated) {
+		int amountOfPlayers = dbGameCollector.getAmountOfPlayers(gameID);
+		generateOffer(amountOfPlayers, gameID);
+		offerGenerated = true;
+		}
 		int round = dbGameCollector.getRound(gameID);
 		System.out.println("dit is het ronde nummer: " + round);// syso om ronde te checke
 		String username = mc.getLoginController().getCurrentAccount();
 		int playerid = databeest.getPlayerID(username, gameID);
-		int patcardid = databeest.getPaternCardNumber(playerid);
+		int patcardid = databeest.getPaternCardNumber(playerid);	//TODO mvc
 		int[] choice = databeest.getPcChoiche(playerid);
 
 		LayerController lyc = mc.getGameController().getLayerController();
@@ -106,10 +121,11 @@ public class MenuController {
 		if (choice[0] == 0) {
 			lyc.generateRdmPatternCards();
 			randomPat = lyc.getRandomPat();
-			for(int i = 0; i < randomPat.length; i++) {
-				lyc.insertChoice(randomPat[i], playerid);					// zet keuzes in database
-//				System.out.println("patterncardID = : " + randomPat[i]);	//syso welke patterncards kunnen gekozen worden
-				
+			for (int i = 0; i < randomPat.length; i++) {
+				lyc.insertChoice(randomPat[i], playerid); // zet keuzes in database
+				// System.out.println("patterncardID = : " + randomPat[i]); //syso welke
+				// patterncards kunnen gekozen worden
+
 			}
 			myScene.setLayerPane();
 		} else {
@@ -120,6 +136,7 @@ public class MenuController {
 		} else {
 			myScene.setGamePane();
 			lyc.setGameRunning(true);
+			mc.getGameController().setCurrentPlayer(false);//zorgt ervoor dat je game een keer update als je aan de beurt bent
 		}
 	}
 
@@ -140,7 +157,7 @@ public class MenuController {
 	public void newGame(ArrayList<String> playerList) {
 		colors = getColors(); // maakt 5 kleuren
 		int gameid = getGameid() + 1;
-		System.out.println(gameid);
+		// System.out.println(gameid);
 		dbGameCollector.pushGame(gameid);
 		System.out.println("dit is de gameid" + gameid);
 		String challenger = playerList.get(0);
@@ -148,12 +165,34 @@ public class MenuController {
 		insertPublicObjectiveCards(gameid);
 		insertToolCards(gameid);
 		createGameDie(gameid);
-		System.out.println("zise playerlist = " + playerList.size());
 		psr.addStonesToGame(gameid);
 		for (int i = 1; i < playerList.size(); i++) {
-			System.out.println(playerList.get(i));
+			// System.out.println(playerList.get(i));
 			addPlayer(playerList.get(i), gameid, colors.get(i), i + 1);
 		}
+
+		for (int i = 0; i < playerList.size(); i++) {
+			addPlayerFrameField(playerList.get(i), gameid);
+		}
+
+		ArrayList<Integer> cardIds = new ArrayList<Integer>(dbGameCollector.getNormalPatternCardIds());
+		Collections.shuffle(cardIds);
+		ArrayList<Integer> playerIDs = new ArrayList<Integer>();
+		for (int i = 0; i < playerList.size(); i++) {
+			playerIDs.add(dbGameCollector.getPlayerID(gameid, playerList.get(i)));
+		}
+
+		for (int i = 0; i < playerIDs.size(); i++) {
+			for (int z = 0; z < 4; z++) {
+				dbGameCollector.giveCard(playerIDs.get(i), cardIds.get(0));
+				cardIds.remove(0);
+			}
+		}
+
+	}
+
+	private void generateOffer(int size, int gameid) {
+		mc.getGameController().updateFirstDice(size, gameid);		
 	}
 
 	private ArrayList<String> getColors() {
@@ -170,6 +209,12 @@ public class MenuController {
 
 	public void addPlayer(String username, int gameid, String color, int seq) {
 		dbGameCollector.addPlayer(username, gameid, color, seq);
+	}
+
+	private void addPlayerFrameField(String username, int gameid) {
+		System.out.println(username);
+		dbGameCollector.addPlayerFrameField(username, gameid);
+
 	}
 
 	private void createGameDie(int gameid) {
@@ -207,7 +252,7 @@ public class MenuController {
 			list.remove(0);
 
 		}
-//		System.out.println(list);//syso to check which numbers are added to database
+		// System.out.println(list);//syso to check which numbers are added to database
 		return list;
 	}
 

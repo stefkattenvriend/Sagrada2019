@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import databeest.DbDieCollector;
 import helpers.DiceHolderType;
 import helpers.PatterncardType;
+import javafx.scene.Node;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
@@ -20,30 +21,70 @@ public class DiceHolderController {
 	private ArrayList<DiceModel> movedDice = new ArrayList<DiceModel>();
 	private DiceController dc;
 	private PatterncardController pcc;
+	private ToolCardController tcc;
+	private boolean checkColor = true;
+	private boolean checkEyes = true;
+	private boolean checkNextTo = true;
+	
 	
 	public DiceHolderController(PatterncardController pcc, DbDieCollector ddc, int gameid) {
 		this.pcc = pcc;
 		dc = new DiceController(ddc, gameid);
+	}
+	
+	
+	
+	public void setTypeToInteractable(DiceHolderType dhc, boolean interactable) {
+		for(int i = 0; i < dhmodels.size(); i++) {
+			if(dhmodels.get(i).getType() == dhc) {
+				dhmodels.get(i).setInteractable(interactable);
+			}
+		}
+	}
+	
+	public DiceHolderModel GetSelectedDiceHolder() {
+		for(int i = 0; i < dhmodels.size(); i++) {
+			if(dhmodels.get(i).getSelected()) {
+				return dhmodels.get(i);
+			}
+		}
+		return null;
+	}
+	
+	private DiceHolderPane GetSelectedDicePane() {
+		for(int i = 0; i < dhmodels.size(); i++) {
+			if(dhmodels.get(i).getSelected()) {
+				return dhpanes.get(i);
+			}
+		}
+		return null;
+	}
+	
+	public void setAllUninteractable() {
+		for(int i = 0; i < dhmodels.size(); i++) {
+			dhmodels.get(i).setInteractable(false);
+		}
 	}
 
 	public DiceHolderPane CreateDiceHolder(double size, int x, int y, DiceHolderType type) {// deze methode maakt de
 																							// diceHolder model en pane
 																							// aan en geeft de pane
 																							// terug aan de view
-		DiceHolderModel model = new DiceHolderModel(null, x, y, type);
-		
-		if(type == DiceHolderType.ENEMY1 || type == DiceHolderType.ENEMY2 || type == DiceHolderType.ENEMY3) {
+		DiceHolderModel model = new DiceHolderModel(null, x, y, type, size);
+		if(type == DiceHolderType.ENEMY1 || type == DiceHolderType.ENEMY2 || type == DiceHolderType.ENEMY3 || type == DiceHolderType.ROUNDTRACK) {
 			model.setInteractable(false);
 		}
 		else {
 			model.setInteractable(true);
 		}
 		
-		DiceHolderPane pane = new DiceHolderPane(size, this);
+		DiceHolderPane pane = new DiceHolderPane(size, this, dhpanes.size(), false);
 		dhmodels.add(model);
 		dhpanes.add(pane);
 		return pane;
 	}
+	
+	
 
 	public void DiceHolderClick(DiceHolderPane dp) {
 		DiceHolderModel selectedModel = null;
@@ -175,22 +216,24 @@ public class DiceHolderController {
 		boolean check = true;
 			if(location.getType() == DiceHolderType.PLAYERWINDOW) {
 		
-		for (int i = 0; i < pcc.getPcModelsSize(); i++) {//vergelijkt kleur van patroonkaart en die
-			if(location.getX() == pcc.getPcModel(i).getX() && location.getY() == pcc.getPcModel(i).getY() && pcc.getPcModel(i).getPct() == PatterncardType.PLAYER) {
-					if(die.getDieColor() != pcc.getPcModel(i).getColor() && pcc.getPcModel(i).getColor() != Color.WHITE) {
-						check = false;
-						return check;
+		if(checkColor) {
+			for (int i = 0; i < pcc.getPcModelsSize(); i++) {//vergelijkt kleur van patroonkaart en die
+				if(location.getX() == pcc.getPcModel(i).getX() && location.getY() == pcc.getPcModel(i).getY() && pcc.getPcModel(i).getPct() == PatterncardType.PLAYER) {
+						if(die.getDieColor() != pcc.getPcModel(i).getColor() && pcc.getPcModel(i).getColor() != Color.WHITE) {
+							check = false;
+							return check;
+					}
 				}
-			}
-			
-			
+			}		
 		}
 		
-		for (int i = 0; i < pcc.getPcModelsSize(); i++) {//vergelijkt waarde van patroonkaart en die
-			if(location.getX() == pcc.getPcModel(i).getX() && location.getY() == pcc.getPcModel(i).getY() && pcc.getPcModel(i).getPct() == PatterncardType.PLAYER) {
-				if(die.getEyes() != pcc.getPcModel(i).getNumber() && pcc.getPcModel(i).getNumber() != 0) {
-					check = false;
-					return check;
+		if(checkEyes) {
+			for (int i = 0; i < pcc.getPcModelsSize(); i++) {//vergelijkt waarde van patroonkaart en die
+				if(location.getX() == pcc.getPcModel(i).getX() && location.getY() == pcc.getPcModel(i).getY() && pcc.getPcModel(i).getPct() == PatterncardType.PLAYER) {
+					if(die.getEyes() != pcc.getPcModel(i).getNumber() && pcc.getPcModel(i).getNumber() != 0) {
+						check = false;
+						return check;
+					}
 				}
 			}
 		}
@@ -263,7 +306,9 @@ public class DiceHolderController {
 		}
 		
 		
-			
+		/*if(check) {
+			tcc.addAmountOfMoves();
+		}*/
 			
 		return check;
 	}
@@ -306,5 +351,82 @@ public class DiceHolderController {
 				dhmodels.get(i).setInteractable(b);
 			}
 		}
+	}
+	
+	public void reloadDiceHolderPanes() {
+		dc.reloadDicePanes();
+		dhpanes.clear();
+		for (int i = 0; i < dhmodels.size(); i++) {
+			dhpanes.add(new DiceHolderPane(dhmodels.get(i).getSize(), this, i, true));
+		}
+	}
+
+	public DicePane getDice(int id) {
+		if (dhmodels.size() == 0) {
+			return null;
+		}
+		if (dhmodels.get(id) == null) {
+			return null;
+		}
+		if (dhmodels.get(id ).getDie() == null) {
+			return null;
+		}else {
+			return dc.getDicePaneFromModel(dhmodels.get(id).getDie());
+		}
+		
+	}
+
+	public DiceHolderPane getPlayerWindowDiceHolders(int x, int y, DiceHolderType type) {
+		for (int i = 0; i < dhmodels.size(); i++) {
+			if (dhmodels.get(i).getX() == x && dhmodels.get(i).getY() == y && dhmodels.get(i).getType() == type) {
+				return dhpanes.get(i);
+			}
+		}
+		return null;
+	}
+
+	public void setDiceHolderModels(ArrayList<DiceHolderModel> dhma) {
+		this.dhmodels = dhma;
+	}
+		
+	public void solveTC1(ToolCardController tcc) {
+		this.tcc = tcc;
+		this.setAllUninteractable();
+		//make it so you cant end turn
+		//make it so you cant move any other stone till youve moved this one
+		int dienr = this.GetSelectedDiceHolder().getDie().getEyes();
+		GetSelectedDicePane().addPlusAndMinus(dienr);
+	}
+	
+	public void higherClicked() {
+		System.out.println("die eyes: " + this.GetSelectedDiceHolder().getDie().getEyes());
+		int nr = this.GetSelectedDiceHolder().getDie().getEyes() + 1;
+		System.out.println("new die eyes" + nr);
+		this.GetSelectedDiceHolder().getDie().setEyes(nr);
+		tcc.finish1();
+	}
+	
+	public void lowerClicked() {
+		System.out.println("die eyes: " + this.GetSelectedDiceHolder().getDie().getEyes());
+		int nr = this.GetSelectedDiceHolder().getDie().getEyes() - 1;
+		System.out.println("new die eyes" + nr);
+		this.changeDieEyes(nr, this.GetSelectedDiceHolder());
+		tcc.finish1();
+	}
+	
+	public void changeDieEyes(int nr, DiceHolderModel dh) {
+		dh.getDie().setEyes(nr);
+	}
+	
+	public void setCheckColor(boolean i) {
+		checkColor = i;
+	}
+	
+	public void setCheckEyes(boolean i) {
+		checkEyes = i;
+	}
+	
+	public void setCheckNextTo(boolean i) {
+		checkNextTo = i;
 	}
 }

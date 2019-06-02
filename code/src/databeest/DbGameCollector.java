@@ -51,6 +51,18 @@ public class DbGameCollector {
 				+ username + "', '" + gameid + "', 'uitgedaagde', " + seq + ", '0', '" + color + "');";
 		dataBaseApplication.insertQuery(query);
 	}
+	
+	//voeg playerframefield toe aan game
+	public void addPlayerFrameField(String username, int gameid) {
+		for (int y = 1; y < 5; y++) {
+			for (int x = 1; x < 6; x++) {
+				String query = "INSERT INTO playerframefield(player_idplayer, position_x, position_y, idgame) VALUES ((SELECT idplayer FROM player WHERE username = '" + username + "'AND game_idgame = " + gameid + "), " + x + ", "+ y + "," + gameid + ");";
+				dataBaseApplication.insertQuery(query);
+			}
+		}
+		
+		
+	}
 
 	// return highest gameid(van degene die dus net is aangemaakt in menucontroller)
 	public int getHighestGameID() {
@@ -123,4 +135,31 @@ public class DbGameCollector {
 	public int[] getPatternCardChoice(int playerid) {
 		return dataBaseApplication.getPcChoiche(playerid);
 	}
+
+	public int getPlayerID(int gameid, String username) {
+		int playerid = dataBaseApplication.getPlayerID(username, gameid);
+		return playerid;
+	}
+	
+	public int getSeqnr(int playerid) {
+		int seqnr = dataBaseApplication.getSeqnr(playerid);
+		return seqnr;
+	}
+	
+	public ArrayList<Integer> getNormalPatternCardIds() {
+		return dataBaseApplication.getNormalPatterncards();
+	}
+	
+	public void giveCard(int playerId, int cardId) {
+		dataBaseApplication.giveCard(cardId, playerId);
+	}
+
+	public boolean getOffer(int gameID) {
+		if(dataBaseApplication.getOffer(gameID) == 0) {
+			return false;
+		} 
+		
+		return true;
+	}
+	
 }
