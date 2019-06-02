@@ -42,6 +42,7 @@ public class PointsController {
 			int sharedObjectivePoints;
 			int paystones;
 			int totalPoints = 0;
+			int totalPublicPoints = 0;
 			
 			personalObjectivePoints = getPersonalObjectivePoints(pma[i]); 
 			emptySpotsPenalty = getEmptySpotsPenalty(pma[i]);
@@ -49,6 +50,7 @@ public class PointsController {
 			paystones = getAmountOfPaystones(pma[i]); 
 			
 			totalPoints = getTotalPoints(personalObjectivePoints, emptySpotsPenalty, sharedObjectivePoints, paystones);
+			totalPublicPoints = getPublicPoints(personalObjectivePoints, emptySpotsPenalty, paystones);
 			System.out.println("Totalpoints for player " + pma[i].getUsername() + " = " + totalPoints);
 			pma[i].setScore(totalPoints);
 			dbPlayerCollector.setScore(pma[i].getPlayerId(), totalPoints);
@@ -95,5 +97,10 @@ public class PointsController {
 	private int getTotalPoints(int personalObjectivePoints, int emptySpotsPenalty, int sharedObjectivePoints, int paystones) {
 		int totalPoints = personalObjectivePoints + sharedObjectivePoints + paystones + emptySpotsPenalty;
 		return totalPoints;
+	}
+	
+	private int getPublicPoints(int personalObjectivePoints, int emptySpotsPenalty, int paystones) {
+		int totalPublicPoints = personalObjectivePoints + paystones + emptySpotsPenalty;
+		return totalPublicPoints;
 	}
 }
