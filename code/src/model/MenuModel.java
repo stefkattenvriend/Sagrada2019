@@ -17,6 +17,7 @@ public class MenuModel {
 	private ArrayList<String> invitedGameIDs;
 	private ArrayList<Integer> activePlayerGames;
 	private ArrayList<Integer> waitedPlayerGames;
+	private ArrayList<String> players;
 	
 	public MenuModel(MasterController masterController) {
 		this.menuCollector = masterController.getDbMenuCollecter();
@@ -58,18 +59,18 @@ public class MenuModel {
 	}
 	
 	public ArrayList<Integer> getActiveGamesUpdate(){
-		return gameCollector.startedGames(currentAccount);
+		return menuCollector.startedGames(currentAccount);
 	}
 	
 	public ArrayList<Integer> getWaitedGamesUpdate(){
-		return gameCollector.waitedGames(currentAccount);
+		return menuCollector.waitedGames(currentAccount);
 	}
 	
 	// END UPDATE METHODS
 
 	
 	public void setActiveGames(){
-		this.activePlayerGames = gameCollector.startedGames(currentAccount);
+		this.activePlayerGames = menuCollector.startedGames(currentAccount);
 	}
 	
 	public ArrayList<Integer> getActiveGames(){
@@ -77,7 +78,7 @@ public class MenuModel {
 	}
 	
 	public void setWaitedGames(){
-		this.waitedPlayerGames = gameCollector.waitedGames(currentAccount);
+		this.waitedPlayerGames = menuCollector.waitedGames(currentAccount);
 	}
 	
 	public ArrayList<Integer> getWaitedGames(){
@@ -88,12 +89,20 @@ public class MenuModel {
 		return menuCollector.getPlayerStatus(gameID, currentAccount);
 	}
 	
-	public ArrayList<String> getPlayersInGame(String gameID){
+	public ArrayList<String> getPlayersInGame(int gameID){
 		return menuCollector.getPlayersInGame(gameID, currentAccount);
 	}
 	
 	public int getPlayerID(String gameID) {
 		return menuCollector.getPlayerID(gameID, currentAccount);
+	}
+	
+	public void setPlayers(){
+		this.players = menuCollector.getPlayers();
+	}
+	
+	public ArrayList<String> getPlayers(){
+		return players;
 	}
 
 }
