@@ -25,7 +25,7 @@ public class CardsController {
 	
 	
 	public void useCard(CardPane cardPane) {
-		tcc.useCard(cardPane, dice);
+		tcc.useCard(cardPane);
 	}
 	
 	public ImageView getTc1(){

@@ -19,7 +19,6 @@ public class DiceController {
 	}
 	
 	
-	
 	private void setup(int gameid) {
 		createDieModel(gameid);
 		createDicePane();
@@ -53,13 +52,13 @@ public class DiceController {
 	}
 	
 	public void putDieOnRoundTrack(int gameid) {
-		int round = ddc.getRound(gameid);
+		int round = getRound(gameid);
 		ArrayList<String> diecolor = ddc.getDieColor(gameid, round);
 		ArrayList<Integer> dienumber = ddc.getDieNumbers(gameid, round);
 	
 		for (int i = 0; i < dienumber.size(); i++) {
 			ddc.addDieToRoundTrack(round, gameid, dienumber.get(i), diecolor.get(i));
-			System.out.println("Adding " + dienumber.get(i)+ " to roundtrack: " + round);
+//			System.out.println("Adding " + dienumber.get(i)+ " to roundtrack: " + round);
 		}
 	}
 	
@@ -69,7 +68,7 @@ public class DiceController {
 		ArrayList<String> diecolor = ddc.getDieColor(gameid, 0);
 		ArrayList<Integer> dienumber = ddc.getDieNumbers(gameid, 0);
 		
-		int round = ddc.getRound(gameid);
+		int round = getRound(gameid);
 		ArrayList<Integer> list = generateRandomNumbers(dienumber.size(), amountOfDice);
 		
 		for(int i = 0; i < list.size();i++) {
@@ -80,9 +79,14 @@ public class DiceController {
 		
 	}
 	
+	public int getRound(int gameid) {
+		int round = ddc.getRound(gameid);
+		return round;
+	}
+	
 	private ArrayList<Integer> generateRandomNumbers(int totaal, int aantal) {
 		ArrayList<Integer> list = new ArrayList<>();
-		for (int i = 1; i <= totaal; i++) {
+		for (int i = 0; i < totaal; i++) {
 			list.add(i);
 		}
 

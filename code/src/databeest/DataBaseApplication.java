@@ -1302,5 +1302,27 @@ public class DataBaseApplication {
 		return idpatterncards;
 	}
 
+	public int getOffer(int gameID) {
+		Statement stmt = null;
+		String query = "SELECT COUNT(idgame) FROM mwmastbe_db2.gamedie WHERE idgame = " + gameID + " AND eyes is not null;";
+		int idpatterncards = 0;
+
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+
+				idpatterncards = rs.getInt(1);
+
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return idpatterncards;
+	}
+	
+
 	
 }

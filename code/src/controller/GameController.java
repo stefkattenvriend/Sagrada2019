@@ -49,9 +49,9 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private GamePane gamepane;
 	private boolean gameRunning;
 	private boolean allPatternCards;
-	private boolean generateOffer;
 	private boolean currentPlayer;
 	private boolean updateDice;
+//	private boolean generateOffer;
 
 	private PlayerController pc;
 	private ChatPane chatPane;
@@ -79,7 +79,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		this.dtc = dtc;
 		dtcc = tcc;
 		this.psr = psr;
-		this.generateOffer = true;
+//		this.generateOffer = true;
 		this.gameRunning = false;
 		this.allPatternCards = false;
 		this.currentPlayer = false;
@@ -148,7 +148,6 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		lyc = new LayerController(pcc, this);
 //		System.out.println("Player id in create game model: " + pc.getPlayerID());
 		this.dhc = new DiceHolderController(pcc, dbDieCollector, gm.getGameId());
-		this.tc = new TurnController(this, dhc, dbDieUpdater, gm, dtc, username, gm.getGameId(), tcc);
 		createCardsController();
 		guc.setGameModel(gm);
 		
@@ -156,9 +155,10 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 
 	public void createCardsController() {
 		psc = new PayStoneController(psr, DatabasePTCCollector.getPlayerID(gm.getGameId(), lc.getCurrentAccount()), gm.getGameId());
-		tcc = new ToolCardController(psc, dtcc, gm.getGameId());
+		tcc = new ToolCardController(psc, dtcc, gm.getGameId(), dhc);
 		crc = new CardsController(dbCardCollector, gm.getGameId(), tcc, dhc.getDiceController().getDMAL());
 		this.guc = new GameUpdateController(this);
+		this.tc = new TurnController(this, dhc, dbDieUpdater, gm, dtc, lc.getCurrentAccount(), gm.getGameId(), tcc);
 //		System.out.println("should be gameId: " + gm.getGameId());
 	}
 
@@ -182,13 +182,6 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		this.pa = pa;
 	}
 	
-//	public void updateSeqnr() {
-//		if(gameRunning) {
-//			//update seqnr	TODO automatisch, nu wordt database geupdate als getSeqnr aangeroepen wordt
-//			PlayerModel[] pModel = gm.getPma();
-//			
-//		}
-//	}
 
 	public void updatePC() {
 		if (gameRunning) {
@@ -228,9 +221,9 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		this.gameRunning = gameRunning;
 	}
 	
-	public void setGenerateOffer(boolean generateOffer) {
-		this.generateOffer = generateOffer;
-	}
+//	public void setGenerateOffer(boolean generateOffer) {
+//		this.generateOffer = generateOffer;
+//	}
 
 	public void setMyColor() {
 		if (gameRunning) {
@@ -265,26 +258,9 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		CardPanes.add(cardpane);
 	}
 
-	public void updateFirstDice() {
-//    	System.out.println("Attempting to updating the dice.");
-		if(allPatternCards) {
-//			System.out.println("Patterncards are chosen, updating dice.");
-			if(generateOffer) {
-//				System.out.println("Generating offer");
-				int amountOfPlayers = gm.getAmountOfPlayers();
-				int gameid = gm.getGameId();
-				int playerid = 1;
-				playerid = dbGameCollector.getPlayerID(gameid, lc.getCurrentAccount());
-				int seqnr = 0;
-				seqnr = dbGameCollector.getSeqnr(playerid);
-				if (seqnr == 1) {
-					dhc.getDiceController().generateOffer(amountOfPlayers, gameid);
-				}
-				
-				
-				generateOffer = false;
-			}
-		}
+	public void updateFirstDice(int amountOfPlayers, int gameid) {
+		dhc.getDiceController().generateOffer(amountOfPlayers, gameid);
+
 	}
 
 	public void updateDicePlacement() {

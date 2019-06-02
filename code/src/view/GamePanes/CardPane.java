@@ -7,7 +7,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 
 public class CardPane extends StackPane{
-	private int cardNr;
+	public int cardNr;
 	private CardsController cc;
 	GameController gc;
 	int stonesAmount = 0;

@@ -18,6 +18,7 @@ public class TurnAdmissionChecker implements Runnable {
 	private TurnController tc;
 	private ToolCardController tcc;
 	private GameController gc;
+	private boolean allInteractible;
 //	private ChatPane chatPane;
 	
 	public TurnAdmissionChecker(DbTurnCollector dtc, String username, int gameId, DiceHolderController dhc, PlayerPane pp, TurnController tc, ToolCardController tcc, GameController gc) {
@@ -36,43 +37,45 @@ public class TurnAdmissionChecker implements Runnable {
 		while(playing) {
 			checkMyTurn();
 //			tc.updatePass(); //hoeft niet automatisch toch? aldus milan.
-			if(myTurn) {
-//				pp.setLabel("Aan de beurt: ja");
+//			if(myTurn) {
+////				pp.setLabel("Aan de beurt: ja");
 //				tcc.setTurn(true);
-			}
-			if(!myTurn) {
-//				pp.setLabel("Aan de beurt: nee");
+//			}
+//			if(!myTurn) {
+////				pp.setLabel("Aan de beurt: nee");
 //				tcc.setTurn(false);
-			}
+//			}
 			
 			tc.updateChat(); //update chat automatisch hoop ik
 		}
 	}
 	
 	private void checkMyTurn() {
-		if (dtc.myTurn(username, gameId)) {
-			pp.yourTurn();
-			gc.setCurrentPlayer(true);
-//			System.out.println("myturn");
-			dhc.switchTurnInteractable(true);
-			
-			
-			try {
-				Thread.sleep(3000);
-			} catch (InterruptedException e) {
-				System.out.println("TurnAdmissionController checkMyTurn sleep error");
-				e.printStackTrace();
-			}
-		} else {
-			//dont allow something
-//			System.out.println("not my turn");
-			dhc.switchTurnInteractable(false);
-			
-			try {
-				Thread.sleep(3000);
-			} catch (InterruptedException e) {
-				System.out.println("TurnAdmissionController checkMyTurn sleep error");
-				e.printStackTrace();
+		if (!tcc.exception()) {
+			if (dtc.myTurn(username, gameId)) {
+				dhc.switchTurnInteractable(true);
+				
+				pp.yourTurn();
+				dhc.switchTurnInteractable(true);
+				
+				try {
+					Thread.sleep(3000);
+				} catch (InterruptedException e) {
+					System.out.println("TurnAdmissionController checkMyTurn sleep error");
+					e.printStackTrace();
+				}
+			} else {
+				//dont allow something
+	//			System.out.println("not my turn");
+				dhc.switchTurnInteractable(false);
+				allInteractible = false;
+				
+				try {
+					Thread.sleep(3000);
+				} catch (InterruptedException e) {
+					System.out.println("TurnAdmissionController checkMyTurn sleep error");
+					e.printStackTrace();
+				}
 			}
 		}
 	}

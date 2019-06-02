@@ -19,6 +19,7 @@ public class PlayerModel {
 	private String stringcolor;
 	private Color color;
 	private int score;
+	private int movesAllowed = 1;
 
 	private DiceHolderType dht;// welke diceholder er bij deze speler hoort dus welke speler is het ~ Rens
 	private DbPlayerCollector dpc;
@@ -72,7 +73,19 @@ public class PlayerModel {
 		this.playerid = playerid;
 //		System.out.println("player id set to:" + playerid);
 	}
-
+	
+	public int getMovesAllowed() {
+		return movesAllowed;
+	}
+	
+	public void doMove() {		//roep deze aan nadat je een actie hebt uitgevoerd
+		movesAllowed = movesAllowed -1;
+	}
+	
+	public void getMove() {		//roep deze aan als je een move mag doen
+		movesAllowed = movesAllowed +1;
+	}
+	
 	public void setPayStones(int payStones) {
 		this.payStones = payStones;
 	}
@@ -115,7 +128,7 @@ public class PlayerModel {
 
 	public void setSeqnr(int seqnr) {
 		this.seqnr = seqnr;
-		System.out.println("Setting " + playerid + "'s seqnr to: " + seqnr);
+//		System.out.println("Setting " + playerid + "'s seqnr to: " + seqnr);
 		dpc.setSeqnr(playerid, seqnr);
 	}
 
