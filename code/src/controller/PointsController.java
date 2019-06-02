@@ -12,22 +12,28 @@ public class PointsController {
 	private PlayerModel[] pma;
 	private GameModel gameModel;
 	private GameController gameController;
+	private boolean gameEnd;
 	
 	public PointsController(GameController gameController) {
 		this.gameController = gameController;
 		this.gameModel = gameController.getGm();
+		gameEnd = false;
 		allowCounting();
+	}
+	
+	public void setEnd(Boolean end) {	//beëindigt het spel
+		gameEnd = end;
 	}
 	
 	public void allowCounting()
 	{
 		pma = gameModel.getPma();
-		if (true /*TODO StartSpeler */) {
-			if (true /*TODO Einde van de Game */) {
+//		if (true /*TODO StartSpeler */) {
+			if (gameEnd) {
 				
 				calculatePoints();
 			}
-		}
+//		}
 	}
 	
 	private void calculatePoints() {
