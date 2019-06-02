@@ -73,7 +73,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 
 		ppsm = new PlayerPayStoneModel();
 
-		pc = new PlayerController(dpc);
+		pc = new PlayerController(dpc, gm);
 		this.dbGameCollector = dbGamecollector;
 
 		this.dtc = dtc;
@@ -147,7 +147,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		pcc = new PatterncardController(DatabasePTCCollector, gm);
 		lyc = new LayerController(pcc, this);
 //		System.out.println("Player id in create game model: " + pc.getPlayerID());
-		this.dhc = new DiceHolderController(pcc, dbDieCollector, gm.getGameId());
+		this.dhc = new DiceHolderController(pcc, dbDieCollector, gm.getGameId(), gm);
 		createCardsController();
 		guc.setGameModel(gm);
 		
