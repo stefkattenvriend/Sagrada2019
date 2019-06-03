@@ -381,7 +381,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		
 		 guc.reloadRoundTrack(); 
 		 dhc.clearDiceOffer(); 
-//		 this.forcedUpdateDice();
+		 this.forcedUpdateDice();
 		 
 		System.out.println("aye, im working here!");
 
