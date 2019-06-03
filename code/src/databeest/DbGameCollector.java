@@ -38,7 +38,7 @@ public class DbGameCollector {
 
 	public void pushFirstPlayer(String username, String color, int gameid) {
 		// voeg user toe aan game
-		String query = "INSERT INTO `mwmastbe_db2`.`player` (`username`, `game_idgame`, `playstatus_playstatus`, `seqnr`, `isCurrentPlayer`, `private_objectivecard_color`) VALUES ('"
+		String query = "INSERT INTO `player` (`username`, `game_idgame`, `playstatus_playstatus`, `seqnr`, `isCurrentPlayer`, `private_objectivecard_color`) VALUES ('"
 				+ username + "', '" + gameid + "', 'uitdager', '1', '1', '" + color + "');";
 		dataBaseApplication.insertQuery(query);
 
@@ -47,7 +47,7 @@ public class DbGameCollector {
 	// voegt player toe aan een game
 	public void addPlayer(String username, int idgame, String color, int seq) {
 		int gameid = getHighestGameID();// idgame
-		String query = "INSERT INTO `mwmastbe_db2`.`player` (`username`, `game_idgame`, `playstatus_playstatus`, `seqnr`, `isCurrentPlayer`, `private_objectivecard_color`) VALUES ('"
+		String query = "INSERT INTO `player` (`username`, `game_idgame`, `playstatus_playstatus`, `seqnr`, `isCurrentPlayer`, `private_objectivecard_color`) VALUES ('"
 				+ username + "', '" + gameid + "', 'uitgedaagde', " + seq + ", '0', '" + color + "');";
 		dataBaseApplication.insertQuery(query);
 	}
@@ -75,7 +75,7 @@ public class DbGameCollector {
 		ArrayList<String> colors = getColors();
 		for (String color : colors) { // loop door de 5 kleuren
 			for (int dienumber = 1; dienumber < 19; dienumber++) { // for loop om 18 nummers te maken per color
-				String query = "INSERT INTO `mwmastbe_db2`.`gamedie` (`idgame`, `dienumber`, `diecolor`) VALUES ('"
+				String query = "INSERT INTO `gamedie` (`idgame`, `dienumber`, `diecolor`) VALUES ('"
 						+ gameid + "', '" + dienumber + "', '" + color + "');";
 				dataBaseApplication.insertQuery(query);
 			}
@@ -84,13 +84,13 @@ public class DbGameCollector {
 	}
 
 	public void insertPublicObjectiveCards(int x, int gameid) {
-		String query = "INSERT INTO `mwmastbe_db2`.`sharedpublic_objectivecard` (`idgame`, `idpublic_objectivecard`) VALUES ('"
+		String query = "INSERT INTO `sharedpublic_objectivecard` (`idgame`, `idpublic_objectivecard`) VALUES ('"
 				+ gameid + "', '" + x + "');";
 		dataBaseApplication.insertQuery(query);
 	}
 
 	public void insertToolCards(int x, int gameid) {
-		String query = "INSERT INTO `mwmastbe_db2`.`gametoolcard` (`idtoolcard`, `idgame`) VALUES ('" + x + "', '"
+		String query = "INSERT INTO `gametoolcard` (`idtoolcard`, `idgame`) VALUES ('" + x + "', '"
 				+ gameid + "');";
 		dataBaseApplication.insertQuery(query);
 

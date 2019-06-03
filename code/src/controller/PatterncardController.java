@@ -141,7 +141,7 @@ public class PatterncardController {
 	}
 
 	public void givePatternCardToPlayer(int rdInt, int idplayer) {
-		String query = "UPDATE `mwmastbe_db2`.`player` SET `patterncard_idpatterncard` = '" + rdInt
+		String query = "UPDATE `player` SET `patterncard_idpatterncard` = '" + rdInt
 				+ "' WHERE (`idplayer` = '" + idplayer + "');";
 		DatabasePTCCollector.givePatternCardToPlayer(query);
 	}
