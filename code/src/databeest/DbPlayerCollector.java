@@ -69,17 +69,17 @@ public class DbPlayerCollector {
 
 	public void setSeqnr(int playerid, int seqnr) {
 //		System.out.println("Updating database so " + playerid + "'s seqnr becomes: " + seqnr);
-		String query = "UPDATE `mwmastbe_db2`.`player` SET `seqnr` = '" + seqnr + "' WHERE (`idplayer` = '" + playerid + "');";
+		String query = "UPDATE `player` SET `seqnr` = '" + seqnr + "' WHERE (`idplayer` = '" + playerid + "');";
 		dbApplication.insertQuery(query);
 	}
 
 	public void setCurrentPlayer(int playerid, int i) {
-		String query = "UPDATE `mwmastbe_db2`.`player` SET `isCurrentPlayer` = '" + i + "' WHERE (`idplayer` = '" + playerid + "');";
+		String query = "UPDATE `player` SET `isCurrentPlayer` = '" + i + "' WHERE (`idplayer` = '" + playerid + "');";
 		dbApplication.insertQuery(query);
 	}
 
 	public void setGameTurn(int gameid, int playerid) {
-		String query = "UPDATE `mwmastbe_db2`.`game` SET `turn_idplayer` = '" + playerid + "' WHERE (`idgame` = '" + gameid + "');";
+		String query = "UPDATE `game` SET `turn_idplayer` = '" + playerid + "' WHERE (`idgame` = '" + gameid + "');";
 		dbApplication.insertQuery(query);
 	}
 	
@@ -89,7 +89,7 @@ public class DbPlayerCollector {
 	}
 
 	public void setScore(int playerid, int score) {
-		String query = "UPDATE `mwmastbe_db2`.`player` SET `score` = '" + score + "' WHERE (`idplayer` = '" + playerid + "');";
+		String query = "UPDATE `player` SET `score` = '" + score + "' WHERE (`idplayer` = '" + playerid + "');";
 		dbApplication.insertQuery(query);
 	}
 
