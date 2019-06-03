@@ -141,7 +141,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 
 	public void createGameModel(int gameID) {
 		tcc = new ToolCardController(psc, dtcc, dhc, this);
-		pc = new PlayerController(dpc, gm, tcc);
+		
 
 		String username = lc.getCurrentAccount();
 		int amountOfPlayers = dbGameCollector.getAmountOfPlayers(gameID);
@@ -149,7 +149,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		this.gm = gm;
 
 		int[] playerIDs = dbGameCollector.getPlayers(gameID);
-
+		pc = new PlayerController(dpc, gm, tcc);
 		for (int i = 0; i < amountOfPlayers; i++) {
 			gm.addPlayer(i, playerIDs[i], username);
 			pc.setPlayerId(playerIDs[i]);
@@ -392,6 +392,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	}
 
 	public boolean checkFirstPlayer() {
+
 		if (gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getSeqnr() == 1) {
 			return true;
 		}else {
