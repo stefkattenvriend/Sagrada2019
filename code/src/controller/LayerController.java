@@ -45,7 +45,7 @@ public class LayerController {
 	}
 
 	public void insertChoice(int i, int playerid) {
-		String query = "INSERT INTO `mwmastbe_db2`.`patterncardoption` (`patterncard_idpatterncard`, `player_idplayer`) VALUES ('" + i + "', '" + playerid + "');";
+		String query = "INSERT INTO `patterncardoption` (`patterncard_idpatterncard`, `player_idplayer`) VALUES ('" + i + "', '" + playerid + "');";
 		pcc.insertChoice(query);
 		
 	}
