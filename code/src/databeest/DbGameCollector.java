@@ -14,7 +14,7 @@ public class DbGameCollector {
 	public void pushGame(int gameid) {
 		// maak game aan en zet in database en haal gameid op
 		
-		String query = "INSERT INTO `mwmastbe_db2`.`game` (`idgame`, `creationdate`) VALUES ('" + gameid + "', NOW());";
+		String query = "INSERT INTO `game` (`idgame`, `creationdate`) VALUES ('" + gameid + "', NOW());";
 		dataBaseApplication.insertQuery(query);
 	
 	}
@@ -27,12 +27,12 @@ public class DbGameCollector {
 	}
 	
 	public void updateStatusAccept(int idplayer) {
-		String query = "UPDATE `mwmastbe_db2`.`player` SET `playstatus_playstatus` = 'geaccepteerd' WHERE (`idplayer` = '" + idplayer + "');";
+		String query = "UPDATE `player` SET `playstatus_playstatus` = 'geaccepteerd' WHERE (`idplayer` = '" + idplayer + "');";
 		dataBaseApplication.insertQuery(query);
 	}
 	
 	public void updateStatusIgnore(int idplayer) {
-		String query = "UPDATE `mwmastbe_db2`.`player` SET `playstatus_playstatus` = 'geweigerd' WHERE (`idplayer` = '" + idplayer + "');";
+		String query = "UPDATE `player` SET `playstatus_playstatus` = 'geweigerd' WHERE (`idplayer` = '" + idplayer + "');";
 		dataBaseApplication.insertQuery(query);
 	}
 

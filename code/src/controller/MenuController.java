@@ -127,9 +127,11 @@ public class MenuController {
 		int playerid = databeest.getPlayerID(username, gameID);
 		int patcardid = databeest.getPaternCardNumber(playerid);	//TODO mvc
 		int[] choice = databeest.getPcChoiche(playerid);
+		System.out.println("Loading game");
 		if(!offerGenerated && mc.getGameController().checkFirstPlayer()) {
 			int amountOfPlayers = dbGameCollector.getAmountOfPlayers(gameID);
 			generateOffer(amountOfPlayers, gameID);
+			System.out.println("Generating offer");
 			offerGenerated = true;
 		}
 		LayerController lyc = mc.getGameController().getLayerController();
