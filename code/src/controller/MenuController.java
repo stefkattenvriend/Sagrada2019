@@ -120,7 +120,7 @@ public class MenuController {
 		
 		mc.getGameController().createGameModel(gameID);
 		offerGenerated = dbGameCollector.getOffer(gameID);
-		if(!offerGenerated) {
+		if(!offerGenerated && mc.getGameController().checkFirstPlayer()) {
 			int amountOfPlayers = dbGameCollector.getAmountOfPlayers(gameID);
 			generateOffer(amountOfPlayers, gameID);
 			offerGenerated = true;
