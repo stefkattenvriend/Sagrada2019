@@ -322,7 +322,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 			if (allPatternCards) {
 				if (dhc.getDhmodels().size() == 99) {
 					if (old_round < gm.getGameRound()) {
-						guc.getDiceOffer(gm.getGameRound());// update de dice in de offerpane
+					guc.getDiceOffer(gm.getGameRound());// update de dice in de offerpane
 						old_round++;
 						System.out.println("diceoffer has been updated");
 						dhc.reloadDiceHolderPanes();
@@ -379,7 +379,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		
 		 guc.reloadRoundTrack(); 
 		 dhc.clearDiceOffer(); 
-//		 this.forcedUpdateDice();
+		 this.forcedUpdateDice();
 		 
 		System.out.println("aye, im working here!");
 
