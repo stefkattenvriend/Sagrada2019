@@ -54,6 +54,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private boolean currentPlayer;
 	private boolean updateDice;
 	private PlayerPaneController ppc;
+	private boolean newRound;
 	// private boolean generateOffer;
 	// private boolean generateOffer;
 	private int old_round;
@@ -380,7 +381,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		
 		 guc.reloadRoundTrack(); 
 		 dhc.clearDiceOffer(); 
-		 this.forcedUpdateDice();
+//		 this.forcedUpdateDice();
 		 
 		System.out.println("aye, im working here!");
 
@@ -397,6 +398,20 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 			return false;		
 		}
 	
+	}
+
+	public void updateNewRound(boolean b) {
+		this.newRound = b;
+		
+	}
+
+	public boolean getNewRound() {
+		return newRound;
+	}
+
+	public void setNewRound(boolean b) {
+		this.newRound = false;
+		
 	}
 
 }
