@@ -19,9 +19,8 @@ import javafx.scene.paint.Color;
 import view.MyScene;
 import view.MenuPanes.MenuPane;
 
+public class PlayerPane extends VBox {
 
-public class PlayerPane extends VBox{
-	
 	private FlowPane diceSection;
 	private RoundTrackPane roundTrackPane;
 	private DiceOfferPane diceOfferPane;
@@ -39,12 +38,13 @@ public class PlayerPane extends VBox{
 	private PayStoneController psc;
 	private PaystoneHolderPane psh;
 	private Label turn;
-	
+
 	public PersonalAttributes getPersonalAttributes() {
 		return personalAttributes;
 	}
-	
-	public PlayerPane(DiceHolderController dhc, PatterncardController dcc, MyScene myScene, GameController gc, PointsController pc, TurnController tc, PayStoneController psc) {
+
+	public PlayerPane(DiceHolderController dhc, PatterncardController dcc, MyScene myScene, GameController gc,
+			PointsController pc, TurnController tc, PayStoneController psc) {
 		this.dhc = dhc;
 		this.psc = psc;
 		this.dcc = dcc;
@@ -59,7 +59,7 @@ public class PlayerPane extends VBox{
 		tc.TurnAdmissionGiving();
 		tc.startThread();
 	}
-	
+
 	private void setUp(PlayerPaneController ppc) {
 		setPaneSize();
 		setDiceSection();
@@ -70,21 +70,21 @@ public class PlayerPane extends VBox{
 
 	private void setTinyButtonSection(PlayerPaneController ppc) {
 		BorderPane section = new BorderPane();
-		
+
 		pass = new Button("Pass");
 		pass.setMinSize(60, 30);
 		pass.setMaxSize(60, 30);
 		pass.setOnAction(e -> ppc.pass(tc, this, gc));
-		
+
 		Button menu = new Button("Menu");
 		menu.setMinSize(60, 30);
 		menu.setMaxSize(60, 30);
 		menu.setOnAction(e -> ppc.menuAction(myScene, tc, gc));
-		
+
 		pass.setAlignment(Pos.CENTER_LEFT);
 		menu.setAlignment(Pos.CENTER_RIGHT);
 		pass.setVisible(false);
-		
+
 		section.setLeft(pass);
 		section.setRight(menu);
 		getChildren().add(section);
@@ -94,19 +94,19 @@ public class PlayerPane extends VBox{
 		myScene.goToMenuPane();
 		tc.stopThread();
 		gc.setGameRunning(false);
-//		gc.setGenerateOffer(true);
+		// gc.setGenerateOffer(true);
 	}
 
 	public void yourTurn() {
 		pass.setVisible(true);
 	}
-	
+
 	private void pass() {
-		tc.updatePass(); 
+		tc.updatePass();
 		tc.updateSeqnrAndTurn();
 		pass.setVisible(false);
 	}
-	
+
 	public void setPassVisible() {
 		pass.setVisible(false);
 	}
@@ -128,16 +128,16 @@ public class PlayerPane extends VBox{
 		personalAttributes.setMinWidth(MenuPane.paneWidth / 3);
 		getChildren().add(personalAttributes);
 	}
-	
+
 	public PaystoneHolderPane getpaystoneHolder() {
 		psh = new PaystoneHolderPane(psc, psc.getPlayerStones());
 		return psh;
 	}
-	
+
 	public PointsPane getPointsPane() {
 		return points;
 	}
-	
+
 	public PersonalObjectiveCardPane getpocp() {
 		return pocp;
 	}
@@ -154,52 +154,46 @@ public class PlayerPane extends VBox{
 		setMinSize(GamePane.windowMaxWidth / 3, GamePane.windowMaxHeight);
 		setMaxSize(GamePane.windowMaxWidth / 3, GamePane.windowMaxHeight);
 	}
-	
+
 	public PersonalObjectiveCardPane getPOCP() {
 		return pocp;
 	}
-	
+
 	public void updatePC() {
 		playerBoardPane.updatePC();
-		
+
 	}
 
 	public void setMyColor(Color color) {
-		pocp.setMyColor(color);		
+		pocp.setMyColor(color);
 	}
-	
+
 	public void updatePCid(int i) {
 		playerBoardPane.updatePCid(i);
-		
+
 	}
 
 	public TurnController getTc() {
 		return tc;
 	}
-	
+
 	public Label getTurn() {
 		return turn;
 	}
 
-	public void setLabel(String text) {
-//		turn.setText(text);
-	}
+	public void setDisable() {
 
-	
-	public void setDisable()
-	{
-		
 	}
 
 	public void redrawDice() {
 		playerBoardPane.redrawDice();
 		roundTrackPane.redrawDice();
 		diceOfferPane.redrawDice();
-		
+
 	}
 
 	public void redrawOffer() {
 		diceOfferPane.redrawDice();
-		
+
 	}
 }
