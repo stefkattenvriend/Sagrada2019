@@ -5,25 +5,25 @@ import java.util.ArrayList;
 import model.PatterncardModel;
 
 public class DbPatternCardInfoCollector {
-    
-    private DataBaseApplication dataBaseApplication;
-    
-    public DbPatternCardInfoCollector(DataBaseApplication dataBaseApplication) {
-        this.dataBaseApplication = dataBaseApplication;
-    }
-    
-    public ArrayList<PatterncardModel> getPatternCard(int pcnumber) {
-        return dataBaseApplication.getPaternCard(pcnumber);
-    }
-    
-    public int numberOfPatCards() {
-    	int amountPCS = dataBaseApplication.numberOfPatternCards();
-    	return amountPCS;
-    }
 
-	public void givePatternCardToPlayer(String query) { //aangeroepen door patterncardcontroller
+	private DataBaseApplication dataBaseApplication;
+
+	public DbPatternCardInfoCollector(DataBaseApplication dataBaseApplication) {
+		this.dataBaseApplication = dataBaseApplication;
+	}
+
+	public ArrayList<PatterncardModel> getPatternCard(int pcnumber) {
+		return dataBaseApplication.getPaternCard(pcnumber);
+	}
+
+	public int numberOfPatCards() {
+		int amountPCS = dataBaseApplication.numberOfPatternCards();
+		return amountPCS;
+	}
+
+	public void givePatternCardToPlayer(String query) { // aangeroepen door patterncardcontroller
 		dataBaseApplication.insertQuery(query);
-		
+
 	}
 
 	public int getPlayerID(int gameid, String username) {
@@ -33,7 +33,7 @@ public class DbPatternCardInfoCollector {
 
 	public void insertChoice(String query) {
 		dataBaseApplication.insertQuery(query);
-		
+
 	}
 
 	public int getDifficulty(int rdInt) {
@@ -45,13 +45,13 @@ public class DbPatternCardInfoCollector {
 		String color = dataBaseApplication.getPlayerColor(playerid);
 		return color;
 	}
-	
+
 	public int countCards() {
 		return dataBaseApplication.countCards();
 	}
-	
+
 	public ArrayList<Integer> getPatternCards(int playerId) {
 		return dataBaseApplication.getPlayerPatternCards(playerId);
 	}
-    
+
 }

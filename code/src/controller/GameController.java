@@ -20,7 +20,6 @@ import view.GamePanes.CardPane;
 import view.GamePanes.ChatPane;
 import view.GamePanes.GamePane;
 import view.GamePanes.PersonalAttributes;
-import view.GamePanes.PlayerPane;
 
 public class GameController {// deze classe wordt aangemaakt in de masterController en maakt uiteindelijk ook
 								// de andere controllers aan ~Rens
@@ -55,13 +54,10 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private boolean updateDice;
 	private PlayerPaneController ppc;
 	private boolean newRound;
-	// private boolean generateOffer;
-	// private boolean generateOffer;
 	private int old_round;
 
 	private PlayerController pc;
 	private ChatPane chatPane;
-	private PlayerPane pp;
 	private PersonalAttributes pa;
 
 	public GameController(DbPatternCardInfoCollector DatabasePTCCollector, DbGameCollector dbGamecollector,
@@ -171,7 +167,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		psc = new PayStoneController(psr, DatabasePTCCollector.getPlayerID(gm.getGameId(), lc.getCurrentAccount()),
 				gm.getGameId());
 		tcc = new ToolCardController(psc, dtcc, dhc, this);
-		crc = new CardsController(dbCardCollector, gm.getGameId(), tcc, dhc.getDiceController().getDMAL());
+		crc = new CardsController(dbCardCollector, gm.getGameId(), tcc);
 		this.guc = new GameUpdateController(this);
 		this.tc = new TurnController(this, dhc, dbDieUpdater, gm, dtc, lc.getCurrentAccount(), gm.getGameId(), tcc);
 		// System.out.println("should be gameId: " + gm.getGameId());
@@ -324,7 +320,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 			if (allPatternCards) {
 				if (dhc.getDhmodels().size() == 99) {
 					if (old_round < gm.getGameRound()) {
-					guc.getDiceOffer(gm.getGameRound());// update de dice in de offerpane
+						guc.getDiceOffer(gm.getGameRound());// update de dice in de offerpane
 						old_round++;
 						System.out.println("diceoffer has been updated");
 						dhc.reloadDiceHolderPanes();
@@ -367,22 +363,12 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		return pc.getPM();
 	}
 
-	// public void updateColors() {
-	// if(gamepane != null && currentPlayer) {
-	// gamepane.yourTurn(); //hoort de playerpane groen of rood te zetten als je aan
-	// de beurt bent of niet
-	// } else if (gamepane != null && !currentPlayer) {
-	// gamepane.notYourTurn();
-	// }
-	//
-	// }
 	public void updateRoundtrack(int oldRoundId) {
-		
-		
-		 guc.reloadRoundTrack(); 
-		 dhc.clearDiceOffer(); 
-		 this.forcedUpdateDice();
-		 
+
+		guc.reloadRoundTrack();
+		dhc.clearDiceOffer();
+		this.forcedUpdateDice();
+
 		System.out.println("aye, im working here!");
 
 	}
@@ -394,15 +380,15 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	public boolean checkFirstPlayer() {
 		if (gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getSeqnr() == 1) {
 			return true;
-		}else {
-			return false;		
+		} else {
+			return false;
 		}
-	
+
 	}
 
 	public void updateNewRound(boolean b) {
 		this.newRound = b;
-		
+
 	}
 
 	public boolean getNewRound() {
@@ -411,7 +397,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 
 	public void setNewRound(boolean b) {
 		this.newRound = false;
-		
+
 	}
 
 }
