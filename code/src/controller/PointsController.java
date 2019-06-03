@@ -105,13 +105,13 @@ public class PointsController {
 			int playerid = pm.getPlayerId();
 			int gameid = pm.getGameid();
 			pm.getSharedObjectivePoints(objectiveCards[i], gameid, playerid);
-			
-			
 
 		}
 
 		return points;
 	}
+
+	
 	
 	private int setTotalPoints(int personalObjectivePoints, int emptySpotsPenalty, int sharedObjectivePoints, int paystones) {
 		int totalPoints = personalObjectivePoints + sharedObjectivePoints + paystones + emptySpotsPenalty;

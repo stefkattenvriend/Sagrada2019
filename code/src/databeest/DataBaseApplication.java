@@ -34,10 +34,10 @@ public class DataBaseApplication {
 	public boolean makeConnection() {
 		try {
 			m_Conn = DriverManager
-					.getConnection("jdbc:mysql://databases.aii.avans.nl/mwmastbe_db2?user=rcaasper&password=Ab12345"); // TODO
+//					.getConnection("jdbc:mysql://databases.aii.avans.nl/mwmastbe_db2?user=rcaasper&password=Ab12345"); // TODO
 																														// hier
 																														// moet
-																														// de
+					.getConnection("jdbc:mysql://databases.aii.avans.nl/2019_soprj4_sagrada_mnopqr?user=42IN04SOn&password=normalisatie");																									// de
 																														// uiteindelijke
 																														// inloggegevens
 																														// komen
@@ -428,7 +428,7 @@ public class DataBaseApplication {
 	// Stef
 	public int getPlayerPayStones(int playerId) {
 		Statement stmt = null;
-		String query = "SELECT COUNT(idfavortoken) FROM mwmastbe_db2.gamefavortoken WHERE idplayer = " + playerId + ";";
+		String query = "SELECT COUNT(idfavortoken) FROM gamefavortoken WHERE idplayer = " + playerId + ";";
 		int paystones = 0;
 		try {
 			stmt = m_Conn.createStatement();
@@ -702,7 +702,7 @@ public class DataBaseApplication {
 
 	public int getAmountOfPlayers(int gameID) {
 		Statement stmt = null;
-		String query = "SELECT COUNT(idplayer) FROM mwmastbe_db2.player WHERE game_idgame = " + gameID + ";";
+		String query = "SELECT COUNT(idplayer) FROM player WHERE game_idgame = " + gameID + ";";
 		int amount = 0;
 		try {
 			stmt = m_Conn.createStatement();
@@ -721,7 +721,7 @@ public class DataBaseApplication {
 	public int[] GetPlayerIDs(int gameID) {
 		Statement stmt = null;
 		int[] playerIDs = new int[this.getAmountOfPlayers(gameID)];
-		String query = "SELECT idplayer FROM mwmastbe_db2.player WHERE game_idgame = " + gameID + ";";
+		String query = "SELECT idplayer FROM player WHERE game_idgame = " + gameID + ";";
 		try {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
@@ -1331,7 +1331,7 @@ public class DataBaseApplication {
 
 	public int getOffer(int gameID) {
 		Statement stmt = null;
-		String query = "SELECT COUNT(idgame) FROM mwmastbe_db2.gamedie WHERE idgame = " + gameID
+		String query = "SELECT COUNT(idgame) FROM gamedie WHERE idgame = " + gameID
 				+ " AND eyes is not null;";
 		int idpatterncards = 0;
 
@@ -1353,7 +1353,7 @@ public class DataBaseApplication {
 
 	public int getDiceAmountOnFrame(int playerid) {
 		Statement stmt = null;
-		String query = "SELECT COUNT(dienumber) FROM mwmastbe_db2.playerframefield where player_idplayer = " + playerid + " AND dienumber IS NOT NULL;";
+		String query = "SELECT COUNT(dienumber) FROM playerframefield where player_idplayer = " + playerid + " AND dienumber IS NOT NULL;";
 		int amount = 0;
 
 		try {

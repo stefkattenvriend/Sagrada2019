@@ -120,18 +120,18 @@ public class MenuController {
 		
 		mc.getGameController().createGameModel(gameID);
 		offerGenerated = dbGameCollector.getOffer(gameID);
-		if(!offerGenerated) {
-			int amountOfPlayers = dbGameCollector.getAmountOfPlayers(gameID);
-			generateOffer(amountOfPlayers, gameID);
-			offerGenerated = true;
-		}
+		
 		int round = dbGameCollector.getRound(gameID);
 		System.out.println("dit is het ronde nummer: " + round);// syso om ronde te checke
 		String username = mc.getLoginController().getCurrentAccount();
 		int playerid = databeest.getPlayerID(username, gameID);
 		int patcardid = databeest.getPaternCardNumber(playerid);	//TODO mvc
 		int[] choice = databeest.getPcChoiche(playerid);
-
+		if(!offerGenerated && mc.getGameController().checkFirstPlayer()) {
+			int amountOfPlayers = dbGameCollector.getAmountOfPlayers(gameID);
+			generateOffer(amountOfPlayers, gameID);
+			offerGenerated = true;
+		}
 		LayerController lyc = mc.getGameController().getLayerController();
 
 		if (choice[0] == 0) {

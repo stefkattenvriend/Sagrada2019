@@ -389,6 +389,7 @@ public class DiceHolderController {
 	}
 
 	public ArrayList<DiceHolderModel> getDhmodels() {
+
 		return dhmodels;
 	}
 

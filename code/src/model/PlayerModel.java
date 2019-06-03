@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 import controller.ToolCardController;
 import databeest.DbPlayerCollector;
 import helpers.DiceHolderType;
@@ -25,7 +27,14 @@ public class PlayerModel {
 	private int turnPlace;
 	private GameModel gm;
 	private int amountOfDiceOnFrame;
-
+	
+	private int counter = 0;
+	private int counter2 = 0;
+	private int amount;
+	private int[] totalEyes[];
+	private ArrayList<Integer> dienumbers;
+	private ArrayList<String> diecolors;
+	
 	private DiceHolderType dht;// welke diceholder er bij deze speler hoort dus welke speler is het ~ Rens
 	private DbPlayerCollector dpc;
 	private ToolCardController tcc;
@@ -227,9 +236,141 @@ public class PlayerModel {
 		turnPlace = i;
 	}
 
-	public int getSharedObjectivePoints(int i, int gameid, int playerid) {
-		int points = dpc.getSharedObjectivePoints(i, gameid, playerid);
+	public int getSharedObjectivePoints(int i, int gameid, int playerid) {	//i is de objectivecard
+		int points = 0;
+		switch (i) {	//Voor objective kaart [i], voeg punten toe..
+		
+		case 1:	//Tintvarieteit, Sets van één van elke waarde (5 punten)
+		
+			amount = dpc.getDiceAmountOnFrame(playerid);
+			int totalEyes[] = new int[amount];
+			dienumbers = new ArrayList<>(); 
+			diecolors = new ArrayList<>(); 
+
+			for(int x = 1; x < 6; x++) {
+				for(int y = 1; x < 5; y++) {
+					dienumbers.add(dpc.getDieNumberinos(playerid, x, y));
+					diecolors.add(dpc.getDieColorinos(playerid, x, y));
+				}
+			}
+			
+			for(int z = 0; z < amount; z++) {
+				int dienumber = dienumbers.get(z);
+				String diecolor = diecolors.get(z);
+				int eyes = dpc.getEyes(dienumber, gameid, diecolor);
+				totalEyes[z] = eyes;
+			}
+			for (int a = 0; a < amount; a++) {
+				if (totalEyes[a]== 1) {
+					counter++;
+				}
+			}
+			for (int a = 0; a < amount; a++) {
+				if (totalEyes[a]== 2) {
+				counter2++;
+					if(counter2 > counter) {
+					counter = counter2;
+					}
+				}
+			}
+			counter2 = 0;
+			for (int a = 0; a < amount; a++) {
+				if (totalEyes[a]== 3) {
+				counter2++;
+					if(counter2 > counter) {
+					counter = counter2;
+					}
+				}
+			}
+			counter2 = 0;
+			for (int a = 0; a < amount; a++) {
+				if (totalEyes[a]== 4) {
+				counter2++;
+					if(counter2 > counter) {
+					counter = counter2;
+					}
+				}
+			}
+			counter2 = 0;
+			for (int a = 0; a < amount; a++) {
+				if (totalEyes[a]== 5) {
+				counter2++;
+					if(counter2 > counter) {
+					counter = counter2;
+					}
+				}
+			}
+			counter2 = 0;
+			for (int a = 0; a < amount; a++) {
+				if (totalEyes[a]== 6) {
+				counter2++;
+					if(counter2 > counter) {
+					counter = counter2;
+					}
+				}
+			}
+			points = counter * 5;
+			break;
+		case 2: //Halfdonkere tinten, sets van waardes 3 & 4 ( 2 punten)
+			
+			amount = dpc.getDiceAmountOnFrame(playerid);
+			
+			totalEyes = new int[amount];
+			dienumbers = new ArrayList<>(); 
+			diecolors = new ArrayList<>(); 
+
+			for(int x = 1; x < 6; x++) {
+				for(int y = 1; x < 5; y++) {
+					dienumbers.add(dpc.getDieNumberinos(playerid, x, y));
+					diecolors.add(dpc.getDieColorinos(playerid, x, y));
+				}
+			}
+			
+			for(int z = 0; z < amount; z++) {
+				int dienumber = dienumbers.get(z);
+				String diecolor = diecolors.get(z);
+				int eyes = dpc.getEyes(dienumber, gameid, diecolor);
+				totalEyes[z] = eyes;
+			}
+			
+			
+			break;	
+		case 3:	//Tintvarieteit per kolom ( 4 punten)
+
+
+			break;
+		case 4:	//kleurvarieteit per kolom (5 punten)
+
+			break;
+		case 5: // Donkere tinten, sets van waardes 5 & 6 (2 punten)
+
+			break;
+		case 6:	// kleurvarieteit, sets van een van elke kleur ( 4 punten)
+
+			break;
+		case 7: //kleurvarieteit per rij, rijen zonder herhaalde kleuren( 6 punten)
+
+			break;
+		case 8:	//kleurdiagonalen, aantal diagonaal aangrenzende stene in dezelfde kleur ( # punten )
+
+			break;
+		case 9:	// lichte tinten, waardes van 1 & 2 ( 2punten)
+
+			break;
+
+		case 10:	// tintvarieteit per rij ( 5 punten)
+
+			break;
+		default:
+			points = 0;
+			break;
+		}
 		return points;
 	}
+	
+//	public int getSharedObjectivePoints(int i, int gameid, int playerid) {
+//		int points = dpc.getSharedObjectivePoints(i, gameid, playerid);
+//		return points;
+//	}
 
 }
