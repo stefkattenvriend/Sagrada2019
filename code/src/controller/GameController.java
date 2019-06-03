@@ -12,6 +12,7 @@ import databeest.DbPayStoneRuler;
 import databeest.DbPlayerCollector;
 import databeest.DbToolCardCollector;
 import databeest.DbTurnCollector;
+import helpers.DiceHolderType;
 import model.GameModel;
 import model.PlayerModel;
 import model.PlayerPayStoneModel;
@@ -387,6 +388,15 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 
 	public DbPlayerCollector getdbPlayerCollector() {
 		return dpc;
+	}
+
+	public boolean checkFirstPlayer() {
+		if (gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getSeqnr() == 1) {
+			return true;
+		}else {
+			return false;		
+		}
+	
 	}
 
 }

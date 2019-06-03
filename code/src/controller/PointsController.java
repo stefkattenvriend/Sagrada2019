@@ -105,8 +105,6 @@ public class PointsController {
 			int playerid = pm.getPlayerId();
 			int gameid = pm.getGameid();
 			pm.getSharedObjectivePoints(objectiveCards[i], gameid, playerid);
-			
-			
 
 		}
 
