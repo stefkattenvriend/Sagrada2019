@@ -1260,7 +1260,7 @@ public class DataBaseApplication {
 	}
 
 	public void addDieToRoundTrack(int round, int gameid, Integer integer, String string) {
-		String query = "UPDATE `mwmastbe_db2`.`gamedie` SET `roundtrack` = " + round + " WHERE (`idgame` = " + gameid
+		String query = "UPDATE `gamedie` SET `roundtrack` = " + round + " WHERE (`idgame` = " + gameid
 				+ ") and (`dienumber` = " + integer + ") and (`diecolor` = '" + string + "');";
 		Statement stmt = null;
 
