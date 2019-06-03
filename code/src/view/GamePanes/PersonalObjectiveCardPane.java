@@ -5,13 +5,14 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+
 //Tjess Wjestt
-public class PersonalObjectiveCardPane extends VBox{
+public class PersonalObjectiveCardPane extends VBox {
 	private Label label;
 	private Color myColor;
 	private double personalAttributesHeight = 75;
 	private Rectangle square;
-	
+
 	public PersonalObjectiveCardPane() {
 
 		setAlignment(Pos.CENTER);
@@ -29,7 +30,7 @@ public class PersonalObjectiveCardPane extends VBox{
 	private void setPaneSize() {
 		setMinSize((GamePane.windowMaxWidth / 3) / 3, personalAttributesHeight);
 	}
-	
+
 	public Color getColor() {
 
 		return myColor;

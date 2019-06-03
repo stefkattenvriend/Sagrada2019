@@ -122,12 +122,12 @@ public class ChatPane extends BorderPane {
 		int playerid2 = 0;
 		int playerid3 = 0;
 		int playerid4 = 0;
-		
+
 		if (players != null) {
-			
+
 			playerid1 = players[0];
 			playerid2 = players[1];
-			
+
 			if (amountOfPlayers == 3) {
 				playerid3 = players[2];
 			}

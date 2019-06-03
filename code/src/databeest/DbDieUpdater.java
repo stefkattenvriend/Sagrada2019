@@ -11,47 +11,47 @@ public class DbDieUpdater {
 	}
 
 	public void updateDieLocation(int x, int y, DiceModel dm, int playerid, int gameID) {
-		
+
 		String color = null;
-		
-		if(dm.getDieColor() == Color.RED) {
+
+		if (dm.getDieColor() == Color.RED) {
 			color = "rood";
 		}
-		if(dm.getDieColor() == Color.BLUE) {
+		if (dm.getDieColor() == Color.BLUE) {
 			color = "blauw";
 		}
-		if(dm.getDieColor() == Color.YELLOW) {
+		if (dm.getDieColor() == Color.YELLOW) {
 			color = "geel";
 		}
-		if(dm.getDieColor() == Color.PURPLE) {
+		if (dm.getDieColor() == Color.PURPLE) {
 			color = "paars";
 		}
-		if(dm.getDieColor() == Color.GREEN) {
+		if (dm.getDieColor() == Color.GREEN) {
 			color = "groen";
 		}
-		
+
 		dba.UpdateDiceLocation(x, y, playerid, dm.getDieNumber(), color, gameID);
 	}
-	
+
 	public void updateDieEyes(int eyes, int gameId, DiceModel dm) {
-String color = null;
-		
-		if(dm.getDieColor() == Color.RED) {
+		String color = null;
+
+		if (dm.getDieColor() == Color.RED) {
 			color = "rood";
 		}
-		if(dm.getDieColor() == Color.BLUE) {
+		if (dm.getDieColor() == Color.BLUE) {
 			color = "blauw";
 		}
-		if(dm.getDieColor() == Color.YELLOW) {
+		if (dm.getDieColor() == Color.YELLOW) {
 			color = "geel";
 		}
-		if(dm.getDieColor() == Color.PURPLE) {
+		if (dm.getDieColor() == Color.PURPLE) {
 			color = "paars";
 		}
-		if(dm.getDieColor() == Color.GREEN) {
+		if (dm.getDieColor() == Color.GREEN) {
 			color = "groen";
 		}
-		
+
 		dba.updateDiceEyes(eyes, gameId, dm.getDieNumber(), color);
 	}
 
