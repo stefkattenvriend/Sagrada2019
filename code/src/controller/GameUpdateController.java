@@ -18,13 +18,11 @@ public class GameUpdateController {
 	private GameModel gm;
 	private DiceHolderController dhc;
 	private DbDieCollector ddc;
-	private boolean gameUpdate;
 
 	public GameUpdateController(GameController gmc) {
 		this.gmc = gmc;
 		this.ddc = gmc.getDbDieCollector();
 		this.dhc = gmc.getDiceHolderController();
-		this.gameUpdate = false;
 	}
 
 	public void testRun() {
@@ -79,41 +77,42 @@ public class GameUpdateController {
 							// loop door de dhma, zoek een dobbelsteen in de andere dhm die overeen komt met
 							// die van de pffa,
 							// haal dat model daar weg en plaats deze in de juiste dhm
-							if (dhmad.size() == 0 || gmc.getNewRound()) {//wss mis
+							if (dhmad.size() == 0 || gmc.getNewRound()) {// wss mis
 								ArrayList<DiceModel> dicelist = dhc.getDiceController().getDMAL();
 								for (int k = 0; k < dicelist.size(); k++) {
-									if (dicelist.get(k).getDieNumber() == pffa.get(j).getDienumber() && dicelist.get(k).getDieColor() == pffa.get(j).getDiecolor()) {
+									if (dicelist.get(k).getDieNumber() == pffa.get(j).getDienumber()
+											&& dicelist.get(k).getDieColor() == pffa.get(j).getDiecolor()) {
 										dhma.get(i).setDie(dicelist.get(k));
 									}
-									
-									
+
 								}
 								gmc.setNewRound(false);
-							}else {
+							} else {
 								for (int k = 0; k < dhmad.size(); k++) {
-								
-								if (k == dhmad.size()) {
-									System.out.println("Mistake on k:" + k);
-									
-								}
-								
-								if (dhmad.get(k).getDie().getDieNumber() == pffa.get(j).getDienumber()
-										&& dhmad.get(k).getDie().getDieColor() == pffa.get(j).getDiecolor()) {// mvc fix
 
-									dhma.get(i).setDie(dhmad.get(k).getDie());
-									for (int k2 = 0; k2 < dhma.size(); k2++) {
-										if (dhma.get(i).getDie() == dhmad.get(k).getDie()) {
-											dhma.get(k2).setDie(null);
-											dhmad.remove(0);
-											break;
-										}
+									if (k == dhmad.size()) {
+										System.out.println("Mistake on k:" + k);
+
 									}
-									
+
+									if (dhmad.get(k).getDie().getDieNumber() == pffa.get(j).getDienumber()
+											&& dhmad.get(k).getDie().getDieColor() == pffa.get(j).getDiecolor()) {// mvc
+																													// fix
+
+										dhma.get(i).setDie(dhmad.get(k).getDie());
+										for (int k2 = 0; k2 < dhma.size(); k2++) {
+											if (dhma.get(i).getDie() == dhmad.get(k).getDie()) {
+												dhma.get(k2).setDie(null);
+												dhmad.remove(0);
+												break;
+											}
+										}
+
+									}
 								}
-							}
 							}
 							gmc.setUpdateDice(true);
-							
+
 						}
 					}
 				}

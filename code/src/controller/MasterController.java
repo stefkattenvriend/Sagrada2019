@@ -10,7 +10,6 @@ import databeest.DbMenuCollector;
 import databeest.DbPatternCardInfoCollector;
 import databeest.DbPayStoneRuler;
 import databeest.DbPlayerCollector;
-import databeest.DbPlayerStatsCollector;
 import databeest.DbToolCardCollector;
 import databeest.DbTurnCollector;
 import databeest.DbUserInfoCollector;
@@ -27,7 +26,7 @@ public class MasterController extends Application{//een controller die alle ande
 	private DbChatCollector dbChatCollector;
 	private DbGameCollector dbGameCollector;
 	private DbPlayerCollector dbPlayerCollector;
-	private DbPlayerStatsCollector dbPlayerStatsCollector;
+
 	private DbDieCollector dbDieCollector;
 	private DbDieUpdater dbDieUpdater;
 	private DbMenuCollector dbMenuCollector;
@@ -36,13 +35,10 @@ public class MasterController extends Application{//een controller die alle ande
 	
 	private DbTurnCollector dbTurnCollector;
 	private LoginController lc;
-	private PlayerController pc;
 	private GameController gc;
-//	private ChatController chat;
 	private MyScene myScene;
 	private Stage stage;
 	private MenuController mnController;
-	private StatsController sc;
 	private MenuUpdateController muc;
 	private DbToolCardCollector tcc;
 	private GameModel gameModel;
@@ -77,7 +73,6 @@ public class MasterController extends Application{//een controller die alle ande
 		dbPlayerCollector = new DbPlayerCollector(databeest);
 		dbCardCollector = new DbCardCollector(databeest);
 		dbDieCollector = new DbDieCollector(databeest);
-		dbPlayerStatsCollector = new DbPlayerStatsCollector(databeest);
 		dbMenuCollector = new DbMenuCollector(databeest);
 		dbDieUpdater = new DbDieUpdater(databeest);
 		dbTurnCollector = new DbTurnCollector(databeest);
@@ -89,7 +84,6 @@ public class MasterController extends Application{//een controller die alle ande
 		
 		this.lc = new LoginController(dbUserInfoCollector,this);
 		this.gc = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector, dbCardCollector, dbPlayerCollector, dbDieCollector, dbDieUpdater, dbTurnCollector, psr, tcc);
-		this.sc = new StatsController(dbPlayerStatsCollector);
 		
 //		this.chat = new ChatController(dbChatCollector);
 		
