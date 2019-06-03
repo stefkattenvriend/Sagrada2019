@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import controller.LoginController;
 import controller.MenuController;
-import databeest.DataBaseApplication;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -15,28 +14,18 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import view.MyScene;
 import view.GamePanes.GamePane;
 
 public class MenuWaitingPane extends FlowPane {
 
-	private MyScene myScene;
 	private VBox list;
-	private boolean clicked = false;
 	private MenuController menuController;
 	private LoginController loginController;
-	private DataBaseApplication databeest;
 	private ScrollPane waitingList;
 	private ArrayList<Integer> gameIDs;
-	private ArrayList<String> playersInGame;
-	private ArrayList<String> status;
 	private ArrayList<MenuDropdown> games;
-	private ArrayList<String> accepted;
 	private Label title;
 	private MenuGamesPane menuGamesPane;
-	private boolean gotit = false;
-	private ArrayList<String> currentPlayerStatus;
-	private ArrayList<String> newAcceptedGames;
 
 	public MenuWaitingPane(MenuController menuController, LoginController loginController,
 			MenuGamesPane menuGamesPane) {
@@ -44,13 +33,9 @@ public class MenuWaitingPane extends FlowPane {
 		this.loginController = loginController;
 		this.menuGamesPane = menuGamesPane;
 		menuController.setWaitedGamesPane(this);
-//		databeest = menuController.getDataBaseApplication();
-//		gameIDs = databeest.getWaitingGames(loginController.getCurrentAccount());
-		
+
 		gameIDs = menuController.getWaitedGames();
-		
-//		accepted = databeest.getAcceptedGame(loginController.getCurrentAccount());
-//		newAcceptedGames = new ArrayList<String>();
+
 		setPaneSize();
 		createActiveGamesList();
 		setBackground(new Background(new BackgroundFill(Color.rgb(255, 205, 205, 0.8), null, null)));
@@ -88,19 +73,6 @@ public class MenuWaitingPane extends FlowPane {
 	public void setUp() {
 
 		gameIDs = menuController.getNewWaitedGames();
-//		for (int i = 0; i < gameIDs.size(); i++) {// vult verzameling met alle knoppen
-//
-//			// check of de uitdager in het lijstje staat van gameID
-//			// ->view deze mag pas zichtbaar worden als invite is geaccepteerd
-//			status = databeest.getPlayerStatus(gameIDs.get(i), loginController.getCurrentAccount());
-//			currentPlayerStatus = databeest.getCurrentPlayerStatus(loginController.getCurrentAccount(), gameIDs.get(i));
-//			for (int s = 0; s < status.size(); s++) {
-//				if (status.get(s).equals("uitdager") && currentPlayerStatus.get(0).equals("uitgedaagde")) {
-//
-//					gameIDs.remove(i);
-//				}
-//			}
-//		}
 
 		for (int i = 0; i < gameIDs.size(); i++) { // voegt knop toe
 			games.add(new MenuDropdown(menuController, false, "Sagrada " + gameIDs.get(i), false, null, true, false,
@@ -120,7 +92,7 @@ public class MenuWaitingPane extends FlowPane {
 		gameIDs = newWaitedGames;
 		updateWaitingPane();
 	}
-	
+
 	public void updateWaitingPane() {
 		getChildren().clear();
 		list.getChildren().clear();
@@ -138,7 +110,5 @@ public class MenuWaitingPane extends FlowPane {
 		setAlignment(Pos.CENTER);
 		getChildren().addAll(title, waitingList);
 	}
-
-
 
 }

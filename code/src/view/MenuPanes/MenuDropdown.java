@@ -22,9 +22,7 @@ public class MenuDropdown extends VBox {// door joery
 	private boolean clicked = false;
 	private BorderPane gameInfoPane;
 	private MenuController menuController;
-	private boolean yesOrNo;
 	private String username;
-	private int totalPlayers;
 	private boolean isChecked = false;
 	private MenuPlayersPane menuPlayersPane;
 	private boolean waitPane;
@@ -43,7 +41,8 @@ public class MenuDropdown extends VBox {// door joery
 
 	public MenuDropdown(MenuController menuController, boolean gamesPane, String btnName, boolean playersPaneOn,
 			MenuPlayersPane menuPlayersPane, boolean waitPane, boolean invitesPane, MenuWaitingPane menuWaitingPane,
-			LoginController loginController, MenuInvitePane menuInvitePane, MenuGamesPane menuGamesPane, boolean playersPaneOff) {
+			LoginController loginController, MenuInvitePane menuInvitePane, MenuGamesPane menuGamesPane,
+			boolean playersPaneOff) {
 		this.menuController = menuController;
 		username = btnName;
 		this.menuPlayersPane = menuPlayersPane;
@@ -55,7 +54,7 @@ public class MenuDropdown extends VBox {// door joery
 		createInfoPane(gamesPane, playersPaneOn, waitPane, invitesPane, playersPaneOff);
 		createButton(btnName);
 		getChildren().add(btn);
-		
+
 		if (playersPaneOn) {
 			getChildren().clear();
 			getChildren().addAll(btn, gameInfoPane);
@@ -84,7 +83,8 @@ public class MenuDropdown extends VBox {// door joery
 
 	}
 
-	private void createInfoPane(boolean gamePane, boolean playersPane, boolean waitPane, boolean invitesPane, boolean playersPaneOff) {
+	private void createInfoPane(boolean gamePane, boolean playersPane, boolean waitPane, boolean invitesPane,
+			boolean playersPaneOff) {
 		gameInfoPane = new BorderPane();
 		gameInfoPane.setMinSize(MenuPane.paneWidth - 60, 60);
 		gameInfoPane.setMaxSize(MenuPane.paneWidth - 60, 60);
@@ -96,7 +96,7 @@ public class MenuDropdown extends VBox {// door joery
 			loadGame.setMinSize(160, 40);
 			loadGame.setMaxSize(160, 40);
 			loadGame.setOnAction(e -> menuController.loadGame(gameID));
-			
+
 			players = menuController.getPlayersInGame(Integer.parseInt(gameID));
 			BorderPane inGamePlayers = new BorderPane();
 			inGamePlayers.setPrefSize(MenuPane.paneWidth - 60, 60);
@@ -121,7 +121,7 @@ public class MenuDropdown extends VBox {// door joery
 
 			VBox gap = new VBox();
 			gap.setPrefWidth(20);
-			
+
 			inGamePlayers.setLeft(playersList);
 			inGamePlayers.setRight(loadGame);
 			gameInfoPane.setCenter(inGamePlayers);
@@ -132,31 +132,31 @@ public class MenuDropdown extends VBox {// door joery
 			inviteBtn.setStyle("-fx-background-color: white");
 			inviteBtn.setPrefSize(80, 80);
 			inviteBtn.setOnAction(e -> selectPlayer());
-			
+
 			calculateWinner();
-			
+
 			VBox playerStats = new VBox();
-			Label winGames = new Label("Gewonnen: " + wingames);	
+			Label winGames = new Label("Gewonnen: " + wingames);
 			Label lostGames = new Label("Verloren: " + lostgames);
 			playerStats.setAlignment(Pos.CENTER);
 			playerStats.getChildren().addAll(winGames, lostGames);
 			gameInfoPane.setLeft(inviteBtn);
 			gameInfoPane.setCenter(playerStats);
 		}
-		
-		if(playersPaneOff) {
-			//bereken alle gewonnen en verloren potjes per speler
+
+		if (playersPaneOff) {
+			// bereken alle gewonnen en verloren potjes per speler
 			finishedGames = menuController.getFinishedGames(username);
 
 			calculateWinner();
-					
+
 			VBox playerStats = new VBox();
-			Label winGames = new Label("Gewonnen: " + wingames);	
+			Label winGames = new Label("Gewonnen: " + wingames);
 			Label lostGames = new Label("Verloren: " + lostgames);
 
 			playerStats.setAlignment(Pos.CENTER);
 			playerStats.getChildren().addAll(winGames, lostGames);
-			
+
 			gameInfoPane.setCenter(playerStats);
 		}
 
@@ -196,41 +196,41 @@ public class MenuDropdown extends VBox {// door joery
 			Label s3 = new Label();
 
 			int countAccept = 0;
-			
+
 			for (int i = 0; i < status.size(); i++) {
 				if (status.get(i) != null) {
-					
+
 					if (i == 0) {
-						if(status.get(i).equals("uitgedaagde")) {
+						if (status.get(i).equals("uitgedaagde")) {
 							s1.setText("wachten op reactie..");
-						} else if(status.get(i).equals("uitdager")) {
+						} else if (status.get(i).equals("uitdager")) {
 							s1.setText("heeft jou uitgenodigd");
 							countAccept++;
-						} else if(status.get(i).equals("geaccepteerd")) {
-						s1.setText(status.get(i));
-						countAccept++;
+						} else if (status.get(i).equals("geaccepteerd")) {
+							s1.setText(status.get(i));
+							countAccept++;
 						} else {
 							s1.setText(status.get(i));
 						}
 					} else if (i == 1) {
-						if(status.get(i).equals("uitgedaagde")) {
+						if (status.get(i).equals("uitgedaagde")) {
 							s2.setText("wachten op reactie..");
-						} else if(status.get(i).equals("uitdager")) {
+						} else if (status.get(i).equals("uitdager")) {
 							s2.setText("heeft jou uitgenodigd");
 							countAccept++;
-						} else if(status.get(i).equals("geaccepteerd")){
-						s2.setText(status.get(i));
-						countAccept++;
+						} else if (status.get(i).equals("geaccepteerd")) {
+							s2.setText(status.get(i));
+							countAccept++;
 						} else {
 							s2.setText(status.get(i));
 						}
 					} else if (i == 2) {
-						if(status.get(i).equals("uitgedaagde")) {
+						if (status.get(i).equals("uitgedaagde")) {
 							s3.setText("wachten op reactie..");
-						} else if(status.get(i).equals("uitdager")) {
+						} else if (status.get(i).equals("uitdager")) {
 							s3.setText("heeft jou uitgenodigd");
 							countAccept++;
-						} else if(status.get(i).equals("geaccepteerd")) {
+						} else if (status.get(i).equals("geaccepteerd")) {
 							s3.setText(status.get(i));
 							countAccept++;
 						} else {
@@ -238,7 +238,7 @@ public class MenuDropdown extends VBox {// door joery
 						}
 					}
 				}
-							
+
 			}
 
 			statusList.getChildren().addAll(s1, s2, s3);
@@ -257,12 +257,12 @@ public class MenuDropdown extends VBox {// door joery
 			accept.setPrefSize((MenuPane.paneWidth - 60) / 2, 60);
 			accept.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, null, null)));
 			accept.setOnAction(e -> accept(playerID));
-			
+
 			Button ignore = new Button("weiger");
 			ignore.setPrefSize((MenuPane.paneWidth - 60) / 2, 60);
 			ignore.setBackground(new Background(new BackgroundFill(Color.INDIANRED, null, null)));
 			ignore.setOnAction(e -> decline(playerID));
-			
+
 			choicePane.getChildren().addAll(accept, ignore);
 			gameInfoPane.setCenter(choicePane);
 		}
@@ -305,22 +305,22 @@ public class MenuDropdown extends VBox {// door joery
 	public void getPlayersInGame(String gameID, String playername) {
 
 	}
-	
+
 	public String getAcceptedGameID() {
 		return gameID;
 	}
-	
+
 	private void calculateWinner() {
 		finishedGames = menuController.getFinishedGames(username);
-		for(int i = 0; i < finishedGames.size(); i++) {
+		for (int i = 0; i < finishedGames.size(); i++) {
 			winner = menuController.getWinner(finishedGames.get(i));
-			
-			if(winner.equals(username)) {
+
+			if (winner.equals(username)) {
 				wingames++;
-			} else if(!winner.equals(username)){
+			} else if (!winner.equals(username)) {
 				lostgames++;
 			}
-			
+
 		}
 	}
 }

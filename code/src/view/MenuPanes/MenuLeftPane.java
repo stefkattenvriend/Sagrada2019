@@ -10,10 +10,8 @@ import javafx.scene.paint.Color;
 import view.MyScene;
 import view.GamePanes.GamePane;
 
-public class MenuLeftPane extends VBox{
-	
+public class MenuLeftPane extends VBox {
 
-	
 	private MenuInvitePane resultsPane;
 	private MenuResultsPane invitePane;
 	private MenuController menuController;
@@ -21,8 +19,9 @@ public class MenuLeftPane extends VBox{
 	private MenuWaitingPane menuWaitingPane;
 	private MenuLogoutPane logoutPane;
 	private MyScene myScene;
-	
-	public MenuLeftPane(MenuController menuController, LoginController loginController, MenuWaitingPane menuWaitingPane, MyScene myscene) {
+
+	public MenuLeftPane(MenuController menuController, LoginController loginController, MenuWaitingPane menuWaitingPane,
+			MyScene myscene) {
 		this.menuController = menuController;
 		this.loginController = loginController;
 		this.menuWaitingPane = menuWaitingPane;
@@ -36,12 +35,12 @@ public class MenuLeftPane extends VBox{
 		createPanes();
 
 	}
-	
-	private void createPanes() {		
+
+	private void createPanes() {
 		resultsPane = new MenuInvitePane(menuController, loginController, menuWaitingPane);
 		invitePane = new MenuResultsPane(menuController);
 		logoutPane = new MenuLogoutPane(loginController, myScene);
-		
+
 		setAlignment(Pos.CENTER);
 		getChildren().addAll(logoutPane, invitePane, resultsPane);
 	}
@@ -50,9 +49,10 @@ public class MenuLeftPane extends VBox{
 		setMinSize(GamePane.windowMaxWidth / 3, GamePane.windowMaxHeight);
 		setMaxSize(GamePane.windowMaxWidth / 3, GamePane.windowMaxHeight);
 	}
-	
+
 	private void tijdelijkAanduiding() {
-//		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null)));
+		// setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
+		// null, null)));
 		setBackground(new Background(new BackgroundFill(Color.rgb(255, 255, 255, 0.7), null, null)));
 	}
 }

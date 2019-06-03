@@ -15,12 +15,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
+
 // DOORRR Tesssssss
-public class LoginPane extends VBox{
-	//constants
+public class LoginPane extends VBox {
+	// constants
 	public final static double windowMaxWidth = 300;
 	public final static double windowMaxHeight = 400;
-	
+
 	// instance variables
 	private Button loginButton;
 	private Button registreerButton;
@@ -29,7 +30,7 @@ public class LoginPane extends VBox{
 	private RegistrerPane registerPane;
 	private TextField accountField;
 	private PasswordField wachtwoordField;
-	
+
 	public LoginPane(MyScene myScene, LoginController controller) {
 		this.controller = controller;
 		this.myScene = myScene;
@@ -44,21 +45,21 @@ public class LoginPane extends VBox{
 
 			@Override
 			public void handle(KeyEvent enter) {
-				if(enter.getCode().equals(KeyCode.ENTER)) {
+				if (enter.getCode().equals(KeyCode.ENTER)) {
 					login();
 				}
 			}
-			
+
 		});
 		wachtwoordField.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
 			@Override
 			public void handle(KeyEvent enter) {
-				if(enter.getCode().equals(KeyCode.ENTER)) {
+				if (enter.getCode().equals(KeyCode.ENTER)) {
 					login();
 				}
 			}
-			
+
 		});
 		accountField.setMinSize(100, 30);
 		accountField.setMaxSize(100, 30);
@@ -71,9 +72,9 @@ public class LoginPane extends VBox{
 		wachtwoordLabel.setTextFill(Color.DARKRED);
 		wachtwoordLabel.setFont(Font.font("", FontPosture.ITALIC, 20));
 		createButtons();
-		getChildren().addAll(accountLabel, accountField, wachtwoordLabel, wachtwoordField, loginButton, registreerButton);
+		getChildren().addAll(accountLabel, accountField, wachtwoordLabel, wachtwoordField, loginButton,
+				registreerButton);
 	}
-
 
 	private void createButtons() {
 		loginButton = new Button("Inloggen");
@@ -81,24 +82,18 @@ public class LoginPane extends VBox{
 		loginButton.setOnAction(e -> login());
 		registreerButton.setOnAction(e -> register());
 	}
-	
-	private void login()
-	{
-		if(controller.login(accountField.getText(), wachtwoordField.getText()))
-		{
+
+	private void login() {
+		if (controller.login(accountField.getText(), wachtwoordField.getText())) {
 			myScene.setMenuPane();
-		}
-		else 
-		{
+		} else {
 			System.out.println("kan niet inloggen");
 		}
-		
+
 	}
-	
-	private void register()
-	{
+
+	private void register() {
 		myScene.setNewRoot(registerPane);
 	}
-	
 
 }
