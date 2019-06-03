@@ -1223,7 +1223,7 @@ public class DataBaseApplication {
 	}
 
 	public void addDieToRound(int eyes, int round, int gameid, int dienumber, String string) {
-		String query = "UPDATE `mwmastbe_db2`.`gamedie` SET `eyes` = " + eyes + ", `round` = " + round
+		String query = "UPDATE `gamedie` SET `eyes` = " + eyes + ", `round` = " + round
 				+ " WHERE (`idgame` = " + gameid + ") and (`dienumber` = " + dienumber + ") and (`diecolor` = '"
 				+ string + "');";
 		Statement stmt = null;
