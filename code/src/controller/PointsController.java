@@ -112,9 +112,6 @@ public class PointsController {
 
 		return points;
 	}
-
-	private int getTotalPoints(int personalObjectivePoints, int emptySpotsPenalty, int sharedObjectivePoints,
-			int paystones) {
 	
 	private int setTotalPoints(int personalObjectivePoints, int emptySpotsPenalty, int sharedObjectivePoints, int paystones) {
 		int totalPoints = personalObjectivePoints + sharedObjectivePoints + paystones + emptySpotsPenalty;
