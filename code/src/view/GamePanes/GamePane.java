@@ -18,7 +18,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import model.GameModel;
-import model.PlayerModel;
 import view.MyScene;
 
 public class GamePane extends StackPane {
@@ -66,12 +65,9 @@ public class GamePane extends StackPane {
 
 	private void setBackgroundImage() {
 		image = new Image("layout_images/menuBackground.png");
-		background = new BackgroundImage(image,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.CENTER,
-                BackgroundSize.DEFAULT);
-		
+		background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+				BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+
 	}
 
 	private void setUp() {
@@ -87,18 +83,18 @@ public class GamePane extends StackPane {
 	}
 
 	public void notYourTurn() {
-		//zet jou pane op rood
+		// zet jou pane op rood
 		playerPane.setStyle("-fx-background-color: rgba(255, 0, 0, 0.7);");
-		
-		//zet enemy pane op groen
+
+		// zet enemy pane op groen
 		enemyPane.setColor();
 	}
 
 	public void yourTurn() {
-		//zet enemy pane op rood
+		// zet enemy pane op rood
 		enemyPane.setColor();
 
-		//zet jou pane op groen
+		// zet jou pane op groen
 		playerPane.setStyle("-fx-background-color: rgba(0, 255, 0, 0.7);");
 	}
 
@@ -137,7 +133,7 @@ public class GamePane extends StackPane {
 
 	public void redrawOffer() {
 		playerPane.redrawOffer();
-		
+
 	}
 
 }

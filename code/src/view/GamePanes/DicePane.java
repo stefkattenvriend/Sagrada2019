@@ -10,14 +10,14 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
-public class DicePane extends BorderPane{
-	
+public class DicePane extends BorderPane {
+
 	public DicePane(int size, Color paint, int number) {
 		super();
 		this.setBackground(new Background(new BackgroundFill(paint, null, null)));
 		Text eyes = new Text(Integer.toString(number));
-		eyes.setScaleX(size/20);
-		eyes.setScaleY(size/20);
+		eyes.setScaleX(size / 20);
+		eyes.setScaleY(size / 20);
 		this.setCenter(eyes);
 		this.setMaxSize(size, size);
 		this.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, BorderWidths.DEFAULT)));
