@@ -34,10 +34,17 @@ public class DataBaseApplication {
 	public boolean makeConnection() {
 		try {
 			m_Conn = DriverManager
+<<<<<<< HEAD
 //					.getConnection("jdbc:mysql://databases.aii.avans.nl/mwmastbe_db2?user=rcaasper&password=Ab12345"); // TODO
 																														// hier
 																														// moet
 					.getConnection("jdbc:mysql://databases.aii.avans.nl/2019_soprj4_sagrada_mnopqr?user=42IN04SOn&password=normalisatie");																									// de
+=======
+					.getConnection("jdbc:mysql://databases.aii.avans.nl/mwmastbe_db2?user=rcaasper&password=Ab12345"); // TODO
+																														// hier
+																														// moet
+//					.getConnection("jdbc:mysql://databases.aii.avans.nl/2019_soprj4_sagrada_mnopqr?user=42IN04SOn&password=normalisatie");																									// de
+>>>>>>> parent of fe5b46c... Merge branch 'development' of https://github.com/stefkattenvriend/Sagrada2019 into development
 																														// uiteindelijke
 																														// inloggegevens
 																														// komen
