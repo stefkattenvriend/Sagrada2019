@@ -12,8 +12,8 @@ public class DbDieCollector {
 		this.dba = dba;
 	}
 
-	public ArrayList<DiceModel> getDiceModdelArray(int gameid) {
-		return dba.getDice(gameid);
+	public ArrayList<DiceModel> getDiceModdelArray(int gameid){
+		return dba.getDice(gameid);	
 	}
 
 	public ArrayList<PlayerFieldFrameModel> getPlayerFrame(int gameid) {
@@ -21,7 +21,7 @@ public class DbDieCollector {
 	}
 
 	public int getGameDice(int gameid) {
-		int i = dba.getAmountOfGameDie(gameid);
+		int i =dba.getAmountOfGameDie(gameid);
 		return i;
 	}
 
@@ -29,14 +29,14 @@ public class DbDieCollector {
 		ArrayList<String> dieColors = dba.getDieColors(gameid, round);
 		return dieColors;
 	}
-
+	
 	public ArrayList<Integer> getDieNumbers(int gameid, int round) {
 		ArrayList<Integer> dieNumbers = dba.getDieNumbers(gameid, round);
 		return dieNumbers;
 	}
 
 	public void addDieToRound(int eyes, int round, int gameid, int dienumber, String string) {
-
+		
 		dba.addDieToRound(eyes, round, gameid, dienumber, string);
 	}
 
@@ -48,7 +48,7 @@ public class DbDieCollector {
 	public void addDieToRoundTrack(int round, int gameid, Integer integer, String string) {
 		dba.addDieToRoundTrack(round, gameid, integer, string);
 	}
-
+	
 	public ArrayList<DiceModel> getDiceOffer(int idgame, int round) {
 		return dba.getDiceOffer(idgame, round);
 	}
@@ -56,5 +56,6 @@ public class DbDieCollector {
 	public ArrayList<DiceModel> getRoundTrack(int gameID) {
 		return dba.getRoundTrack(gameID);
 	}
+	
 
 }

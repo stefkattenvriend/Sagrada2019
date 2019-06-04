@@ -31,6 +31,7 @@ public class PlayerModel {
 	private int counter = 0;
 	private int counter2 = 0;
 	private int amount;
+	private int[] totalEyes[];
 	private ArrayList<Integer> dienumbers;
 	private ArrayList<String> diecolors;
 	

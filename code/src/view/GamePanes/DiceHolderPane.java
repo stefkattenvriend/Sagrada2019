@@ -8,6 +8,7 @@ import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
@@ -49,8 +50,8 @@ public class DiceHolderPane extends BorderPane {
 	public void addPlusAndMinusAndColor() {
 		BorderPane numPlusAndMin = new BorderPane();
 		numPlusAndMin.setPrefSize(size / 10, size);
-
-		// start number buttons
+		
+		//start number buttons
 		numHigher = new Button("+");
 		numHigher.setPrefSize(size / 10, size);
 		numHigher.setFont(Font.font("Verdana", 10));
@@ -64,11 +65,11 @@ public class DiceHolderPane extends BorderPane {
 		setRight(numPlusAndMin);
 		numHigher.setOnMouseClicked(e -> higherClicked());
 		numLower.setOnMouseClicked(e -> lowerClicked());
-
-		// start color buttons
+		
+		//start color buttons
 		BorderPane colPlusAndMin = new BorderPane();
 		colPlusAndMin.setPrefSize(size / 10, size);
-
+		
 		colHigher = new Button("+");
 		colHigher.setPrefSize(size / 10, size);
 		colHigher.setFont(Font.font("Verdana", 10));
@@ -82,13 +83,13 @@ public class DiceHolderPane extends BorderPane {
 		setLeft(colPlusAndMin);
 		numHigher.setOnMouseClicked(e -> higherClicked());
 		numLower.setOnMouseClicked(e -> lowerClicked());
-
-		// start confirm button
+	
+		//start confirm button
 		Button confirm = new Button();
 		confirm.setPrefSize(size, size / 10);
-
+		
 		setBottom(confirm);
-		// confirm.setOnMouseClicked(e -> higherClicked());
+//		confirm.setOnMouseClicked(e -> higherClicked());
 	}
 
 	public void addPlusAndMinus(int dienr) {

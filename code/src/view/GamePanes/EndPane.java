@@ -9,7 +9,7 @@ public class EndPane extends Pane{
 	}
 
 	private void setUp() {
-		// Voor als iemand heeft gewonnen
+		// TODO Auto-generated method stub
 		
 	}
 }
