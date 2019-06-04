@@ -24,11 +24,13 @@ public class MenuGamesPane extends FlowPane {
 
 	private MyScene myScene;
 	private VBox list;
+	private boolean clicked = false;
 	private MenuController menuController;
 	private LoginController loginController;
 	private ArrayList<MenuDropdown> games;
 	private ArrayList<Integer> gameIDs;
 	private Label title;
+	private MenuModel menuModel;
 
 	public MenuGamesPane(MyScene myScene, MenuController menuController, LoginController loginController) {
 		this.myScene = myScene;

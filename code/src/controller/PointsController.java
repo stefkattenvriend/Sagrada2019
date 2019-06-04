@@ -19,7 +19,7 @@ public class PointsController {
 
 	private int totalPoints;
 	private int publicPoints;
-
+	
 	public PointsController(GameController gameController) {
 		this.gameController = gameController;
 		this.gameModel = gameController.getGm();
@@ -52,18 +52,18 @@ public class PointsController {
 			int paystones;
 			int totalPoints = 0;
 			int totalPublicPoints = 0;
-
-			personalObjectivePoints = getPersonalObjectivePoints(pma[i]);
+			
+			personalObjectivePoints = getPersonalObjectivePoints(pma[i]); 
 			emptySpotsPenalty = getEmptySpotsPenalty(pma[i]);
-			sharedObjectivePoints = getSharedObjectivePoints(pma[i]);
-			paystones = getAmountOfPaystones(pma[i]);
-
+/*TODO*/	sharedObjectivePoints = getSharedObjectivePoints(pma[i]); 
+			paystones = getAmountOfPaystones(pma[i]); 
+			
 			totalPoints = setTotalPoints(personalObjectivePoints, emptySpotsPenalty, sharedObjectivePoints, paystones);
 			totalPublicPoints = setPublicPoints(personalObjectivePoints, emptySpotsPenalty, paystones);
 			System.out.println("Totalpoints for player " + pma[i].getUsername() + " = " + totalPoints);
 			pma[i].setScore(totalPoints);
 			dbPlayerCollector.setScore(pma[i].getPlayerId(), totalPoints);
-
+			
 			this.totalPoints = totalPoints;
 			this.publicPoints = totalPublicPoints;
 		}
@@ -111,21 +111,22 @@ public class PointsController {
 		return points;
 	}
 
-	private int setTotalPoints(int personalObjectivePoints, int emptySpotsPenalty, int sharedObjectivePoints,
-			int paystones) {
+	
+	
+	private int setTotalPoints(int personalObjectivePoints, int emptySpotsPenalty, int sharedObjectivePoints, int paystones) {
 		int totalPoints = personalObjectivePoints + sharedObjectivePoints + paystones + emptySpotsPenalty;
 		return totalPoints;
 	}
-
+	
 	public int getTotalPoints() {
 		return totalPoints;
 	}
-
+	
 	private int setPublicPoints(int personalObjectivePoints, int emptySpotsPenalty, int paystones) {
 		int totalPublicPoints = personalObjectivePoints + paystones + emptySpotsPenalty;
 		return totalPublicPoints;
 	}
-
+	
 	public int getPublicPoints() {
 		return publicPoints;
 	}
