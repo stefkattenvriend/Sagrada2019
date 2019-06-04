@@ -22,7 +22,6 @@ public class MenuPlayersPane extends VBox {// door joery
 	private ScrollPane playersList;
 	private VBox listInput;
 	private MenuController menuController;
-	private boolean loadbutton;
 	private boolean turnOn;
 	private ArrayList<MenuDropdown> menuItems;
 	private Button cancel;
@@ -225,7 +224,7 @@ public class MenuPlayersPane extends VBox {// door joery
 	public final void removePlayer(String username) { // verwijderd speler uit arraylist
 		for (int i = 0; i < selectedPlayers.size(); i++) {
 			if (selectedPlayers.get(i).equals(username)) {
-//				System.out.println("removed " + selectedPlayers.get(i));
+				// System.out.println("removed " + selectedPlayers.get(i));
 				selectedPlayers.remove(i);
 
 				if (selectedPlayers.size() <= 4) {

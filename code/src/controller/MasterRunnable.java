@@ -6,51 +6,48 @@ public class MasterRunnable implements Runnable {
 
 	private MenuController menuController;
 	private GameController gameController;
-	
+
 	public MasterRunnable(MenuController menuController, GameController gameController) {
 		this.menuController = menuController;
 		this.gameController = gameController;
 	}
-	
-	
+
 	@Override
-    public void run() {
+	public void run() {
 		boolean test = true;
-        Runnable updater = new Runnable() {
+		Runnable updater = new Runnable() {
 
-            @Override
-            public void run() {
-            	
-            	menuController.updateIncomingInvite();
-            	menuController.updateActiveGames();
-            	menuController.updateWaitedGames();
-            	gameController.updatePaystones();
-            	
-//            	System.out.println("aan het checken..");
-                gameController.updateGameRound();
-                gameController.updatePaystones();
-            	gameController.updatePC();
-            	gameController.setMyColor();
-            	gameController.updateCardPane();
-            	gameController.updateDiceOffer();
-            	gameController.updateDicePlacement();
-            	
-//            	gameController.updateFirstDice(); // ga ik in menucontroller new game zetten
-            	
-            }
-        };
+			@Override
+			public void run() {
 
-        while (test) {
-            try {
-                Thread.sleep(4000);
-            } catch (InterruptedException ex) {
-            }
+				menuController.updateIncomingInvite();
+				menuController.updateActiveGames();
+				menuController.updateWaitedGames();
+				gameController.updatePaystones();
 
-            // UI update is run on the Application thread
-            Platform.runLater(updater);
-        }
-    }
+				// System.out.println("aan het checken..");
+				gameController.updateGameRound();
+				gameController.updatePaystones();
+				gameController.updatePC();
+				gameController.setMyColor();
+				gameController.updateCardPane();
+				gameController.updateDiceOffer();
+				gameController.updateDicePlacement();
 
+				// gameController.updateFirstDice(); // ga ik in menucontroller new game zetten
 
+			}
+		};
+
+		while (test) {
+			try {
+				Thread.sleep(4000);
+			} catch (InterruptedException ex) {
+			}
+
+			// UI update is run on the Application thread
+			Platform.runLater(updater);
+		}
+	}
 
 }

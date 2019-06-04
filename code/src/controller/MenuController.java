@@ -10,7 +10,6 @@ import model.MenuModel;
 import view.MyScene;
 import view.MenuPanes.MenuGamesPane;
 import view.MenuPanes.MenuInvitePane;
-import view.MenuPanes.MenuPane;
 import view.MenuPanes.MenuWaitingPane;
 
 public class MenuController {
@@ -21,7 +20,6 @@ public class MenuController {
 	private ArrayList<String> colors;
 	private DbGameCollector dbGameCollector;
 	private MenuUpdateController menuUpdateController;
-	private MenuPane menuPane;
 	private DataBaseApplication databeest;
 	private ArrayList<String> invitedGamesID_OLD;
 	private ArrayList<String> invitedGames_NEW;
@@ -29,8 +27,6 @@ public class MenuController {
 	private ArrayList<Integer> gameIDs_OLD;
 	private ArrayList<Integer> waitedGames_OLD;
 	private ArrayList<Integer> waitedGames_NEW;
-	private ArrayList<String> playerStatus_OLD;
-	private ArrayList<String> playerStatus_NEW;
 	private MenuInvitePane menuInvitePane;
 	private boolean newInvite = false;
 	private MenuGamesPane menuGamesPane;
@@ -38,7 +34,6 @@ public class MenuController {
 	private MenuModel menuModel;
 	private int[] randomPat;
 	private DbPayStoneRuler psr;
-	private boolean nextCheck = true;
 	private boolean offerGenerated;
 
 	public MenuController(MyScene myScene, MasterController mc, DbGameCollector dbGameCollector,
@@ -127,9 +122,11 @@ public class MenuController {
 		int playerid = databeest.getPlayerID(username, gameID);
 		int patcardid = databeest.getPaternCardNumber(playerid);	//TODO mvc
 		int[] choice = databeest.getPcChoiche(playerid);
+		System.out.println("Loading game");
 		if(!offerGenerated && mc.getGameController().checkFirstPlayer()) {
 			int amountOfPlayers = dbGameCollector.getAmountOfPlayers(gameID);
 			generateOffer(amountOfPlayers, gameID);
+			System.out.println("Generating offer");
 			offerGenerated = true;
 		}
 		LayerController lyc = mc.getGameController().getLayerController();

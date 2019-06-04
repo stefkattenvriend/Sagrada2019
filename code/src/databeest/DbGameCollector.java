@@ -13,26 +13,29 @@ public class DbGameCollector {
 
 	public void pushGame(int gameid) {
 		// maak game aan en zet in database en haal gameid op
-		
-		String query = "INSERT INTO `mwmastbe_db2`.`game` (`idgame`, `creationdate`) VALUES ('" + gameid + "', NOW());";
+
+		String query = "INSERT INTO `game` (`idgame`, `creationdate`) VALUES ('" + gameid + "', NOW());";
 		dataBaseApplication.insertQuery(query);
-	
+
 	}
-	
+
 	public int getRound(int gameid) {
 		int round = 0;
 		round = dataBaseApplication.getRoundNumber(gameid);
-//		System.out.println("dit is het ronde nummer" + round);   // syso om rondenummer te checken 
+		// System.out.println("dit is het ronde nummer" + round); // syso om rondenummer
+		// te checken
 		return round;
 	}
-	
+
 	public void updateStatusAccept(int idplayer) {
-		String query = "UPDATE `mwmastbe_db2`.`player` SET `playstatus_playstatus` = 'geaccepteerd' WHERE (`idplayer` = '" + idplayer + "');";
+		String query = "UPDATE `player` SET `playstatus_playstatus` = 'geaccepteerd' WHERE (`idplayer` = '" + idplayer
+				+ "');";
 		dataBaseApplication.insertQuery(query);
 	}
-	
+
 	public void updateStatusIgnore(int idplayer) {
-		String query = "UPDATE `mwmastbe_db2`.`player` SET `playstatus_playstatus` = 'geweigerd' WHERE (`idplayer` = '" + idplayer + "');";
+		String query = "UPDATE `player` SET `playstatus_playstatus` = 'geweigerd' WHERE (`idplayer` = '" + idplayer
+				+ "');";
 		dataBaseApplication.insertQuery(query);
 	}
 
@@ -51,17 +54,17 @@ public class DbGameCollector {
 				+ username + "', '" + gameid + "', 'uitgedaagde', " + seq + ", '0', '" + color + "');";
 		dataBaseApplication.insertQuery(query);
 	}
-	
-	//voeg playerframefield toe aan game
+
+	// voeg playerframefield toe aan game
 	public void addPlayerFrameField(String username, int gameid) {
 		for (int y = 1; y < 5; y++) {
 			for (int x = 1; x < 6; x++) {
-				String query = "INSERT INTO playerframefield(player_idplayer, position_x, position_y, idgame) VALUES ((SELECT idplayer FROM player WHERE username = '" + username + "'AND game_idgame = " + gameid + "), " + x + ", "+ y + "," + gameid + ");";
+				String query = "INSERT INTO playerframefield(player_idplayer, position_x, position_y, idgame) VALUES ((SELECT idplayer FROM player WHERE username = '"
+						+ username + "'AND game_idgame = " + gameid + "), " + x + ", " + y + "," + gameid + ");";
 				dataBaseApplication.insertQuery(query);
 			}
 		}
-		
-		
+
 	}
 
 	// return highest gameid(van degene die dus net is aangemaakt in menucontroller)
@@ -75,8 +78,8 @@ public class DbGameCollector {
 		ArrayList<String> colors = getColors();
 		for (String color : colors) { // loop door de 5 kleuren
 			for (int dienumber = 1; dienumber < 19; dienumber++) { // for loop om 18 nummers te maken per color
-				String query = "INSERT INTO `gamedie` (`idgame`, `dienumber`, `diecolor`) VALUES ('"
-						+ gameid + "', '" + dienumber + "', '" + color + "');";
+				String query = "INSERT INTO `gamedie` (`idgame`, `dienumber`, `diecolor`) VALUES ('" + gameid + "', '"
+						+ dienumber + "', '" + color + "');";
 				dataBaseApplication.insertQuery(query);
 			}
 		}
@@ -90,8 +93,7 @@ public class DbGameCollector {
 	}
 
 	public void insertToolCards(int x, int gameid) {
-		String query = "INSERT INTO `gametoolcard` (`idtoolcard`, `idgame`) VALUES ('" + x + "', '"
-				+ gameid + "');";
+		String query = "INSERT INTO `gametoolcard` (`idtoolcard`, `idgame`) VALUES ('" + x + "', '" + gameid + "');";
 		dataBaseApplication.insertQuery(query);
 
 	}
@@ -107,31 +109,21 @@ public class DbGameCollector {
 		colors = dataBaseApplication.getColor();
 		return colors;
 	}
-	
-	public int getAmountOfPlayers(int gameID)
-	{
+
+	public int getAmountOfPlayers(int gameID) {
 		int amount = dataBaseApplication.getAmountOfPlayers(gameID);
 		return amount;
 	}
-	
+
 	public int[] getPlayers(int gameID) {
 		return dataBaseApplication.GetPlayerIDs(gameID);
 	}
-	
-//	public ArrayList<Integer> startedGames(String username) {
-//		return dataBaseApplication.getStartedGames(username);
-//	}
-//	
-//	public ArrayList<Integer> waitedGames(String username) {
-//
-//		return dataBaseApplication.getWaitedGames(username);
-//	}
-	
+
 	public String getUsername(int playerid) {
 		String username = dataBaseApplication.getplayerUsername(playerid);
 		return username;
 	}
-	
+
 	public int[] getPatternCardChoice(int playerid) {
 		return dataBaseApplication.getPcChoiche(playerid);
 	}
@@ -140,26 +132,26 @@ public class DbGameCollector {
 		int playerid = dataBaseApplication.getPlayerID(username, gameid);
 		return playerid;
 	}
-	
+
 	public int getSeqnr(int playerid) {
 		int seqnr = dataBaseApplication.getSeqnr(playerid);
 		return seqnr;
 	}
-	
+
 	public ArrayList<Integer> getNormalPatternCardIds() {
 		return dataBaseApplication.getNormalPatterncards();
 	}
-	
+
 	public void giveCard(int playerId, int cardId) {
 		dataBaseApplication.giveCard(cardId, playerId);
 	}
 
 	public boolean getOffer(int gameID) {
-		if(dataBaseApplication.getOffer(gameID) == 0) {
+		if (dataBaseApplication.getOffer(gameID) == 0) {
 			return false;
-		} 
-		
+		}
+
 		return true;
 	}
-	
+
 }
