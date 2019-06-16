@@ -433,6 +433,20 @@ public class DiceHolderController {
 		}
 		
 	}
+	
+	public int getAmountOfDice() {
+		int amount = 0;
+		
+		for(int i = 0; i < dhmodels.size(); i++) {
+			if(dhmodels.get(i).getDie() != null) {
+				if(dhmodels.get(i).getType() == DiceHolderType.PLAYERWINDOW) {
+					amount++;
+				}
+			}
+		}
+		System.out.println("amount: " + amount);
+		return amount;
+	}
 
 	public DiceHolderPane getPlayerWindowDiceHolders(int x, int y, DiceHolderType type) {
 		for (int i = 0; i < dhmodels.size(); i++) {
@@ -524,7 +538,7 @@ public class DiceHolderController {
 		int nr = this.GetSelectedDiceHolder().getDie().getEyes() + 1;
 		System.out.println("new die eyes" + nr);
 		this.setEyes(nr, this.GetSelectedDiceHolder().getDie());
-		tcc.finish1();
+		tcc.returnToNormal();
 	}
 	
 	public void lowerClicked() {
@@ -532,7 +546,7 @@ public class DiceHolderController {
 		int nr = this.GetSelectedDiceHolder().getDie().getEyes() - 1;
 		System.out.println("new die eyes" + nr);
 		this.setEyes(nr, this.GetSelectedDiceHolder().getDie());
-		tcc.finish1();
+		tcc.returnToNormal();
 	}
 
 	public void solveTC11(ToolCardController toolCardController) {

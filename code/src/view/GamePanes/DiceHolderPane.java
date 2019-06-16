@@ -98,15 +98,15 @@ public class DiceHolderPane extends BorderPane {
 			numHigher.setPrefSize(size / 10, size);
 			numHigher.setFont(Font.font("Verdana", 10));
 			this.setRight(numHigher);
+			numHigher.setOnMouseClicked(e -> higherClicked());
 		}
 		if (dienr != 1) {
 			numLower = new Button("-");
 			numLower.setPrefSize(size / 10, size);
 			numLower.setFont(Font.font("Verdana", 10));
 			this.setLeft(numLower);
+			numLower.setOnMouseClicked(e -> lowerClicked());
 		}
-		numHigher.setOnMouseClicked(e -> higherClicked());
-		numLower.setOnMouseClicked(e -> lowerClicked());
 	}
 
 	private void higherClicked() {
