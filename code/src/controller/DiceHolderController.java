@@ -315,6 +315,81 @@ public class DiceHolderController {
 				}
 			}
 		
+		//diagonaal rechtsboven
+		if(location.getX() != 5 || location.getY() != 1) {
+			for (int i = 0; i < dhmodels.size(); i++) {
+				if(dhmodels.get(i).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(i).getY() == (location.getY() -1) && dhmodels.get(i).getX() == (location.getX() + 1)) {
+					if (dhmodels.get(i).getDie() != null) {
+						DiceModel rightUpDie = dhmodels.get(i).getDie();
+						if (rightUpDie == die) {
+							break;
+						}
+						nextTo = true;
+						System.out.println("changed to true");
+						}
+					}
+				}
+			}
+	
+		//diagonaal rechtsonder
+				if(location.getX() != 5 || location.getY() != 4) {
+					for (int i = 0; i < dhmodels.size(); i++) {
+						if(dhmodels.get(i).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(i).getY() == (location.getY() +1) && dhmodels.get(i).getX() == (location.getX() + 1)) {
+							if (dhmodels.get(i).getDie() != null) {
+								DiceModel rightDownDie = dhmodels.get(i).getDie();
+								if (rightDownDie == die) {
+									break;
+								}
+								nextTo = true;
+								System.out.println("changed to true");
+								}
+							}
+						}
+					}
+				
+		//diagonaal Linksonder
+				if(location.getX() != 1 || location.getY() != 4) {
+					for (int i = 0; i < dhmodels.size(); i++) {
+						if(dhmodels.get(i).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(i).getY() == (location.getY() +1) && dhmodels.get(i).getX() == (location.getX() - 1)) {
+							if (dhmodels.get(i).getDie() != null) {
+								DiceModel leftDownDie = dhmodels.get(i).getDie();
+								if (leftDownDie == die) {
+									break;
+								}
+								nextTo = true;
+								System.out.println("changed to true");
+								}
+							}
+						}
+					}
+				
+		//diagonaal Linksboven
+				if(location.getX() != 1 || location.getY() != 1) {
+					for (int i = 0; i < dhmodels.size(); i++) {
+						if(dhmodels.get(i).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(i).getY() == (location.getY() -1) && dhmodels.get(i).getX() == (location.getX() - 1)) {
+							if (dhmodels.get(i).getDie() != null) {
+								DiceModel leftUpDie = dhmodels.get(i).getDie();
+								if (leftUpDie == die) {
+									break;
+								}
+								nextTo = true;
+								System.out.println("changed to true");
+								}
+							}
+						}
+					}
+				
+		
+		// aan randen plaatsen bij eerste ronde xxx Tess
+		
+		if(gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getTurn() == 1) {
+				if(location.getX()!=1 && location.getX() != 5 || location.getY() != 1 && location.getY() != 4) {
+					check = false;
+					return check;	
+				} 
+			}
+		
+		
 		System.out.println("checkNextTo: " + checkNextTo);
 		if(checkNextTo) {
 			for(int i = 0; i < dhmodels.size(); i++) {
@@ -333,6 +408,7 @@ public class DiceHolderController {
 				}
 			}	
 		}
+		
 		
 		
 		if(gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getTurn() != 0) {
