@@ -239,8 +239,9 @@ public class PlayerModel {
 		turnPlace = i;
 	}
 
-	public int getSharedObjectivePoints(int i, int gameid, int playerid) {	//i is de objectivecard
+	public int getSharedObjectivePoints() {	
 	int points = 0;
+	points = cc.getSharedObjectivePoints();
 	return points;
 	}
 
