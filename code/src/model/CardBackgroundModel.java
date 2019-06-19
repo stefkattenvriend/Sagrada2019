@@ -14,6 +14,7 @@ public class CardBackgroundModel {
 	private int TargetCard1;
 	private int TargetCard2;
 	private int TargetCard3;
+	private int[] targetCards = new int[3];
 	
 	public CardBackgroundModel(DbCardCollector dbCardCollector, int gameId) {
 		this.dbCardCollector = dbCardCollector;
@@ -22,13 +23,16 @@ public class CardBackgroundModel {
 //		ToolCard2 = this.dbCardCollector.getToolcards(gameId).get(1);
 //		ToolCard3 = this.dbCardCollector.getToolcards(gameId).get(2);
 		
-		ToolCard1 = 7;
-		ToolCard2 = 8;
-		ToolCard3 = 9;
+		ToolCard1 = 10;
+		ToolCard2 = 11;
+		ToolCard3 = 12;
 		
 		TargetCard1 = this.dbCardCollector.getObjectivecards(gameId).get(0);
+		targetCards[0] = this.dbCardCollector.getObjectivecards(gameId).get(0);
 		TargetCard2 = this.dbCardCollector.getObjectivecards(gameId).get(1);
+		targetCards[0] = this.dbCardCollector.getObjectivecards(gameId).get(1);
 		TargetCard3 = this.dbCardCollector.getObjectivecards(gameId).get(2);
+		targetCards[0] = this.dbCardCollector.getObjectivecards(gameId).get(2);
 	}
 	
 	public int getToolCard1() {

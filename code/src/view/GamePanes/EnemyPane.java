@@ -35,11 +35,11 @@ public class EnemyPane extends BorderPane {
 		setRight(chatPane);
 	}
 
-	public void setColor() {
+//	public void setColor() {
 		
-			enemyWindow1.updateColor();
+//			enemyWindow1.updateColor();
 		
-	}
+//	}
 
 	private void setPaneSize() {
 		setMinSize(GamePane.windowMaxWidth / 3, GamePane.windowMaxHeight);

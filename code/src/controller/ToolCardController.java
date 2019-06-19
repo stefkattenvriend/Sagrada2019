@@ -8,7 +8,7 @@ import helpers.DiceHolderType;
 import model.DiceModel;
 import view.GamePanes.CardPane;
 
-
+// gemaakt door TESS!!!!!!!!!! overgenomen door jami
 public class ToolCardController {
 	private PayStoneController psc;
 	private DbToolCardCollector tcc;
@@ -216,10 +216,8 @@ public class ToolCardController {
 									if (dhc.getMoves() > 0) {
 										exception = true;
 										dhc.solveTC11(this);
-										amountOfMoves = 0;
-										waitTill = 1;
-										selectedToolcard = 1;
-										psc.pay(cardpane.getCardNr(), tcc.getPrice(cardpane.getCardNr(), gameid));
+										selectedToolcard = 11;
+			//							psc.pay(cardpane.getCardNr(), tcc.getPrice(cardpane.getCardNr(), gameid));
 									}
 								}
 							}

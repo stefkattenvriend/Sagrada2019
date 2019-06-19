@@ -12,14 +12,12 @@ public class PlayerController {
 	private DbPlayerCollector dbPlayerCollector;
 	private ToolCardController tcc;
 	
-	
-	public PlayerController(DbPlayerCollector dbPlayerCollector, GameModel gm, ToolCardController tcc)
-	{
+	public PlayerController(DbPlayerCollector dpc, GameModel gm, ToolCardController tcc, GameController gc) {
 		this.tcc = tcc;
-		playerModel = new PlayerModel(dbPlayerCollector, gm, this.tcc);
-		this.dbPlayerCollector = dbPlayerCollector;
+		playerModel = new PlayerModel(dbPlayerCollector, gm, this.tcc, gc);
+		this.dbPlayerCollector = dpc;
 	}
-	
+
 	public void setPlayerId(int playerid)
 	{
 		playerModel.setPlayerId(playerid);
