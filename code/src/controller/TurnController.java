@@ -342,16 +342,8 @@ public class TurnController {
 				
 				if(round == 11) {
 //						System.out.println("---THE GAME HAS ENDED, YOU WIN!!!!---");
-						gController.getPointsController().setEnd(true);
-						gController.getPointsController().allowCounting();
-						
-						break;
-					} else {
-					System.out.println("Now starting round number: " + round + ".");
-					diceController.generateOffer(amountOfPlayers, gameId);
-					gController.updateDiceOffer();
-					}
-					break;
+					gController.getPointsController().setEnd(true);
+					gController.getPointsController().allowCounting();
 					
 					System.out.println("JOJOJOJOJOJOJOJOJOJO");
 					myScene.setEndPane();
@@ -362,8 +354,9 @@ public class TurnController {
 				diceController.generateOffer(amountOfPlayers, gameId);
 				gController.updateDiceOffer();
 				}
-				break;
 				
+				break;
+	
 			default: System.out.println("something went wrong here...");
 			}
 		}
