@@ -53,7 +53,7 @@ public class TurnController {
 	public void updatePass() {// update na pas knop
 		
 		gController.setCurrentPlayer(false);
-		
+		tac.setMyTurn(false);
 		dhc.switchTurnInteractable(false);
 		
 		DiceHolderModel dm = null;
