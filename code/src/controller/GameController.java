@@ -173,7 +173,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		psc = new PayStoneController(psr, DatabasePTCCollector.getPlayerID(gm.getGameId(), lc.getCurrentAccount()),
 				gm.getGameId());
 		tcc = new ToolCardController(psc, dtcc, dhc, this);
-		crc = new CardsController(dbCardCollector, gm.getGameId(), tcc, dhc.getDiceController().getDMAL());
+		crc = new CardsController(dbCardCollector, gm.getGameId(), tcc, dhc.getDhmodels());
 		this.guc = new GameUpdateController(this);
 		this.tc = new TurnController(this, dhc, dbDieUpdater, gm, dtc, lc.getCurrentAccount(), gm.getGameId(), tcc, myScene);
 		// System.out.println("should be gameId: " + gm.getGameId());

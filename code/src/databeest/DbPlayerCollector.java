@@ -98,7 +98,7 @@ public class DbPlayerCollector {
 		int points = 0;
 		switch (i) { // Voor objective kaart [i], voeg punten toe..
 
-		case 1: // Tintvarieteit, Sets van één van elke waarde (5 punten)
+		case 1: // ,Tintvarieteit Sets van één van elke waarde (5 punten)
 
 			amount = getDiceAmountOnFrame(playerid);
 			int[] totalEyes = new int[amount];
