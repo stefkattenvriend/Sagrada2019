@@ -22,9 +22,9 @@ public class CardBackgroundModel {
 //		ToolCard2 = this.dbCardCollector.getToolcards(gameId).get(1);
 //		ToolCard3 = this.dbCardCollector.getToolcards(gameId).get(2);
 		
-		ToolCard1 = 4;
-		ToolCard2 = 5;
-		ToolCard3 = 6;
+		ToolCard1 = 7;
+		ToolCard2 = 8;
+		ToolCard3 = 9;
 		
 		TargetCard1 = this.dbCardCollector.getObjectivecards(gameId).get(0);
 		TargetCard2 = this.dbCardCollector.getObjectivecards(gameId).get(1);

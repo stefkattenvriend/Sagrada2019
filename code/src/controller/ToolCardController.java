@@ -105,12 +105,13 @@ public class ToolCardController {
 							dhc.setTypeToInteractable(DiceHolderType.PLAYERWINDOW, true);						//make it so you can only move in the window
 							dhc.addMove();
 							dhc.addMove();
+							dhc.setCard4(true);
 							amountOfMoves = 0;
 							System.out.println("set amount of moves to: " + amountOfMoves);
 							waitTill = 2;
 							System.out.println("set waitTill to: " + waitTill);
 							selectedToolcard = 4;
-			//				psc.pay(cardpane.getCardNr(), tcc.getPrice(cardpane.getCardNr(), gameid));							//pay
+							psc.pay(cardpane.getCardNr(), tcc.getPrice(cardpane.getCardNr(), gameid));							//pay
 						}
 					}
 					
@@ -169,7 +170,8 @@ public class ToolCardController {
 					if (cardpane.getCardNr() == 9) {
 						if(dhc.GetSelectedDiceHolder() != null) {
 							if(dhc.GetSelectedDiceHolder().getDie() != null) {									//check if it has a die
-								if(dhc.GetSelectedDiceHolder().getType() == DiceHolderType.PLAYERWINDOW) {		//if it has a die, then check if its in offer pane										
+								if(dhc.GetSelectedDiceHolder().getType() == DiceHolderType.OFFER) {		//if it has a die, then check if its in offer pane										
+									if(dhc.getAmountOfDice() > 0) {
 									System.out.println("price: " + tcc.getPrice(1, gameid));
 									exception = true;
 									dhc.setAllUninteractable();
@@ -179,7 +181,9 @@ public class ToolCardController {
 									amountOfMoves = 0;
 									waitTill = 1;
 									selectedToolcard = 3;
-									psc.pay(cardpane.getCardNr(), tcc.getPrice(cardpane.getCardNr(), gameid));												//pay
+									psc.pay(cardpane.getCardNr(), tcc.getPrice(cardpane.getCardNr(), gameid));	
+									//pay
+									}
 								}
 										// nadat dobbelsteen gekozen, leggen in een vak dat niet grenst aan andere steen
 							}
@@ -189,16 +193,11 @@ public class ToolCardController {
 					if (cardpane.getCardNr() == 10) {
 						if(dhc.GetSelectedDiceHolder() != null) {
 							if(dhc.GetSelectedDiceHolder().getDie() != null) {									//check if it has a die
-								if(dhc.GetSelectedDiceHolder().getType() == DiceHolderType.PLAYERWINDOW) {		//if it has a die, then check if its in offer pane											
+								if(dhc.GetSelectedDiceHolder().getType() == DiceHolderType.OFFER) {		//if it has a die, then check if its in offer pane											
 									System.out.println("price: " + tcc.getPrice(1, gameid));
-									exception = true;
-									dhc.setAllUninteractable();
-									dhc.setTypeToInteractable(DiceHolderType.PLAYERWINDOW, true);						//make it so you can only move in the window				
-									dhc.addMove();
+									exception = true;							
 									dhc.GetSelectedDiceHolder().getDie().setEyes(7 - dhc.GetSelectedDiceHolder().getDie().getEyes());
-									amountOfMoves = 0;
-									waitTill = 1;
-									selectedToolcard = 3;
+									selectedToolcard = 10;
 									psc.pay(cardpane.getCardNr(), tcc.getPrice(cardpane.getCardNr(), gameid));												//pay
 								}
 							}
@@ -252,8 +251,8 @@ public class ToolCardController {
 	public void doMove() {
 		amountOfMoves += 1;
 		System.out.println("amountwentup");
-		System.out.println("amountOfMoves " + amountOfMoves);
-		System.out.println("waitTill " + waitTill);
+		System.out.println("amountOfMoves: " + amountOfMoves);
+		System.out.println("waitTill: " + waitTill);
 		if(amountOfMoves == waitTill) {
 			returnToNormal();
 		}
@@ -269,6 +268,7 @@ public class ToolCardController {
 		dhc.setCheckNextTo(true);
 		dhc.setAllUninteractable();
 		dhc.setTypeToInteractable(DiceHolderType.OFFER, true);
+		dhc.setCard4(false);
 	}
 	
 	
