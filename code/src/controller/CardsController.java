@@ -3,6 +3,7 @@ package controller;
 import java.util.ArrayList;
 
 import databeest.DbCardCollector;
+import helpers.DiceHolderType;
 import javafx.scene.image.ImageView;
 import model.CardBackgroundModel;
 import model.DiceHolderModel;
@@ -82,77 +83,37 @@ public class CardsController {
 		switch (i) { // Voor objective kaart [i], voeg punten toe..
 
 		case 1: // ,Tintvarieteit Sets van één van elke waarde (5 punten)
-
-			amount = getDiceAmountOnFrame(playerid);
-			int[] totalEyes = new int[amount];
-			ArrayList<Integer> dienumbers = new ArrayList<>();
-			ArrayList<String> diecolors = new ArrayList<>();
-			counter = 0;
-			counter2 = 0;
-			for (int x = 1; x < 6; x++) {
-				for (int y = 1; y < 5; y++) {
-					dienumbers.add(dbApplication.getDieNumberinos(playerid, x, y));
-					diecolors.add(dbApplication.getDieColorinos(playerid, x, y));
-				}
-			}
-
-			for (int z = 0; z < amount; z++) {
-				int dienumber = dienumbers.get(z);
-				String diecolor = diecolors.get(z);
-				int eyes = getEyes(dienumber, gameid, diecolor);
-				totalEyes[z] = eyes;
-			}
-			for (int a = 0; a < amount; a++) {
-				if (totalEyes[a] == 1) {
-					counter++; // stel er zijn twee keer een 1, dan is counter dus 2;
-				}
-			}
-			for (int a = 0; a < amount; a++) {
-				if (totalEyes[a] == 2) {
-					counter2++; // stel er is drie keer een 2, dan is counter2 dus 3;
-					if (counter2 < counter) { // counter2 hoger dan counter dus counter blijft 2;
-						counter = counter2;
+			int[] nrs = new int[] {0,0,0,0,0,0};
+			for(int j = 0; j < dhmodels.size(); j++) { 
+				if(dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW) {
+					if(dhmodels.get(j) != null) {
+						switch (dhmodels.get(i).getDie().getEyes()) {
+						case 1:
+							nrs[0]++;
+						case 2:
+							nrs[1]++;
+						case 3:
+							nrs[2]++;
+						case 4:
+							nrs[3]++;
+						case 5:
+							nrs[4]++;
+						case 6:
+							nrs[5]++;
+						default:
+							System.out.println("error: Die nr did not fit the set boundaries (1 to 6) at CardsController line 95");	
+						}
 					}
 				}
 			}
-			counter2 = 0;
-			for (int a = 0; a < amount; a++) {
-				if (totalEyes[a] == 3) {
-					counter2++;
-					if (counter2 < counter) {
-						counter = counter2;
-					}
+			int lowest = 4;
+			for(int j; j < nrs.length; j++) {
+				if(nrs[j] < lowest) {
+					lowest = nrs[j];
 				}
 			}
-			counter2 = 0;
-			for (int a = 0; a < amount; a++) {
-				if (totalEyes[a] == 4) {
-					counter2++;
-					if (counter2 < counter) {
-						counter = counter2;
-					}
-				}
-			}
-			counter2 = 0;
-			for (int a = 0; a < amount; a++) {
-				if (totalEyes[a] == 5) {
-					counter2++;
-					if (counter2 < counter) {
-						counter = counter2;
-					}
-				}
-			}
-			counter2 = 0;
-			for (int a = 0; a < amount; a++) {
-				if (totalEyes[a] == 6) {
-					counter2++;
-					if (counter2 < counter) {
-						counter = counter2;
-					}
-				}
-			}
-			points = counter * 5;
-			break;
+			
+			
 		case 2: // Halfdonkere tinten, sets van waardes 3 & 4 ( 2 punten)
 
 			amount = getDiceAmountOnFrame(playerid);
