@@ -11,12 +11,14 @@ public class PlayerController {
 	private PlayerModel playerModel;
 	private DbPlayerCollector dbPlayerCollector;
 	private ToolCardController tcc;
+	private CardsController cc;
 	
 	
-	public PlayerController(DbPlayerCollector dbPlayerCollector, GameModel gm, ToolCardController tcc)
+	public PlayerController(DbPlayerCollector dbPlayerCollector, GameModel gm, ToolCardController tcc, CardsController cc)
 	{
 		this.tcc = tcc;
-		playerModel = new PlayerModel(dbPlayerCollector, gm, this.tcc);
+		this.cc = cc;
+		playerModel = new PlayerModel(dbPlayerCollector, gm, this.tcc, cc);
 		this.dbPlayerCollector = dbPlayerCollector;
 	}
 	

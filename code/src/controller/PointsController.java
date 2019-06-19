@@ -36,6 +36,7 @@ public class PointsController {
 		pma = gameModel.getPma();
 		// if (true /*TODO StartSpeler */) { //TODO er moat nog origins de volgorde
 		// warden aangepast, want nut worden de betaalstenen diet meegenomen
+		calculatePoints();
 		if (gameEnd) {
 
 			calculatePoints();
@@ -105,7 +106,7 @@ public class PointsController {
 			int playerid = pm.getPlayerId();
 			int gameid = pm.getGameid();
 			pm.getSharedObjectivePoints(objectiveCards[i], gameid, playerid);
-
+			
 		}
 
 		return points;

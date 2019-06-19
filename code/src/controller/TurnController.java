@@ -336,10 +336,10 @@ public class TurnController {
 						System.out.println("Something went wrong, check turncontroller 300~");
 					}
 					int round = diceController.getRound(gameId);
-					
+					gController.getPointsController().allowCounting();
 					
 					if(round == 11) {
-//						System.out.println("---THE GAME HAS ENDED, YOU WIN!!!!---");
+						System.out.println("---THE GAME HAS ENDED, YOU WIN!!!!---");
 						gController.getPointsController().setEnd(true);
 						gController.getPointsController().allowCounting();
 						
