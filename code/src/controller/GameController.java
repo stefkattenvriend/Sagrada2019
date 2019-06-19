@@ -16,6 +16,7 @@ import helpers.DiceHolderType;
 import model.GameModel;
 import model.PlayerModel;
 import model.PlayerPayStoneModel;
+import view.MyScene;
 import view.GamePanes.CardPane;
 import view.GamePanes.ChatPane;
 import view.GamePanes.GamePane;
@@ -63,17 +64,18 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private ChatPane chatPane;
 	private PlayerPane pp;
 	private PersonalAttributes pa;
+	private MyScene myScene;
 
 	public GameController(DbPatternCardInfoCollector DatabasePTCCollector, DbGameCollector dbGamecollector,
 			LoginController lc, DbChatCollector dbChat, DbCardCollector dbCardCollector, DbPlayerCollector dpc,
-			DbDieCollector ddc, DbDieUpdater ddu, DbTurnCollector dtc, DbPayStoneRuler psr, DbToolCardCollector tcc) {
+			DbDieCollector ddc, DbDieUpdater ddu, DbTurnCollector dtc, DbPayStoneRuler psr, DbToolCardCollector tcc, MyScene myScene) {
 		this.DatabasePTCCollector = DatabasePTCCollector;
 		this.dpc = dpc;
 		this.lc = lc;
 		this.dbCardCollector = dbCardCollector;
 		cc = new ChatController(dbChat, this);
 		this.dbDieCollector = ddc;
-
+		this.myScene = myScene;
 		this.dbDieUpdater = ddu;
 
 		ppc = new PlayerPaneController();
@@ -173,7 +175,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		tcc = new ToolCardController(psc, dtcc, dhc, this);
 		crc = new CardsController(dbCardCollector, gm.getGameId(), tcc, dhc.getDiceController().getDMAL());
 		this.guc = new GameUpdateController(this);
-		this.tc = new TurnController(this, dhc, dbDieUpdater, gm, dtc, lc.getCurrentAccount(), gm.getGameId(), tcc);
+		this.tc = new TurnController(this, dhc, dbDieUpdater, gm, dtc, lc.getCurrentAccount(), gm.getGameId(), tcc, myScene);
 		// System.out.println("should be gameId: " + gm.getGameId());
 	}
 
@@ -289,6 +291,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 							dhc.reloadDiceHolderPanes();// reload de panes van dice en diceholder die izjn opgeslagen
 							gamepane.redrawDice();
 							setUpdateDice(false);
+							dhc.reloadInteractability();	//zorgt ervoor dat niet alle panes met dobbelstenen erin enzo interactable zijn
 						}
 					} else {
 						System.out.println("uncomplete model");
@@ -303,6 +306,9 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	}
 
 	public void setCurrentPlayer(boolean b) {
+		if (b == false) {
+			System.out.println("curplayer False");
+		}
 		this.currentPlayer = b;
 		if (gamepane != null && b) {
 			gamepane.yourTurn(); // hoort de playerpane groen of rood te zetten als je aan de beurt bent of niet
@@ -395,7 +401,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		if (gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getSeqnr() == 1) {
 			return true;
 		}else {
-			return false;		
+			return false;
 		}
 	
 	}
@@ -411,7 +417,6 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 
 	public void setNewRound(boolean b) {
 		this.newRound = false;
-		
 	}
 
 }

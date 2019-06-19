@@ -25,7 +25,7 @@ public class LoginController {
 	{
 		if(this.CheckLogin(username, password))
 		{
-			account.setCurrentAccount(username);
+			account.setCurrentAccount(username.toLowerCase());
 			masterController.makeMenuController();
 			System.out.println("Login gelukt");
 			loggedIn = true;
