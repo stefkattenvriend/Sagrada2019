@@ -100,14 +100,11 @@ public class PointsController {
 
 	private int getSharedObjectivePoints(PlayerModel pm) {
 		int points = 0;
-		int[] objectiveCards = new int[3]; // database get welke objective cards in de game zitten
+		
 
-		for (int i = 1; i < objectiveCards.length + 1; i++) {
-			int playerid = pm.getPlayerId();
-			int gameid = pm.getGameid();
-			pm.getSharedObjectivePoints(objectiveCards[i], gameid, playerid);
+		points = pm.getSharedObjectivePoints();
 			
-		}
+		
 
 		return points;
 	}

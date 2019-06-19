@@ -78,12 +78,12 @@ public class CardsController {
 	}
 	
 	
-	public int getSharedObjectivePoints(int gameid, int playerid) { // i is de objectivecard
+	public int getSharedObjectivePoints() { // i is de objectivecard
 		int points = 0;
 		
 		switch () { // Voor objective kaart [i], voeg punten toe..
 
-		case 1: // ,Tintvarieteit Sets van één van elke waarde (5 punten)
+		case 1: // ,Tintvarieteit Sets van ï¿½ï¿½n van elke waarde (5 punten)
 			int[] nrs = new int[] {0,0,0,0,0,0};
 			for(int j = 0; j < dhmodels.size(); j++) { 
 				if(dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW) {
