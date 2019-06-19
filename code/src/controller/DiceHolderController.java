@@ -21,12 +21,14 @@ public class DiceHolderController {
 	private ArrayList<DiceHolderModel> dhmodels = new ArrayList<DiceHolderModel>();
 	private ArrayList<DiceHolderPane> dhpanes = new ArrayList<DiceHolderPane>();
 	private ArrayList<DiceModel> movedDice = new ArrayList<DiceModel>();
+	private DiceModel IllegalDice;
 	private DiceController dc;
 	private PatterncardController pcc;
 	private ToolCardController tcc;
 	private boolean checkColor = true;
 	private boolean checkEyes = true;
 	private boolean checkNextTo = true;
+	private boolean cardFour = false;
 	private int gameid;
 	private GameModel gm;
 	private DbDieUpdater dieUpdator;
@@ -39,6 +41,9 @@ public class DiceHolderController {
 		dc = new DiceController(ddc, gameid);
 	}
 	
+	public void setCard4(boolean set) {
+		cardFour = set;
+	}
 	
 	
 	public void setTypeToInteractable(DiceHolderType dhc, boolean interactable) {
@@ -131,15 +136,22 @@ public class DiceHolderController {
 						System.out.println("moves 2: " + gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getMovesAllowed2());
 						System.out.println("turn: " + gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getTurn());
 							if(checkDiceMovement(selectedModel, dhmodels.get(i).getDie()) == true) {
-								selectedModel.setDie(dhmodels.get(i).getDie());// wiselt de models
-								movedDice.add(dhmodels.get(i).getDie());
-								dhmodels.get(i).setDie(null);
-		
-								dhmodels.get(i).switchSelected();// zet achtergrond en selected naar nul van oude pane
-								dhpanes.get(i).setBackground(null);
-		
-								dp.setCenter(dhpanes.get(i).getCenter());// wiselt de panes
-								dhpanes.get(i).setCenter(null);
+								if (dhmodels.get(i).getDie() != IllegalDice) {
+									selectedModel.setDie(dhmodels.get(i).getDie());// wiselt de models
+									movedDice.add(dhmodels.get(i).getDie());
+									if (cardFour && IllegalDice == null) {				//als card4 is geactiveerd voegt hij deze steen toe
+										IllegalDice = dhmodels.get(i).getDie();
+									} else if (IllegalDice != null) {
+										IllegalDice = null;
+									}
+									dhmodels.get(i).setDie(null);
+			
+									dhmodels.get(i).switchSelected();// zet achtergrond en selected naar nul van oude pane
+									dhpanes.get(i).setBackground(null);
+			
+									dp.setCenter(dhpanes.get(i).getCenter());// wiselt de panes
+									dhpanes.get(i).setCenter(null);
+								}
 							} else {
 								dhmodels.get(i).switchSelected();
 								dhpanes.get(i).setBackground(null);// zet background en selected status naar null van de pane
@@ -436,6 +448,20 @@ public class DiceHolderController {
 		}
 		
 	}
+	
+	public int getAmountOfDice() {
+		int amount = 0;
+		
+		for(int i = 0; i < dhmodels.size(); i++) {
+			if(dhmodels.get(i).getDie() != null) {
+				if(dhmodels.get(i).getType() == DiceHolderType.PLAYERWINDOW) {
+					amount++;
+				}
+			}
+		}
+		System.out.println("amount: " + amount);
+		return amount;
+	}
 
 	public DiceHolderPane getPlayerWindowDiceHolders(int x, int y, DiceHolderType type) {
 		for (int i = 0; i < dhmodels.size(); i++) {
@@ -453,10 +479,13 @@ public class DiceHolderController {
 	public void reroll() {
 		Random rand = new Random();
 		for(int i = 0; i < dhmodels.size(); i++) {
-			if (dhmodels.get(i).getType() == DiceHolderType.OFFER) {
-				int dienr = rand.nextInt(5) + 1;
-				this.setEyes(dienr, dhmodels.get(i).getDie());
-			}
+			if (dhmodels.get(i).getDie() != null) {
+				if (dhmodels.get(i).getType() == DiceHolderType.OFFER) {
+					int dienr = rand.nextInt(6) + 1;
+					System.out.println("dienr: " + dienr);
+					this.setEyes(dienr, dhmodels.get(i).getDie());
+				}
+			}	
 		}
 	}
 	
@@ -527,7 +556,7 @@ public class DiceHolderController {
 		int nr = this.GetSelectedDiceHolder().getDie().getEyes() + 1;
 		System.out.println("new die eyes" + nr);
 		this.setEyes(nr, this.GetSelectedDiceHolder().getDie());
-		tcc.finish1();
+		tcc.returnToNormal();
 	}
 	
 	public void lowerClicked() {
@@ -535,7 +564,7 @@ public class DiceHolderController {
 		int nr = this.GetSelectedDiceHolder().getDie().getEyes() - 1;
 		System.out.println("new die eyes" + nr);
 		this.setEyes(nr, this.GetSelectedDiceHolder().getDie());
-		tcc.finish1();
+		tcc.returnToNormal();
 	}
 
 	public void solveTC11(ToolCardController toolCardController) {

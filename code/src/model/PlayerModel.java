@@ -97,7 +97,7 @@ public class PlayerModel {
 	
 	public void doMove1() {		//roep deze aan nadat je een actie hebt uitgevoerd
 		movesAllowed1 = movesAllowed1 -1;
-//		tcc.setamountOfMoves(1);
+		tcc.doMove();
 	}
 	
 	public void giveMove1() {		//roep deze aan als je een move mag doen
@@ -110,7 +110,7 @@ public class PlayerModel {
 	
 	public void doMove2() {		//roep deze aan nadat je een actie hebt uitgevoerd
 		movesAllowed2 = movesAllowed2 -1;
-		tcc.setamountOfMoves(1);
+		tcc.doMove();
 	}
 	
 	public void giveMove2() {		//roep deze aan als je een move mag doen

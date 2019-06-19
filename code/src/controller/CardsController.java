@@ -19,8 +19,7 @@ public class CardsController {
 		this.dice = dice;
 		this.tcc = tcc;
 		this.dbCardCollector = dbCardCollector;
-		cardBackgroundModel = new CardBackgroundModel(this.dbCardCollector, gameId);
-		
+		cardBackgroundModel = new CardBackgroundModel(this.dbCardCollector, gameId);	
 	}
 	
 	
