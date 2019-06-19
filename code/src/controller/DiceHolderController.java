@@ -90,7 +90,6 @@ public class DiceHolderController {
 			model.setInteractable(true);
 		}
 		
-		System.out.println("redraw");
 		
 		DiceHolderPane pane = new DiceHolderPane(size, this, dhpanes.size(), false);
 		dhmodels.add(model);
