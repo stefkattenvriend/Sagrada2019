@@ -289,6 +289,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 							dhc.reloadDiceHolderPanes();// reload de panes van dice en diceholder die izjn opgeslagen
 							gamepane.redrawDice();
 							setUpdateDice(false);
+							dhc.reloadInteractability();	//zorgt ervoor dat niet alle panes met dobbelstenen erin enzo interactable zijn
 						}
 					} else {
 						System.out.println("uncomplete model");
@@ -303,6 +304,9 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	}
 
 	public void setCurrentPlayer(boolean b) {
+		if (b == false) {
+			System.out.println("curplayer False");
+		}
 		this.currentPlayer = b;
 		if (gamepane != null && b) {
 			gamepane.yourTurn(); // hoort de playerpane groen of rood te zetten als je aan de beurt bent of niet
