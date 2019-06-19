@@ -5,6 +5,7 @@ import controller.MasterController;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import model.GameModel;
+import view.GamePanes.EndPane;
 import view.GamePanes.GamePane;
 import view.MenuPanes.MenuPane;
 
@@ -94,6 +95,13 @@ public class MyScene extends Scene{
 			mc.getStage().centerOnScreen();
 		}
 
-		
+	}
+	
+	public void setEndPane()
+	{
+		setNewRoot(new EndPane(this));
+		mc.getStage().setHeight(gamePane.windowMaxHeight);
+		mc.getStage().setWidth(gamePane.windowMaxWidth);
+		mc.getStage().centerOnScreen();
 	}
 }

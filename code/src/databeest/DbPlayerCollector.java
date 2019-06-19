@@ -98,7 +98,7 @@ public class DbPlayerCollector {
 		int points = 0;
 		switch (i) { // Voor objective kaart [i], voeg punten toe..
 
-		case 1: // Tintvarieteit, Sets van één van elke waarde (5 punten)
+		case 1: // ,Tintvarieteit Sets van één van elke waarde (5 punten)
 
 			amount = getDiceAmountOnFrame(playerid);
 			int[] totalEyes = new int[amount];
@@ -175,7 +175,9 @@ public class DbPlayerCollector {
 			amount = getDiceAmountOnFrame(playerid);
 
 			totalEyes = new int[amount];
-			dienumbers = new ArrayList<>(); // dienumbers bestaat al in case 1, wordt deze dan geleegd? ¬ Milan
+			dienumbers = new ArrayList<>(); // dienumbers bestaat al in case 1, wordt deze dan geleegd? ¬ Milan Ja, er
+											// wordt een nieuwe arraylist overheen gemaakt. Die andere gaat dus weg. ~
+											// Stef
 			diecolors = new ArrayList<>();
 			counter = 0;
 			counter2 = 0;
@@ -367,10 +369,11 @@ public class DbPlayerCollector {
 				for (int x = 1; x < 6; x++) {
 					diecolors.add(dbApplication.getDieColorinos(playerid, x, y));
 				}
-				if (diecolors.get(0) != diecolors.get(1) && diecolors.get(1) != diecolors.get(2) && diecolors.get(2) != diecolors.get(3) && diecolors.get(3) != diecolors.get(4) &&
-						diecolors.get(0) != diecolors.get(2) && diecolors.get(1) != diecolors.get(3) && diecolors.get(2) != diecolors.get(4) && 
-						diecolors.get(0) != diecolors.get(3) && diecolors.get(1) != diecolors.get(4) && 
-						diecolors.get(0) != diecolors.get(4)) {
+				if (diecolors.get(0) != diecolors.get(1) && diecolors.get(1) != diecolors.get(2)
+						&& diecolors.get(2) != diecolors.get(3) && diecolors.get(3) != diecolors.get(4)
+						&& diecolors.get(0) != diecolors.get(2) && diecolors.get(1) != diecolors.get(3)
+						&& diecolors.get(2) != diecolors.get(4) && diecolors.get(0) != diecolors.get(3)
+						&& diecolors.get(1) != diecolors.get(4) && diecolors.get(0) != diecolors.get(4)) {
 					points = points + 6;
 				}
 			}
@@ -384,17 +387,21 @@ public class DbPlayerCollector {
 					diecolors.add(dbApplication.getDieColorinos(playerid, x, y));
 				}
 			}
-			if(diecolors.get(0) == diecolors.get(5) || diecolors.get(2) == diecolors.get(5) ||diecolors.get(8) == diecolors.get(5) ||diecolors.get(10) == diecolors.get(5) ||
-					diecolors.get(2) == diecolors.get(7) ||diecolors.get(7) == diecolors.get(10) ||diecolors.get(10) == diecolors.get(15) ||diecolors.get(18) == diecolors.get(15) ||
-					diecolors.get(10) == diecolors.get(13) ||diecolors.get(13) == diecolors.get(8) ||diecolors.get(13) == diecolors.get(16) ||diecolors.get(13) == diecolors.get(18) ||
-					diecolors.get(1) == diecolors.get(4) ||
-					diecolors.get(4) == diecolors.get(9) ||diecolors.get(1) == diecolors.get(6) ||diecolors.get(6) == diecolors.get(9) ||diecolors.get(3) == diecolors.get(6) ||
-					diecolors.get(6) == diecolors.get(11) ||diecolors.get(11) == diecolors.get(14) ||diecolors.get(14) == diecolors.get(9) ||diecolors.get(9) == diecolors.get(12) ||
-					diecolors.get(12) == diecolors.get(17) ||diecolors.get(17) == diecolors.get(14) ||diecolors.get(14) == diecolors.get(19)) {
+			if (diecolors.get(0) == diecolors.get(5) || diecolors.get(2) == diecolors.get(5)
+					|| diecolors.get(8) == diecolors.get(5) || diecolors.get(10) == diecolors.get(5)
+					|| diecolors.get(2) == diecolors.get(7) || diecolors.get(7) == diecolors.get(10)
+					|| diecolors.get(10) == diecolors.get(15) || diecolors.get(18) == diecolors.get(15)
+					|| diecolors.get(10) == diecolors.get(13) || diecolors.get(13) == diecolors.get(8)
+					|| diecolors.get(13) == diecolors.get(16) || diecolors.get(13) == diecolors.get(18)
+					|| diecolors.get(1) == diecolors.get(4) || diecolors.get(4) == diecolors.get(9)
+					|| diecolors.get(1) == diecolors.get(6) || diecolors.get(6) == diecolors.get(9)
+					|| diecolors.get(3) == diecolors.get(6) || diecolors.get(6) == diecolors.get(11)
+					|| diecolors.get(11) == diecolors.get(14) || diecolors.get(14) == diecolors.get(9)
+					|| diecolors.get(9) == diecolors.get(12) || diecolors.get(12) == diecolors.get(17)
+					|| diecolors.get(17) == diecolors.get(14) || diecolors.get(14) == diecolors.get(19)) {
 				points = points + 1;
 			}
-			
-				
+
 			break;
 		case 9: // lichte tinten, waardes van 1 & 2 ( 2punten)
 			amount = getDiceAmountOnFrame(playerid);
@@ -423,6 +430,7 @@ public class DbPlayerCollector {
 					counter++;
 				}
 			}
+			
 			for (int a = 0; a < amount; a++) {
 				if (totalEyes[a] == 2) {
 					counter2++;
@@ -455,10 +463,10 @@ public class DbPlayerCollector {
 					int eyes = getEyes(dienumber, gameid, diecolor);
 					totalEyes[z] = eyes;
 				}
-				if (totalEyes[0] != totalEyes[1] && totalEyes[1] != totalEyes[2] && totalEyes[2] != totalEyes[3] && totalEyes[3] != totalEyes[4] && 
-						totalEyes[0] != totalEyes[2] && totalEyes[1] != totalEyes[3] && totalEyes[2] != totalEyes[4] && 
-						totalEyes[0] != totalEyes[3] && totalEyes[1] != totalEyes[4] && 
-						totalEyes[0] != totalEyes[4]) {
+				if (totalEyes[0] != totalEyes[1] && totalEyes[1] != totalEyes[2] && totalEyes[2] != totalEyes[3]
+						&& totalEyes[3] != totalEyes[4] && totalEyes[0] != totalEyes[2] && totalEyes[1] != totalEyes[3]
+						&& totalEyes[2] != totalEyes[4] && totalEyes[0] != totalEyes[3] && totalEyes[1] != totalEyes[4]
+						&& totalEyes[0] != totalEyes[4]) {
 					points = points + 5;
 				}
 

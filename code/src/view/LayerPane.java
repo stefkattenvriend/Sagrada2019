@@ -66,8 +66,6 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 		setRight(chooserPane);
 		
 		viewOffer();
-		
-		
 	}
 	
 	private void setColor() {

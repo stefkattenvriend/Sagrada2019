@@ -643,8 +643,46 @@ public class DiceHolderController {
 		tcc.returnToNormal();
 	}
 
-	public void solveTC11(ToolCardController toolCardController) {
-		
+	public void solveTC11(ToolCardController tcc) {
+		this.tcc = tcc;
+		this.setAllUninteractable();
+		//make it so you cant end turn
+		//make it so you cant move any other stone till youve moved this one
+		GetSelectedDicePane().addPlusAndMinusAndColor();
+	}
+	
+	public void higherClicked1() {
+		System.out.println("die eyes: " + this.GetSelectedDiceHolder().getDie().getEyes());
+		int nr = this.GetSelectedDiceHolder().getDie().getEyes() + 1;
+		System.out.println("new die eyes" + nr);
+		this.setEyes(nr, this.GetSelectedDiceHolder().getDie());
+		tcc.returnToNormal();
+	}
+	
+	public void lowerClicked1() {
+		System.out.println("die eyes: " + this.GetSelectedDiceHolder().getDie().getEyes());
+		int nr = this.GetSelectedDiceHolder().getDie().getEyes() - 1;
+		System.out.println("new die eyes" + nr);
+		this.setEyes(nr, this.GetSelectedDiceHolder().getDie());
+		tcc.returnToNormal();
+	}
+	
+	public void higherClicked2() {
+		System.out.println("die eyes: " + this.GetSelectedDiceHolder().getDie().getEyes());
+		int nr = this.GetSelectedDiceHolder().getDie().getEyes() + 1;
+		System.out.println("new die eyes" + nr);
+		this.setEyes(nr, this.GetSelectedDiceHolder().getDie());
+	}
+	
+	public void lowerClicked2() {
+		System.out.println("die eyes: " + this.GetSelectedDiceHolder().getDie().getEyes());
+		int nr = this.GetSelectedDiceHolder().getDie().getEyes() - 1;
+		System.out.println("new die eyes" + nr);
+		this.setEyes(nr, this.GetSelectedDiceHolder().getDie());
+	}
+	
+	
+	public void set() {
 		
 	}
 

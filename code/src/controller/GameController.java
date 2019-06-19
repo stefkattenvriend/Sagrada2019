@@ -16,6 +16,7 @@ import helpers.DiceHolderType;
 import model.GameModel;
 import model.PlayerModel;
 import model.PlayerPayStoneModel;
+import view.MyScene;
 import view.GamePanes.CardPane;
 import view.GamePanes.ChatPane;
 import view.GamePanes.GamePane;
@@ -63,17 +64,18 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private ChatPane chatPane;
 	private PlayerPane pp;
 	private PersonalAttributes pa;
+	private MyScene myScene;
 
 	public GameController(DbPatternCardInfoCollector DatabasePTCCollector, DbGameCollector dbGamecollector,
 			LoginController lc, DbChatCollector dbChat, DbCardCollector dbCardCollector, DbPlayerCollector dpc,
-			DbDieCollector ddc, DbDieUpdater ddu, DbTurnCollector dtc, DbPayStoneRuler psr, DbToolCardCollector tcc) {
+			DbDieCollector ddc, DbDieUpdater ddu, DbTurnCollector dtc, DbPayStoneRuler psr, DbToolCardCollector tcc, MyScene myScene) {
 		this.DatabasePTCCollector = DatabasePTCCollector;
 		this.dpc = dpc;
 		this.lc = lc;
 		this.dbCardCollector = dbCardCollector;
 		cc = new ChatController(dbChat, this);
 		this.dbDieCollector = ddc;
-
+		this.myScene = myScene;
 		this.dbDieUpdater = ddu;
 
 		ppc = new PlayerPaneController();
@@ -171,9 +173,9 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		psc = new PayStoneController(psr, DatabasePTCCollector.getPlayerID(gm.getGameId(), lc.getCurrentAccount()),
 				gm.getGameId());
 		tcc = new ToolCardController(psc, dtcc, dhc, this);
-		crc = new CardsController(dbCardCollector, gm.getGameId(), tcc, dhc.getDiceController().getDMAL());
+		crc = new CardsController(dbCardCollector, gm.getGameId(), tcc, dhc.getDhmodels());
 		this.guc = new GameUpdateController(this);
-		this.tc = new TurnController(this, dhc, dbDieUpdater, gm, dtc, lc.getCurrentAccount(), gm.getGameId(), tcc);
+		this.tc = new TurnController(this, dhc, dbDieUpdater, gm, dtc, lc.getCurrentAccount(), gm.getGameId(), tcc, myScene);
 		// System.out.println("should be gameId: " + gm.getGameId());
 	}
 
@@ -399,7 +401,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		if (gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getSeqnr() == 1) {
 			return true;
 		}else {
-			return false;		
+			return false;
 		}
 	
 	}
@@ -415,7 +417,6 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 
 	public void setNewRound(boolean b) {
 		this.newRound = false;
-		
 	}
 
 }
