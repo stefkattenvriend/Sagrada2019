@@ -80,7 +80,7 @@ public class CardsController {
 	
 	public int getSharedObjectivePoints() { // i is de objectivecard
 		int points = 0;
-		
+		/*
 		switch () { // Voor objective kaart [i], voeg punten toe..
 
 		case 1: // ,Tintvarieteit Sets van één van elke waarde (5 punten)
@@ -396,7 +396,7 @@ public class CardsController {
 		default:
 			points = 0;
 			break;
-		}
+		}*/
 		return points;
 	}
 }

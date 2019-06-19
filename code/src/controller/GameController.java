@@ -69,7 +69,8 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 
 	public GameController(DbPatternCardInfoCollector DatabasePTCCollector, DbGameCollector dbGamecollector,
 			LoginController lc, DbChatCollector dbChat, DbCardCollector dbCardCollector, DbPlayerCollector dpc,
-			DbDieCollector ddc, DbDieUpdater ddu, DbTurnCollector dtc, DbPayStoneRuler psr, DbToolCardCollector tcc, MyScene myScene) {
+			DbDieCollector ddc, DbDieUpdater ddu, DbTurnCollector dtc, DbPayStoneRuler psr, DbToolCardCollector tcc,
+			MyScene myScene) {
 		this.DatabasePTCCollector = DatabasePTCCollector;
 		this.dpc = dpc;
 		this.lc = lc;
@@ -177,7 +178,8 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		tcc = new ToolCardController(psc, dtcc, dhc, this);
 		crc = new CardsController(dbCardCollector, gm.getGameId(), tcc, dhc.getDhmodels());
 		this.guc = new GameUpdateController(this);
-		this.tc = new TurnController(this, dhc, dbDieUpdater, gm, dtc, lc.getCurrentAccount(), gm.getGameId(), tcc, myScene);
+		this.tc = new TurnController(this, dhc, dbDieUpdater, gm, dtc, lc.getCurrentAccount(), gm.getGameId(), tcc,
+				myScene);
 		// System.out.println("should be gameId: " + gm.getGameId());
 	}
 
@@ -293,9 +295,14 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 							dhc.reloadDiceHolderPanes();// reload de panes van dice en diceholder die izjn opgeslagen
 							gamepane.redrawDice();
 							setUpdateDice(false);
-							dhc.reloadInteractability();	//zorgt ervoor dat niet alle panes met dobbelstenen erin enzo interactable zijn
+							dhc.reloadInteractability(); // zorgt ervoor dat niet alle panes met dobbelstenen erin enzo
+															// interactable zijn
 						}
-						forceUpdate = false;
+						if (forceUpdate) {
+							forceUpdate = false;
+							forcedUpdateDice();
+						}
+						
 					} else {
 						System.out.println("uncomplete model");
 					}
@@ -333,7 +340,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 			if (allPatternCards) {
 				if (dhc.getDhmodels().size() == 99) {
 					if (old_round < gm.getGameRound()) {
-					guc.getDiceOffer(gm.getGameRound());// update de dice in de offerpane
+						guc.getDiceOffer(gm.getGameRound());// update de dice in de offerpane
 						old_round++;
 						System.out.println("diceoffer has been updated");
 						dhc.reloadDiceHolderPanes();
@@ -353,8 +360,10 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 			if (allPatternCards) {
 				if (dhc.getDhmodels().size() == 99) {
 					guc.checkDiceMovementPlayerFields();
-					dhc.reloadDiceHolderPanes();// reload de panes van dice en diceholder die izjn opgeslagen
-					gamepane.redrawDice();
+					if (updateDice) {
+						dhc.reloadDiceHolderPanes();// reload de panes van dice en diceholder die izjn opgeslagen
+						gamepane.redrawDice();
+					}
 				}
 			}
 		}
@@ -386,12 +395,11 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	//
 	// }
 	public void updateRoundtrack(int oldRoundId) {
-		
-		
-		 guc.reloadRoundTrack(); 
-		 dhc.clearDiceOffer(); 
-		 this.forcedUpdateDice();
-		 
+
+		guc.reloadRoundTrack();
+		dhc.clearDiceOffer();
+		this.forcedUpdateDice();
+
 		System.out.println("aye, im working here!");
 
 	}
@@ -403,15 +411,15 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	public boolean checkFirstPlayer() {
 		if (gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getSeqnr() == 1) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
-	
+
 	}
 
 	public void updateNewRound(boolean b) {
 		this.newRound = b;
-		
+
 	}
 
 	public boolean getNewRound() {

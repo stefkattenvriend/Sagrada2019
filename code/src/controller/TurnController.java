@@ -206,7 +206,7 @@ public class TurnController {
 			}
 			switch (seqnr) {
 			case 1:
-				currentplayer.setSeqnr(6);
+				currentplayer.setSeqnr(8);
 				currentplayer.setCurrentPlayer(false);
 				for (int i = 0; i < players.length; i++) {
 					if (players[i].getSeqnr() == 2) {
@@ -215,7 +215,7 @@ public class TurnController {
 				}
 				break;
 			case 2:
-				currentplayer.setSeqnr(5);
+				currentplayer.setSeqnr(7);
 				currentplayer.setCurrentPlayer(false);
 				for (int i = 0; i < players.length; i++) {
 					if (players[i].getSeqnr() == 3) {
@@ -224,25 +224,7 @@ public class TurnController {
 				}
 				break;
 			case 3: 
-				currentplayer.setSeqnr(4);
-				currentplayer.setCurrentPlayer(false);
-				for (int i = 0; i < players.length; i++) {
-					if (players[i].getSeqnr() == 4) {
-						players[i].setCurrentPlayer(true);
-					} 
-				}
-				break;
-			case 4:
-				currentplayer.setSeqnr(9);
-				currentplayer.setCurrentPlayer(false);
-				for (int i = 0; i < players.length; i++) {
-					if (players[i].getSeqnr() == 5) {
-						players[i].setCurrentPlayer(true);
-					} 
-				}
-				break;
-			case 5:
-				currentplayer.setSeqnr(9);
+				currentplayer.setSeqnr(6);
 				currentplayer.setCurrentPlayer(false);
 				for (int i = 0; i < players.length; i++) {
 					if (players[i].getSeqnr() == 6) {
@@ -251,6 +233,24 @@ public class TurnController {
 				}
 				break;
 			case 6:
+				currentplayer.setSeqnr(9);
+				currentplayer.setCurrentPlayer(false);
+				for (int i = 0; i < players.length; i++) {
+					if (players[i].getSeqnr() == 7) {
+						players[i].setCurrentPlayer(true);
+					} 
+				}
+				break;
+			case 7:
+				currentplayer.setSeqnr(9);
+				currentplayer.setCurrentPlayer(false);
+				for (int i = 0; i < players.length; i++) {
+					if (players[i].getSeqnr() == 8) {
+						players[i].setCurrentPlayer(true);
+					} 
+				}
+				break;
+			case 8:
 				tcc.setAllowed(true);
 				currentplayer.setCurrentPlayer(false);
 				diceController.putDieOnRoundTrack(gameId);
@@ -291,7 +291,7 @@ public class TurnController {
 			}
 			switch (seqnr) {
 			case 1:
-				currentplayer.setSeqnr(4);
+				currentplayer.setSeqnr(8);
 				currentplayer.setCurrentPlayer(false);
 				for (int i = 0; i < players.length; i++) {
 					if (players[i].getSeqnr() == 2) {
@@ -300,24 +300,24 @@ public class TurnController {
 				}
 				break;
 			case 2:
-				currentplayer.setSeqnr(3);
+				currentplayer.setSeqnr(7);
 				currentplayer.setCurrentPlayer(false);
 				for (int i = 0; i < players.length; i++) {
-					if (players[i].getSeqnr() == 3) {
+					if (players[i].getSeqnr() == 7) {
 						players[i].setCurrentPlayer(true);
 					} 
 				}
 				break;
-			case 3: 
+			case 7: 
 				currentplayer.setSeqnr(9);
 				currentplayer.setCurrentPlayer(false);
 				for (int i = 0; i < players.length; i++) {
-					if (players[i].getSeqnr() == 4) {
+					if (players[i].getSeqnr() == 8) {
 						players[i].setCurrentPlayer(true);
 					} 
 				}
 				break;
-			case 4:
+			case 8:
 				tcc.setAllowed(true);
 				currentplayer.setCurrentPlayer(false);
 				System.out.println("--Ending the round--");
