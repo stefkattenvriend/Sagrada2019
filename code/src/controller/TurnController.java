@@ -1,5 +1,6 @@
 package controller;
 
+
 import databeest.DbDieUpdater;
 import databeest.DbTurnCollector;
 import helpers.DiceHolderType;
@@ -23,8 +24,8 @@ public class TurnController {
 	private DiceController diceController;
 	private ToolCardController tcc;
 
-	public TurnController(GameController gc, DiceHolderController dhc, DbDieUpdater ddu, GameModel gm,
-			DbTurnCollector dtc, String username, int gameId, ToolCardController tcc) {
+	
+	public TurnController(GameController gc, DiceHolderController dhc, DbDieUpdater ddu, GameModel gm, DbTurnCollector dtc, String username, int gameId, ToolCardController tcc) {
 		this.tcc = tcc;
 		this.gameId = gameId;
 		this.username = username;
@@ -35,21 +36,23 @@ public class TurnController {
 		this.gController = gc;
 		diceController = dhc.getDiceController();
 	}
-
+	
 	public void givePane(PlayerPane pane) {
 		this.pp = pane;
 	}
-
+	
+	
+	
 	public void updateChat() {
 		gController.updateChatPane();
 	}
 
 	public void updatePass() {// update na pas knop
-
+		
 		gController.setCurrentPlayer(false);
-
+		
 		dhc.switchTurnInteractable(false);
-
+		
 		DiceHolderModel dm = null;
 
 		for (int i = 0; i < dhc.getMovedDice().size(); i++) {
@@ -69,296 +72,299 @@ public class TurnController {
 			}
 
 		}
-
+//		updateSeqnrAndTurn();
 	}
-
-	// milan
-	public void updateSeqnrAndTurn() {
-		PlayerModel[] players = gm.getPma();
-		int amountOfPlayers = players.length;
-		int seqnr = 10;
-		if (amountOfPlayers == 4) {
-			System.out.println(amountOfPlayers + " players detected, passing the turn to the next!");
-			for (int i = 0; i < players.length; i++) {
-				int x = players[i].getSeqnr();
-				if (x < seqnr) {
-					seqnr = x; // pakt de laagste seqnr, deze is van de huidige speler die op pass drukt.
-					currentplayer = players[i]; // slaat op welke speler uit players[] de huidige speler is
-				}
-			}
-			switch (seqnr) {
-			case 1:
-				currentplayer.setSeqnr(8); // eerste aan de beurt, laatste aan de beurt
-				currentplayer.setCurrentPlayer(false);
+	
+	//milan
+		public void updateSeqnrAndTurn() {
+			PlayerModel[] players = gm.getPma();
+			int amountOfPlayers = players.length;
+			int seqnr = 10;
+			if (amountOfPlayers == 4) {
+				System.out.println(amountOfPlayers + " players detected, passing the turn to the next!");
 				for (int i = 0; i < players.length; i++) {
-					if (players[i].getSeqnr() == 2) {
-						players[i].setCurrentPlayer(true);
-					}
-
-				}
-
-				break;
-			case 2:
-				currentplayer.setSeqnr(7);
-				currentplayer.setCurrentPlayer(false);
-				for (int i = 0; i < players.length; i++) {
-					if (players[i].getSeqnr() == 3) {
-						players[i].setCurrentPlayer(true);
-					}
-
-				}
-				break;
-			case 3:
-				currentplayer.setSeqnr(6);
-				currentplayer.setCurrentPlayer(false);
-				for (int i = 0; i < players.length; i++) {
-					if (players[i].getSeqnr() == 4) {
-						players[i].setCurrentPlayer(true);
+					int x = players[i].getSeqnr();
+					if (x < seqnr) {
+						seqnr = x; // pakt de laagste seqnr, deze is van de huidige speler die op pass drukt.
+						currentplayer = players[i]; // slaat op welke speler uit players[] de huidige speler is
 					}
 				}
-				break;
-			case 4:
-				currentplayer.setSeqnr(5);
-				currentplayer.setCurrentPlayer(false);
-				for (int i = 0; i < players.length; i++) {
-					if (players[i].getSeqnr() == 5) {
-						players[i].setCurrentPlayer(true);
+				switch (seqnr) {
+				case 1:
+					currentplayer.setSeqnr(8); // eerste aan de beurt, laatste aan de beurt
+					currentplayer.setCurrentPlayer(false);
+					for (int i = 0; i < players.length; i++) {
+						if (players[i].getSeqnr() == 2) {
+							players[i].setCurrentPlayer(true);
+						} 
+						
 					}
-				}
-				break;
-			case 5:
-				currentplayer.setSeqnr(9);
-				currentplayer.setCurrentPlayer(false);
-				for (int i = 0; i < players.length; i++) {
-					if (players[i].getSeqnr() == 6) {
-						players[i].setCurrentPlayer(true);
-					}
-				}
-				break;
-			case 6:
-				currentplayer.setSeqnr(9);
-				currentplayer.setCurrentPlayer(false);
-				for (int i = 0; i < players.length; i++) {
-					if (players[i].getSeqnr() == 7) {
-						players[i].setCurrentPlayer(true);
-					}
-				}
-				break;
-			case 7:
-				currentplayer.setSeqnr(9);
-				currentplayer.setCurrentPlayer(false);
-				for (int i = 0; i < players.length; i++) {
-					if (players[i].getSeqnr() == 8) {
-						players[i].setCurrentPlayer(true);
-					}
-				}
-				break;
-			case 8:
-				tcc.setAllowed(true);
-				currentplayer.setCurrentPlayer(false);
-				diceController.putDieOnRoundTrack(gameId);
-				diceController.generateOffer(amountOfPlayers, gameId);
-				gController.updateDiceOffer();
-
-				if (currentplayer == players[0]) {
-					players[0].setSeqnr(4);
-					players[1].setSeqnr(1);
-					players[1].setCurrentPlayer(true);
-					players[2].setSeqnr(2);
-					players[3].setSeqnr(3);
-				} else if (currentplayer == players[1]) {
-					players[0].setSeqnr(3);
-					players[1].setSeqnr(4);
-					players[2].setSeqnr(1);
-					players[2].setCurrentPlayer(true);
-					players[3].setSeqnr(2);
-				} else if (currentplayer == players[2]) {
-					players[0].setSeqnr(2);
-					players[1].setSeqnr(3);
-					players[2].setSeqnr(4);
-					players[3].setSeqnr(1);
-					players[3].setCurrentPlayer(true);
-				} else if (currentplayer == players[3]) {
-					players[0].setSeqnr(1);
-					players[0].setCurrentPlayer(true);
-					players[1].setSeqnr(2);
-					players[2].setSeqnr(3);
-					players[3].setSeqnr(4);
-				}
-				break;
-			default:
-				System.out.println("something went wrong here...");
-			}
-		}
-		if (amountOfPlayers == 3) {
-			System.out.println(amountOfPlayers + " players detected, passing the turn to the next player!");
-			for (int i = 0; i < players.length; i++) {
-				int x = players[i].getSeqnr();
-				if (x < seqnr) {
-					seqnr = x; // pakt de laagste seqnr, deze is van de huidige speler die op pass drukt.
-					currentplayer = players[i]; // slaat op welke speler uit players[] de huidige speler is
-				}
-			}
-			switch (seqnr) {
-			case 1:
-				currentplayer.setSeqnr(6);
-				currentplayer.setCurrentPlayer(false);
-				for (int i = 0; i < players.length; i++) {
-					if (players[i].getSeqnr() == 2) {
-						players[i].setCurrentPlayer(true);
-					}
-				}
-				break;
-			case 2:
-				currentplayer.setSeqnr(5);
-				currentplayer.setCurrentPlayer(false);
-				for (int i = 0; i < players.length; i++) {
-					if (players[i].getSeqnr() == 3) {
-						players[i].setCurrentPlayer(true);
-					}
-				}
-				break;
-			case 3:
-				currentplayer.setSeqnr(4);
-				currentplayer.setCurrentPlayer(false);
-				for (int i = 0; i < players.length; i++) {
-					if (players[i].getSeqnr() == 4) {
-						players[i].setCurrentPlayer(true);
-					}
-				}
-				break;
-			case 4:
-				currentplayer.setSeqnr(9);
-				currentplayer.setCurrentPlayer(false);
-				for (int i = 0; i < players.length; i++) {
-					if (players[i].getSeqnr() == 5) {
-						players[i].setCurrentPlayer(true);
-					}
-				}
-				break;
-			case 5:
-				currentplayer.setSeqnr(9);
-				currentplayer.setCurrentPlayer(false);
-				for (int i = 0; i < players.length; i++) {
-					if (players[i].getSeqnr() == 6) {
-						players[i].setCurrentPlayer(true);
-					}
-				}
-				break;
-			case 6:
-				tcc.setAllowed(true);
-				currentplayer.setCurrentPlayer(false);
-				diceController.putDieOnRoundTrack(gameId);
-				diceController.generateOffer(amountOfPlayers, gameId);
-				if (currentplayer == players[0]) {
-					players[0].setSeqnr(3);
-					players[1].setSeqnr(1);
-					players[1].setCurrentPlayer(true);
-					players[2].setSeqnr(2);
-
-				} else if (currentplayer == players[1]) {
-					players[0].setSeqnr(2);
-					players[1].setSeqnr(3);
-					players[2].setSeqnr(1);
-					players[2].setCurrentPlayer(true);
-				} else if (currentplayer == players[2]) {
-					players[0].setSeqnr(1);
-					players[0].setCurrentPlayer(true);
-					players[1].setSeqnr(2);
-					players[2].setSeqnr(3);
-				}
-				break;
-			default:
-				System.out.println("something went wrong here...");
-			}
-		}
-		if (amountOfPlayers == 2) {
-			System.out.println();
-			System.out.println(amountOfPlayers + " players detected, passing the turn to the next!");
-			for (int i = 0; i < players.length; i++) {
-				int x = players[i].getSeqnr();
-				// System.out.println("this is value x: " + x);
-				if (x < seqnr) {
-					seqnr = x;
-					// System.out.println("this is value seqnr: " + seqnr);
-					currentplayer = players[i];
-					// System.out.println("This is its actual seqnr: " + currentplayer.getSeqnr());
-				}
-			}
-			switch (seqnr) {
-			case 1:
-
-				currentplayer.setSeqnr(4);
-				currentplayer.setCurrentPlayer(false);
-				for (int i = 0; i < players.length; i++) {
-					if (players[i].getSeqnr() == 2) {
-						players[i].setCurrentPlayer(true);
-					}
-				}
-				break;
-			case 2:
-				currentplayer.setSeqnr(3);
-				currentplayer.setCurrentPlayer(false);
-				for (int i = 0; i < players.length; i++) {
-					if (players[i].getSeqnr() == 3) {
-						players[i].setCurrentPlayer(true);
-					}
-				}
-				break;
-			case 3:
-				currentplayer.setSeqnr(9);
-				currentplayer.setCurrentPlayer(false);
-				for (int i = 0; i < players.length; i++) {
-					if (players[i].getSeqnr() == 4) {
-						players[i].setCurrentPlayer(true);
-					}
-				}
-				break;
-			case 4:
-				tcc.setAllowed(true);
-				currentplayer.setCurrentPlayer(false);
-				System.out.println("--Ending the round--");
-				diceController.putDieOnRoundTrack(gameId);
-
-				if (currentplayer == players[0]) {
-					players[0].setSeqnr(2);
-					players[1].setSeqnr(1);
-					players[1].setCurrentPlayer(true);
-
-				} else if (currentplayer == players[1]) {
-					players[0].setSeqnr(1);
-					players[1].setSeqnr(2);
-					players[0].setCurrentPlayer(true);
-
-				} else {
-					System.out.println("Something went wrong, check turncontroller 300~");
-				}
-				int round = diceController.getRound(gameId);
-
-				if (round == 11) {
-					gController.getPointsController().setEnd(true);
-					gController.getPointsController().allowCounting();
+					
 					break;
-				} else {
+				case 2:
+					currentplayer.setSeqnr(7);
+					currentplayer.setCurrentPlayer(false);
+					for (int i = 0; i < players.length; i++) {
+						if (players[i].getSeqnr() == 3) {
+							players[i].setCurrentPlayer(true);
+						} 
+						
+					}
+					break;
+				case 3: 
+					currentplayer.setSeqnr(6);
+					currentplayer.setCurrentPlayer(false);
+					for (int i = 0; i < players.length; i++) {
+						if (players[i].getSeqnr() == 4) {
+							players[i].setCurrentPlayer(true);
+						} 
+					}
+					break;
+				case 4:
+					currentplayer.setSeqnr(5);
+					currentplayer.setCurrentPlayer(false);
+					for (int i = 0; i < players.length; i++) {
+						if (players[i].getSeqnr() == 5) {
+							players[i].setCurrentPlayer(true);
+						} 
+					}
+					break;
+				case 5:
+					currentplayer.setSeqnr(9);
+					currentplayer.setCurrentPlayer(false);
+					for (int i = 0; i < players.length; i++) {
+						if (players[i].getSeqnr() == 6) {
+							players[i].setCurrentPlayer(true);
+						} 
+					}
+					break;
+				case 6:
+					currentplayer.setSeqnr(9);
+					currentplayer.setCurrentPlayer(false);
+					for (int i = 0; i < players.length; i++) {
+						if (players[i].getSeqnr() == 7) {
+							players[i].setCurrentPlayer(true);
+						} 
+					}
+					break;
+				case 7:
+					currentplayer.setSeqnr(9);
+					currentplayer.setCurrentPlayer(false);
+					for (int i = 0; i < players.length; i++) {
+						if (players[i].getSeqnr() == 8) {
+							players[i].setCurrentPlayer(true);
+						} 
+					}
+					break;
+				case 8:
+					tcc.setAllowed(true);
+					currentplayer.setCurrentPlayer(false);
+					diceController.putDieOnRoundTrack(gameId);
+					diceController.generateOffer(amountOfPlayers, gameId);
+					gController.updateDiceOffer();
+					
+					if (currentplayer == players[0]) { 
+						players[0].setSeqnr(4);
+						players[1].setSeqnr(1);
+						players[1].setCurrentPlayer(true);
+						players[2].setSeqnr(2);
+						players[3].setSeqnr(3);
+					} else if (currentplayer == players[1]) {
+						players[0].setSeqnr(3);
+						players[1].setSeqnr(4);
+						players[2].setSeqnr(1);
+						players[2].setCurrentPlayer(true);
+						players[3].setSeqnr(2);
+					} else if (currentplayer == players[2]) {
+						players[0].setSeqnr(2);
+						players[1].setSeqnr(3);
+						players[2].setSeqnr(4);
+						players[3].setSeqnr(1);
+						players[3].setCurrentPlayer(true);
+					} else if (currentplayer == players[3]) {
+						players[0].setSeqnr(1);
+						players[0].setCurrentPlayer(true);
+						players[1].setSeqnr(2);
+						players[2].setSeqnr(3);
+						players[3].setSeqnr(4);
+					} 
+					break;
+				default: System.out.println("something went wrong here...");
+				}
+			}
+			if (amountOfPlayers == 3) {
+				System.out.println(amountOfPlayers + " players detected, passing the turn to the next player!");
+				for (int i = 0; i < players.length; i++) {
+					int x = players[i].getSeqnr();
+					if (x < seqnr) {
+						seqnr = x; // pakt de laagste seqnr, deze is van de huidige speler die op pass drukt.
+						currentplayer = players[i]; // slaat op welke speler uit players[] de huidige speler is
+					}
+				}
+				switch (seqnr) {
+				case 1:
+					currentplayer.setSeqnr(6);
+					currentplayer.setCurrentPlayer(false);
+					for (int i = 0; i < players.length; i++) {
+						if (players[i].getSeqnr() == 2) {
+							players[i].setCurrentPlayer(true);
+						} 
+					}
+					break;
+				case 2:
+					currentplayer.setSeqnr(5);
+					currentplayer.setCurrentPlayer(false);
+					for (int i = 0; i < players.length; i++) {
+						if (players[i].getSeqnr() == 3) {
+							players[i].setCurrentPlayer(true);
+						} 
+					}
+					break;
+				case 3: 
+					currentplayer.setSeqnr(4);
+					currentplayer.setCurrentPlayer(false);
+					for (int i = 0; i < players.length; i++) {
+						if (players[i].getSeqnr() == 4) {
+							players[i].setCurrentPlayer(true);
+						} 
+					}
+					break;
+				case 4:
+					currentplayer.setSeqnr(9);
+					currentplayer.setCurrentPlayer(false);
+					for (int i = 0; i < players.length; i++) {
+						if (players[i].getSeqnr() == 5) {
+							players[i].setCurrentPlayer(true);
+						} 
+					}
+					break;
+				case 5:
+					currentplayer.setSeqnr(9);
+					currentplayer.setCurrentPlayer(false);
+					for (int i = 0; i < players.length; i++) {
+						if (players[i].getSeqnr() == 6) {
+							players[i].setCurrentPlayer(true);
+						} 
+					}
+					break;
+				case 6:
+					tcc.setAllowed(true);
+					currentplayer.setCurrentPlayer(false);
+					diceController.putDieOnRoundTrack(gameId);
+					diceController.generateOffer(amountOfPlayers, gameId);
+					if (currentplayer == players[0]) {
+						players[0].setSeqnr(3);
+						players[1].setSeqnr(1);
+						players[1].setCurrentPlayer(true);
+						players[2].setSeqnr(2);
+
+					} else if (currentplayer == players[1]) {
+						players[0].setSeqnr(2);
+						players[1].setSeqnr(3);
+						players[2].setSeqnr(1);
+						players[2].setCurrentPlayer(true);
+					} else if (currentplayer == players[2]) {
+						players[0].setSeqnr(1);
+						players[0].setCurrentPlayer(true);
+						players[1].setSeqnr(2);
+						players[2].setSeqnr(3);
+					}
+					break;
+				default: System.out.println("something went wrong here...");
+				}
+			}
+			if (amountOfPlayers == 2) {
+				System.out.println();
+				System.out.println(amountOfPlayers + " players detected, passing the turn to the next!");
+				for (int i = 0; i < players.length; i++) {
+					int x = players[i].getSeqnr();
+//					System.out.println("this is value x: " + x);
+					if (x < seqnr) {
+						seqnr = x; 
+//						System.out.println("this is value seqnr: " + seqnr);
+						currentplayer = players[i]; 
+//						System.out.println("This is its actual seqnr: " + currentplayer.getSeqnr());
+					}
+				}
+				switch (seqnr) {
+				case 1:
+					
+					currentplayer.setSeqnr(4);
+					currentplayer.setCurrentPlayer(false);
+					for (int i = 0; i < players.length; i++) {
+						if (players[i].getSeqnr() == 2) {
+							players[i].setCurrentPlayer(true);
+						} 
+					}
+					break;
+				case 2:
+					currentplayer.setSeqnr(3);
+					currentplayer.setCurrentPlayer(false);
+					for (int i = 0; i < players.length; i++) {
+						if (players[i].getSeqnr() == 3) {
+							players[i].setCurrentPlayer(true);
+						} 
+					}
+					break;
+				case 3: 
+					currentplayer.setSeqnr(9);
+					currentplayer.setCurrentPlayer(false);
+					for (int i = 0; i < players.length; i++) {
+						if (players[i].getSeqnr() == 4) {
+							players[i].setCurrentPlayer(true);
+						} 
+					}
+					break;
+				case 4:
+					tcc.setAllowed(true);
+					currentplayer.setCurrentPlayer(false);
+					System.out.println("--Ending the round--");
+					diceController.putDieOnRoundTrack(gameId);
+				
+					if (currentplayer == players[0]) {
+						players[0].setSeqnr(2);
+						players[1].setSeqnr(1);
+						players[1].setCurrentPlayer(true);
+
+					} else if (currentplayer == players[1]) {
+						players[0].setSeqnr(1);
+						players[1].setSeqnr(2);
+						players[0].setCurrentPlayer(true);
+						
+						
+					} else {
+						System.out.println("Something went wrong, check turncontroller 300~");
+					}
+					int round = diceController.getRound(gameId);
+					
+					
+					if(round == 11) {
+//						System.out.println("---THE GAME HAS ENDED, YOU WIN!!!!---");
+						gController.getPointsController().setEnd(true);
+						gController.getPointsController().allowCounting();
+						break;
+					} else {
 					System.out.println("Now starting round number: " + round + ".");
 					diceController.generateOffer(amountOfPlayers, gameId);
 					gController.updateDiceOffer();
+					}
+					break;
+					
+				default: System.out.println("something went wrong here...");
 				}
-				break;
-
-			default:
-				System.out.println("something went wrong here...");
 			}
 		}
-	}
 
+	
 	public void TurnAdmissionGiving() {
 		tac = new TurnAdmissionChecker(dtc, username, gameId, dhc, pp, this, tcc, gController);
 
-		Thread t1 = new Thread(tac);
-		t1.start();
+			Thread t1 = new Thread(tac);
+			t1.start();
 	}
-
+	
+	
+	
 	public PlayerModel getCurrentplayer() {
 		return currentplayer;
 	}
@@ -366,9 +372,10 @@ public class TurnController {
 	public void startThread() {
 		tac.start();
 	}
-
+	
 	public void stopThread() {
 		tac.stop();
 	}
+
 
 }

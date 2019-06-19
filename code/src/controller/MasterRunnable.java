@@ -6,48 +6,51 @@ public class MasterRunnable implements Runnable {
 
 	private MenuController menuController;
 	private GameController gameController;
-
+	
 	public MasterRunnable(MenuController menuController, GameController gameController) {
 		this.menuController = menuController;
 		this.gameController = gameController;
 	}
-
+	
+	
 	@Override
-	public void run() {
+    public void run() {
 		boolean test = true;
-		Runnable updater = new Runnable() {
+        Runnable updater = new Runnable() {
 
-			@Override
-			public void run() {
+            @Override
+            public void run() {
+            	
+            	menuController.updateIncomingInvite();
+            	menuController.updateActiveGames();
+            	menuController.updateWaitedGames();
+            	gameController.updatePaystones();
+            	
+//            	System.out.println("aan het checken..");
+                gameController.updateGameRound();
+                gameController.updatePaystones();
+            	gameController.updatePC();
+            	gameController.setMyColor();
+            	gameController.updateCardPane();
+            	gameController.updateDiceOffer();
+            	gameController.updateDicePlacement();
+            	
+//            	gameController.updateFirstDice(); // ga ik in menucontroller new game zetten
+            	
+            }
+        };
 
-				menuController.updateIncomingInvite();
-				menuController.updateActiveGames();
-				menuController.updateWaitedGames();
-				gameController.updatePaystones();
+        while (test) {
+            try {
+                Thread.sleep(4000);
+            } catch (InterruptedException ex) {
+            }
 
-				// System.out.println("aan het checken..");
-				gameController.updateGameRound();
-				gameController.updatePaystones();
-				gameController.updatePC();
-				gameController.setMyColor();
-				gameController.updateCardPane();
-				gameController.updateDiceOffer();
-				gameController.updateDicePlacement();
+            // UI update is run on the Application thread
+            Platform.runLater(updater);
+        }
+    }
 
-				// gameController.updateFirstDice(); // ga ik in menucontroller new game zetten
 
-			}
-		};
-
-		while (test) {
-			try {
-				Thread.sleep(4000);
-			} catch (InterruptedException ex) {
-			}
-
-			// UI update is run on the Application thread
-			Platform.runLater(updater);
-		}
-	}
 
 }

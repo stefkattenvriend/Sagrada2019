@@ -35,7 +35,7 @@ public class MenuInvitePane extends FlowPane {
 		this.menuController = menuController;
 		this.menuWaitingPane = menuWaitingPane;
 		menuController.setInvitePane(this);
-
+	
 		this.challengers = menuController.getChallengers();
 		this.invitedGameIDs = menuController.getInvitedGamesID();
 
@@ -58,8 +58,7 @@ public class MenuInvitePane extends FlowPane {
 		inviteList.setFitToHeight(true);
 
 		list = new VBox();
-		list.setMinWidth(MenuPane.paneWidth - 80); // hoogte van lijst moet automatisch bijgewerkt worden met binding of
-													// listner.
+		list.setMinWidth(MenuPane.paneWidth - 80); // hoogte van lijst moet automatisch bijgewerkt worden met binding of listner.
 		list.setMaxWidth(MenuPane.paneWidth - 80);
 		inviteList.setContent(list);
 
@@ -84,7 +83,7 @@ public class MenuInvitePane extends FlowPane {
 		setMinSize(MenuPane.paneWidth - 40, MenuPane.windowMaxHeight - (MenuPane.windowMaxHeight / 3) - 80);
 		setMaxSize(MenuPane.paneWidth - 40, MenuPane.windowMaxHeight - (MenuPane.windowMaxHeight / 3) - 80);
 	}
-
+	
 	public void setNewInput(ArrayList<String> newInvitedGames, ArrayList<String> newChallengers) {
 		invitedGameIDs.clear();
 		challengers.clear();

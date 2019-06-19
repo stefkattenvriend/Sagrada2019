@@ -6,7 +6,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 
-public class CardPane extends StackPane {
+public class CardPane extends StackPane{
 	public int cardNr;
 	private CardsController cc;
 	GameController gc;
@@ -14,9 +14,8 @@ public class CardPane extends StackPane {
 	ImageView background;
 	boolean toolCard;
 	boolean selected;
-
-	public CardPane(ImageView background, boolean toolCard, CardsController cardsController, int cardNr,
-			GameController gc) {
+	
+	public CardPane(ImageView background, boolean toolCard, CardsController cardsController, int cardNr, GameController gc) {
 		this.background = background;
 		this.gc = gc;
 		gc.addCardPane(this);
@@ -29,24 +28,23 @@ public class CardPane extends StackPane {
 		FlowPane ppsh = new FlowPane();
 		ppsh.setPrefSize(this.getPrefWidth(), this.getPrefHeight());
 		this.getChildren().addAll(ppsh);
-
-		if (toolCard) {
+		
+		if(toolCard) {
 			this.setOnMouseClicked(e -> cc.useCard(this));
 		}
 	}
-
 	public void addPlayerPayStone(FlowPane ppsh) {
-		if (toolCard) {
+		 if(toolCard) {
 			System.out.println("added a paystone");
 			PlayerPayStone pps = new PlayerPayStone(this);
 			ppsh.getChildren().addAll(pps);
-		}
+		 }
 	}
-
+	
 	public int getCardNr() {
 		return cardNr;
 	}
-
+	
 	public void refresh(int amount) {
 		System.out.println("refresh amount: " + amount);
 		stonesAmount = amount;
@@ -55,21 +53,21 @@ public class CardPane extends StackPane {
 		FlowPane ppsh = new FlowPane();
 		ppsh.setPrefSize(this.getPrefWidth(), this.getPrefHeight());
 		this.getChildren().add(ppsh);
-		for (int i = 0; i < amount; i++) {
+		for(int i = 0; i < amount; i++) {	
 			this.addPlayerPayStone(ppsh);
 		}
 	}
-
+	
 	public void setStonesAmount(int amount) {
 		stonesAmount = amount;
 	}
-
+	
 	public int getStonesAmount() {
 		return stonesAmount;
 	}
-
+	
 	public void Selected() {
-
+		
 	}
-
+	
 }

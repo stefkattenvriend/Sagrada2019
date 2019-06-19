@@ -34,20 +34,20 @@ public class DataBaseApplication {
 	public boolean makeConnection() {
 		try {
 			m_Conn = DriverManager
-					// .getConnection("jdbc:mysql://databases.aii.avans.nl/mwmastbe_db2?user=rcaasper&password=Ab12345");
-					// // TODO
-					// hier
-					// moet
-					.getConnection(
-							"jdbc:mysql://databases.aii.avans.nl/2019_soprj4_sagrada_mnopqr?user=42IN04SOn&password=normalisatie"); // de
-			// uiteindelijke
-			// inloggegevens
-			// komen
-			// voor
-			// de
-			// database
-			// van
-			// school
+
+					.getConnection("jdbc:mysql://databases.aii.avans.nl/mwmastbe_db2?user=rcaasper&password=Ab12345"); // TODO
+																														// hier
+																														// moet
+//					.getConnection("jdbc:mysql://databases.aii.avans.nl/2019_soprj4_sagrada_mnopqr?user=42IN04SOn&password=normalisatie");																									// de
+
+																														// uiteindelijke
+																														// inloggegevens
+																														// komen
+																														// voor
+																														// de
+																														// database
+																														// van
+																														// school
 			System.out.println("So far, so good...");
 		} catch (SQLException ex) {
 			// handle any errors
@@ -303,8 +303,8 @@ public class DataBaseApplication {
 		return waitingGames;
 	}
 
-	public ArrayList<String> getPlayersInGame(int gameID, String currentAccount) {
-
+	public ArrayList<String> getPlayersInGame(int gameID, String currentAccount) { 
+		
 		Statement stmt = null;
 		ArrayList<String> playersInGame = new ArrayList<>();
 		String query = "SELECT username FROM player WHERE game_idgame = '" + gameID + "' AND username != '"
@@ -950,7 +950,7 @@ public class DataBaseApplication {
 		return PlayerFieldFrameList;
 
 	}
-
+	
 	public ArrayList<Integer> getFinishedGames(String username) {
 
 		Statement stmt = null;
@@ -1225,8 +1225,9 @@ public class DataBaseApplication {
 	}
 
 	public void addDieToRound(int eyes, int round, int gameid, int dienumber, String string) {
-		String query = "UPDATE `gamedie` SET `eyes` = " + eyes + ", `round` = " + round + " WHERE (`idgame` = " + gameid
-				+ ") and (`dienumber` = " + dienumber + ") and (`diecolor` = '" + string + "');";
+		String query = "UPDATE `gamedie` SET `eyes` = " + eyes + ", `round` = " + round
+				+ " WHERE (`idgame` = " + gameid + ") and (`dienumber` = " + dienumber + ") and (`diecolor` = '"
+				+ string + "');";
 		Statement stmt = null;
 
 		try {
@@ -1332,7 +1333,8 @@ public class DataBaseApplication {
 
 	public int getOffer(int gameID) {
 		Statement stmt = null;
-		String query = "SELECT COUNT(idgame) FROM gamedie WHERE idgame = " + gameID + " AND eyes is not null;";
+		String query = "SELECT COUNT(idgame) FROM gamedie WHERE idgame = " + gameID
+				+ " AND eyes is not null;";
 		int idpatterncards = 0;
 
 		try {
@@ -1353,8 +1355,7 @@ public class DataBaseApplication {
 
 	public int getDiceAmountOnFrame(int playerid) {
 		Statement stmt = null;
-		String query = "SELECT COUNT(dienumber) FROM playerframefield where player_idplayer = " + playerid
-				+ " AND dienumber IS NOT NULL;";
+		String query = "SELECT COUNT(dienumber) FROM playerframefield where player_idplayer = " + playerid + " AND dienumber IS NOT NULL;";
 		int amount = 0;
 
 		try {
@@ -1421,13 +1422,12 @@ public class DataBaseApplication {
 		return offer;
 
 	}
-
-	public String getWinner(int gameID) {
+	
+	public String getWinner(int gameID){
 		String winner = "";
 		Statement stmt = null;
-		String query = "select score, username from player where game_idgame = '" + gameID
-				+ "' AND playstatus_playstatus = 'uitgespeeld' order by score desc limit 1;";
-
+		String query = "select score, username from player where game_idgame = '" + gameID + "' AND playstatus_playstatus = 'uitgespeeld' order by score desc limit 1;";
+		
 		try {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
@@ -1446,15 +1446,14 @@ public class DataBaseApplication {
 
 	public ArrayList<DiceModel> getRoundTrack(int gameID) {
 		Statement stmt = null;
-		String query = "SELECT * FROM gamedie WHERE idgame = " + gameID
-				+ " AND roundtrack <= (SELECT MAX(roundtrack) FROM gamedie WHERE idgame = " + gameID + ");";
+		String query = "SELECT * FROM gamedie WHERE idgame = " + gameID + " AND roundtrack <= (SELECT MAX(roundtrack) FROM gamedie WHERE idgame = " + gameID + ");";
 		ArrayList<DiceModel> roundtrack = new ArrayList<DiceModel>();
 		try {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
-
+			
 			int i = 0;
-
+			
 			while (rs.next()) {
 
 				String colorstring = rs.getString(3);
@@ -1498,8 +1497,7 @@ public class DataBaseApplication {
 	}
 
 	public int getEyes(int dienumber, int idgame, String color) {
-		String query = "SELECT eyes FROM gamedie WHERE dienumber = " + dienumber + " AND diecolor = '" + color
-				+ "' AND idgame = " + idgame + ";";
+		String query = "SELECT eyes FROM gamedie WHERE dienumber = " + dienumber + " AND diecolor = '" + color + "' AND idgame = "+idgame+";";
 		Statement stmt = null;
 
 		int eyes = 0;
@@ -1521,8 +1519,7 @@ public class DataBaseApplication {
 	}
 
 	public int getDieNumberinos(int playerid, int x, int y) {
-		String query = "SELECT dienumber FROM playerframefield WHERE player_idplayer = " + playerid
-				+ " AND position_x = " + x + " AND position_y =  " + y + ";";
+		String query = "SELECT dienumber FROM playerframefield WHERE player_idplayer = " + playerid + " AND position_x = " + x + " AND position_y =  " + y + ";";
 		Statement stmt = null;
 
 		int dienumber = 0;
@@ -1544,8 +1541,7 @@ public class DataBaseApplication {
 	}
 
 	public String getDieColorinos(int playerid, int x, int y) {
-		String query = "SELECT diecolor FROM playerframefield WHERE player_idplayer = " + playerid
-				+ " AND position_x = " + x + " AND position_y =  " + y + ";";
+		String query = "SELECT diecolor FROM playerframefield WHERE player_idplayer = " + playerid + " AND position_x = " + x + " AND position_y =  " + y + ";";
 		Statement stmt = null;
 
 		String diecolor = "";
@@ -1565,10 +1561,9 @@ public class DataBaseApplication {
 		}
 		return diecolor;
 	}
-
+	
 	public void updateDiceEyes(int eyes, int gameId, int dieNumber, String dieColor) {
-		String query = "UPDATE gamedie SET eyes = " + eyes + " WHERE idgame = " + gameId + " AND dienumber = "
-				+ dieNumber + " AND diecolor LIKE '" + dieColor + "'";
+		String query = "UPDATE gamedie SET eyes = " + eyes + " WHERE idgame = " + gameId + " AND dienumber = " + dieNumber + " AND diecolor LIKE '" + dieColor + "'";
 		Statement stmt = null;
 		try {
 			stmt = m_Conn.createStatement();
@@ -1577,7 +1572,7 @@ public class DataBaseApplication {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-
+		
 	}
 
 }

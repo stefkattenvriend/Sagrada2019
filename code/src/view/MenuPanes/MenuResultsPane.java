@@ -23,7 +23,7 @@ public class MenuResultsPane extends VBox {
 	private DataBaseApplication databeest;
 
 	public MenuResultsPane(MenuController menuController) {
-		// calculateWinner();
+//		calculateWinner();
 		setPaneSize();
 		setAlignment(Pos.CENTER);
 		makePanes();
@@ -42,7 +42,7 @@ public class MenuResultsPane extends VBox {
 	}
 
 	private void makePanes() {
-
+		
 		won = new HBox();
 		won.setAlignment(Pos.CENTER);
 		Label lbl2 = new Label("Aantal keer gewonnen: ");
@@ -64,10 +64,10 @@ public class MenuResultsPane extends VBox {
 	}
 
 	private void calculateWinner() {
-		if (databeest.getFinishedGames(username) != null) {
+		if(databeest.getFinishedGames(username) != null) {
 			finishedGames = databeest.getFinishedGames(username);
 		}
-
+		
 		if (finishedGames.size() != 0) {
 			for (int i = 0; i < finishedGames.size(); i++) {
 				winner = menuController.getWinner(finishedGames.get(i));
