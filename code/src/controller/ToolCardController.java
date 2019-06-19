@@ -8,7 +8,7 @@ import helpers.DiceHolderType;
 import model.DiceModel;
 import view.GamePanes.CardPane;
 
-
+// gemaakt door TESS!!!!!!!!!! overgenomen door jami
 public class ToolCardController {
 	private PayStoneController psc;
 	private DbToolCardCollector tcc;

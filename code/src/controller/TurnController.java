@@ -342,9 +342,16 @@ public class TurnController {
 				
 				if(round == 11) {
 //						System.out.println("---THE GAME HAS ENDED, YOU WIN!!!!---");
-					gController.getPointsController().setEnd(true);
-					gController.getPointsController().allowCounting();
-					
+						gController.getPointsController().setEnd(true);
+						gController.getPointsController().allowCounting();
+						
+						break;
+					} else {
+					System.out.println("Now starting round number: " + round + ".");
+					diceController.generateOffer(amountOfPlayers, gameId);
+					gController.updateDiceOffer();
+					}
+					break;
 					
 					System.out.println("JOJOJOJOJOJOJOJOJOJO");
 					myScene.setEndPane();
