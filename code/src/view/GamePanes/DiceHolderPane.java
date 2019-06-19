@@ -63,8 +63,8 @@ public class DiceHolderPane extends BorderPane {
 		numPlusAndMin.setCenter(numLower);
 
 		setRight(numPlusAndMin);
-		numHigher.setOnMouseClicked(e -> higherClicked());
-		numLower.setOnMouseClicked(e -> lowerClicked());
+		numHigher.setOnMouseClicked(e -> dhc.higherClicked1());
+		numLower.setOnMouseClicked(e -> dhc.lowerClicked1());
 		
 		//start color buttons
 		BorderPane colPlusAndMin = new BorderPane();
@@ -108,6 +108,7 @@ public class DiceHolderPane extends BorderPane {
 			numLower.setOnMouseClicked(e -> lowerClicked());
 		}
 	}
+
 
 	private void higherClicked() {
 		this.getChildren().removeAll(numHigher, numLower);
