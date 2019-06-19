@@ -83,7 +83,7 @@ public class CardsController {
 		
 		switch () { // Voor objective kaart [i], voeg punten toe..
 
-		case 1: // ,Tintvarieteit Sets van ï¿½ï¿½n van elke waarde (5 punten)
+		case 1: // ,Tintvarieteit Sets van één van elke waarde (5 punten)
 			int[] nrs = new int[] {0,0,0,0,0,0};
 			for(int j = 0; j < dhmodels.size(); j++) { 
 				if(dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW) {
@@ -148,7 +148,7 @@ public class CardsController {
 			for(int k = 0; k < 5; k++) {
 				for(int j = 0; j < dhmodels.size(); j++) { 
 					if(dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(j) != null) {
-						if(dhmodels.get(j).getX() == k) {
+						if(dhmodels.get(j).getX() == k + 1) {
 							totalEyes[dhmodels.get(j).getY()] = dhmodels.get(j).getDie().getEyes();
 						}
 					}
@@ -302,25 +302,24 @@ public class CardsController {
 			break;
 		case 8: // kleurdiagonalen, aantal diagonaal aangrenzende stene in dezelfde kleur ( #
 				// punten )
-			diecolors = new ArrayList<>();
-			for (int x = 1; x < 6; x++) {
-				for (int y = 1; y < 5; y++) {
-					diecolors.add(dbApplication.getDieColorinos(playerid, x, y));
+			for(int j = 0; j < dhmodels.size(); j++) { 
+				if(dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(j) != null) {
+					int x = dhmodels.get(j).getX();
+					int y = dhmodels.get(j).getY();
+					for (int k = 0; k < dhmodels.length; k++) {
+						if(dhmodels.get(k).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(j) != null) {
+							if(dhmodels.get(k).getX() == X - 1 && dhmodels.get(j).getY() == Y - 1||
+									dhmodels.get(k).getX() == X - 1 && dhmodels.get(j).getY() == Y + 1||
+									dhmodels.get(k).getX() == X + 1 && dhmodels.get(j).getY() == Y - 1||
+									dhmodels.get(k).getX() == X + 1 && dhmodels.get(j).getY() == Y + 1||
+									) {
+								if(dhmodels.get(k).getDie().getDieColor() == dhmodels.get(j).getDie().getDieColor()) {
+									
+								}
+							}
+						}
+					}
 				}
-			}
-			if (diecolors.get(0) == diecolors.get(5) || diecolors.get(2) == diecolors.get(5)
-					|| diecolors.get(8) == diecolors.get(5) || diecolors.get(10) == diecolors.get(5)
-					|| diecolors.get(2) == diecolors.get(7) || diecolors.get(7) == diecolors.get(10)
-					|| diecolors.get(10) == diecolors.get(15) || diecolors.get(18) == diecolors.get(15)
-					|| diecolors.get(10) == diecolors.get(13) || diecolors.get(13) == diecolors.get(8)
-					|| diecolors.get(13) == diecolors.get(16) || diecolors.get(13) == diecolors.get(18)
-					|| diecolors.get(1) == diecolors.get(4) || diecolors.get(4) == diecolors.get(9)
-					|| diecolors.get(1) == diecolors.get(6) || diecolors.get(6) == diecolors.get(9)
-					|| diecolors.get(3) == diecolors.get(6) || diecolors.get(6) == diecolors.get(11)
-					|| diecolors.get(11) == diecolors.get(14) || diecolors.get(14) == diecolors.get(9)
-					|| diecolors.get(9) == diecolors.get(12) || diecolors.get(12) == diecolors.get(17)
-					|| diecolors.get(17) == diecolors.get(14) || diecolors.get(14) == diecolors.get(19)) {
-				points = points + 1;
 			}
 
 			break;

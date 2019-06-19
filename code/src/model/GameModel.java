@@ -1,5 +1,6 @@
 package model;
 
+import controller.CardsController;
 import controller.DiceController;
 import controller.GameController;
 import controller.ToolCardController;
@@ -18,17 +19,17 @@ public class GameModel {
 	private DbGameCollector dgc;
 	private DbPlayerCollector dpc;
 	private PlayerModel[] pma;
-	private DiceController dc;
-	private DiceModel[] dm;
+	private GameController gc;
 	private int enemies = 1;
 	private ToolCardController tcc;
 	
-	public GameModel(int gameid, DbGameCollector dgc, String username, DbPlayerCollector dpc, int amountOfPlayers, ToolCardController tcc) {
+	public GameModel(int gameid, DbGameCollector dgc, String username, DbPlayerCollector dpc, int amountOfPlayers, ToolCardController tcc, GameController gc) {
 		this.gameid = gameid;
 		this.dgc = dgc;
 		this.dpc = dpc;
 		this.amountOfPlayers = amountOfPlayers;
 		this.tcc = tcc;
+		this.gc = gc;
 		inGame = true;
 		pma = new PlayerModel[amountOfPlayers];
 //		addPlayerModel(username);
@@ -65,7 +66,7 @@ public class GameModel {
 	{
 //		System.out.println("i=" + i);
 //		System.out.println("playerId" + playerID);
-		pma[i] = new PlayerModel(dpc, this, tcc);
+		pma[i] = new PlayerModel(dpc, this, tcc, gc);
 		pma[i].setGameid(gameid);
 		pma[i].setPlayerId(playerID);
 		pma[i].getDatabaseInfo(dpc);
@@ -104,7 +105,7 @@ public class GameModel {
 	}
 	
 	public void addPlayerModel(String username) {
-		pma[0] = new PlayerModel(dpc, this, tcc);
+		pma[0] = new PlayerModel(dpc, this, tcc, gc);
 		pma[0].setDht(DiceHolderType.PLAYERWINDOW);
 		pma[0].setUsername(username);
 		pma[0].setGameid(gameid);

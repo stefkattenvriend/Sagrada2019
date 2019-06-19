@@ -143,11 +143,11 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 
 	public void createGameModel(int gameID) {
 		tcc = new ToolCardController(psc, dtcc, dhc, this);
-		pc = new PlayerController(dpc, gm, tcc, crc);
+		pc = new PlayerController(dpc, gm, tcc, this);
 
 		String username = lc.getCurrentAccount();
 		int amountOfPlayers = dbGameCollector.getAmountOfPlayers(gameID);
-		GameModel gm = new GameModel(gameID, dbGameCollector, username, dpc, amountOfPlayers, tcc);
+		GameModel gm = new GameModel(gameID, dbGameCollector, username, dpc, amountOfPlayers, tcc, this);
 		this.gm = gm;
 
 		int[] playerIDs = dbGameCollector.getPlayers(gameID);

@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-import controller.CardsController;
+import controller.GameController;
 import controller.ToolCardController;
 import databeest.DbPlayerCollector;
 import helpers.DiceHolderType;
@@ -39,12 +39,12 @@ public class PlayerModel {
 	private DiceHolderType dht;// welke diceholder er bij deze speler hoort dus welke speler is het ~ Rens
 	private DbPlayerCollector dpc;
 	private ToolCardController tcc;
-	private CardsController cc;
+	private GameController gc;
 	
 	
-	public PlayerModel(DbPlayerCollector dpc, GameModel gm, ToolCardController tcc, CardsController cc) {
+	public PlayerModel(DbPlayerCollector dpc, GameModel gm, ToolCardController tcc, GameController gc) {
 		this.tcc = tcc;
-		this.cc = cc;
+		this.gc = gc;
 		this.gm = gm;
 		this.dpc = dpc;
 	}
@@ -241,7 +241,7 @@ public class PlayerModel {
 
 	public int getSharedObjectivePoints() {	
 	int points = 0;
-	points = cc.getSharedObjectivePoints();
+	points = gc.getCardsController().getSharedObjectivePoints();
 	return points;
 	}
 
