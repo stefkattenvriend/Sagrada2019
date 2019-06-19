@@ -78,12 +78,14 @@ public class DiceHolderController {
 																							// aan en geeft de pane
 																							// terug aan de view
 		DiceHolderModel model = new DiceHolderModel(null, x, y, type, size);
-		if(type == DiceHolderType.ENEMY1 || type == DiceHolderType.ENEMY2 || type == DiceHolderType.ENEMY3 || type == DiceHolderType.ROUNDTRACK) {
+		if(type == DiceHolderType.ENEMY1 || type == DiceHolderType.ENEMY2 || type == DiceHolderType.ENEMY3 || type == DiceHolderType.ROUNDTRACK ) {
 			model.setInteractable(false);
 		}
 		else {
 			model.setInteractable(true);
 		}
+		
+		System.out.println("redraw");
 		
 		DiceHolderPane pane = new DiceHolderPane(size, this, dhpanes.size(), false);
 		dhmodels.add(model);
@@ -404,8 +406,9 @@ public class DiceHolderController {
 	}
 	
 	public void switchTurnInteractable(boolean b) {
+		System.out.println("turn interactable");
 		for (int i = 0; i < dhmodels.size(); i++) {
-			if (dhmodels.get(i).getType() == DiceHolderType.OFFER || dhmodels.get(i).getType() == DiceHolderType.PLAYERWINDOW) {
+			if (dhmodels.get(i).getType() == DiceHolderType.OFFER || (dhmodels.get(i).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(i).getDie() == null)) {
 				dhmodels.get(i).setInteractable(b);
 			}
 		}
@@ -537,6 +540,17 @@ public class DiceHolderController {
 
 	public void solveTC11(ToolCardController toolCardController) {
 		
+		
+	}
+
+
+
+	public void reloadInteractability() {
+		for (int i = 0; i < dhmodels.size(); i++) {
+			if (dhmodels.get(i).getType() == DiceHolderType.OFFER || (dhmodels.get(i).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(i).getDie() == null)) {
+				dhmodels.get(i).setInteractable(true);
+			}
+		}
 		
 	}
 }

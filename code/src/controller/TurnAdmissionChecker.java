@@ -35,7 +35,10 @@ public class TurnAdmissionChecker implements Runnable {
 	
 	public void run() {
 		while(playing) {
-			checkMyTurn();
+			if (!myTurn) {
+				checkMyTurn();
+			}
+			
 //			tc.updatePass(); //hoeft niet automatisch toch? aldus milan.
 //			if(myTurn) {
 ////				pp.setLabel("Aan de beurt: ja");
@@ -58,12 +61,12 @@ public class TurnAdmissionChecker implements Runnable {
 				
 				dhc.switchTurnInteractable(true);
 				
-				
+				myTurn = true;
 				
 				if (myTurn) {
 					gc.setCurrentPlayer(true);	//zou ervoor moeten zorgen dat zodra het jouw turn is de game nog 1 keer update voor laatste gegevens
 				}
-				myTurn = true;
+				
 				
 				
 				pp.yourTurn();
