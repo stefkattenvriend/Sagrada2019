@@ -78,9 +78,10 @@ public class CardsController {
 	}
 	
 	
-	public int getSharedObjectivePoints(int i, int gameid, int playerid) { // i is de objectivecard
+	public int getSharedObjectivePoints(int gameid, int playerid) { // i is de objectivecard
 		int points = 0;
-		switch (i) { // Voor objective kaart [i], voeg punten toe..
+		
+		switch () { // Voor objective kaart [i], voeg punten toe..
 
 		case 1: // ,Tintvarieteit Sets van één van elke waarde (5 punten)
 			int[] nrs = new int[] {0,0,0,0,0,0};
@@ -112,80 +113,56 @@ public class CardsController {
 					lowest = nrs[j];
 				}
 			}
-			
-			
+			points = lowest * 5;
+			break;
 		case 2: // Halfdonkere tinten, sets van waardes 3 & 4 ( 2 punten)
-
-			amount = getDiceAmountOnFrame(playerid);
-
-			totalEyes = new int[amount];
-			dienumbers = new ArrayList<>(); // dienumbers bestaat al in case 1, wordt deze dan geleegd? ¬ Milan Ja, er
-											// wordt een nieuwe arraylist overheen gemaakt. Die andere gaat dus weg. ~
-											// Stef
-			diecolors = new ArrayList<>();
-			counter = 0;
-			counter2 = 0;
-			for (int x = 1; x < 6; x++) {
-				for (int y = 1; y < 5; y++) {
-					dienumbers.add(dbApplication.getDieNumberinos(playerid, x, y));
-					diecolors.add(dbApplication.getDieColorinos(playerid, x, y));
-				}
-			}
-
-			for (int z = 0; z < amount; z++) {
-				int dienumber = dienumbers.get(z);
-				String diecolor = diecolors.get(z);
-				int eyes = getEyes(dienumber, gameid, diecolor);
-				totalEyes[z] = eyes;
-			}
-
-			for (int a = 0; a < amount; a++) {
-				if (totalEyes[a] == 3) {
-					counter++;
-				}
-			}
-			for (int a = 0; a < amount; a++) {
-				if (totalEyes[a] == 4) {
-					counter2++;
-					if (counter2 < counter) {
-						counter = counter2;
+			int[] nrs1 = new int[] {0,0};
+			for(int j = 0; j < dhmodels.size(); j++) { 
+				if(dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW) {
+					if(dhmodels.get(j) != null) {
+						switch (dhmodels.get(j).getDie().getEyes()) {
+						case 3:
+							nrs1[0]++;
+						case 4:
+							nrs1[1]++;
+						default:
+							break;	
+						}
 					}
 				}
 			}
-			points = counter * 2;
-			break;
+			int lowest1 = 20;
+			for(int j; j < nrs1.length; j++) {
+				if(nrs1[j] < lowest) {
+					lowest = nrs1[j];
+				}
+			}
+			points = lowest * 2;
 		case 3: // Tintvarieteit per kolom ( 4 punten)
 				// Uitleg: Elke kolom heeft 4 dobbelstenen er in, loop daar doorheen met forloop
 				// x,
 				// kijk of de ogen van deze dobbelstenen allemaal ongelijk zijn, zo ja: voeg 4
 				// punten toe.
-
-			amount = 4;
 			points = 0;
-			totalEyes = new int[amount];
-			dienumbers = new ArrayList<>();
-			diecolors = new ArrayList<>();
-			counter = 0;
-			counter2 = 0;
-			for (int x = 1; x < 6; x++) {
-				for (int y = 1; y < 5; y++) {
-					dienumbers.add(dbApplication.getDieNumberinos(playerid, x, y)); // wat krijg je als er geen
-																					// dobbelsteen staat op die plek..
-					diecolors.add(dbApplication.getDieColorinos(playerid, x, y));
-				}
-
-				for (int z = 0; z < amount; z++) {
-					int dienumber = dienumbers.get(z);
-					String diecolor = diecolors.get(z);
-					int eyes = getEyes(dienumber, gameid, diecolor);
-					totalEyes[z] = eyes;
+			int[] totalEyes = new int[4];
+			for(int k = 0; k < 5; k++) {
+				for(int j = 0; j < dhmodels.size(); j++) { 
+					if(dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(j) != null) {
+						if(dhmodels.get(j).getX() == k) {
+							totalEyes[dhmodels.get(j).getY()] = dhmodels.get(j).getDie().getEyes();
+						}
+					}
 				}
 				if (totalEyes[0] != totalEyes[1] && totalEyes[1] != totalEyes[2] && totalEyes[2] != totalEyes[3]
 						&& totalEyes[0] != totalEyes[2] && totalEyes[1] != totalEyes[3]
 						&& totalEyes[0] != totalEyes[3]) {
 					points = points + 4;
 				}
-
+				
+				for(int l = 0; l < totalEyes.length; l++) {
+					totalEyes[l] = 0;
+				}
+				
 			}
 			break;
 		case 4: // kleurvarieteit per kolom (5 punten)
