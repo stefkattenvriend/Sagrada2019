@@ -3,6 +3,7 @@ package controller;
 import java.util.ArrayList;
 
 import databeest.DbCardCollector;
+import helpers.DiceHolderType;
 import javafx.scene.image.ImageView;
 import model.CardBackgroundModel;
 import model.DiceHolderModel;
@@ -81,7 +82,7 @@ public class CardsController {
 		int points = 0;
 		switch (i) { // Voor objective kaart [i], voeg punten toe..
 
-		case 1: // ,Tintvarieteit Sets van één van elke waarde (5 punten)
+		case 1: // ,Tintvarieteit Sets van ï¿½ï¿½n van elke waarde (5 punten)
 			int[] nrs = new int[] {0,0,0,0,0,0};
             for(int j = 0; j < dhmodels.size(); j++) { 
                 if(dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW) {
@@ -118,7 +119,7 @@ public class CardsController {
 			amount = getDiceAmountOnFrame(playerid);
 
 			totalEyes = new int[amount];
-			dienumbers = new ArrayList<>(); // dienumbers bestaat al in case 1, wordt deze dan geleegd? ¬ Milan Ja, er
+			dienumbers = new ArrayList<>(); // dienumbers bestaat al in case 1, wordt deze dan geleegd? ï¿½ Milan Ja, er
 											// wordt een nieuwe arraylist overheen gemaakt. Die andere gaat dus weg. ~
 											// Stef
 			diecolors = new ArrayList<>();
