@@ -4,17 +4,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import databeest.DbDieCollector;
+import helpers.DiceHolderType;
 import model.DiceModel;
 import view.GamePanes.DicePane;
 
 public class DiceController {
 	
-	ArrayList<DiceModel> dmodels;
-	ArrayList<DicePane> dpanes = new ArrayList<DicePane>();
+	private ArrayList<DiceModel> dmodels;
+	private ArrayList<DicePane> dpanes = new ArrayList<DicePane>();
 	private DbDieCollector ddc;
+	private DiceHolderController dhc;
 	
-	public DiceController(DbDieCollector ddc, int gameid) {
+	public DiceController(DbDieCollector ddc, int gameid, DiceHolderController dhc) {
 		this.ddc = ddc;
+		this.dhc = dhc;
 		setup(gameid);
 	}
 	

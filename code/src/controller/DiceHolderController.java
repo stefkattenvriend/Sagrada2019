@@ -39,7 +39,7 @@ public class DiceHolderController {
 		this.gm = gm;
 		this.pcc = pcc;
 		this.gameid = gameid;
-		dc = new DiceController(ddc, gameid);
+		dc = new DiceController(ddc, gameid, this);
 	}
 
 	public void setCard4(boolean set) {
@@ -707,4 +707,41 @@ public class DiceHolderController {
 		}
 
 	}
+
+	/*public void putDieOnRoundTrack(int gameid) {
+		int round = gm.getGameRound();
+		ArrayList<String> diecolor = new ArrayList<String>();
+		ArrayList<Integer> dienumber = new ArrayList<Integer>();
+
+		for (int i = 0; i < dhmodels.size(); i++) {
+			if (dhmodels.get(i).getType() == DiceHolderType.OFFER && dhmodels.get(i).getDie() != null) {
+				dienumber.add(dhmodels.get(i).getDie().getDieNumber());
+				switch (dhmodels.get(i).getDie().getDieColor().toString()) {
+				case ("0xff0000ff")://red
+
+					break;
+				case ("0x0000ffff")://blue
+
+					break;
+				case ("0x008000ff")://green
+
+					break;
+				case ("0xffff00ff")://yellow
+
+					break;
+				case ("0x800080ff")://purple
+
+					break;
+				default:
+					break;
+				}
+			}
+		}
+
+		for (int i = 0; i < dienumber.size(); i++) {
+			ddc.addDieToRoundTrack(round, gameid, dienumber.get(i), diecolor.get(i));
+			// System.out.println("Adding " + dienumber.get(i)+ " to roundtrack: " + round);
+		}
+	}*/
+
 }
