@@ -53,7 +53,7 @@ public class GameModel {
 		if (gameRound < newRound) {
 			gameRound = newRound;
 			gc.updateNewRound(true);
-			gc.updateRoundtrack(newRound - 1);
+			//gc.updateRoundtrack(newRound - 1);
 		}
 		
 	}
