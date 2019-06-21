@@ -53,7 +53,7 @@ public class MenuPlayersPane extends VBox {// door joery
 		setBackground(new Background(new BackgroundFill(Color.rgb(208, 215, 206), null, null))); // tijdelijk
 	}
 
-	private void createPlayersList(boolean turnon) {		
+	private void createPlayersList(boolean turnon) {
 		players = databeest.getPlayers();
 		selectedPlayers = new ArrayList<String>(); // heeft de invited players in zich
 		selectedPlayers.add(loginController.getCurrentAccount());
@@ -90,8 +90,6 @@ public class MenuPlayersPane extends VBox {// door joery
 		listInput.setMaxWidth(MenuPane.paneWidth - 80);
 		playersList.setContent(listInput);
 		menuItems = new ArrayList<MenuDropdown>();
-
-//		databeest.getPlayers();
 
 		for (int i = 0; i < players.size(); i++) {// check of eigen gebruikersnaam er tussen staat
 			if (players.get(i).equals(loginController.getCurrentAccount())) {
@@ -202,8 +200,9 @@ public class MenuPlayersPane extends VBox {// door joery
 	}
 
 	public final void addPlayer(String username) { // voegt speler toe in arraylist
-		ArrayList<String> waitingGames = new ArrayList<>();
-		waitingGames = databeest.getWaitingGames(loginController.getCurrentAccount());
+		ArrayList<Integer> waitingGames = new ArrayList<>();
+//		waitingGames = databeest.getWaitingGames(loginController.getCurrentAccount());
+		waitingGames = databeest.getWaitedGames(loginController.getCurrentAccount());
 		ArrayList<String> playersInGame = new ArrayList<>();
 
 		selectedPlayers.add(username);
@@ -214,8 +213,7 @@ public class MenuPlayersPane extends VBox {// door joery
 		}
 
 		for (int a = 0; a < waitingGames.size(); a++) {
-			playersInGame = databeest.getPlayersInGame(Integer.parseInt(waitingGames.get(a)),
-					loginController.getCurrentAccount());
+			playersInGame = databeest.getPlayersInGame(waitingGames.get(a), loginController.getCurrentAccount());
 
 			for (int b = 0; b < playersInGame.size(); b++) {
 
@@ -232,7 +230,6 @@ public class MenuPlayersPane extends VBox {// door joery
 	public final void removePlayer(String username) { // verwijderd speler uit arraylist
 		for (int i = 0; i < selectedPlayers.size(); i++) {
 			if (selectedPlayers.get(i).equals(username)) {
-//				System.out.println("removed " + selectedPlayers.get(i));
 				selectedPlayers.remove(i);
 
 				if (selectedPlayers.size() <= 4) {
@@ -247,7 +244,7 @@ public class MenuPlayersPane extends VBox {// door joery
 		setMinSize(MenuPane.paneWidth - 40, MenuPane.windowMaxHeight - (MenuPane.windowMaxHeight / 3) - 40);
 		setMaxSize(MenuPane.paneWidth - 40, MenuPane.windowMaxHeight - (MenuPane.windowMaxHeight / 3) - 40);
 	}
-	
+
 	public void updatePlayerlist() {
 		getChildren().clear();
 		btnPane.getChildren().clear();

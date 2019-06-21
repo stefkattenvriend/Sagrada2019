@@ -281,28 +281,6 @@ public class DataBaseApplication {
 		return statusAccepted;
 	}
 
-	public ArrayList<String> getWaitingGames(String currentAccount) { // alle afwachtend op reactie games van de
-																		// ingelogde speler #joery
-		Statement stmt = null;
-		ArrayList<String> waitingGames = new ArrayList<>();
-		String query = "SELECT p1.game_idgame as gameid, p1.playstatus_playstatus From player p1 where p1.username = '"
-				+ currentAccount + "' Order by p1.game_idgame;";
-		try {
-			stmt = m_Conn.createStatement();
-			ResultSet rs = stmt.executeQuery(query);
-
-			while (rs.next()) {
-
-				waitingGames.add(rs.getString(1));
-
-			}
-			stmt.close();
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-		return waitingGames;
-	}
-
 	public ArrayList<String> getPlayersInGame(int gameID, String currentAccount) { 
 		
 		Statement stmt = null;
