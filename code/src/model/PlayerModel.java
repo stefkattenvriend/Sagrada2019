@@ -28,6 +28,8 @@ public class PlayerModel {
 	private int turnPlace;
 	private GameModel gm;
 	private int amountOfDiceOnFrame;
+	private int publicPoints = 0;
+	private int totalPoints = 0;
 	
 	private int counter = 0;
 	private int counter2 = 0;
@@ -206,14 +208,6 @@ public class PlayerModel {
 	public void setPatid(int patid) {
 		this.patid = patid;
 	}
-
-	public int getScore() {
-		return score;
-	}
-
-	public void setScore(int score) {
-		this.score = score;
-	}
 	
 	public void reloadPcID() {
 		patid = dpc.getPatternCardID(playerid);
@@ -243,6 +237,26 @@ public class PlayerModel {
 	int points = 0;
 	points = gc.getCardsController().getSharedObjectivePoints();
 	return points;
+	}
+	
+	public void setPublicPoints(int publicPoints)
+	{
+		this.publicPoints = publicPoints;
+	}
+	
+	public int getPublicPoints()
+	{
+		return publicPoints;
+	}
+
+	public void setTotalPoints(int totalPoints) 
+	{
+		this.totalPoints = totalPoints;
+	}
+	
+	public int getTotalPoints()
+	{
+		return totalPoints;
 	}
 
 }

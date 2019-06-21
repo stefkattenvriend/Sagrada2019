@@ -16,9 +16,6 @@ public class PointsController {
 	private GameController gameController;
 	private boolean gameEnd;
 	private DbPlayerCollector dbPlayerCollector;
-
-	private int totalPoints;
-	private int publicPoints;
 	
 	public PointsController(GameController gameController) {
 		this.gameController = gameController;
@@ -35,38 +32,30 @@ public class PointsController {
 	public void allowCounting() {
 		pma = gameModel.getPma();
 		// if (true /*TODO StartSpeler */) {
-		if (gameEnd) {
-
+//		if (gameEnd) {
 			calculatePoints();
-		}
-		
+//		}
 	}
 
 	private void calculatePoints() {
-		// voor elke speller
+		// voor elke speler
 		for (int i = 0; i < pma.length; i++) {
 			int personalObjectivePoints;
 			int emptySpotsPenalty;
 			int sharedObjectivePoints;
 			int paystones;
-			int totalPoints = 0;
-			int totalPublicPoints = 0;
 			
 			personalObjectivePoints = getPersonalObjectivePoints(pma[i]); 
 			emptySpotsPenalty = getEmptySpotsPenalty(pma[i]);
-/*TODO*/	sharedObjectivePoints = getSharedObjectivePoints(pma[i]); 
+			sharedObjectivePoints = getSharedObjectivePoints(pma[i]); 
 			paystones = getAmountOfPaystones(pma[i]); 
 			
-			totalPoints = setTotalPoints(personalObjectivePoints, emptySpotsPenalty, sharedObjectivePoints, paystones);
-			totalPublicPoints = setPublicPoints(personalObjectivePoints, emptySpotsPenalty, paystones);
-			System.out.println("Totalpoints for player " + pma[i].getUsername() + " = " + totalPoints);
-			pma[i].setScore(totalPoints);
-			dbPlayerCollector.setScore(pma[i].getPlayerId(), totalPoints);
-			
-			this.totalPoints = totalPoints;
-			this.publicPoints = totalPublicPoints;
+			setPrivatePoints(pma[i], personalObjectivePoints, emptySpotsPenalty, sharedObjectivePoints, paystones);
+			setPublicPoints(pma[i], sharedObjectivePoints, emptySpotsPenalty, paystones);
+			System.out.println("Privatepoints for player " + pma[i].getUsername() + " = " + getPrivatePoints(pma[i]));
+			System.out.println("Totalpoints for player " + pma[i].getUsername() + " = " + getPublicPoints(pma[i]));
+			dbPlayerCollector.setScore(pma[i].getPlayerId(), getPublicPoints(pma[i]));
 		}
-
 	}
 
 	private int getPersonalObjectivePoints(PlayerModel pm) {
@@ -98,32 +87,34 @@ public class PointsController {
 
 	private int getSharedObjectivePoints(PlayerModel pm) {
 		int points = 0;
-		
-
 		points = pm.getSharedObjectivePoints();
-			
-		
 
 		return points;
 	}
 
 	
-	
-	private int setTotalPoints(int personalObjectivePoints, int emptySpotsPenalty, int sharedObjectivePoints, int paystones) {
+	private void setPrivatePoints(PlayerModel pm, int personalObjectivePoints, int emptySpotsPenalty, int sharedObjectivePoints, int paystones) 
+	{
 		int totalPoints = personalObjectivePoints + sharedObjectivePoints + paystones + emptySpotsPenalty;
-		return totalPoints;
+		
+		pm.setTotalPoints(totalPoints);
 	}
 	
-	public int getTotalPoints() {
-		return totalPoints;
+	public int getPrivatePoints(PlayerModel pm) 
+	{
+		return pm.getTotalPoints();
 	}
 	
-	private int setPublicPoints(int personalObjectivePoints, int emptySpotsPenalty, int paystones) {
-		int totalPublicPoints = personalObjectivePoints + paystones + emptySpotsPenalty;
-		return totalPublicPoints;
+	private void setPublicPoints(PlayerModel pm, int sharedObjectivePoints, int emptySpotsPenalty, int paystones)
+	{
+		int publicPoints = sharedObjectivePoints + emptySpotsPenalty + paystones;
+		
+		pm.setPublicPoints(publicPoints);
 	}
 	
-	public int getPublicPoints() {
-		return publicPoints;
+	public int getPublicPoints(PlayerModel pm) 
+	{
+		return pm.getPublicPoints();
 	}
+
 }

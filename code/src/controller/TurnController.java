@@ -360,6 +360,11 @@ public class TurnController {
 			default: System.out.println("something went wrong here...");
 			}
 		}
+		
+		for (PlayerModel pm : players) {
+			System.out.println("Player " + pm.getUsername() + " public points: " + pm.getPublicPoints());
+		}
+		
 	}
 
 	
