@@ -28,19 +28,18 @@ public class PointsController {
 		allowCounting();
 	}
 
-	public void setEnd(Boolean end) { // be�indigt heat spell
+	public void setEnd(Boolean end) { 
 		gameEnd = end;
 	}
 
 	public void allowCounting() {
 		pma = gameModel.getPma();
-		// if (true /*TODO StartSpeler */) { //TODO er moat nog origins de volgorde
-		// warden aangepast, want nut worden de betaalstenen diet meegenomen
+		// if (true /*TODO StartSpeler */) {
 		if (gameEnd) {
 
 			calculatePoints();
 		}
-		// }
+		
 	}
 
 	private void calculatePoints() {
