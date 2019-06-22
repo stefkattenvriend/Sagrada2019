@@ -291,13 +291,12 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 				if (currentPlayer == false || forceUpdate == true) {
 					if (dhc.getDhmodels().size() == 99) {
 						guc.checkDiceMovementPlayerFields();// update de dice models
-						if (updateDice) {
+						
 							dhc.reloadDiceHolderPanes();// reload de panes van dice en diceholder die izjn opgeslagen
 							gamepane.redrawDice();
 							setUpdateDice(false);
 							dhc.reloadInteractability(); // zorgt ervoor dat niet alle panes met dobbelstenen erin enzo
 															// interactable zijn
-						}
 						if (forceUpdate) {
 							forceUpdate = false;
 							forcedUpdateDice();
@@ -330,6 +329,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	public void setUpdateDice(boolean b) {
 		this.updateDice = b;
 	}
+	
 
 	public ToolCardController getToolCardController() {
 		return tcc;
@@ -359,6 +359,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		if (gameRunning) {
 			if (allPatternCards) {
 				if (dhc.getDhmodels().size() == 99) {
+					
 					guc.checkDiceMovementPlayerFields();
 					if (updateDice) {
 						dhc.reloadDiceHolderPanes();// reload de panes van dice en diceholder die izjn opgeslagen
