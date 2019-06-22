@@ -90,7 +90,7 @@ public class CardsController {
 				int[] nrs = new int[] {0,0,0,0,0,0};
 				for(int j = 0; j < dhmodels.size(); j++) { 
 					if(dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW) {
-						if(dhmodels.get(j) != null) {
+						if(dhmodels.get(j).getDie() != null) {
 							switch (dhmodels.get(j).getDie().getEyes()) {
 							case 1:
 								nrs[0]++;
@@ -123,7 +123,7 @@ public class CardsController {
 				int[] nrs1 = new int[] {0,0};
 				for(int j = 0; j < dhmodels.size(); j++) { 
 					if(dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW) {
-						if(dhmodels.get(j) != null) {
+						if(dhmodels.get(j).getDie() != null) {
 							switch (dhmodels.get(j).getDie().getEyes()) {
 							case 3:
 								nrs1[0]++;
@@ -151,7 +151,7 @@ public class CardsController {
 				int[] totalEyes = new int[4];
 				for(int k = 0; k < 5; k++) {
 					for(int j = 0; j < dhmodels.size(); j++) { 
-						if(dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(j) != null) {
+						if(dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(j).getDie() != null) {
 							if(dhmodels.get(j).getX() == k + 1) {
 								totalEyes[dhmodels.get(j).getY()] = dhmodels.get(j).getDie().getEyes();
 							}
@@ -174,7 +174,7 @@ public class CardsController {
 				Color[] diecolors = new Color[4];
 				for(int k = 0; k < 5; k++) {
 					for(int j = 0; j < dhmodels.size(); j++) { 
-						if(dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(j) != null) {
+						if(dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(j).getDie() != null) {
 							if(dhmodels.get(j).getX() == k + 1) {
 								diecolors[dhmodels.get(j).getY()] = dhmodels.get(j).getDie().getDieColor();
 							}
@@ -196,7 +196,7 @@ public class CardsController {
 				int[] nrs2 = new int[] {0,0};
 				for(int j = 0; j < dhmodels.size(); j++) { 
 					if(dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW) {
-						if(dhmodels.get(j) != null) {
+						if(dhmodels.get(j).getDie() != null) {
 							switch (dhmodels.get(j).getDie().getEyes()) {
 							case 5:
 								nrs2[0]++;
@@ -222,7 +222,7 @@ public class CardsController {
 				int[] nrs3 = new int[] {0,0,0,0,0,0};
 				for(int j = 0; j < dhmodels.size(); j++) { 
 					if(dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW) {
-						if(dhmodels.get(j) != null) {
+						if(dhmodels.get(j).getDie() != null) {
 							switch (dhmodels.get(j).getDie().getDieColor().toString()) {
 							case "BLUE":
 								nrs3[0]++;
@@ -235,7 +235,7 @@ public class CardsController {
 							case "YELLOW":
 								nrs3[4]++;
 							default:
-								System.out.println("error: Die nr did not fit the set boundaries (1 to 6) at CardsController line 95");	
+								System.out.println("error: Die nr did not fit the set boundaries (1 to 6) at CardsController line 238");	
 							}
 						}
 					}
@@ -250,12 +250,12 @@ public class CardsController {
 				break;
 			case 7: // kleurvarieteit per rij, rijen zonder herhaalde kleuren( 6 punten)		
 				points = 0;
-				Color[] diecolors1 = new Color[4];
+				Color[] diecolors1 = new Color[5]; //Array out of bounds (4) changed array to [5]
 				for(int k = 0; k < 5; k++) {
 					for(int j = 0; j < dhmodels.size(); j++) { 
-						if(dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(j) != null) {
+						if(dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(j).getDie() != null) {
 							if(dhmodels.get(j).getY() == k + 1) {
-								diecolors1[dhmodels.get(j).getX()] = dhmodels.get(j).getDie().getDieColor();
+								diecolors1[dhmodels.get(j).getX() - 1] = dhmodels.get(j).getDie().getDieColor(); //Array out of bounds, added ( - 1)
 							}
 						}
 					}
@@ -278,7 +278,7 @@ public class CardsController {
 					// punten )
 				boolean done = false;
 				for(int j = 0; j < dhmodels.size(); j++) { 
-					if(dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(j) != null) {
+					if(dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(j).getDie() != null) {
 						int X = dhmodels.get(j).getX();
 						int Y = dhmodels.get(j).getY();
 						for (int k = 0; k < dhmodels.size(); k++) {
@@ -307,7 +307,7 @@ public class CardsController {
 				int[] nrs4 = new int[] {0,0};
 				for(int j = 0; j < dhmodels.size(); j++) { 
 					if(dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW) {
-						if(dhmodels.get(j) != null) {
+						if(dhmodels.get(j).getDie() != null) {
 							switch (dhmodels.get(j).getDie().getEyes()) {
 							case 1:
 								nrs4[0]++;
@@ -332,12 +332,12 @@ public class CardsController {
 	
 			case 10: // tintvarieteit per rij ( 5 punten)
 				points = 0;
-				int[] totalEyes1 = new int[4];
+				int[] totalEyes1 = new int[5];
 				for(int k = 0; k < 5; k++) {
 					for(int j = 0; j < dhmodels.size(); j++) { 
-						if(dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(j) != null) {
+						if(dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(j).getDie() != null) {
 							if(dhmodels.get(j).getX() == k + 1) {
-								totalEyes1[dhmodels.get(j).getY()] = dhmodels.get(j).getDie().getDieNumber();
+								totalEyes1[dhmodels.get(j).getX() - 1] = dhmodels.get(j).getDie().getDieNumber(); //Changed getY to getX and added -1
 							}
 						}
 					}
