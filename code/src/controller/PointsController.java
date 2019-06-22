@@ -2,6 +2,8 @@ package controller;
 
 import java.util.ArrayList;
 
+import com.sun.management.GcInfo;
+
 import databeest.DbPlayerCollector;
 import model.DiceHolderModel;
 import model.DiceModel;
@@ -40,6 +42,7 @@ public class PointsController {
 	private void calculatePoints() {
 		// voor elke speler
 		for (int i = 0; i < pma.length; i++) {
+//			int i = 0;
 			int personalObjectivePoints;
 			int emptySpotsPenalty;
 			int sharedObjectivePoints;
@@ -47,7 +50,7 @@ public class PointsController {
 			
 			personalObjectivePoints = getPersonalObjectivePoints(pma[i]);
 			emptySpotsPenalty = getEmptySpotsPenalty(pma[i]);
-			sharedObjectivePoints = getSharedObjectivePoints(pma[i]); 
+			sharedObjectivePoints = getSharedObjectivePoints(/*pma[i]*/); //Jami's methode haalt score van alle drie doelkaarten op voor degene die deze methode aanroept.
 			paystones = getAmountOfPaystones(pma[i]); 
 			
 			setPrivatePoints(pma[i], personalObjectivePoints, emptySpotsPenalty, sharedObjectivePoints, paystones);
@@ -67,11 +70,13 @@ public class PointsController {
 		for (int i = 0; i < diceHolder.size(); i++) {
 			dice.add(diceHolder.get(i).getDie());
 		}
-
+		
 		for (int i = 0; i < dice.size(); i++) {
+			if(dice.get(i) != null) {	
 			if (dice.get(i).getDieColor().equals(pm.getObjectiveColor())) {
 				personalObjectivePoints = personalObjectivePoints + dice.get(i).getEyes();
 			}
+		}
 		}
 		return personalObjectivePoints;
 	}
@@ -85,11 +90,11 @@ public class PointsController {
 		return pm.getDiceAmountOnFrame() - 20;
 	}
 
-	private int getSharedObjectivePoints(PlayerModel pm) {
-		int points = 0;
-		points = pm.getSharedObjectivePoints();
-
-		return points;
+	private int getSharedObjectivePoints(/*PlayerModel pm*/) {
+//		int points = 0;
+//		points = pm.getSharedObjectivePoints();
+		return gameController.getCardsController().getSharedObjectivePoints();
+//		return points;
 	}
 
 	

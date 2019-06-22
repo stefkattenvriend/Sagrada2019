@@ -31,12 +31,6 @@ public class PlayerModel {
 	private int publicPoints = 0;
 	private int totalPoints = 0;
 	
-	private int counter = 0;
-	private int counter2 = 0;
-	private int amount;
-	private int[] totalEyes[];
-	private ArrayList<Integer> dienumbers;
-	private ArrayList<String> diecolors;
 	
 	private DiceHolderType dht;// welke diceholder er bij deze speler hoort dus welke speler is het ~ Rens
 	private DbPlayerCollector dpc;
