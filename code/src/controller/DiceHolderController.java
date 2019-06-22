@@ -708,7 +708,7 @@ public class DiceHolderController {
 
 	}
 
-	/*public void putDieOnRoundTrack(int gameid) {
+	public void putDieOnRoundTrack() {
 		int round = gm.getGameRound();
 		ArrayList<String> diecolor = new ArrayList<String>();
 		ArrayList<Integer> dienumber = new ArrayList<Integer>();
@@ -717,20 +717,20 @@ public class DiceHolderController {
 			if (dhmodels.get(i).getType() == DiceHolderType.OFFER && dhmodels.get(i).getDie() != null) {
 				dienumber.add(dhmodels.get(i).getDie().getDieNumber());
 				switch (dhmodels.get(i).getDie().getDieColor().toString()) {
-				case ("0xff0000ff")://red
-
+				case ("0xff0000ff"):// red
+					diecolor.add("rood");
 					break;
-				case ("0x0000ffff")://blue
-
+				case ("0x0000ffff"):// blue
+					diecolor.add("blauw");
 					break;
-				case ("0x008000ff")://green
-
+				case ("0x008000ff"):// green
+					diecolor.add("groen");
 					break;
-				case ("0xffff00ff")://yellow
-
+				case ("0xffff00ff"):// yellow
+					diecolor.add("geel");
 					break;
-				case ("0x800080ff")://purple
-
+				case ("0x800080ff"):// purple
+					diecolor.add("paars");
 					break;
 				default:
 					break;
@@ -739,9 +739,9 @@ public class DiceHolderController {
 		}
 
 		for (int i = 0; i < dienumber.size(); i++) {
-			ddc.addDieToRoundTrack(round, gameid, dienumber.get(i), diecolor.get(i));
-			// System.out.println("Adding " + dienumber.get(i)+ " to roundtrack: " + round);
+			dc.addDieToRoundTrack(round, gameid, dienumber.get(i), diecolor.get(i));
+			System.out.println("Adding " + dienumber.get(i)+ " to roundtrack: " + round);
 		}
-	}*/
+	}
 
 }

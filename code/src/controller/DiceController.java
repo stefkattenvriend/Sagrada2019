@@ -54,7 +54,7 @@ public class DiceController {
 		return dmodels;
 	}
 	
-	public void putDieOnRoundTrack(int gameid) {
+	/*public void putDieOnRoundTrack(int gameid) {
 		int round = getRound(gameid);
 		ArrayList<String> diecolor = ddc.getDieColor(gameid, round);
 		ArrayList<Integer> dienumber = ddc.getDieNumbers(gameid, round);
@@ -63,7 +63,7 @@ public class DiceController {
 			ddc.addDieToRoundTrack(round, gameid, dienumber.get(i), diecolor.get(i));
 //			System.out.println("Adding " + dienumber.get(i)+ " to roundtrack: " + round);
 		}
-	}
+	}*/
 	
 	public void generateOffer(int amountOfPlayers, int gameid) {
 		int amountOfDice = amountOfPlayers * 2 + 1;
@@ -117,6 +117,12 @@ public class DiceController {
 			}
 		}
 		return null;
+	}
+
+
+	public void addDieToRoundTrack(int round, int gameid, Integer dienumber, String color) {
+		ddc.addDieToRoundTrack(round, gameid, dienumber, color);
+		
 	}
 	
 }
