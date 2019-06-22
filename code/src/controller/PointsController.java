@@ -35,7 +35,7 @@ public class PointsController {
 		pma = gameModel.getPma();
 		// if (true /*TODO StartSpeler */) {
 //		if (gameEnd) {
-			calculatePoints();
+//			calculatePoints();			uitegecommend tegen nullpointer ~ Rens
 //		}
 	}
 
@@ -48,7 +48,7 @@ public class PointsController {
 			int sharedObjectivePoints;
 			int paystones;
 			
-			personalObjectivePoints = getPersonalObjectivePoints(pma[i]); 
+			personalObjectivePoints = getPersonalObjectivePoints(pma[i]);
 			emptySpotsPenalty = getEmptySpotsPenalty(pma[i]);
 			sharedObjectivePoints = getSharedObjectivePoints(/*pma[i]*/); //Jami's methode haalt score van alle drie doelkaarten op voor degene die deze methode aanroept.
 			paystones = getAmountOfPaystones(pma[i]); 

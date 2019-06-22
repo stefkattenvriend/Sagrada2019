@@ -162,6 +162,7 @@ public class TurnController {
 			case 8:
 				tcc.setAllowed(true);
 				currentplayer.setCurrentPlayer(false);
+				gController.forcedUpdateDice();
 				dhc.putDieOnRoundTrack();
 				diceController.generateOffer(amountOfPlayers, gameId);
 				gController.updateDiceOffer();
@@ -253,6 +254,7 @@ public class TurnController {
 			case 8:
 				tcc.setAllowed(true);
 				currentplayer.setCurrentPlayer(false);
+				gController.forcedUpdateDice();
 				dhc.putDieOnRoundTrack();
 				diceController.generateOffer(amountOfPlayers, gameId);
 				if (currentplayer == players[0]) {
@@ -321,6 +323,7 @@ public class TurnController {
 				tcc.setAllowed(true);
 				currentplayer.setCurrentPlayer(false);
 				System.out.println("--Ending the round--");
+				gController.forcedUpdateDice();
 				dhc.putDieOnRoundTrack();
 			
 				if (currentplayer == players[0]) {

@@ -63,6 +63,7 @@ public class GamePane extends StackPane {
 		gc.setGamepane(this);
 		setBackgroundImage();
 	}
+	
 
 	private void setBackgroundImage() {
 		image = new Image("layout_images/menuBackground.png");

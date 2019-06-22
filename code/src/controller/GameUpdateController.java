@@ -104,7 +104,6 @@ public class GameUpdateController {
 									for (int k2 = 0; k2 < dhma.size(); k2++) {
 										if (dhma.get(i).getDie() == dhmad.get(k).getDie()) {
 											dhma.get(k2).setDie(null);
-											dhmad.remove(0);
 											break;
 										}
 									}
