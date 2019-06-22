@@ -41,7 +41,6 @@ public class PlayerController {
 	
 	public int getPayStones()
 	{
-		
 		playerModel.setPayStones(dbPlayerCollector.amountOfPaystones(playerModel.getPlayerId()));
 		return playerModel.getPayStones();
 	}
@@ -55,10 +54,11 @@ public class PlayerController {
 	}
 	
 	public void setScore(int playerid) {
-		dbPlayerCollector.setScore(playerid, playerModel.getScore());
+		dbPlayerCollector.setScore(playerid, playerModel.getTotalPoints());
 	}
 	
 	public PlayerModel getPM() {
 		return playerModel;
 	}
+
 }

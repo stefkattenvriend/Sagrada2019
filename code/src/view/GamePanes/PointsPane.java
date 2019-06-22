@@ -43,8 +43,12 @@ public class PointsPane extends VBox {
 		text.setMinWidth(MenuPane.paneWidth / 3);
 		
 		Label textAmount = new Label();
-		textAmount.setText(" " + pc.getTotalPoints()); //moet worden gelinkt aan points berekening
-		System.out.println(pc.getTotalPoints());
+		
+		//TODO het weergeven van de points
+//		textAmount.setText(" " + pc.getTotalPoints()); //moet worden gelinkt aan points berekening
+//		System.out.println(pc.getTotalPoints());
+		
+		
 		textAmount.setFont(Font.font ("Verdana", FontWeight.BOLD, 30));
 		textAmount.setMinWidth(MenuPane.paneWidth / 3);
 		getChildren().addAll(text, textAmount);

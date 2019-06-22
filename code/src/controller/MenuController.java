@@ -11,6 +11,7 @@ import view.MyScene;
 import view.MenuPanes.MenuGamesPane;
 import view.MenuPanes.MenuInvitePane;
 import view.MenuPanes.MenuPane;
+import view.MenuPanes.MenuPlayersPane;
 import view.MenuPanes.MenuWaitingPane;
 
 public class MenuController {
@@ -35,11 +36,13 @@ public class MenuController {
 	private boolean newInvite = false;
 	private MenuGamesPane menuGamesPane;
 	private MenuWaitingPane menuWaitingPane;
+	private MenuPlayersPane menuPlayersPane;
 	private MenuModel menuModel;
 	private int[] randomPat;
 	private DbPayStoneRuler psr;
 	private boolean nextCheck = true;
 	private boolean offerGenerated;
+	private boolean opened;
 
 	public MenuController(MyScene myScene, MasterController mc, DbGameCollector dbGameCollector,
 			MenuUpdateController menuUpdateController, DbPayStoneRuler psr) {
@@ -113,6 +116,10 @@ public class MenuController {
 	
 	public String getCurrentUsername() {
 		return menuModel.getCurrentUsername();
+	}
+	
+	public void getMenuPlayersPane(MenuPlayersPane menuPlayersPane) {
+		this.menuPlayersPane = menuPlayersPane;
 	}
 
 	public void loadGame(String gID) {
@@ -336,5 +343,17 @@ public class MenuController {
 
 	public MenuModel getMenuModel() {
 		return menuModel;
+	}
+	
+	public void updatePlayerlist() {
+		menuPlayersPane.updatePlayerlist();
+	}
+	
+	public void opened(boolean opened) {
+		this.opened = opened;
+	}
+	
+	public boolean getOpened() {
+		return this.opened;
 	}
 }

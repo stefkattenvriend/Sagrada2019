@@ -1,6 +1,7 @@
 package view.GamePanes;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
@@ -12,6 +13,8 @@ public class EndPane extends Pane{
 	
 	private MyScene myScene;
 	
+	private Label score;
+	
 	public EndPane(MyScene myScene) {
 		this.myScene = myScene;
 		
@@ -22,6 +25,7 @@ public class EndPane extends Pane{
 		
 		Button backToGame = new Button();
 		backToGame.setOnAction(e -> myScene.setMenuPane());
+		
 		
 		this.setPrefSize(GamePane.windowMaxWidth, GamePane.windowMaxHeight);
 

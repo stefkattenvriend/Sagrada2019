@@ -95,7 +95,6 @@ public class MenuGamesPane extends FlowPane {
 		for (int i = 0; i < gameIDs.size(); i++) {// vult verzameling met alle knoppen
 			games.add(new MenuDropdown(menuController, true, "Sagrada " + gameIDs.get(i), false, null, false, false,
 					null, loginController, null, this, false));
-
 		}
 
 		for (int x = 0; x < games.size(); x++) { // voegt alle knoppen toe aan de lijst

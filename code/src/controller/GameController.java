@@ -124,8 +124,8 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		return cc;
 	}
 
-	public void createPrivateObjective() {
-
+	public void createPrivateObjective() {  //TODO wat gebeurt hiermee?
+		
 	}
 
 	public LoginController getLoginController() {
