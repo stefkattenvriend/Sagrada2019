@@ -72,7 +72,7 @@ public class PlayerPane extends VBox{
 	private void setTinyButtonSection(PlayerPaneController ppc) {
 		BorderPane section = new BorderPane();
 		
-		pass = new Button("Beurt be�indigen");
+		pass = new Button("Eindig beurt");
 		pass.setMinSize(120, 30);
 		pass.setMaxSize(120, 30);
 		pass.setOnAction(e -> ppc.pass(tc, this, gc));
