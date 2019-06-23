@@ -139,7 +139,7 @@ public class CardsController {
 								nrs1[1]++;
 								break;
 							default:
-								System.out.println("out of bounds, cardscontroll 142");
+//								System.out.println("out of bounds, cardscontroll 142");
 							}
 						}
 					}
@@ -154,12 +154,13 @@ public class CardsController {
 			case 3: // Tintvarieteit per kolom ( 4 punten)
 
 				points = 0;
-				int[] totalEyes = new int[5];
-				for(int k = 0; k < 4; k++) {
-					for(int j = 0; j < dhmodels.size(); j++) { 
-						if(dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(j).getDie() != null) {
-							if(dhmodels.get(j).getX() == k + 1) {
-								totalEyes[dhmodels.get(j).getY()] = dhmodels.get(j).getDie().getEyes();
+				int[] totalEyes = new int[4];
+				for (int k = 0; k < 5; k++) {
+					for (int j = 0; j < dhmodels.size(); j++) {
+						if (dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW
+								&& dhmodels.get(j).getDie() != null) {
+							if (dhmodels.get(j).getX() == k + 1) {
+								totalEyes[dhmodels.get(j).getY() - 1] = dhmodels.get(j).getDie().getEyes();
 							}
 						}
 					}
@@ -183,7 +184,7 @@ public class CardsController {
 						if (dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW
 								&& dhmodels.get(j).getDie() != null) {
 							if (dhmodels.get(j).getX() == k + 1) {
-								diecolors[dhmodels.get(j).getY()] = dhmodels.get(j).getDie().getDieColor();
+								diecolors[dhmodels.get(j).getY() - 1] = dhmodels.get(j).getDie().getDieColor();
 							}
 						}
 					}
@@ -212,7 +213,7 @@ public class CardsController {
 								nrs2[1]++;
 								break;
 							default:
-								System.out.println("out of bounds, cardscontroll 214");
+//								System.out.println("out of bounds, cardscontroll 214");
 							}
 						}
 					}

@@ -65,20 +65,19 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	private ChatPane chatPane;
 	private PlayerPane pp;
 	private PersonalAttributes pa;
-	private MyScene myScene;
+	private MasterController master;
 
 	public GameController(DbPatternCardInfoCollector DatabasePTCCollector, DbGameCollector dbGamecollector,
 			LoginController lc, DbChatCollector dbChat, DbCardCollector dbCardCollector, DbPlayerCollector dpc,
-			DbDieCollector ddc, DbDieUpdater ddu, DbTurnCollector dtc, DbPayStoneRuler psr, DbToolCardCollector tcc,
-			MyScene myScene) {
+			DbDieCollector ddc, DbDieUpdater ddu, DbTurnCollector dtc, DbPayStoneRuler psr, DbToolCardCollector tcc, MasterController masterController) {
 		this.DatabasePTCCollector = DatabasePTCCollector;
 		this.dpc = dpc;
 		this.lc = lc;
 		this.dbCardCollector = dbCardCollector;
 		cc = new ChatController(dbChat, this);
 		this.dbDieCollector = ddc;
-		this.myScene = myScene;
 		this.dbDieUpdater = ddu;
+		this.master = masterController;
 
 		ppc = new PlayerPaneController();
 		ppsm = new PlayerPayStoneModel();
@@ -179,8 +178,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		tcc = new ToolCardController(psc, dtcc, dhc, this);
 		crc = new CardsController(dbCardCollector, gm.getGameId(), tcc, dhc.getDhmodels());
 		this.guc = new GameUpdateController(this);
-		this.tc = new TurnController(this, dhc, dbDieUpdater, gm, dtc, lc.getCurrentAccount(), gm.getGameId(), tcc,
-				myScene);
+		this.tc = new TurnController(this, dhc, dbDieUpdater, gm, dtc, lc.getCurrentAccount(), gm.getGameId(), tcc);
 		// System.out.println("should be gameId: " + gm.getGameId());
 	}
 
@@ -340,7 +338,11 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	public ToolCardController getToolCardController() {
 		return tcc;
 	}
-
+	
+	public MasterController getMasterController() {
+		return master;
+	}
+	
 	public void updateDiceOffer() {
 		if (gameRunning) {
 			if (allPatternCards) {
@@ -350,7 +352,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 						old_round++;
 						dhc.reloadDiceHolderPanes();
 						gamepane.redrawDice();
-						updateRoundtrack(old_round);
+//						updateRoundtrack(old_round);
 						forcedUpdateDice();
 					}
 				} else {

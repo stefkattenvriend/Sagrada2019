@@ -87,7 +87,7 @@ public class MasterController extends Application{//een controller die alle ande
 				&& (databeest.makeConnection()))
 		
 		this.lc = new LoginController(dbUserInfoCollector,this);
-		this.gc = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector, dbCardCollector, dbPlayerCollector, dbDieCollector, dbDieUpdater, dbTurnCollector, psr, tcc, myScene);
+		this.gc = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector, dbCardCollector, dbPlayerCollector, dbDieCollector, dbDieUpdater, dbTurnCollector, psr, tcc, this);
 		this.sc = new StatsController(dbPlayerStatsCollector);
 		
 //		this.chat = new ChatController(dbChatCollector);
@@ -129,6 +129,10 @@ public class MasterController extends Application{//een controller die alle ande
 	public GameController getGameController()
 	{
 		return this.gc;
+	}
+	
+	public MyScene getMyScene() {
+		return myScene;
 	}
 	
 	public LoginController getLoginController()

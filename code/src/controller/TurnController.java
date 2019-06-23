@@ -27,7 +27,7 @@ public class TurnController {
 	private MyScene myScene;
 
 	
-	public TurnController(GameController gc, DiceHolderController dhc, DbDieUpdater ddu, GameModel gm, DbTurnCollector dtc, String username, int gameId, ToolCardController tcc, MyScene myScene) {
+	public TurnController(GameController gc, DiceHolderController dhc, DbDieUpdater ddu, GameModel gm, DbTurnCollector dtc, String username, int gameId, ToolCardController tcc) {
 		this.tcc = tcc;
 		this.gameId = gameId;
 		this.username = username;
@@ -348,12 +348,9 @@ public class TurnController {
 				
 				
 				if(round == 11) {
-//						System.out.println("---THE GAME HAS ENDED, YOU WIN!!!!---");
-//					gController.getPointsController().setEnd(true);
-//					gController.getPointsController().allowCounting();
-					
 					System.out.println("JOJOJOJOJOJOJOJOJOJO");
-					myScene.setEndPane();
+					gController.getMasterController().getMyScene().setEndPane();
+					
 					
 					break;
 				} else {
