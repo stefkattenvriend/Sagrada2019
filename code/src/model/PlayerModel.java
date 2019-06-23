@@ -121,6 +121,8 @@ public class PlayerModel {
 	}
 
 	public int getPayStones() {
+		payStones = dpc.amountOfPaystones(playerid);
+		setPayStones(payStones);
 		return payStones;
 	}
 

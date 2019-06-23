@@ -94,18 +94,25 @@ public class CardsController {
 							switch (dhmodels.get(j).getDie().getEyes()) {
 							case 1:
 								nrs[0]++;
+								break;
 							case 2:
 								nrs[1]++;
+								break;
 							case 3:
 								nrs[2]++;
+								break;
 							case 4:
 								nrs[3]++;
+								break;
 							case 5:
 								nrs[4]++;
+								break;
 							case 6:
 								nrs[5]++;
+								break;
 							default:
-								System.out.println("error: Die nr did not fit the set boundaries (1 to 6) at CardsController line 95");	
+								System.out.println("error: Die nr did not fit the set boundaries (1 to 6) at CardsController line 108");
+								
 							}
 						}
 					}
@@ -127,10 +134,12 @@ public class CardsController {
 							switch (dhmodels.get(j).getDie().getEyes()) {
 							case 3:
 								nrs1[0]++;
+								break;
 							case 4:
 								nrs1[1]++;
+								break;
 							default:
-								break;	
+								System.out.println("out of bounds, cardscontroll 142");	
 							}
 						}
 					}
@@ -143,10 +152,7 @@ public class CardsController {
 				}
 				points = lowest1 * 2;
 			case 3: // Tintvarieteit per kolom ( 4 punten)
-					// Uitleg: Elke kolom heeft 4 dobbelstenen er in, loop daar doorheen met forloop
-					// x,
-					// kijk of de ogen van deze dobbelstenen allemaal ongelijk zijn, zo ja: voeg 4
-					// punten toe.
+					
 				points = 0;
 				int[] totalEyes = new int[4];
 				for(int k = 0; k < 5; k++) {
@@ -205,7 +211,7 @@ public class CardsController {
 								nrs2[1]++;
 								break;
 							default:
-								break;	
+								System.out.println("out of bounds, cardscontroll 214");
 							}
 						}
 					}
@@ -219,23 +225,28 @@ public class CardsController {
 				points = lowest2 * 2;
 				break;
 			case 6: // kleurvarieteit, sets van een van elke kleur ( 4 punten)
-				int[] nrs3 = new int[] {0,0,0,0,0,0};
+				int[] nrs3 = new int[] {0,0,0,0,0};
 				for(int j = 0; j < dhmodels.size(); j++) { 
 					if(dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW) {
 						if(dhmodels.get(j).getDie() != null) {
 							switch (dhmodels.get(j).getDie().getDieColor().toString()) {
-							case "BLUE":
+							case "0x0000ffff": // blue
 								nrs3[0]++;
-							case "RED":
+								break;
+							case "0xff0000ff": // red
 								nrs3[1]++;
-							case "GREEM":
+								break;
+							case "0x008000ff": // green
 								nrs3[2]++;
-							case "PURPLE":
+								break;
+							case "0x800080ff": // purple
 								nrs3[3]++;
-							case "YELLOW":
+								break;
+							case "0xffff00ff": // yellow
 								nrs3[4]++;
+								break;
 							default:
-								System.out.println("error: Die nr did not fit the set boundaries (1 to 6) at CardsController line 238");	
+								System.out.println("error: Die color did not fit the set color boundaries at CardsController line 235");	
 							}
 						}
 					}
@@ -249,7 +260,7 @@ public class CardsController {
 				points = least * 4;
 				break;
 			case 7: // kleurvarieteit per rij, rijen zonder herhaalde kleuren( 6 punten)		
-				points = 0;
+				points = 0; //TODO wordt twee keer uitgevoerd geloof ik ~ milan.
 				Color[] diecolors1 = new Color[5]; //Array out of bounds (4) changed array to [5]
 				for(int k = 0; k < 5; k++) {
 					for(int j = 0; j < dhmodels.size(); j++) { 
