@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.sun.management.GcInfo;
 
 import databeest.DbPlayerCollector;
+import helpers.DiceHolderType;
 import model.DiceHolderModel;
 import model.DiceModel;
 import model.GameModel;
@@ -24,41 +25,47 @@ public class PointsController {
 		this.gameModel = gameController.getGm();
 		gameEnd = false;
 		this.dbPlayerCollector = gameController.getdbPlayerCollector();
-		allowCounting();
+//		allowCounting();
 	}
 
 	public void setEnd(Boolean end) { 
 		gameEnd = end;
 	}
 
-	public void allowCounting() {
-		pma = gameModel.getPma();
+	public void allowCounting(PlayerModel pm) {
+//		pma = gameModel.getPma();
 		// if (true /*TODO StartSpeler */) {
 //		if (gameEnd) {
-//			calculatePoints();			uitegecommend tegen nullpointer ~ Rens
+			calculatePoints(pm);			//uitegecommend tegen nullpointer ~ Rens
 //		}
 	}
 
-	private void calculatePoints() {
+	private void calculatePoints(PlayerModel pm) {
 		// voor elke speler
-		for (int i = 0; i < pma.length; i++) {
+//		for (int i = 0; i < pma.length; i++) {
 //			int i = 0;
 			int personalObjectivePoints;
 			int emptySpotsPenalty;
 			int sharedObjectivePoints;
 			int paystones;
+			System.out.println("--- hier volgen de punten ---");
+			personalObjectivePoints = getPersonalObjectivePoints(/*pma[i]*/pm);
+			System.out.println("Persoonlijke punten: " + personalObjectivePoints);
+			emptySpotsPenalty = getEmptySpotsPenalty(/*pma[i]*/pm);
+			System.out.println("Strafpunten: " + emptySpotsPenalty);
 			
-			personalObjectivePoints = getPersonalObjectivePoints(pma[i]);
-			emptySpotsPenalty = getEmptySpotsPenalty(pma[i]);
+		
 			sharedObjectivePoints = getSharedObjectivePoints(/*pma[i]*/); //Jami's methode haalt score van alle drie doelkaarten op voor degene die deze methode aanroept.
-			paystones = getAmountOfPaystones(pma[i]); 
+			System.out.println("Jami punten: " + sharedObjectivePoints);
 			
-			setPrivatePoints(pma[i], personalObjectivePoints, emptySpotsPenalty, sharedObjectivePoints, paystones);
-			setPublicPoints(pma[i], sharedObjectivePoints, emptySpotsPenalty, paystones);
-			System.out.println("Privatepoints for player " + pma[i].getUsername() + " = " + getPrivatePoints(pma[i]));
-			System.out.println("Totalpoints for player " + pma[i].getUsername() + " = " + getPublicPoints(pma[i]));
-			dbPlayerCollector.setScore(pma[i].getPlayerId(), getPublicPoints(pma[i]));
-		}
+			paystones = getAmountOfPaystones(/*pma[i]*/pm); 
+			
+			setPrivatePoints(pm, personalObjectivePoints, emptySpotsPenalty, sharedObjectivePoints, paystones);
+			setPublicPoints(pm, sharedObjectivePoints, emptySpotsPenalty, paystones);
+			System.out.println("Privatepoints for player " + pm.getUsername() + " = " + getPrivatePoints(pm));
+			System.out.println("Publicpoints for player " + pm.getUsername() + " = " + getPublicPoints(pm));
+			dbPlayerCollector.setScore(pm.getPlayerId(), getPublicPoints(pm));
+//		}
 	}
 
 	private int getPersonalObjectivePoints(PlayerModel pm) {
@@ -68,15 +75,17 @@ public class PointsController {
 		diceHolder = gameController.getDiceHolderController().getDhmodels();
 
 		for (int i = 0; i < diceHolder.size(); i++) {
+			if(diceHolder.get(i).getType() == DiceHolderType.PLAYERWINDOW ) {
 			dice.add(diceHolder.get(i).getDie());
+			}
 		}
 		
 		for (int i = 0; i < dice.size(); i++) {
 			if(dice.get(i) != null) {	
-			if (dice.get(i).getDieColor().equals(pm.getObjectiveColor())) {
+				if (dice.get(i).getDieColor().equals(pm.getObjectiveColor())) {
 				personalObjectivePoints = personalObjectivePoints + dice.get(i).getEyes();
+				}
 			}
-		}
 		}
 		return personalObjectivePoints;
 	}

@@ -80,6 +80,7 @@ public class TurnController {
 	
 	//milan
 	public void updateSeqnrAndTurn() {
+		
 		PlayerModel[] players = gm.getPma();
 		int amountOfPlayers = players.length;
 		int seqnr = 10;
@@ -92,6 +93,7 @@ public class TurnController {
 					currentplayer = players[i]; // slaat op welke speler uit players[] de huidige speler is
 				}
 			}
+			gController.getPointsController().allowCounting(currentplayer);	//TODO om te testen, weet niet hoe vaak dit moet gebeuren ¬ Milan
 			switch (seqnr) {
 			case 1:
 				currentplayer.setSeqnr(8); // eerste aan de beurt, laatste aan de beurt
@@ -163,7 +165,7 @@ public class TurnController {
 				tcc.setAllowed(true);
 				currentplayer.setCurrentPlayer(false);
 				gController.forcedUpdateDice();
-				dhc.putDieOnRoundTrack();
+				gController.putDieOnRoundTrack();
 				diceController.generateOffer(amountOfPlayers, gameId);
 				gController.updateDiceOffer();
 				
@@ -205,6 +207,7 @@ public class TurnController {
 					currentplayer = players[i]; // slaat op welke speler uit players[] de huidige speler is
 				}
 			}
+			gController.getPointsController().allowCounting(currentplayer);	//TODO om te testen, weet niet hoe vaak dit moet gebeuren ¬ Milan
 			switch (seqnr) {
 			case 1:
 				currentplayer.setSeqnr(8);
@@ -255,7 +258,7 @@ public class TurnController {
 				tcc.setAllowed(true);
 				currentplayer.setCurrentPlayer(false);
 				gController.forcedUpdateDice();
-				dhc.putDieOnRoundTrack();
+				gController.putDieOnRoundTrack();
 				diceController.generateOffer(amountOfPlayers, gameId);
 				if (currentplayer == players[0]) {
 					players[0].setSeqnr(3);
@@ -291,6 +294,7 @@ public class TurnController {
 //						System.out.println("This is its actual seqnr: " + currentplayer.getSeqnr());
 				}
 			}
+			gController.getPointsController().allowCounting(currentplayer);	//TODO om te testen, weet niet hoe vaak dit moet gebeuren ¬ Milan
 			switch (seqnr) {
 			case 1:
 				currentplayer.setSeqnr(8);
@@ -324,7 +328,7 @@ public class TurnController {
 				currentplayer.setCurrentPlayer(false);
 				System.out.println("--Ending the round--");
 				gController.forcedUpdateDice();
-				dhc.putDieOnRoundTrack();
+				gController.putDieOnRoundTrack();
 			
 				if (currentplayer == players[0]) {
 					players[0].setSeqnr(2);
@@ -341,12 +345,12 @@ public class TurnController {
 					System.out.println("Something went wrong, check turncontroller 300~");
 				}
 				int round = diceController.getRound(gameId);
-				gController.getPointsController().allowCounting();
+				
 				
 				if(round == 11) {
 //						System.out.println("---THE GAME HAS ENDED, YOU WIN!!!!---");
-					gController.getPointsController().setEnd(true);
-					gController.getPointsController().allowCounting();
+//					gController.getPointsController().setEnd(true);
+//					gController.getPointsController().allowCounting();
 					
 					System.out.println("JOJOJOJOJOJOJOJOJOJO");
 					myScene.setEndPane();
@@ -364,9 +368,9 @@ public class TurnController {
 			}
 		}
 		
-		for (PlayerModel pm : players) {
-			System.out.println("Player " + pm.getUsername() + " public points: " + pm.getPublicPoints());
-		}
+//		for (PlayerModel pm : players) {
+//			System.out.println("Player " + pm.getUsername() + " public points: " + pm.getPublicPoints());
+//		}
 		
 	}
 

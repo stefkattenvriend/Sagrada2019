@@ -16,6 +16,20 @@ public class PlayerPaneController {
 //		gc.setGenerateOffer(true);
 	}
 	
+	public void HardReset(MyScene myScene, TurnController tc, GameController gc) {
+		if(number8) {
+			gc.getToolCardController().setAllowed(false);
+		}
+		myScene.goToMenuPane();
+		tc.stopThread();
+		gc.setGameRunning(false);
+		myScene.reloadGame();
+
+		
+		
+//		gc.setGenerateOffer(true)
+	}
+	
 	public void pass(TurnController tc, PlayerPane pp, GameController gc) {
 		tc.updatePass(); 
 		tc.updateSeqnrAndTurn();
