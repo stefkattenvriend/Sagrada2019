@@ -21,7 +21,6 @@ public class MenuController {
 	private MasterController mc;
 	private ArrayList<String> colors;
 	private DbGameCollector dbGameCollector;
-	private MenuUpdateController menuUpdateController;
 	private MenuPane menuPane;
 	private DataBaseApplication databeest;
 	private ArrayList<String> invitedGamesID_OLD;
@@ -44,14 +43,12 @@ public class MenuController {
 	private boolean offerGenerated;
 	private boolean opened;
 
-	public MenuController(MyScene myScene, MasterController mc, DbGameCollector dbGameCollector,
-			MenuUpdateController menuUpdateController, DbPayStoneRuler psr) {
+	public MenuController(MyScene myScene, MasterController mc, DbGameCollector dbGameCollector, DbPayStoneRuler psr) {
 		this.menuModel = new MenuModel(mc);
 		this.psr = psr;
 		this.myScene = myScene;
 		this.mc = mc;
 		this.dbGameCollector = dbGameCollector;
-		this.menuUpdateController = menuUpdateController;
 		databeest = mc.getDatabaseApplication();
 		invitedGamesID_OLD = getInvitedGamesID();
 		gameIDs_OLD = getActiveGames();
