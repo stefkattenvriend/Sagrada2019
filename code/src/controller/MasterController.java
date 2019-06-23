@@ -43,7 +43,6 @@ public class MasterController extends Application{//een controller die alle ande
 	private Stage stage;
 	private MenuController mnController;
 	private StatsController sc;
-	private MenuUpdateController muc;
 	private DbToolCardCollector tcc;
 	private GameModel gameModel;
 	
@@ -123,7 +122,7 @@ public class MasterController extends Application{//een controller die alle ande
 	}
 	
 	public void makeMenuController() {
-		mnController = new MenuController(myScene, this, dbGameCollector, muc, psr);
+		mnController = new MenuController(myScene, this, dbGameCollector, psr);
 		startUpdate();
 	}
 	

@@ -40,12 +40,12 @@ public class MenuInvitePane extends FlowPane {
 		this.invitedGameIDs = menuController.getInvitedGamesID();
 
 		setPaneSize();
-		createActiveGamesList();
+		createInvitesList();
 
 		setBackground(new Background(new BackgroundFill(Color.rgb(254, 255, 209, 0.8), null, null))); // tijdelijk
 	}
 
-	public void createActiveGamesList() {
+	public void createInvitesList() {
 		title = new Label();
 		title.setText("Uitnodigingen");
 		title.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
