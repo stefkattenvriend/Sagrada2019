@@ -72,7 +72,7 @@ public class PlayerPane extends VBox{
 	private void setTinyButtonSection(PlayerPaneController ppc) {
 		BorderPane section = new BorderPane();
 		
-		pass = new Button("Beurt beëindigen");
+		pass = new Button("Beurt beï¿½indigen");
 		pass.setMinSize(120, 30);
 		pass.setMaxSize(120, 30);
 		pass.setOnAction(e -> ppc.pass(tc, this, gc));
@@ -193,11 +193,6 @@ public class PlayerPane extends VBox{
 //		turn.setText(text);
 	}
 
-	
-	public void setDisable()
-	{
-		
-	}
 
 	public void redrawDice() {
 		playerBoardPane.redrawDice();

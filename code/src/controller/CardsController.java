@@ -358,19 +358,12 @@ public class CardsController {
 
 			case 10: // tintvarieteit per rij ( 5 punten)
 				points = 0;
-				int[] totalEyes1 = new int[5];
-				for (int k = 0; k < 5; k++) {
-					for (int j = 0; j < dhmodels.size(); j++) {
-						if (dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW
-								&& dhmodels.get(j).getDie() != null) {
-							if (dhmodels.get(j).getX() == k + 1) {
-								totalEyes1[dhmodels.get(j).getX() - 1] = dhmodels.get(j).getDie().getDieNumber(); // Changed
-																													// getY
-																													// to
-																													// getX
-																													// and
-																													// added
-																													// -1
+				int[] totalEyes1 = new int[4];
+				for(int k = 0; k < 4; k++) {
+					for(int j = 0; j < dhmodels.size(); j++) { 
+						if(dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(j).getDie() != null) {
+							if(dhmodels.get(j).getX() == k + 1) {
+								totalEyes1[dhmodels.get(j).getX() - 1] = dhmodels.get(j).getDie().getDieNumber(); //Changed getY to getX and added -1
 							}
 						}
 					}

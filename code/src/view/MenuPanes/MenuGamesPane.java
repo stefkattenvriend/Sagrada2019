@@ -82,10 +82,10 @@ public class MenuGamesPane extends FlowPane {
 	public void newActiveGames(ArrayList<Integer> newGameIDs) {
 		gameIDs.clear();
 		gameIDs = newGameIDs;
-		updateGamePane();
+		updateActiveGamesPane();
 	}
 
-	public void updateGamePane() {
+	public void updateActiveGamesPane() {
 		System.out.println("actieve games opruimen..");
 		getChildren().clear();
 		list.getChildren().clear();

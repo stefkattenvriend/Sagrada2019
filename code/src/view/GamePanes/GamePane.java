@@ -138,7 +138,8 @@ public class GamePane extends StackPane {
 
 	public void redrawOffer() {
 		playerPane.redrawOffer();
-		
 	}
+
+
 
 }
