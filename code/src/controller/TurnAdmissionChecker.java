@@ -96,8 +96,5 @@ public class TurnAdmissionChecker implements Runnable {
 		
 	}
 	
-	public void hardReset() {
-		gc.hardReset();
-	}
 
 }

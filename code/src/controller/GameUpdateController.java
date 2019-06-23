@@ -98,7 +98,6 @@ public class GameUpdateController {
 										break;
 									}
 
-
 									if (dhmad.get(k).getDie().getDieNumber() == pffa.get(j).getDienumber()
 											&& dhmad.get(k).getDie().getDieColor() == pffa.get(j).getDiecolor()) {
 
@@ -127,11 +126,13 @@ public class GameUpdateController {
 							for (int k2 = 0; k2 < pffa.size(); k2++) {
 								if (dhma.get(k).getDie().getDieNumber() == pffa.get(k2).getDienumber()
 										&& dhma.get(k).getDie().getDieNumber() == pffa.get(k2).getDienumber()) {
-									if (pffa.get(k2).getX() == dhma.get(k).getX() && pffa.get(k2).getY() == dhma.get(k).getY()) {
-										if (dhma.get(k).getType() == DiceHolderType.OFFER || dhma.get(k).getType() == DiceHolderType.ROUNDTRACK) {
+									if (pffa.get(k2).getX() == dhma.get(k).getX()
+											&& pffa.get(k2).getY() == dhma.get(k).getY()) {
+										if (dhma.get(k).getType() == DiceHolderType.OFFER
+												|| dhma.get(k).getType() == DiceHolderType.ROUNDTRACK) {
 											dhma.get(k).setDie(null);
 										}
-										
+
 									}
 								}
 							}
@@ -183,15 +184,23 @@ public class GameUpdateController {
 	public void reloadRoundTrack() {
 		ArrayList<DiceModel> roundtrackdb = ddc.getRoundTrack(gmc.getGameId());
 		// kijk naar de opgehaalde dice, plaats deze op de juiste plek in de roundtrack
-
+		int count = 0;
 		ArrayList<DiceHolderModel> dhm = dhc.getDhmodels();
 
 		for (int i = 0; i < dhm.size(); i++) {
+			if (count == roundtrackdb.size()) {
+				dhc.setDiceHolderModels(dhm);
+				return;
+			}
 			if (dhm.get(i).getType() == DiceHolderType.ROUNDTRACK) {
 				for (int z = 0; z < roundtrackdb.size(); z++) {
 					if (dhm.get(i).getX() == roundtrackdb.get(z).getRoundtrack()) {
-						dhm.get(i).setDie(roundtrackdb.get(z));// zet op moment max 1 die
-						roundtrackdb.remove(z);
+						DiceModel die = roundtrackdb.get(z);
+						dhm.get(i).setDie(die);// zet op moment max 1 die
+						count++;
+						gmc.setUpdateDice(true);
+						break;
+						
 					}
 				}
 			}

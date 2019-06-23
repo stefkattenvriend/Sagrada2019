@@ -346,6 +346,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 						old_round++;
 						dhc.reloadDiceHolderPanes();
 						gamepane.redrawDice();
+						updateRoundtrack(old_round);
 						forcedUpdateDice();
 					}
 				} else {
@@ -362,6 +363,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 				if (dhc.getDhmodels().size() == 99) {
 					
 					guc.checkDiceMovementPlayerFields();
+					guc.reloadRoundTrack();
 					if (updateDice) {
 						dhc.reloadDiceHolderPanes();// reload de panes van dice en diceholder die izjn opgeslagen
 						gamepane.redrawDice();
@@ -399,7 +401,6 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	public void updateRoundtrack(int oldRoundId) {
 
 		guc.reloadRoundTrack();
-		dhc.clearDiceOffer();
 		this.forcedUpdateDice();
 
 		System.out.println("aye, im working here!");
