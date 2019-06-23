@@ -160,7 +160,7 @@ public class CardsController {
 						if (dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW
 								&& dhmodels.get(j).getDie() != null) {
 							if (dhmodels.get(j).getX() == k + 1) {
-								totalEyes[dhmodels.get(j).getY()] = dhmodels.get(j).getDie().getEyes();
+								totalEyes[dhmodels.get(j).getY() - 1] = dhmodels.get(j).getDie().getEyes();
 							}
 						}
 					}
@@ -184,7 +184,7 @@ public class CardsController {
 						if (dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW
 								&& dhmodels.get(j).getDie() != null) {
 							if (dhmodels.get(j).getX() == k + 1) {
-								diecolors[dhmodels.get(j).getY()] = dhmodels.get(j).getDie().getDieColor();
+								diecolors[dhmodels.get(j).getY() - 1] = dhmodels.get(j).getDie().getDieColor();
 							}
 						}
 					}

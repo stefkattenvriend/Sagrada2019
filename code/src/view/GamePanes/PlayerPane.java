@@ -36,6 +36,7 @@ public class PlayerPane extends VBox{
 	private PointsController pc;
 	private TurnController tc;
 	private Button pass;
+	private Button endPaneButton;
 	private PayStoneController psc;
 	private PaystoneHolderPane psh;
 	private Label turn;
@@ -76,6 +77,12 @@ public class PlayerPane extends VBox{
 		pass.setMaxSize(120, 30);
 		pass.setOnAction(e -> ppc.pass(tc, this, gc));
 		
+		endPaneButton = new Button("Scores");
+		endPaneButton.setMinSize(70, 30);
+		endPaneButton.setMaxSize(70, 30);
+		endPaneButton.setOnAction(e -> ppc.showEndPane(myScene));
+		endPaneButton.setVisible(false);
+		
 		Button menu = new Button("Menu");
 		menu.setMinSize(60, 30);
 		menu.setMaxSize(60, 30);
@@ -86,6 +93,7 @@ public class PlayerPane extends VBox{
 		pass.setVisible(false);
 		
 		section.setLeft(pass);
+		section.setCenter(endPaneButton);
 		section.setRight(menu);
 		getChildren().add(section);
 	}
@@ -201,5 +209,9 @@ public class PlayerPane extends VBox{
 	public void redrawOffer() {
 		diceOfferPane.redrawDice();
 		
+	}
+
+	public void showEndPane() {
+		endPaneButton.setVisible(true);
 	}
 }

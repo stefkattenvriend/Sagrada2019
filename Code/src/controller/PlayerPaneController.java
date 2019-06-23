@@ -16,6 +16,10 @@ public class PlayerPaneController {
 //		gc.setGenerateOffer(true);
 	}
 	
+	public void showEndPane(MyScene myScene) {
+		myScene.setEndPane();
+	}
+	
 	public void pass(TurnController tc, PlayerPane pp, GameController gc) {
 		tc.updatePass(); 
 		tc.updateSeqnrAndTurn();

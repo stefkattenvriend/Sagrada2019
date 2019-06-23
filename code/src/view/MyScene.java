@@ -99,7 +99,7 @@ public class MyScene extends Scene{
 	
 	public void setEndPane()
 	{
-		setNewRoot(new EndPane(this));
+		setNewRoot(new EndPane(this, gc));
 		mc.getStage().setHeight(gamePane.windowMaxHeight);
 		mc.getStage().setWidth(gamePane.windowMaxWidth);
 		mc.getStage().centerOnScreen();
