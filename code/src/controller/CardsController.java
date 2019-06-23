@@ -278,7 +278,7 @@ public class CardsController {
 							&& diecolors1[1] != diecolors1[4] && diecolors1[0] != diecolors1[4]) {
 						
 						if(diecolors1[0] != null && diecolors1[1] != null && diecolors1[2] != null && diecolors1[3] != null && diecolors1[4] != null) {
-						points = points + 6;
+						points = points + 3;
 						
 						}
 					}
@@ -298,7 +298,8 @@ public class CardsController {
 						int X = dhmodels.get(j).getX();
 						int Y = dhmodels.get(j).getY();
 						for (int k = 0; k < dhmodels.size(); k++) {
-							if(dhmodels.get(k).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(j) != null) {
+							if(dhmodels.get(k).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(j).getDie() != null) {
+								System.out.println("check kleurdigonaal");
 								if(dhmodels.get(k).getX() == X - 1 && dhmodels.get(j).getY() == Y - 1||
 										dhmodels.get(k).getX() == X - 1 && dhmodels.get(j).getY() == Y + 1||
 										dhmodels.get(k).getX() == X + 1 && dhmodels.get(j).getY() == Y - 1||

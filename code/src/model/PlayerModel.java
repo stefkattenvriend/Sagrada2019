@@ -142,7 +142,7 @@ public class PlayerModel {
 			dpc.setGameTurn(gameid, playerid);
 		} else {
 			i = 0;
-			System.out.println("Player: " + username + " is no longer current player of game: "+ gameid);
+//			System.out.println("Player: " + username + " is no longer current player of game: "+ gameid);
 		}
 		
 		dpc.setCurrentPlayer(playerid, i);
