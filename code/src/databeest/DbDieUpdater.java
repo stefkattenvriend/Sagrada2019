@@ -57,6 +57,28 @@ public class DbDieUpdater {
 
 		dba.updateDiceEyes(eyes, gameId, dm.getDieNumber(), color);
 	}
+	
+	public void updateDieColor(Color color1, int gameId, int dienr, int dieEyes) {
+		String color;
+		
+		if (color1 == Color.RED) {
+			color = "rood";
+		}
+		else if (color1 == Color.BLUE) {
+			color = "blauw";
+		}
+		else if (color1 == Color.YELLOW) {
+			color = "geel";
+		}
+		else if (color1 == Color.PURPLE) {
+			color = "paars";
+		}
+		else {
+			color = "groen";
+		}
+		
+		dba.updateDiceColor(gameId, dienr, color, dieEyes);
+	}
 
 	public void putDieOnRoundtrack(int round, int gameID, ArrayList<DiceModel> die) {
 

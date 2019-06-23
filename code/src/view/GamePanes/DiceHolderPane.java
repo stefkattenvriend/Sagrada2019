@@ -17,6 +17,9 @@ public class DiceHolderPane extends BorderPane {
 	private DiceHolderController dhc;
 	private Button numHigher;
 	private Button numLower;
+	private Button confirm;
+	private BorderPane numPlusAndMin;
+	private BorderPane colPlusAndMin;
 	private double size;
 	private Button colHigher;
 	private Button colLower;
@@ -35,7 +38,7 @@ public class DiceHolderPane extends BorderPane {
 		if (diceUpdate) {
 			placeDice(id);
 		}
-
+		
 	}
 
 	public void updateDiceHolderPane() {
@@ -48,52 +51,50 @@ public class DiceHolderPane extends BorderPane {
 	}
 
 	public void addPlusAndMinusAndColor() {
-		
-		
-		
-		BorderPane numPlusAndMin = new BorderPane();
+		numPlusAndMin = new BorderPane();
 		numPlusAndMin.setPrefSize(size / 10, size);
 		
 		//start number buttons
 		numHigher = new Button("+");
-		numHigher.setPrefSize(size / 10, size);
+		numHigher.setMaxSize(size / 10, size / 2);
 		numHigher.setFont(Font.font("Verdana", 10));
 		numPlusAndMin.setTop(numHigher);
 
 		numLower = new Button("-");
-		numLower.setPrefSize(size / 10, size);
+		numLower.setMaxSize(size / 10, size / 2);
 		numLower.setFont(Font.font("Verdana", 10));
 		numPlusAndMin.setBottom(numLower);
 
-		setRight(numPlusAndMin);
+		setLeft(numPlusAndMin);
 		
-		numHigher.setOnMouseClicked(e -> dhc.higherClicked1());
-		numLower.setOnMouseClicked(e -> dhc.lowerClicked1());
+		numHigher.setOnMouseClicked(e -> dhc.higherClicked(false));
+		numLower.setOnMouseClicked(e -> dhc.lowerClicked(false));
 		
 		//start color buttons
-		BorderPane colPlusAndMin = new BorderPane();
+		colPlusAndMin = new BorderPane();
 		colPlusAndMin.setPrefSize(size / 10, size);
 		
 		colHigher = new Button("+");
-		colHigher.setPrefSize(size / 10, size);
+		colHigher.setMaxSize(size / 10, size / 2);
 		colHigher.setFont(Font.font("Verdana", 10));
-		colPlusAndMin.setTop(numHigher);
+		colPlusAndMin.setTop(colHigher);
 
 		colLower = new Button("-");
-		colLower.setPrefSize(size / 10, size);
+		colLower.setMaxSize(size / 10, size / 2);
 		colLower.setFont(Font.font("Verdana", 10));
-		colPlusAndMin.setBottom(numLower);
+		colPlusAndMin.setBottom(colLower);
 
-		setLeft(colPlusAndMin);
-		numHigher.setOnMouseClicked(e -> higherClicked());
-		numLower.setOnMouseClicked(e -> lowerClicked());
+		setRight(colPlusAndMin);
+		
+		colHigher.setOnMouseClicked(e -> dhc.higherClicked1());
+		colLower.setOnMouseClicked(e -> dhc.lowerClicked1());
 	
 		//start confirm button
-		Button confirm = new Button();
-		confirm.setPrefSize(size, size / 10);
+		confirm = new Button();
+		confirm.setMaxSize(size, size / 10);
 		
 		setBottom(confirm);
-//		confirm.setOnMouseClicked(e -> higherClicked());
+		confirm.setOnMouseClicked(e -> confirm());
 	}
 
 	public void addPlusAndMinus(int dienr) {
@@ -116,12 +117,17 @@ public class DiceHolderPane extends BorderPane {
 
 	private void higherClicked() {
 		this.getChildren().removeAll(numHigher, numLower);
-		dhc.higherClicked();
+		dhc.higherClicked(true);
 	}
 
 	private void lowerClicked() {
 		this.getChildren().removeAll(numHigher, numLower);
-		dhc.lowerClicked();
+		dhc.lowerClicked(true);
+	}
+	
+	private void confirm() {
+		this.getChildren().removeAll(colPlusAndMin, numPlusAndMin, confirm);
+		dhc.confirm();
 	}
 
 }
