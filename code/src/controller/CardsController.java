@@ -154,8 +154,8 @@ public class CardsController {
 			case 3: // Tintvarieteit per kolom ( 4 punten)
 					
 				points = 0;
-				int[] totalEyes = new int[4];
-				for(int k = 0; k < 5; k++) {
+				int[] totalEyes = new int[5];
+				for(int k = 0; k < 4; k++) {
 					for(int j = 0; j < dhmodels.size(); j++) { 
 						if(dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(j).getDie() != null) {
 							if(dhmodels.get(j).getX() == k + 1) {
@@ -292,19 +292,21 @@ public class CardsController {
 				
 			case 8: // kleurdiagonalen, aantal diagonaal aangrenzende stene in dezelfde kleur ( #
 					// punten )
-				boolean done = false;
-				for(int j = 0; j < dhmodels.size(); j++) { 
-					if(dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(j).getDie() != null) {
-						int X = dhmodels.get(j).getX();
+				for(int j = 0; j < dhmodels.size(); j++) { //loop through all the models
+					boolean done = false;
+					if(dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(j).getDie() != null) {	//get the coords of the windows with dice
+						int X = dhmodels.get(j).getX();																	//save the coords of that window
 						int Y = dhmodels.get(j).getY();
-						for (int k = 0; k < dhmodels.size(); k++) {
-							if(dhmodels.get(k).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(j) != null) {
-								if(dhmodels.get(k).getX() == X - 1 && dhmodels.get(j).getY() == Y - 1||
-										dhmodels.get(k).getX() == X - 1 && dhmodels.get(j).getY() == Y + 1||
-										dhmodels.get(k).getX() == X + 1 && dhmodels.get(j).getY() == Y - 1||
+						for (int k = 0; k < dhmodels.size(); k++) {	//loop again through all the dice
+							if(dhmodels.get(k).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(j) != null) {	//check if a holder is in a window and not empty
+								if(dhmodels.get(k).getX() == X - 1 && dhmodels.get(j).getY() == Y - 1 ||					//check if its coords add up to its diagonal
+										dhmodels.get(k).getX() == X - 1 && dhmodels.get(j).getY() == Y + 1 ||
+										dhmodels.get(k).getX() == X + 1 && dhmodels.get(j).getY() == Y - 1 ||
 										dhmodels.get(k).getX() == X + 1 && dhmodels.get(j).getY() == Y + 1
 										) {
 									if(dhmodels.get(k).getDie().getDieColor() == dhmodels.get(j).getDie().getDieColor()) {
+										System.out.println("check");
+										
 										if(!done) {
 											points++;
 											done = true;
@@ -349,7 +351,7 @@ public class CardsController {
 			case 10: // tintvarieteit per rij ( 5 punten)
 				points = 0;
 				int[] totalEyes1 = new int[5];
-				for(int k = 0; k < 5; k++) {
+				for(int k = 0; k < 4; k++) {
 					for(int j = 0; j < dhmodels.size(); j++) { 
 						if(dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(j).getDie() != null) {
 							if(dhmodels.get(j).getX() == k + 1) {
