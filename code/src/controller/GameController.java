@@ -316,6 +316,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 
 	public void setCurrentPlayer(boolean b) {
 		this.currentPlayer = b;
+		gm.setCurPlayer(b);
 		if (gamepane != null && b) {
 			gamepane.yourTurn(); // hoort de playerpane groen of rood te zetten als je aan de beurt bent of niet
 		} else if (gamepane != null && !b) {
@@ -342,7 +343,6 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 					if (old_round < gm.getGameRound()) {
 						guc.getDiceOffer(gm.getGameRound());// update de dice in de offerpane
 						old_round++;
-						System.out.println("diceoffer has been updated");
 						dhc.reloadDiceHolderPanes();
 						gamepane.redrawDice();
 						forcedUpdateDice();
