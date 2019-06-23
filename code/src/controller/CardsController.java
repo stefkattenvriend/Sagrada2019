@@ -139,7 +139,7 @@ public class CardsController {
 								nrs1[1]++;
 								break;
 							default:
-								System.out.println("out of bounds, cardscontroll 142");
+//								System.out.println("out of bounds, cardscontroll 142");
 							}
 						}
 					}
@@ -213,7 +213,7 @@ public class CardsController {
 								nrs2[1]++;
 								break;
 							default:
-								System.out.println("out of bounds, cardscontroll 214");
+//								System.out.println("out of bounds, cardscontroll 214");
 							}
 						}
 					}
