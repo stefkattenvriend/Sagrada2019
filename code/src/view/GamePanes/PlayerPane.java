@@ -185,11 +185,6 @@ public class PlayerPane extends VBox{
 //		turn.setText(text);
 	}
 
-	
-	public void setDisable()
-	{
-		
-	}
 
 	public void redrawDice() {
 		playerBoardPane.redrawDice();
@@ -202,4 +197,5 @@ public class PlayerPane extends VBox{
 		diceOfferPane.redrawDice();
 		
 	}
+
 }

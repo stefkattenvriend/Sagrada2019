@@ -44,19 +44,20 @@ public class GameUpdateController {
 		// niet uit(testen)
 		ArrayList<DiceHolderModel> dhma = new ArrayList<DiceHolderModel>();
 		dhma.addAll(dhc.getDhmodels());
+
 		ArrayList<PlayerFieldFrameModel> pffa = ddc.getPlayerFrame(gmc.getGameId());
-		ArrayList<DiceHolderModel> dhmad = new ArrayList<DiceHolderModel>();
-		dhmad.addAll(dhc.getDhmodels());
+
+		ArrayList<DiceHolderModel> dhmad = new ArrayList<DiceHolderModel>(dhma);
 		// arraylist met alle diceholder die een dice hebben
 
 		if (pffa.size() == 0) {
 			return;
 		}
 
-		for (int i = 0; i < dhmad.size(); i++) {
-			if (dhmad.get(i).getDie() == null) {
-				dhmad.remove(i);
-				i--;
+		for (int z = 0; z < dhmad.size(); z++) {
+			if (dhmad.get(z).getDie() == null) {
+				dhmad.remove(z);
+				z--;
 			}
 		}
 
@@ -79,41 +80,63 @@ public class GameUpdateController {
 							// loop door de dhma, zoek een dobbelsteen in de andere dhm die overeen komt met
 							// die van de pffa,
 							// haal dat model daar weg en plaats deze in de juiste dhm
-							if (dhmad.size() == 0 || gmc.getNewRound()) {//wss mis
+							if (dhmad.size() == 0 || gmc.getNewRound()) {// wss mis
 								ArrayList<DiceModel> dicelist = dhc.getDiceController().getDMAL();
 								for (int k = 0; k < dicelist.size(); k++) {
-									if (dicelist.get(k).getDieNumber() == pffa.get(j).getDienumber() && dicelist.get(k).getDieColor() == pffa.get(j).getDiecolor()) {
+									if (dicelist.get(k).getDieNumber() == pffa.get(j).getDienumber()
+											&& dicelist.get(k).getDieColor() == pffa.get(j).getDiecolor()) {
 										dhma.get(i).setDie(dicelist.get(k));
 									}
-									
-									
+
 								}
 								gmc.setNewRound(false);
-							}else {
+							} else {
 								for (int k = 0; k < dhmad.size(); k++) {
-								
-								if (k == dhmad.size()) {
-									System.out.println("Mistake on k:" + k);
-									
-								}
-								
-								if (dhmad.get(k).getDie().getDieNumber() == pffa.get(j).getDienumber()
-										&& dhmad.get(k).getDie().getDieColor() == pffa.get(j).getDiecolor()) {// mvc fix
 
-									dhma.get(i).setDie(dhmad.get(k).getDie());
-									for (int k2 = 0; k2 < dhma.size(); k2++) {
-										if (dhma.get(i).getDie() == dhmad.get(k).getDie()) {
-											dhma.get(k2).setDie(null);
-											break;
-										}
+									if (k == dhmad.size()) {
+										System.out.println("Mistake on k:" + k);
+										break;
 									}
-									
+
+
+									if (dhmad.get(k).getDie().getDieNumber() == pffa.get(j).getDienumber()
+											&& dhmad.get(k).getDie().getDieColor() == pffa.get(j).getDiecolor()) {
+
+										dhma.get(i).setDie(dhmad.get(k).getDie());
+
+										/*
+										 * for (int k2 = 0; k2 < dhma.size(); k2++) { if (dhma.get(k2).getDie() ==
+										 * dhmad.get(k).getDie() && dhma.get(k2).getType() != dhmad.get(k).getType() &&
+										 * dhma.get(k2).getX() != dhmad.get(k).getX() && dhma.get(k2).getY() !=
+										 * dhmad.get(k).getY()) { dhma.get(k2).setDie(null); break; }
+										 * 
+										 * }
+										 */
+
+									}
 								}
-							}
 							}
 							gmc.setUpdateDice(true);
-							
+
 						}
+
+						for (int k = 0; k < dhma.size(); k++) {
+							if (dhma.get(k).getDie() == null) {
+								continue;
+							}
+							for (int k2 = 0; k2 < pffa.size(); k2++) {
+								if (dhma.get(k).getDie().getDieNumber() == pffa.get(k2).getDienumber()
+										&& dhma.get(k).getDie().getDieNumber() == pffa.get(k2).getDienumber()) {
+									if (pffa.get(k2).getX() == dhma.get(k).getX() && pffa.get(k2).getY() == dhma.get(k).getY()) {
+										if (dhma.get(k).getType() == DiceHolderType.OFFER || dhma.get(k).getType() == DiceHolderType.ROUNDTRACK) {
+											dhma.get(k).setDie(null);
+										}
+										
+									}
+								}
+							}
+						}
+
 					}
 				}
 			}

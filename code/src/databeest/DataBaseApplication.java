@@ -820,6 +820,49 @@ public class DataBaseApplication {
 		}
 		return diceList;
 	}
+	
+	public ArrayList<DiceModel> getDiceFromRound(int gameid, int round) {
+		Statement stmt = null;
+		String query = "SELECT * FROM gamedie WHERE idgame = " + gameid + " AND ROUND = " + round + ";";
+		ArrayList<DiceModel> diceList = new ArrayList<DiceModel>();
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+
+				Color dieColor = Color.BLACK;
+
+				switch (rs.getString(3)) {
+				case "geel":
+					dieColor = Color.YELLOW;
+					break;
+				case "groen":
+					dieColor = Color.GREEN;
+					break;
+
+				case "rood":
+					dieColor = Color.RED;
+					break;
+
+				case "blauw":
+					dieColor = Color.BLUE;
+					break;
+
+				case "paars":
+					dieColor = Color.PURPLE;
+					break;
+				}
+
+				diceList.add(new DiceModel(rs.getInt(2), dieColor, rs.getInt(4)));
+
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return diceList;
+	}
 
 	public ArrayList<Integer> getChatIDs(String query) {
 		Statement stmt = null;

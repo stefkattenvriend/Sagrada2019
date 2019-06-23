@@ -708,7 +708,7 @@ public class DiceHolderController {
 
 	}
 
-	public void putDieOnRoundTrack() {
+	/*public void putDieOnRoundTrack() {
 		int round = gm.getGameRound();
 		ArrayList<String> diecolor = new ArrayList<String>();
 		ArrayList<Integer> dienumber = new ArrayList<Integer>();
@@ -742,6 +742,6 @@ public class DiceHolderController {
 			dc.addDieToRoundTrack(round, gameid, dienumber.get(i), diecolor.get(i));
 			System.out.println("Adding " + dienumber.get(i)+ " to roundtrack: " + round);
 		}
-	}
+	}*/
 
 }
