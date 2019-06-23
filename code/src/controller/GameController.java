@@ -348,7 +348,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 						old_round++;
 						dhc.reloadDiceHolderPanes();
 						gamepane.redrawDice();
-						updateRoundtrack(old_round);
+//						updateRoundtrack(old_round);
 						forcedUpdateDice();
 					}
 				} else {
