@@ -262,7 +262,7 @@ public class CardsController {
 			case 7: // kleurvarieteit per rij, rijen zonder herhaalde kleuren( 6 punten)		
 				points = 0; //TODO wordt twee keer uitgevoerd geloof ik ~ milan.
 				Color[] diecolors1 = new Color[5]; //Array out of bounds (4) changed array to [5]
-				for(int k = 0; k < 5; k++) {
+				for(int k = 0; k < 4; k++) { // dit is y
 					for(int j = 0; j < dhmodels.size(); j++) { 
 						if(dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(j).getDie() != null) {
 							if(dhmodels.get(j).getY() == k + 1) {
@@ -270,12 +270,17 @@ public class CardsController {
 							}
 						}
 					}
+					
 					if (diecolors1[0] != diecolors1[1] && diecolors1[1] != diecolors1[2]
 							&& diecolors1[2] != diecolors1[3] && diecolors1[3] != diecolors1[4]
 							&& diecolors1[0] != diecolors1[2] && diecolors1[1] != diecolors1[3]
 							&& diecolors1[2] != diecolors1[4] && diecolors1[0] != diecolors1[3]
 							&& diecolors1[1] != diecolors1[4] && diecolors1[0] != diecolors1[4]) {
+						
+						if(diecolors1[0] != null && diecolors1[1] != null && diecolors1[2] != null && diecolors1[3] != null && diecolors1[4] != null) {
 						points = points + 6;
+						
+						}
 					}
 					
 					for(int l = 0; l < diecolors1.length; l++) {
