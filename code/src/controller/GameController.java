@@ -94,6 +94,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		this.currentPlayer = false;
 		this.updateDice = false;
 		this.forceUpdate = false;
+	
 	}
 
 	public CardsController getCardsController() {
@@ -345,6 +346,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 						old_round++;
 						dhc.reloadDiceHolderPanes();
 						gamepane.redrawDice();
+						updateRoundtrack(old_round);
 						forcedUpdateDice();
 					}
 				} else {
@@ -361,6 +363,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 				if (dhc.getDhmodels().size() == 99) {
 					
 					guc.checkDiceMovementPlayerFields();
+					guc.reloadRoundTrack();
 					if (updateDice) {
 						dhc.reloadDiceHolderPanes();// reload de panes van dice en diceholder die izjn opgeslagen
 						gamepane.redrawDice();
@@ -398,7 +401,6 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	public void updateRoundtrack(int oldRoundId) {
 
 		guc.reloadRoundTrack();
-		dhc.clearDiceOffer();
 		this.forcedUpdateDice();
 
 		System.out.println("aye, im working here!");
@@ -430,5 +432,28 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	public void setNewRound(boolean b) {
 		this.newRound = false;
 	}
+
+	public void putDieOnRoundTrack() {
+		dbDieUpdater.putDieOnRoundtrack(gm.getGameRound(), gm.getGameId(), dhc.getDiceController().getDMAL());
+		
+	}
+	
+	/*public void reloadGame() {
+		createGameModel(gm.getGameId());
+		
+		
+		int round = dbGameCollector.getRound(gm.getGameId());
+		System.out.println("dit is het ronde nummer: " + round);// syso om ronde te checke
+		String username = lc.getCurrentAccount();
+		int playerid = dpc.getPlayerID(username, gm.getGameId());
+		System.out.println("reLoading game");
+
+		
+//			myScene.setGamePane();
+			setGameRunning(true);
+			//mc.getGameController().setCurrentPlayer(false);//zorgt ervoor dat je game een keer update als je aan de beurt bent
+			updateDiceOffer();
+		
+	}*/
 
 }

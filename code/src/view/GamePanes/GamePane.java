@@ -140,4 +140,6 @@ public class GamePane extends StackPane {
 		playerPane.redrawOffer();
 	}
 
+
+
 }

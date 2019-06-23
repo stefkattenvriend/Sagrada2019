@@ -52,11 +52,11 @@ public class MenuWaitingPane extends FlowPane {
 //		accepted = databeest.getAcceptedGame(loginController.getCurrentAccount());
 //		newAcceptedGames = new ArrayList<String>();
 		setPaneSize();
-		createActiveGamesList();
+		createWaitingGamesList();
 		setBackground(new Background(new BackgroundFill(Color.rgb(255, 205, 205, 0.8), null, null)));
 	}
 
-	private void createActiveGamesList() {
+	private void createWaitingGamesList() {
 		title = new Label();
 		title.setText("Wachten op reactie");
 		title.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
