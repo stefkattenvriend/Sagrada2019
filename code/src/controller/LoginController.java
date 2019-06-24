@@ -27,7 +27,6 @@ public class LoginController {
 		{
 			account.setCurrentAccount(username.toLowerCase());
 			masterController.makeMenuController();
-			System.out.println("Login gelukt");
 			loggedIn = true;
 			
 			
@@ -43,13 +42,12 @@ public class LoginController {
 	{	
 		String accountNaam = account.getCurrentAccount();
 		if (accountNaam == null) {
-			System.out.println("Kan niet uitloggen als je niet ingelogd bent");
+
 		}
 		else 
 		{
 			loggedIn=false;
 			account.setCurrentAccount(null);
-			System.out.println("Logout gelukt");
 		}
 		
 	}
@@ -70,14 +68,14 @@ public class LoginController {
 			}
 			else 
 			{
-				System.out.println("Password klopt niet");
+
 				return false;
 			}
 			
 		}
 		else 
 		{
-			System.out.println("Username bestaat niet");
+
 			return false;
 		}
 	}
@@ -103,12 +101,12 @@ public class LoginController {
 		{
 			if (CheckIfExist(username.toLowerCase())) 
 			{
-				System.out.println("Username bestaat al!");
+
 				return false;
 			} else 
 			{
 				dbUserInfoCollector.CreateAccount(username.toLowerCase(), password.toLowerCase());
-				System.out.println("Account aangemaakt");
+
 				
 				// log meteen in
 				login(username, password);
@@ -116,7 +114,7 @@ public class LoginController {
 			}
 		} else 
 		{
-			System.out.println("Gebruik 3 of meer letters of cijfers");
+
 			return false;
 		}
 		

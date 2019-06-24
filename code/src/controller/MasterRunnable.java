@@ -29,7 +29,7 @@ public class MasterRunnable implements Runnable {
             	}
             	gameController.updatePaystones();
             	
-//            	System.out.println("aan het checken..");
+
                 gameController.updateGameRound();
                 gameController.updatePaystones();
             	gameController.updatePC();

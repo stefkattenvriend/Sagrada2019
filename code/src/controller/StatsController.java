@@ -15,12 +15,7 @@ public class StatsController {
 	}
 	
 	public void getPlayerStats() {
-		System.out.println(playerStats.getUsername());
-		System.out.println(playerStats.getHighscore());
-		System.out.println(playerStats.getWon());
-		System.out.println(playerStats.getLoss());
-		System.out.println(playerStats.getMostPlacedColor());
-		System.out.println(playerStats.getMostPlacedValue());
+		
 	}
 	
 }

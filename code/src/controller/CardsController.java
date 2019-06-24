@@ -110,8 +110,7 @@ public class CardsController {
 								nrs[5]++;
 								break;
 							default:
-								System.out.println(
-										"error: Die nr did not fit the set boundaries (1 to 6) at CardsController line 108");
+								
 
 							}
 						}
@@ -139,7 +138,7 @@ public class CardsController {
 								nrs1[1]++;
 								break;
 							default:
-//								System.out.println("out of bounds, cardscontroll 142");
+
 							}
 						}
 					}
@@ -213,7 +212,7 @@ public class CardsController {
 								nrs2[1]++;
 								break;
 							default:
-//								System.out.println("out of bounds, cardscontroll 214");
+
 							}
 						}
 					}
@@ -248,8 +247,7 @@ public class CardsController {
 								nrs3[4]++;
 								break;
 							default:
-								System.out.println(
-										"error: Die color did not fit the set color boundaries at CardsController line 235");
+								
 							}
 						}
 					}

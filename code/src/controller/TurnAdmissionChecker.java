@@ -56,12 +56,10 @@ public class TurnAdmissionChecker implements Runnable {
 				try {
 					Thread.sleep(3000);
 				} catch (InterruptedException e) {
-					System.out.println("TurnAdmissionController checkMyTurn sleep error");
 					e.printStackTrace();
 				}
 			} else {
-				// dont allow something
-				// System.out.println("not my turn");
+				
 				dhc.switchTurnInteractable(false);
 				gc.setCurrentPlayer(false);
 				if(round == 11) {
@@ -72,7 +70,6 @@ public class TurnAdmissionChecker implements Runnable {
 				try {
 					Thread.sleep(3000);
 				} catch (InterruptedException e) {
-					System.out.println("TurnAdmissionController checkMyTurn sleep error");
 					e.printStackTrace();
 				}
 			}

@@ -85,7 +85,6 @@ public class TurnController {
 		int amountOfPlayers = players.length;
 		int seqnr = 10;
 		if (amountOfPlayers == 4) {
-			System.out.println(amountOfPlayers + " players detected, passing the turn to the next!");
 			for (int i = 0; i < players.length; i++) {
 				int x = players[i].getSeqnr();
 				if (x < seqnr) {
@@ -195,11 +194,10 @@ public class TurnController {
 					players[3].setSeqnr(4);
 				} 
 				break;
-			default: System.out.println("something went wrong here...");
+			default: 
 			}
 		}
 		if (amountOfPlayers == 3) {
-			System.out.println(amountOfPlayers + " players detected, passing the turn to the next player!");
 			for (int i = 0; i < players.length; i++) {
 				int x = players[i].getSeqnr();
 				if (x < seqnr) {
@@ -278,20 +276,19 @@ public class TurnController {
 					players[2].setSeqnr(3);
 				}
 				break;
-			default: System.out.println("something went wrong here...");
+			default: 
 			}
 		}
 		if (amountOfPlayers == 2) {
-			System.out.println();
-			System.out.println(amountOfPlayers + " players detected, passing the turn to the next!");
+			
 			for (int i = 0; i < players.length; i++) {
 				int x = players[i].getSeqnr();
-//					System.out.println("this is value x: " + x);
+					
 				if (x < seqnr) {
 					seqnr = x; 
-//						System.out.println("this is value seqnr: " + seqnr);
+						
 					currentplayer = players[i]; 
-//						System.out.println("This is its actual seqnr: " + currentplayer.getSeqnr());
+
 				}
 			}
 			gController.getPointsController().allowCounting(currentplayer);	//TODO om te testen, weet niet hoe vaak dit moet gebeuren ¬ Milan
@@ -326,7 +323,6 @@ public class TurnController {
 			case 8:
 				tcc.setAllowed(true);
 				currentplayer.setCurrentPlayer(false);
-				System.out.println("--Ending the round--");
 				gController.forcedUpdateDice();
 				gController.putDieOnRoundTrack();
 			
@@ -342,32 +338,28 @@ public class TurnController {
 					
 					
 				} else {
-					System.out.println("Something went wrong, check turncontroller 300~");
+					
 				}
 				int round = diceController.getRound(gameId);
 				
 				
 				if(round == 11) {
-					System.out.println("JOJOJOJOJOJOJOJOJOJO");
 					gController.getMasterController().getMyScene().setEndPane();
 					
 					
 					break;
 				} else {
-				System.out.println("Now starting round number: " + round + ".");
 				diceController.generateOffer(amountOfPlayers, gameId);
 				gController.updateDiceOffer();
 				}
 				
 				break;
 	
-			default: System.out.println("something went wrong here...");
+			default: 
 			}
 		}
 		
-//		for (PlayerModel pm : players) {
-//			System.out.println("Player " + pm.getUsername() + " public points: " + pm.getPublicPoints());
-//		}
+
 		
 	}
 

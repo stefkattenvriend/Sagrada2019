@@ -126,16 +126,16 @@ public class MenuController {
 		offerGenerated = dbGameCollector.getOffer(gameID);
 		
 		int round = dbGameCollector.getRound(gameID);
-		System.out.println("dit is het ronde nummer: " + round);// syso om ronde te checke
+
 		String username = mc.getLoginController().getCurrentAccount();
 		int playerid = databeest.getPlayerID(username, gameID);
 		int patcardid = databeest.getPaternCardNumber(playerid);	//TODO mvc
 		int[] choice = databeest.getPcChoiche(playerid);
-		System.out.println("Loading game");
+
 		if(!offerGenerated && mc.getGameController().checkFirstPlayer()) {
 			int amountOfPlayers = dbGameCollector.getAmountOfPlayers(gameID);
 			generateOffer(amountOfPlayers, gameID);
-			System.out.println("Generating offer");
+
 			offerGenerated = true;
 		}
 		LayerController lyc = mc.getGameController().getLayerController();
@@ -144,9 +144,9 @@ public class MenuController {
 			lyc.generateRdmPatternCards();
 			randomPat = lyc.getRandomPat();
 			for (int i = 0; i < randomPat.length; i++) {
-				lyc.insertChoice(randomPat[i], playerid); // zet keuzes in database
-				// System.out.println("patterncardID = : " + randomPat[i]); //syso welke
-				// patterncards kunnen gekozen worden
+				lyc.insertChoice(randomPat[i], playerid); 
+
+				
 
 			}
 			myScene.setLayerPane();
@@ -178,11 +178,11 @@ public class MenuController {
 
 	// milan
 	public void newGame(ArrayList<String> playerList) {
-		colors = getColors(); // maakt 5 kleuren
+		colors = getColors(); 
 		int gameid = getGameid() + 1;
-		// System.out.println(gameid);
+
 		dbGameCollector.pushGame(gameid);
-		System.out.println("dit is de gameid" + gameid);
+
 		String challenger = playerList.get(0);
 		dbGameCollector.pushFirstPlayer(challenger, colors.get(0), gameid);
 		insertPublicObjectiveCards(gameid);
@@ -190,7 +190,7 @@ public class MenuController {
 		createGameDie(gameid);
 		psr.addStonesToGame(gameid);
 		for (int i = 1; i < playerList.size(); i++) {
-			// System.out.println(playerList.get(i));
+
 			addPlayer(playerList.get(i), gameid, colors.get(i), i + 1);
 		}
 
@@ -235,7 +235,7 @@ public class MenuController {
 	}
 
 	private void addPlayerFrameField(String username, int gameid) {
-		System.out.println(username);
+
 		dbGameCollector.addPlayerFrameField(username, gameid);
 
 	}
@@ -275,7 +275,7 @@ public class MenuController {
 			list.remove(0);
 
 		}
-		// System.out.println(list);//syso to check which numbers are added to database
+
 		return list;
 	}
 
@@ -290,7 +290,7 @@ public class MenuController {
 					menuInvitePane.setNewInput(invitedGames_NEW, getNewChallengers());
 					invitedGamesID_OLD.clear();
 					invitedGamesID_OLD = invitedGames_NEW;
-					System.out.println("nieuwe uitnodiging");
+
 					newInvite = false;
 				}
 			}
@@ -311,7 +311,7 @@ public class MenuController {
 					menuGamesPane.newActiveGames(gameIDs_NEW);
 					gameIDs_OLD.clear();
 					gameIDs_OLD = gameIDs_NEW;
-					System.out.println("Nieuwe actieve game");
+
 					newInvite = false;
 				}
 

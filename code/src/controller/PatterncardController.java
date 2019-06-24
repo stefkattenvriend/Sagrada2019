@@ -67,7 +67,7 @@ public class PatterncardController {
 			for (int j = 0; j < newPC.size(); j++) {
 				pcmodels.add(newPC.get(j));
 				if (newPC.get(j).getNumber() != 0) {
-//					System.out.println(newPC.get(j).getX() + newPC.get(j).getY() + newPC.get(j).getNumber());
+
 				}
 			}
 		}
@@ -194,7 +194,7 @@ public class PatterncardController {
 			}
 		}
 		else {
-			System.out.println("huh??");
+
 			color = Color.WHITE;
 		}
 		return color;
