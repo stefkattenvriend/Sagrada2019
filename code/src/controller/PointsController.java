@@ -8,6 +8,7 @@ import model.DiceHolderModel;
 import model.DiceModel;
 import model.GameModel;
 import model.PlayerModel;
+import view.GamePanes.PointsPane;
 
 //Tjess Wjest & Stjef vjan Ojsch
 public class PointsController {
@@ -15,6 +16,7 @@ public class PointsController {
 	private PlayerModel[] pma;
 	private GameModel gameModel;
 	private GameController gameController;
+	private PointsPane playpane;
 
 	private DbPlayerCollector dbPlayerCollector;
 	
@@ -109,7 +111,7 @@ public class PointsController {
 	private void setPublicPoints(PlayerModel pm, int sharedObjectivePoints, int emptySpotsPenalty, int paystones)
 	{
 		int publicPoints = sharedObjectivePoints + emptySpotsPenalty + paystones;
-		
+		playpane.setTextAmount();
 		pm.setPublicPoints(publicPoints);
 	}
 	
@@ -118,7 +120,8 @@ public class PointsController {
 		return pm.getPublicPoints();
 	}
 
-	public String getTotalPoints() {
+	public String getTotalPoints(PointsPane pane) {
+		this.playpane = pane;
 		String scoreString = (new StringBuilder()).append("").toString();
 		for(int i = 0; i < pma.length; i++) {
 		scoreString = scoreString + (new StringBuilder()).append((pma[i].getUsername() + ": " + getPublicPoints(pma[i]) + "\n").toString());

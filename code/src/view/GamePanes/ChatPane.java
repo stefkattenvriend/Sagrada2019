@@ -69,11 +69,11 @@ public class ChatPane extends BorderPane {
 		scrollPane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null)));
 		textArea.setMinHeight(textareasize);
 		textField = new TextField();
-		textField.setPromptText("Type here to chat...");
+		textField.setPromptText("Typ hier om te chatten...");
 		textArea.setDisable(true);
-		textArea.setText("Welcome to Sagrada! \n");
+		textArea.setText("Welkom bij Sagrada! \n");
 		buttonBar = new HBox();
-		submitbutton = new Button("Submit");
+		submitbutton = new Button("Stuur");
 		submitbutton.setMinWidth(buttonwidth);
 
 		getchatbutton = new Button("update");

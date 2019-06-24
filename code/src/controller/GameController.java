@@ -364,6 +364,9 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 					if (updateDice) {
 						dhc.reloadDiceHolderPanes();// reload de panes van dice en diceholder die izjn opgeslagen
 						gamepane.redrawDice();
+						if (currentPlayer) {
+							dhc.reloadInteractability();
+						}
 					}
 				}
 			}
