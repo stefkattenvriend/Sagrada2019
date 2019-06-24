@@ -35,10 +35,10 @@ public class DataBaseApplication {
 		try {
 			m_Conn = DriverManager
 
-					.getConnection("jdbc:mysql://databases.aii.avans.nl/mwmastbe_db2?user=rcaasper&password=Ab12345"); // TODO
+//					.getConnection("jdbc:mysql://databases.aii.avans.nl/mwmastbe_db2?user=rcaasper&password=Ab12345"); // TODO
 																														// hier
 																														// moet
-//					.getConnection("jdbc:mysql://databases.aii.avans.nl/2019_soprj4_sagrada_mnopqr?user=42IN04SOn&password=normalisatie");																									// de
+					.getConnection("jdbc:mysql://databases.aii.avans.nl/2019_soprj4_sagrada_her?user=42IN04SOn&password=normalisatie");																									// de
 
 																														// uiteindelijke
 																														// inloggegevens

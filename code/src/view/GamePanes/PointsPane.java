@@ -45,7 +45,7 @@ public class PointsPane extends VBox {
 		Label textAmount = new Label();
 		
 		//TODO het weergeven van de points
-		textAmount.setText(" " + pc.getTotalPoints()); //moet worden gelinkt aan points berekening
+		textAmount.setText(pc.getTotalPoints()); //moet worden gelinkt aan points berekening
 //		System.out.println(pc.getTotalPoints());
 		
 		
