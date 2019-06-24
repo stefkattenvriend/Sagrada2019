@@ -93,11 +93,9 @@ public class MenuInvitePane extends FlowPane {
 	}
 
 	public void updateInvitePane() {
-		System.out.println("schoonmaken..");
 		getChildren().clear();
 		list.getChildren().clear();
 		games.clear();
-		System.out.println("indelen..");
 
 		for (int i = 0; i < invitedGameIDs.size(); i++) {
 			games.add(new MenuDropdown(menuController, false,

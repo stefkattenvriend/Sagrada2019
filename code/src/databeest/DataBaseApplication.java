@@ -21,11 +21,8 @@ public class DataBaseApplication {
 
 	public boolean loadDataBaseDriver(String driverName) {
 		try {
-			// Load the JDBC driver
 			Class.forName(driverName);
 		} catch (ClassNotFoundException e) {
-			// Could not find the database driver
-			System.out.println("ClassNotFoundException : " + e.getMessage());
 			return false;
 		}
 		return true;
@@ -48,13 +45,9 @@ public class DataBaseApplication {
 																														// database
 																														// van
 																														// school
-			System.out.println("So far, so good...");
+
 		} catch (SQLException ex) {
 			// handle any errors
-			System.out.println("Houston, we've had a problem...");
-			System.out.println("SQLException: " + ex.getMessage());
-			System.out.println("SQLState: " + ex.getSQLState());
-			System.out.println("VendorError: " + ex.getErrorCode());
 			return false;
 		}
 		return true;
@@ -69,10 +62,8 @@ public class DataBaseApplication {
 			stmt = m_Conn.createStatement();
 
 			int rs = stmt.executeUpdate(query);
-			// System.out.println(rs);// Deze maakt de 1 in de console :D
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 	}
 
@@ -87,13 +78,11 @@ public class DataBaseApplication {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
-			// return string in console
 			while (rs.next()) {
 				password = rs.getString(2).toLowerCase();
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return password;
 	}
@@ -113,7 +102,6 @@ public class DataBaseApplication {
 
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 
 		if (dbUsername != null) {
@@ -144,7 +132,6 @@ public class DataBaseApplication {
 			}
 
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 			return false;
 		}
 	}
@@ -164,7 +151,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return gameid;
 	}
@@ -184,7 +170,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return players;
 	}
@@ -207,7 +192,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 		}
 
 		return challengers;
@@ -231,7 +215,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 		}
 
 		return inviteGameID;
@@ -255,7 +238,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 		}
 		return currentPlayerStatus;
 	}
@@ -276,7 +258,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 		}
 		return statusAccepted;
 	}
@@ -298,7 +279,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 		}
 		return playersInGame;
 	}
@@ -319,7 +299,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 		}
 		return playerStatus;
 	}
@@ -341,7 +320,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 		}
 		return playerID;
 	}
@@ -362,7 +340,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return colors;
 	}
@@ -381,7 +358,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return idToolCards;
 	}
@@ -400,7 +376,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return idToolCards;
 	}
@@ -419,7 +394,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return paystones;
 	}
@@ -440,7 +414,7 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+	
 		}
 		return chat;
 	}
@@ -461,7 +435,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return chatPlayers;
 	}
@@ -482,7 +455,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return chat;
 	}
@@ -507,7 +479,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return highscore;
 	}
@@ -526,7 +497,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return round;
 	}
@@ -546,7 +516,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return PlayerID;
 	}
@@ -565,7 +534,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return seqnr;
 	}
@@ -584,7 +552,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return status;
 	}
@@ -603,7 +570,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return icp;
 	}
@@ -655,7 +621,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 			return value;
 		}
 		return value;
@@ -675,7 +640,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return score;
 	}
@@ -693,7 +657,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return amount;
 	}
@@ -713,7 +676,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return playerIDs;
 	}
@@ -732,7 +694,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return pcid;
 	}
@@ -752,7 +713,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return color;
 
@@ -772,7 +732,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 
 		return username;
@@ -816,7 +775,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return diceList;
 	}
@@ -859,7 +817,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return diceList;
 	}
@@ -880,7 +837,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return chatID;
 	}
@@ -896,7 +852,6 @@ public class DataBaseApplication {
 			int rs = stmt.executeUpdate(query);
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 	}
 
@@ -918,7 +873,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 
 		return startedGames;
@@ -942,7 +896,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 
 		return waitedGames;
@@ -966,7 +919,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return PlayerFieldFrameList;
 
@@ -989,7 +941,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 
 		return finishedGames;
@@ -1009,7 +960,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return pcnumber;
 	}
@@ -1021,11 +971,8 @@ public class DataBaseApplication {
 		try {
 			stmt = m_Conn.createStatement();
 			int rs = stmt.executeUpdate(query);
-			System.out.println("should have executed the query by now");
-			// System.out.println(rs);
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 	}
 
@@ -1038,30 +985,21 @@ public class DataBaseApplication {
 			try {
 				stmt = m_Conn.createStatement();
 				int rs = stmt.executeUpdate(query);
-				// System.out.println("idfavortoken: " + idfavortoken + " -gameId: " + gameId);
 				stmt.close();
 				idfavortoken++;
-				// System.out.println("favortoken++: " + idfavortoken);
 			} catch (SQLException e) {
-				System.out.println(e.getMessage());
 			}
 		}
 	}
 
 	public void addStonesToPlayer(int gameId, int playerId, int amount) {
-		// System.out.println("gameId: " + gameId);
-		// System.out.println("amount: " + amount);
-		// System.out.println("playerId:" + playerId);
 		Statement stmt = null;
 		String query = "UPDATE gamefavortoken SET idplayer = " + playerId + " WHERE idgame = " + gameId
 				+ " AND idplayer IS NULL LIMIT " + amount;
 		try {
 			stmt = m_Conn.createStatement();
-			int rs = stmt.executeUpdate(query);
-			// System.out.println(rs);
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 	}
 
@@ -1076,11 +1014,9 @@ public class DataBaseApplication {
 
 			while (rs.next()) {
 				amount = rs.getInt(1);
-				// System.out.println("database says you should have: " + rs.getInt(1));
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return amount;
 	}
@@ -1099,7 +1035,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 
 		if (amount < 1) {
@@ -1121,13 +1056,11 @@ public class DataBaseApplication {
 
 			while (rs.next()) {
 				pcIds[i] = rs.getInt(1);
-				// System.out.println(pcIds[i]);
 				i++;
 
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return pcIds;
 	}
@@ -1145,7 +1078,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return diff;
 	}
@@ -1165,7 +1097,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return amount;
 	}
@@ -1184,7 +1115,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return amount;
 	}
@@ -1212,7 +1142,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return dieColors;
 	}
@@ -1240,7 +1169,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return dieNumbers;
 	}
@@ -1257,7 +1185,6 @@ public class DataBaseApplication {
 			int rs = stmt.executeUpdate(query);
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 	}
 
@@ -1277,7 +1204,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return idpatterncards;
 	}
@@ -1292,7 +1218,6 @@ public class DataBaseApplication {
 			int rs = stmt.executeUpdate(query);
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 	}
 
@@ -1306,7 +1231,6 @@ public class DataBaseApplication {
 			int rs = stmt.executeUpdate(query);
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 	}
 
@@ -1326,7 +1250,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return idpatterncards;
 	}
@@ -1347,7 +1270,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return idpatterncards;
 	}
@@ -1368,8 +1290,7 @@ public class DataBaseApplication {
 
 			}
 			stmt.close();
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+		} catch (SQLException e) { 
 		}
 		return idpatterncards;
 	}
@@ -1389,8 +1310,7 @@ public class DataBaseApplication {
 
 			}
 			stmt.close();
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+		} catch (SQLException e) {         
 		}
 		return amount;
 	}
@@ -1438,7 +1358,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return offer;
 
@@ -1460,7 +1379,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return winner;
 	}
@@ -1512,7 +1430,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return roundtrack;
 	}
@@ -1534,7 +1451,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return eyes;
 	}
@@ -1556,7 +1472,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return dienumber;
 	}
@@ -1578,7 +1493,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return diecolor;
 	}
@@ -1591,7 +1505,6 @@ public class DataBaseApplication {
 			int rs = stmt.executeUpdate(query);
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		
 	}
@@ -1604,7 +1517,6 @@ public class DataBaseApplication {
 			int rs = stmt.executeUpdate(query);
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		
 	}

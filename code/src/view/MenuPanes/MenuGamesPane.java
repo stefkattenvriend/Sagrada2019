@@ -86,11 +86,9 @@ public class MenuGamesPane extends FlowPane {
 	}
 
 	public void updateActiveGamesPane() {
-		System.out.println("actieve games opruimen..");
 		getChildren().clear();
 		list.getChildren().clear();
 		games.clear();
-		System.out.println("actieve games indelen..");
 
 		for (int i = 0; i < gameIDs.size(); i++) {// vult verzameling met alle knoppen
 			games.add(new MenuDropdown(menuController, true, "Sagrada " + gameIDs.get(i), false, null, false, false,
