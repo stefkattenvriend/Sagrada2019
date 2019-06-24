@@ -710,6 +710,9 @@ public class DiceHolderController {
 
 	public void reloadInteractability() {
 		for (int i = 0; i < dhmodels.size(); i++) {
+			dhmodels.get(i).setInteractable(false);
+		}
+		for (int i = 0; i < dhmodels.size(); i++) {
 			if (dhmodels.get(i).getType() == DiceHolderType.OFFER
 					|| (dhmodels.get(i).getType() == DiceHolderType.PLAYERWINDOW && dhmodels.get(i).getDie() == null)) {
 				dhmodels.get(i).setInteractable(true);
