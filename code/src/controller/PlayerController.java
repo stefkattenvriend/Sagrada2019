@@ -26,7 +26,6 @@ public class PlayerController {
 	public void setCurrentPlayer(Boolean current)
 	{
 		playerModel.setCurrentPlayer(current);
-		System.out.println("update player to: " + current);
 	}
 
 	public boolean isCurrentPlayer()

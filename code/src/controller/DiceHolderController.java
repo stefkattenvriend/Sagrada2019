@@ -132,8 +132,7 @@ public class DiceHolderController {
 						return;
 
 					} else if (selectedModel.getDie() == null && dhmodels.get(i).getDie() != null) {// switch een
-						System.out.println("check"); // dobbelsteen verplaatsen
-						System.out.println("turn: " + gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getTurn());
+					
 						if (checkDiceMovement(selectedModel, dhmodels.get(i).getDie()) == true) {
 							if (dhmodels.get(i).getDie() != IllegalDice) {
 								selectedModel.setDie(dhmodels.get(i).getDie());// wiselt de models
@@ -278,7 +277,6 @@ public class DiceHolderController {
 								return check;
 							}
 							nextTo = true;
-							System.out.println("changed to true");
 						}
 					}
 				}
@@ -299,7 +297,6 @@ public class DiceHolderController {
 								return check;
 							}
 							nextTo = true;
-							System.out.println("changed to true");
 						}
 					}
 				}
@@ -319,7 +316,6 @@ public class DiceHolderController {
 								return check;
 							}
 							nextTo = true;
-							System.out.println("changed to true");
 						}
 					}
 				}
@@ -340,7 +336,6 @@ public class DiceHolderController {
 								return check;
 							}
 							nextTo = true;
-							System.out.println("changed to true");
 						}
 					}
 				}
@@ -358,7 +353,6 @@ public class DiceHolderController {
 								break;
 							}
 							nextTo = true;
-							System.out.println("changed to true");
 						}
 					}
 				}
@@ -376,7 +370,6 @@ public class DiceHolderController {
 								break;
 							}
 							nextTo = true;
-							System.out.println("changed to true");
 						}
 					}
 				}
@@ -394,7 +387,6 @@ public class DiceHolderController {
 								break;
 							}
 							nextTo = true;
-							System.out.println("changed to true");
 						}
 					}
 				}
@@ -408,7 +400,6 @@ public class DiceHolderController {
 							&& dhmodels.get(i).getX() == (location.getX() - 1)) {
 						if (dhmodels.get(i).getDie() != null) {
 							nextTo = true;
-							System.out.println("changed to true");
 						}
 					}
 				}
@@ -427,25 +418,15 @@ public class DiceHolderController {
 				}
 			}
 
-			System.out.println("checkNextTo: " + checkNextTo);
 			if (checkNextTo) {
 				if (gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getTurn() != 1 && gm.getGameRound() != 1) {
 					if (!nextTo) {
 						check = false;
-						System.out.println("Dice needs to be besides an other dice");
 						return check;
 					}
 				}
 
-				/*
-				 * for(int i = 0; i < dhmodels.size(); i++) { if(dhmodels.get(i).getDie() !=
-				 * null) { System.out.println("Theres a die here!");
-				 * if(dhmodels.get(i).getType() == DiceHolderType.PLAYERWINDOW &&
-				 * dhmodels.get(i).getY() != location.getY() && dhmodels.get(i).getX() !=
-				 * location.getX()) { if(nextTo == false) {
-				 * System.out.println("check should return false"); check = false; return check;
-				 * } else { System.out.println("should be besides one"); break; } } } }
-				 */}
+			}
 
 			if (gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getTurn() != 0) {
 				if (gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getTurn() == 1) {
@@ -472,11 +453,7 @@ public class DiceHolderController {
 			}
 		}
 
-		/*
-		 * if(check) { tcc.addAmountOfMoves(); }
-		 */
-		System.out.println("moves1: " + gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getMovesAllowed1());
-		System.out.println("moves2: " + gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getMovesAllowed2());
+		
 		return check;
 	}
 
@@ -555,7 +532,6 @@ public class DiceHolderController {
 				}
 			}
 		}
-		System.out.println("amount: " + amount);
 		return amount;
 	}
 
@@ -578,7 +554,6 @@ public class DiceHolderController {
 			if (dhmodels.get(i).getDie() != null) {
 				if (dhmodels.get(i).getType() == DiceHolderType.OFFER) {
 					int dienr = rand.nextInt(6) + 1;
-					System.out.println("dienr: " + dienr);
 					this.setEyes(dienr, dhmodels.get(i).getDie());
 				}
 			}
@@ -600,7 +575,6 @@ public class DiceHolderController {
 
 	public void changeDieEyes(int nr, DiceHolderModel dh) {
 		this.setEyes(nr, dh.getDie());
-		System.out.println(dh.getDie().getEyes());
 	}
 
 	public void setCheckColor(boolean i) {
@@ -659,9 +633,7 @@ public class DiceHolderController {
 	}
 
 	public void higherClicked(boolean test) {
-		System.out.println("die eyes: " + this.GetSelectedDiceHolder().getDie().getEyes());
 		int nr = this.GetSelectedDiceHolder().getDie().getEyes() + 1;
-		System.out.println("new die eyes" + nr);
 		this.setEyes(nr, this.GetSelectedDiceHolder().getDie());
 		if(test) {
 			tcc.returnToNormal();
@@ -669,9 +641,7 @@ public class DiceHolderController {
 	}
 
 	public void lowerClicked(boolean test) {
-		System.out.println("die eyes: " + this.GetSelectedDiceHolder().getDie().getEyes());
 		int nr = this.GetSelectedDiceHolder().getDie().getEyes() - 1;
-		System.out.println("new die eyes" + nr);
 		this.setEyes(nr, this.GetSelectedDiceHolder().getDie());
 		if (test) {
 			tcc.returnToNormal();
@@ -687,7 +657,6 @@ public class DiceHolderController {
 	}
 
 	public void higherClicked1() {
-		System.out.println("die color: " + this.GetSelectedDiceHolder().getDie().getEyes());
 		Color color = this.GetSelectedDiceHolder().getDie().getDieColor();
 		
 		switch (color.toString()) {
@@ -712,7 +681,6 @@ public class DiceHolderController {
 	}
 
 	public void lowerClicked1() {
-		System.out.println("die color: " + this.GetSelectedDiceHolder().getDie().getEyes());
 		Color color = this.GetSelectedDiceHolder().getDie().getDieColor();
 		
 		switch (color.toString()) {
@@ -753,41 +721,5 @@ public class DiceHolderController {
 	public void handleTwelve(Color dieColor) {
 		Color t12 = dieColor;
 	}
-
-	/*public void putDieOnRoundTrack() {
-		int round = gm.getGameRound();
-		ArrayList<String> diecolor = new ArrayList<String>();
-		ArrayList<Integer> dienumber = new ArrayList<Integer>();
-
-		for (int i = 0; i < dhmodels.size(); i++) {
-			if (dhmodels.get(i).getType() == DiceHolderType.OFFER && dhmodels.get(i).getDie() != null) {
-				dienumber.add(dhmodels.get(i).getDie().getDieNumber());
-				switch (dhmodels.get(i).getDie().getDieColor().toString()) {
-				case ("0xff0000ff"):// red
-					diecolor.add("rood");
-					break;
-				case ("0x0000ffff"):// blue
-					diecolor.add("blauw");
-					break;
-				case ("0x008000ff"):// green
-					diecolor.add("groen");
-					break;
-				case ("0xffff00ff"):// yellow
-					diecolor.add("geel");
-					break;
-				case ("0x800080ff"):// purple
-					diecolor.add("paars");
-					break;
-				default:
-					break;
-				}
-			}
-		}
-
-		for (int i = 0; i < dienumber.size(); i++) {
-			dc.addDieToRoundTrack(round, gameid, dienumber.get(i), diecolor.get(i));
-			System.out.println("Adding " + dienumber.get(i)+ " to roundtrack: " + round);
-		}
-	}*/
 
 }

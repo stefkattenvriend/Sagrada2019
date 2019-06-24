@@ -39,22 +39,18 @@ public class PointsController {
 			int emptySpotsPenalty;
 			int sharedObjectivePoints;
 			int paystones;
-//			System.out.println("--- hier volgen de punten ---");
-			personalObjectivePoints = getPersonalObjectivePoints(/*pma[i]*/pm);
-//			System.out.println("Persoonlijke punten: " + personalObjectivePoints);
-			emptySpotsPenalty = getEmptySpotsPenalty(/*pma[i]*/pm);
-//			System.out.println("Strafpunten: " + emptySpotsPenalty);
+			personalObjectivePoints = getPersonalObjectivePoints(pm);
+
+			emptySpotsPenalty = getEmptySpotsPenalty(pm);
 			
 		
 			sharedObjectivePoints = getSharedObjectivePoints(/*pma[i]*/); //Jami's methode haalt score van alle drie doelkaarten op voor degene die deze methode aanroept.
-			System.out.println("Jami punten: " + sharedObjectivePoints + " @ pointscontroller 59");
 			
 			paystones = getAmountOfPaystones(/*pma[i]*/pm); 
 			
 			setPrivatePoints(pm, personalObjectivePoints, emptySpotsPenalty, sharedObjectivePoints, paystones);
 			setPublicPoints(pm, sharedObjectivePoints, emptySpotsPenalty, paystones);
-			System.out.println("Publicpoints for player " + pm.getUsername() + " = " + getPublicPoints(pm));
-			System.out.println("Privatepoints for player " + pm.getUsername() + " = " + getPrivatePoints(pm));
+			
 			
 			dbPlayerCollector.setScore(pm.getPlayerId(), getPublicPoints(pm));
 
@@ -83,7 +79,6 @@ public class PointsController {
 	}
 
 	private int getAmountOfPaystones(PlayerModel pm) {
-//		System.out.println("amount of Paystones: " + pm.getPayStones());
 		return pm.getPayStones();
 	}
 

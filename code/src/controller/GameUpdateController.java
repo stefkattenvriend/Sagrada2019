@@ -94,7 +94,6 @@ public class GameUpdateController {
 								for (int k = 0; k < dhmad.size(); k++) {
 
 									if (k == dhmad.size()) {
-										System.out.println("Mistake on k:" + k);
 										break;
 									}
 

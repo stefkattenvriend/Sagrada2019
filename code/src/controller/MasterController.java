@@ -63,7 +63,7 @@ public class MasterController extends Application{//een controller die alle ande
 	}
 	
 	private void closeApp() {
-		System.out.println("Program stopped!");
+
 		System.exit(0);
 	}
 
@@ -90,29 +90,12 @@ public class MasterController extends Application{//een controller die alle ande
 		this.gc = new GameController(DatabasePTCCollector, dbGameCollector, lc, dbChatCollector, dbCardCollector, dbPlayerCollector, dbDieCollector, dbDieUpdater, dbTurnCollector, psr, tcc, this);
 		this.sc = new StatsController(dbPlayerStatsCollector);
 		
-//		this.chat = new ChatController(dbChatCollector);
-		
-		
-		
-		//make the GamePane
-		
-		// testen game
-//		gc.newGame(); //dit maakt een nieuwe game aan (milan)
-		
-		//testen player
-//		pc.setPlayerId(2);
-//		System.out.println("Amount of paystones: " + pc.getPayStones());
+
 	}
 	
 	
 	private void startUpdate() {
-		//Game refresher/checker
-//	this.muc = new MenuUpdateController(this);
-//	this.utc = new UpdateTimerController(guc, muc);
-	
-//			
-//	Thread t1 = new Thread(utc);
-//	t1.start();
+
 		
 	MasterRunnable masterRunnable = new MasterRunnable(this.getMenuController(), this.getGameController());	
 	

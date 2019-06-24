@@ -158,11 +158,10 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		for (int i = 0; i < amountOfPlayers; i++) {
 			gm.addPlayer(i, playerIDs[i], username);
 			pc.setPlayerId(playerIDs[i]);
-			// System.out.println("playerIds[i]" + playerIDs[i]);
+
 		}
 		pcc = new PatterncardController(DatabasePTCCollector, gm);
 		lyc = new LayerController(pcc, this);
-		// System.out.println("Player id in create game model: " + pc.getPlayerID());
 		this.dhc = new DiceHolderController(pcc, dbDieCollector, gm.getGameId(), gm, dbDieUpdater, this);
 		createCardsController();
 		guc.setGameModel(gm);
@@ -179,7 +178,6 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		crc = new CardsController(dbCardCollector, gm.getGameId(), tcc, dhc.getDhmodels());
 		this.guc = new GameUpdateController(this);
 		this.tc = new TurnController(this, dhc, dbDieUpdater, gm, dtc, lc.getCurrentAccount(), gm.getGameId(), tcc);
-		// System.out.println("should be gameId: " + gm.getGameId());
 	}
 
 	public PayStoneController getPayStoneController() {
@@ -189,9 +187,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	public void updatePaystones() {
 		if (gameRunning) {
 			int amount = psc.getPlayerStones();
-			// System.out.println("amount: " + amount);
 			if (amount != ppsm.getStones()) {
-				// System.out.println("ppsm amount: " + ppsm.getStones());
 				ppsm.setStones(amount);
 				pa.refresh();
 			}
@@ -217,14 +213,9 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	public void updateCardPane() {
 		if (gameRunning) {
 			int i = 0;
-			// System.out.println();
-			// System.out.println("now running update card pane");
-			// System.out.println("Stones on card: " + CardPanes.get(i).getStonesAmount());
-			// System.out.println("get stones on database: " +
-			// psc.getStonesOnCard(CardPanes.get(i).getCardNr()));
+
 			while (i < CardPanes.size()) {
 				if (CardPanes.get(i).getStonesAmount() != psc.getStonesOnCard(CardPanes.get(i).getCardNr())) {
-					System.out.println("refresh the stones!");
 					CardPanes.get(i).refresh(psc.getStonesOnCard(CardPanes.get(i).getCardNr()));
 				}
 				i++;
@@ -302,7 +293,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 						}
 						
 					} else {
-						System.out.println("uncomplete model");
+						
 					}
 				}
 			}
@@ -356,7 +347,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 						forcedUpdateDice();
 					}
 				} else {
-					System.out.println("uncomplete model");
+					
 				}
 			}
 		}
@@ -409,8 +400,6 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		guc.reloadRoundTrack();
 		this.forcedUpdateDice();
 
-		System.out.println("aye, im working here!");
-
 	}
 
 	public DbPlayerCollector getdbPlayerCollector() {
@@ -444,22 +433,6 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		
 	}
 	
-	/*public void reloadGame() {
-		createGameModel(gm.getGameId());
-		
-		
-		int round = dbGameCollector.getRound(gm.getGameId());
-		System.out.println("dit is het ronde nummer: " + round);// syso om ronde te checke
-		String username = lc.getCurrentAccount();
-		int playerid = dpc.getPlayerID(username, gm.getGameId());
-		System.out.println("reLoading game");
-
-		
-//			myScene.setGamePane();
-			setGameRunning(true);
-			//mc.getGameController().setCurrentPlayer(false);//zorgt ervoor dat je game een keer update als je aan de beurt bent
-			updateDiceOffer();
-		
-	}*/
+	
 
 }
