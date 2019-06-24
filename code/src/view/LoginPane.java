@@ -88,10 +88,7 @@ public class LoginPane extends VBox{
 		{
 			myScene.setMenuPane();
 		}
-		else 
-		{
-			System.out.println("kan niet inloggen");
-		}
+		
 		
 	}
 	

@@ -1,4 +1,4 @@
-package view.MenuPanes;
+ package view.MenuPanes;
 
 
 import controller.LoginController;
@@ -33,10 +33,7 @@ public class MenuPane extends BorderPane {
 		this.menuController = menuController;
 		this.loginController = loginController;
 		this.myScene = myScene;
-//		image = new Image("layout_images/menuBackground.png", true);
-//		imageView = new ImageView(image);
 		image = new Image("layout_images/menuBackground.png");
-//		BackgroundSize backgroundSize = new BackgroundSize(windowMaxWidth, windowMaxHeight, 100, 100, 100, 100);
 		background = new BackgroundImage(image,
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT,
@@ -51,8 +48,6 @@ public class MenuPane extends BorderPane {
 		setScreenSize();
 		createPanes();
 		setBackground(new Background(background));
-//		menuController.update(this);
-//		BackgroundImage(Image image, BackgroundRepeat repeatX, BackgroundRepeat repeatY, BackgroundPosition position, BackgroundSize size)
 	}
 	
 	public void createPanes() {	

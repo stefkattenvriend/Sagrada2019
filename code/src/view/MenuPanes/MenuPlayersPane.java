@@ -46,7 +46,6 @@ public class MenuPlayersPane extends VBox {// door joery
 		this.menuWaitingPane = menuWaitingPane;
 		menuController.getMenuPlayersPane(this);
 		databeest = menuController.getDataBaseApplication();
-//		players = databeest.getPlayers();
 
 		setPaneSize();
 		createPlayersList(false);

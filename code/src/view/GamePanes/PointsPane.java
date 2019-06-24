@@ -47,7 +47,6 @@ public class PointsPane extends VBox {
 		
 		//TODO het weergeven van de points
 		textAmount.setText(pc.getTotalPoints(this)); //moet worden gelinkt aan points berekening
-//		System.out.println(pc.getTotalPoints());
 		
 		
 		textAmount.setFont(Font.font ("Verdana", FontWeight.BOLD, 15));

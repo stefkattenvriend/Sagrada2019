@@ -23,7 +23,6 @@ public class MenuResultsPane extends VBox {
 	private DataBaseApplication databeest;
 
 	public MenuResultsPane(MenuController menuController) {
-//		calculateWinner();
 		setPaneSize();
 		setAlignment(Pos.CENTER);
 		makePanes();
