@@ -49,6 +49,9 @@ public class GameModel {
 		if (gameRound < newRound) {
 			gameRound = newRound;
 			gc.updateNewRound(true);
+			for (int i = 0; i < pma.length; i++) {
+				pma[i].resetMoves();
+			}
 			// gc.updateRoundtrack(newRound - 1);
 		}
 

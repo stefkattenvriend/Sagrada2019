@@ -94,6 +94,11 @@ public class PlayerModel {
 		return movesAllowed1;
 	}
 	
+	public void resetMoves() {
+		movesAllowed1 = 1;
+		movesAllowed2 = 1;
+	}
+	
 	public void doMove1() {		//roep deze aan nadat je een actie hebt uitgevoerd
 		movesAllowed1 = movesAllowed1 -1;
 		tcc.doMove();
