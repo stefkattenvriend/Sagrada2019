@@ -123,9 +123,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		return cc;
 	}
 
-	public void createPrivateObjective() {  //TODO wat gebeurt hiermee?
-		
-	}
+
 
 	public LoginController getLoginController() {
 		return lc;
@@ -232,9 +230,6 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		this.gameRunning = gameRunning;
 	}
 
-	// public void setGenerateOffer(boolean generateOffer) {
-	// this.generateOffer = generateOffer;
-	// }
 
 	public void setMyColor() {
 		if (gameRunning) {
@@ -244,8 +239,6 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	}
 
 	public void updatePCid(int i) {
-		// pcc.updatePCa(i, PatterncardType.PLAYER);
-		// gm.updatePCa(i);
 		gamepane.updatePCid(i);
 		this.allPatternCards = false;
 
@@ -342,7 +335,6 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 						old_round++;
 						dhc.reloadDiceHolderPanes();
 						gamepane.redrawDice();
-//						updateRoundtrack(old_round);
 						forcedUpdateDice();
 					}
 				} else {
@@ -389,15 +381,6 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		return pc.getPM();
 	}
 
-	// public void updateColors() {
-	// if(gamepane != null && currentPlayer) {
-	// gamepane.yourTurn(); //hoort de playerpane groen of rood te zetten als je aan
-	// de beurt bent of niet
-	// } else if (gamepane != null && !currentPlayer) {
-	// gamepane.notYourTurn();
-	// }
-	//
-	// }
 	public void updateRoundtrack(int oldRoundId) {
 
 		guc.reloadRoundTrack();

@@ -38,7 +38,6 @@ public class MasterRunnable implements Runnable {
             	gameController.updateDiceOffer();
             	gameController.updateDicePlacement();
             	
-//            	gameController.updateFirstDice(); // ga ik in menucontroller new game zetten
             	
             }
         };

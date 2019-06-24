@@ -123,10 +123,6 @@ public class MasterController extends Application{//een controller die alle ande
 		return this.lc;
 	}
 	
-//	public ChatController getChatController()
-//	{
-//		return this.chat;
-//	}
 	
 	public Stage getStage() {
 		return this.stage;
@@ -136,10 +132,6 @@ public class MasterController extends Application{//een controller die alle ande
 	
 		return this.mnController;
 	}
-//
-//	public UpdateTimerController getUtc() {
-//		return utc;
-//	}
 	
 	public DbDieCollector getDbDieCollector() {
 		return dbDieCollector;

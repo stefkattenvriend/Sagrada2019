@@ -10,10 +10,7 @@ import model.GameModel;
 import model.PlayerFieldFrameModel;
 
 public class GameUpdateController {
-	// beurt
-	// chat
-	//
-
+	
 	private GameController gmc;
 	private GameModel gm;
 	private DiceHolderController dhc;
@@ -39,9 +36,7 @@ public class GameUpdateController {
 	}
 
 	// deze methode checkt op dice movement op andere spelers
-	public void checkDiceMovementPlayerFields() {// dit hoeft niet gedaan te worden als jij aan de beurt bent, maar
-													// maakt wss
-		// niet uit(testen)
+	public void checkDiceMovementPlayerFields() {
 		ArrayList<DiceHolderModel> dhma = new ArrayList<DiceHolderModel>();
 		dhma.addAll(dhc.getDhmodels());
 
@@ -76,11 +71,9 @@ public class GameUpdateController {
 																				// type is dat verwacht wordt
 								&& dhma.get(i).getX() == pffa.get(j).getX()// en checkt vervolgens of de x en y ook
 																			// overeen komen
-								&& dhma.get(i).getY() == pffa.get(j).getY()) {// mvc aanpassen
-							// loop door de dhma, zoek een dobbelsteen in de andere dhm die overeen komt met
-							// die van de pffa,
-							// haal dat model daar weg en plaats deze in de juiste dhm
-							if (dhmad.size() == 0 || gmc.getNewRound()) {// wss mis
+								&& dhma.get(i).getY() == pffa.get(j).getY()) {
+							
+							if (dhmad.size() == 0 || gmc.getNewRound()) {
 								ArrayList<DiceModel> dicelist = dhc.getDiceController().getDMAL();
 								for (int k = 0; k < dicelist.size(); k++) {
 									if (dicelist.get(k).getDieNumber() == pffa.get(j).getDienumber()
@@ -101,15 +94,6 @@ public class GameUpdateController {
 											&& dhmad.get(k).getDie().getDieColor() == pffa.get(j).getDiecolor()) {
 
 										dhma.get(i).setDie(dhmad.get(k).getDie());
-
-										/*
-										 * for (int k2 = 0; k2 < dhma.size(); k2++) { if (dhma.get(k2).getDie() ==
-										 * dhmad.get(k).getDie() && dhma.get(k2).getType() != dhmad.get(k).getType() &&
-										 * dhma.get(k2).getX() != dhmad.get(k).getX() && dhma.get(k2).getY() !=
-										 * dhmad.get(k).getY()) { dhma.get(k2).setDie(null); break; }
-										 * 
-										 * }
-										 */
 
 									}
 								}

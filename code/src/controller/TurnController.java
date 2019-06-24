@@ -75,7 +75,6 @@ public class TurnController {
 			}
 
 		}
-//		updateSeqnrAndTurn();
 	}
 	
 	//milan
@@ -96,7 +95,7 @@ public class TurnController {
 					
 				
 			}
-			gController.getPointsController().allowCounting(currentplayer);	//TODO om te testen, weet niet hoe vaak dit moet gebeuren ¬ Milan
+			gController.getPointsController().allowCounting(currentplayer);	
 			switch (seqnr) {
 			case 1:
 				currentplayer.setSeqnr(8); // eerste aan de beurt, laatste aan de beurt
@@ -213,7 +212,7 @@ public class TurnController {
 					
 				
 			}
-			gController.getPointsController().allowCounting(currentplayer);	//TODO om te testen, weet niet hoe vaak dit moet gebeuren ¬ Milan
+			gController.getPointsController().allowCounting(currentplayer);	
 			switch (seqnr) {
 			case 1:
 				currentplayer.setSeqnr(6);
@@ -301,7 +300,7 @@ public class TurnController {
 					
 				
 			}
-			gController.getPointsController().allowCounting(currentplayer);	//TODO om te testen, weet niet hoe vaak dit moet gebeuren ¬ Milan
+			gController.getPointsController().allowCounting(currentplayer);
 			switch (seqnr) {
 			case 1:
 				currentplayer.setSeqnr(4);

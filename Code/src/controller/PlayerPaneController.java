@@ -13,7 +13,6 @@ public class PlayerPaneController {
 		myScene.goToMenuPane();
 		tc.stopThread();
 		gc.setGameRunning(false);
-//		gc.setGenerateOffer(true);
 	}
 	
 	public void showEndPane(MyScene myScene) {
@@ -25,7 +24,6 @@ public class PlayerPaneController {
 		tc.updatePass(); 
 		tc.updateSeqnrAndTurn();
 		pp.setPassVisible();
-//		gc.updateColors();
 		if(number8) {
 			gc.getToolCardController().setAllowed(false);
 		}

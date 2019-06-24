@@ -46,9 +46,9 @@ public class PointsController {
 			emptySpotsPenalty = getEmptySpotsPenalty(pm);
 			
 		
-			sharedObjectivePoints = getSharedObjectivePoints(/*pma[i]*/); //Jami's methode haalt score van alle drie doelkaarten op voor degene die deze methode aanroept.
+			sharedObjectivePoints = getSharedObjectivePoints(); //Jami's methode haalt score van alle drie doelkaarten op voor degene die deze methode aanroept.
 			
-			paystones = getAmountOfPaystones(/*pma[i]*/pm); 
+			paystones = getAmountOfPaystones(pm); 
 			
 			setPrivatePoints(pm, personalObjectivePoints, emptySpotsPenalty, sharedObjectivePoints, paystones);
 			setPublicPoints(pm, sharedObjectivePoints, emptySpotsPenalty, paystones);
@@ -89,10 +89,7 @@ public class PointsController {
 	}
 
 	private int getSharedObjectivePoints(/*PlayerModel pm*/) {
-//		int points = 0;
-//		points = pm.getSharedObjectivePoints();
 		return gameController.getCardsController().getSharedObjectivePoints();
-//		return points;
 	}
 
 	

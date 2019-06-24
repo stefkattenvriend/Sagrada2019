@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import model.CardBackgroundModel;
 import model.DiceHolderModel;
+import model.DiceModel;
 import view.GamePanes.CardPane;
 
 public class CardsController {
@@ -84,7 +85,7 @@ public class CardsController {
 
 			switch (cardBackgroundModel.getTargetCards()[i]) { // Voor objective kaart [i], voeg punten toe..
 
-			case 1: // ,Tintvarieteit Sets van ��n van elke waarde (5 punten)
+			case 1: // ,Tintvarieteit Sets van elke waarde (5 punten)
 				int[] nrs = new int[] { 0, 0, 0, 0, 0, 0 };
 				for (int j = 0; j < dhmodels.size(); j++) {
 					if (dhmodels.get(j).getType() == DiceHolderType.PLAYERWINDOW) {

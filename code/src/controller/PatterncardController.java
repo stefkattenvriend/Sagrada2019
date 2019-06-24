@@ -24,7 +24,7 @@ public class PatterncardController {
 	public PatterncardController(DbPatternCardInfoCollector DatabasePTCCollector, GameModel gm) {
 		this.DatabasePTCCollector = DatabasePTCCollector;
 		gModel = gm;
-		setup(gm);
+	
 	}
 
 	public int numberOfPatternCards() {
@@ -33,9 +33,6 @@ public class PatterncardController {
 		return amount;
 	}
 
-	private void setup(GameModel gm) {
-		//getPcModels(gm);
-	}
 
 	public int getGameid() {
 		int gameid = 0;
@@ -99,7 +96,6 @@ public class PatterncardController {
 			pane.setPrefSize(42, 42);
 		}
 
-		// pane.setPrefSize(arg0, arg1);
 
 		ArrayList<PatterncardModel> models = null;
 
