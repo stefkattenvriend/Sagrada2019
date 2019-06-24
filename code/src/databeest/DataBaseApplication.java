@@ -32,20 +32,10 @@ public class DataBaseApplication {
 		try {
 			m_Conn = DriverManager
 
-//					.getConnection("jdbc:mysql://databases.aii.avans.nl/mwmastbe_db2?user=rcaasper&password=Ab12345"); // TODO
-																														// hier
-																														// moet
+//					.getConnection("jdbc:mysql://databases.aii.avans.nl/mwmastbe_db2?user=rcaasper&password=Ab12345");
+
 					.getConnection("jdbc:mysql://databases.aii.avans.nl/2019_soprj4_sagrada_her?user=42IN04SOn&password=normalisatie");																									// de
-
-																														// uiteindelijke
-																														// inloggegevens
-																														// komen
-																														// voor
-																														// de
-																														// database
-																														// van
-																														// school
-
+																													
 		} catch (SQLException ex) {
 			// handle any errors
 			return false;
@@ -53,7 +43,6 @@ public class DataBaseApplication {
 		return true;
 	}
 
-	// Stef
 	// voor een insert Query
 	public void insertQuery(String query) {
 		Statement stmt = null;
@@ -68,7 +57,6 @@ public class DataBaseApplication {
 	}
 
 	// Alle read query's
-
 	public String readPassword(String username) {
 		String password = null;
 		String query;
@@ -77,6 +65,7 @@ public class DataBaseApplication {
 		try {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
+
 
 			while (rs.next()) {
 				password = rs.getString(2).toLowerCase();
@@ -144,7 +133,7 @@ public class DataBaseApplication {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
-			// return string in console
+
 			while (rs.next()) {
 				gameid = rs.getInt(1);
 
@@ -332,7 +321,7 @@ public class DataBaseApplication {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
-			// return string in console
+
 			while (rs.next()) {
 
 				colors.add(rs.getString(1));
@@ -352,7 +341,7 @@ public class DataBaseApplication {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
-			// return string in console
+
 			while (rs.next()) {
 				idToolCards.add(rs.getInt(1));
 			}
@@ -370,7 +359,7 @@ public class DataBaseApplication {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
-			// return string in console
+
 			while (rs.next()) {
 				idToolCards.add(rs.getInt(1));
 			}
@@ -406,7 +395,6 @@ public class DataBaseApplication {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
-			// return string in console
 			while (rs.next()) {
 
 				chat.add(rs.getString(3));
@@ -427,7 +415,6 @@ public class DataBaseApplication {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
-			// return string in console
 			while (rs.next()) {
 
 				chatPlayers.add(rs.getInt(1));
@@ -447,7 +434,7 @@ public class DataBaseApplication {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
-			// return string in console
+			
 			while (rs.next()) {
 
 				chat.add(rs.getString(1));
@@ -470,7 +457,7 @@ public class DataBaseApplication {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
-			// return string in console voor test
+
 			while (rs.next()) {
 				int highscoredb = rs.getInt(1);
 				if (highscoredb != 0) {
@@ -669,7 +656,7 @@ public class DataBaseApplication {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			int i = 0;
-			// return string in console
+			
 			while (rs.next()) {
 				playerIDs[i] = rs.getInt(1);
 				i++;
@@ -829,7 +816,7 @@ public class DataBaseApplication {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
-			// return string in console
+			
 			while (rs.next()) {
 
 				chatID.add(rs.getInt(1));

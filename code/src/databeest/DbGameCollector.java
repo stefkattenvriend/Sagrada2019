@@ -22,7 +22,6 @@ public class DbGameCollector {
 	public int getRound(int gameid) {
 		int round = 0;
 		round = dataBaseApplication.getRoundNumber(gameid);
-//		System.out.println("dit is het ronde nummer" + round);   // syso om rondenummer te checken 
 		return round;
 	}
 	
@@ -46,7 +45,7 @@ public class DbGameCollector {
 
 	// voegt player toe aan een game
 	public void addPlayer(String username, int idgame, String color, int seq) {
-		int gameid = getHighestGameID();// idgame
+		int gameid = getHighestGameID();
 		String query = "INSERT INTO `player` (`username`, `game_idgame`, `playstatus_playstatus`, `seqnr`, `isCurrentPlayer`, `private_objectivecard_color`) VALUES ('"
 				+ username + "', '" + gameid + "', 'uitgedaagde', " + seq + ", '0', '" + color + "');";
 		dataBaseApplication.insertQuery(query);
@@ -118,14 +117,6 @@ public class DbGameCollector {
 		return dataBaseApplication.GetPlayerIDs(gameID);
 	}
 	
-//	public ArrayList<Integer> startedGames(String username) {
-//		return dataBaseApplication.getStartedGames(username);
-//	}
-//	
-//	public ArrayList<Integer> waitedGames(String username) {
-//
-//		return dataBaseApplication.getWaitedGames(username);
-//	}
 	
 	public String getUsername(int playerid) {
 		String username = dataBaseApplication.getplayerUsername(playerid);
