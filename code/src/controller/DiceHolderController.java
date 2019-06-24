@@ -585,7 +585,7 @@ public class DiceHolderController {
 		checkEyes = i;
 	}
 
-	public void setCheckNextTo(boolean i) {
+	public void setCheckNextTo(boolean i) {f
 		checkNextTo = i;
 	}
 
