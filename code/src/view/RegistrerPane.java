@@ -54,9 +54,5 @@ public class RegistrerPane extends VBox{
 			myScene.setMenuPane();
 			return;
 		}
-		else 
-		{
-			System.out.println("kan account niet aanmaken");
-		}
 	}
 }

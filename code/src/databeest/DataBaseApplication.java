@@ -21,11 +21,8 @@ public class DataBaseApplication {
 
 	public boolean loadDataBaseDriver(String driverName) {
 		try {
-			// Load the JDBC driver
 			Class.forName(driverName);
 		} catch (ClassNotFoundException e) {
-			// Could not find the database driver
-			System.out.println("ClassNotFoundException : " + e.getMessage());
 			return false;
 		}
 		return true;
@@ -1051,7 +1048,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return pcIds;
 	}
@@ -1069,7 +1065,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return diff;
 	}
@@ -1089,7 +1084,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return amount;
 	}
@@ -1108,7 +1102,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return amount;
 	}
@@ -1136,7 +1129,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return dieColors;
 	}
@@ -1164,7 +1156,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return dieNumbers;
 	}
@@ -1181,7 +1172,6 @@ public class DataBaseApplication {
 			int rs = stmt.executeUpdate(query);
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 	}
 
@@ -1201,7 +1191,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return idpatterncards;
 	}
@@ -1216,7 +1205,6 @@ public class DataBaseApplication {
 			int rs = stmt.executeUpdate(query);
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 	}
 
@@ -1230,7 +1218,6 @@ public class DataBaseApplication {
 			int rs = stmt.executeUpdate(query);
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 	}
 
@@ -1250,7 +1237,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return idpatterncards;
 	}
@@ -1271,7 +1257,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return idpatterncards;
 	}
@@ -1292,8 +1277,7 @@ public class DataBaseApplication {
 
 			}
 			stmt.close();
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+		} catch (SQLException e) { 
 		}
 		return idpatterncards;
 	}
@@ -1313,8 +1297,7 @@ public class DataBaseApplication {
 
 			}
 			stmt.close();
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+		} catch (SQLException e) {         
 		}
 		return amount;
 	}
@@ -1362,7 +1345,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return offer;
 
@@ -1384,7 +1366,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return winner;
 	}
@@ -1436,7 +1417,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return roundtrack;
 	}
@@ -1458,7 +1438,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return eyes;
 	}
@@ -1480,7 +1459,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return dienumber;
 	}
@@ -1502,7 +1480,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return diecolor;
 	}
@@ -1515,7 +1492,6 @@ public class DataBaseApplication {
 			int rs = stmt.executeUpdate(query);
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		
 	}
@@ -1528,7 +1504,6 @@ public class DataBaseApplication {
 			int rs = stmt.executeUpdate(query);
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		
 	}

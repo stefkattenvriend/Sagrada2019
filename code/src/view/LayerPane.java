@@ -53,7 +53,6 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 		playerid = pcc.getPlayerID(pcc.getGameid(), logc.getCurrentAccount());
 		setUp();
 		
-//		System.out.println("dit is de playerid: " + playerid);
 	}
 	
 	public void setUp() {
@@ -141,8 +140,7 @@ public class LayerPane extends BorderPane{//deze moet nog voor de gamepane worde
 		StackPane overlapPane = new StackPane();
 		patternCard.setAlignment(Pos.CENTER);
 		overlapPane.setOnMouseClicked(e -> { 
-			pcc.givePatternCardToPlayer(Integer.parseInt(rdInt), playerid); //Wanneer je klikt op de tilepane krijg je die id in de database bij player
-			System.out.println("The patterncardId: " + Integer.parseInt(rdInt));
+			pcc.givePatternCardToPlayer(Integer.parseInt(rdInt), playerid);
 			gameController.getPayStoneController().giveStones(Integer.parseInt(rdInt));
 			//get paystones
 			myScene.setGamePane(); //setgamePane

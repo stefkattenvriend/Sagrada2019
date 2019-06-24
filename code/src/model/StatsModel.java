@@ -3,7 +3,7 @@ package model;
 import databeest.DbPlayerStatsCollector;
 import javafx.scene.paint.Color;
 
-public class StatsModel {//waar moet dit worden aangemaakt en moet de mastercontroller krijgen
+public class StatsModel {
 	
 	private DbPlayerStatsCollector collector;
 	private String username;

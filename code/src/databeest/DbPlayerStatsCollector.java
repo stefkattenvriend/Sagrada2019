@@ -11,6 +11,5 @@ public class DbPlayerStatsCollector {
 	
 	public void getStats(StatsModel model) {
 		model.setHighscore(dba.getPlayerHighscore(model.getUsername()));
-		System.out.println(model.getHighscore());
 	}
 }

@@ -18,7 +18,6 @@ public class CardBackgroundModel {
 	
 	public CardBackgroundModel(DbCardCollector dbCardCollector, int gameId) {
 		this.dbCardCollector = dbCardCollector;
-//		System.out.println("toolcards: " + this.dbCardCollector.getToolcards(gameId).get(0));
 		ToolCard1 = this.dbCardCollector.getToolcards(gameId).get(0);
 		ToolCard2 = this.dbCardCollector.getToolcards(gameId).get(1);
 		ToolCard3 = this.dbCardCollector.getToolcards(gameId).get(2);
@@ -100,7 +99,6 @@ public class CardBackgroundModel {
 			ImageView iv12 = new ImageView(new Image("/toolcards/12.png"));
 			return iv12;
 		default:
-			System.out.println("There is no picture");
 			ImageView iv13 = new ImageView(new Image("/toolcards/1.png"));
 			return iv13;
 		}
@@ -139,7 +137,6 @@ public class CardBackgroundModel {
 			ImageView iv10 = new ImageView(new Image("/objectivecards/10.png"));
 			return iv10;
 		default:
-			System.out.println("There is no picture");
 			ImageView iv13 = new ImageView(new Image("toolcards/1.png"));
 			return iv13;
 		}

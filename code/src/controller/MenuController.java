@@ -10,7 +10,6 @@ import model.MenuModel;
 import view.MyScene;
 import view.MenuPanes.MenuGamesPane;
 import view.MenuPanes.MenuInvitePane;
-import view.MenuPanes.MenuPane;
 import view.MenuPanes.MenuPlayersPane;
 import view.MenuPanes.MenuWaitingPane;
 
@@ -21,7 +20,6 @@ public class MenuController {
 	private MasterController mc;
 	private ArrayList<String> colors;
 	private DbGameCollector dbGameCollector;
-	private MenuPane menuPane;
 	private DataBaseApplication databeest;
 	private ArrayList<String> invitedGamesID_OLD;
 	private ArrayList<String> invitedGames_NEW;
@@ -29,8 +27,6 @@ public class MenuController {
 	private ArrayList<Integer> gameIDs_OLD;
 	private ArrayList<Integer> waitedGames_OLD;
 	private ArrayList<Integer> waitedGames_NEW;
-	private ArrayList<String> playerStatus_OLD;
-	private ArrayList<String> playerStatus_NEW;
 	private MenuInvitePane menuInvitePane;
 	private boolean newInvite = false;
 	private MenuGamesPane menuGamesPane;
@@ -39,7 +35,6 @@ public class MenuController {
 	private MenuModel menuModel;
 	private int[] randomPat;
 	private DbPayStoneRuler psr;
-	private boolean nextCheck = true;
 	private boolean offerGenerated;
 	private boolean opened;
 
@@ -90,49 +85,49 @@ public class MenuController {
 	public ArrayList<String> getPlayerStatus(String gameID) {
 		return menuModel.getPlayerStatus(gameID);
 	}
-	
-	public ArrayList<String> getPlayersInGame(int gameID){
+
+	public ArrayList<String> getPlayersInGame(int gameID) {
 		return menuModel.getPlayersInGame(gameID);
 	}
-	
+
 	public int getPlayerID(String gameID) {
 		return menuModel.getPlayerID(gameID);
 	}
 
-	public ArrayList<String> getPlayers(){
+	public ArrayList<String> getPlayers() {
 		return menuModel.getPlayers();
 	}
-	
+
 	public String getWinner(int gameID) {
 		return menuModel.getWinner(gameID);
 	}
-	
-	public ArrayList<Integer> getFinishedGames(String username){
+
+	public ArrayList<Integer> getFinishedGames(String username) {
 		return menuModel.getFinishedGames(username);
 	}
-	
+
 	public String getCurrentUsername() {
 		return menuModel.getCurrentUsername();
 	}
-	
+
 	public void getMenuPlayersPane(MenuPlayersPane menuPlayersPane) {
 		this.menuPlayersPane = menuPlayersPane;
 	}
 
 	public void loadGame(String gID) {
 		int gameID = Integer.parseInt(gID);
-		
+
 		mc.getGameController().createGameModel(gameID);
 		offerGenerated = dbGameCollector.getOffer(gameID);
-		
+
 		int round = dbGameCollector.getRound(gameID);
 
 		String username = mc.getLoginController().getCurrentAccount();
 		int playerid = databeest.getPlayerID(username, gameID);
-		int patcardid = databeest.getPaternCardNumber(playerid);	//TODO mvc
+		int patcardid = databeest.getPaternCardNumber(playerid); // TODO mvc
 		int[] choice = databeest.getPcChoiche(playerid);
 
-		if(!offerGenerated && mc.getGameController().checkFirstPlayer()) {
+		if (!offerGenerated && mc.getGameController().checkFirstPlayer()) {
 			int amountOfPlayers = dbGameCollector.getAmountOfPlayers(gameID);
 			generateOffer(amountOfPlayers, gameID);
 
@@ -144,9 +139,7 @@ public class MenuController {
 			lyc.generateRdmPatternCards();
 			randomPat = lyc.getRandomPat();
 			for (int i = 0; i < randomPat.length; i++) {
-				lyc.insertChoice(randomPat[i], playerid); 
-
-				
+				lyc.insertChoice(randomPat[i], playerid);
 
 			}
 			myScene.setLayerPane();
@@ -158,7 +151,8 @@ public class MenuController {
 		} else {
 			myScene.setGamePane();
 			lyc.setGameRunning(true);
-			//mc.getGameController().setCurrentPlayer(false);//zorgt ervoor dat je game een keer update als je aan de beurt bent
+			// mc.getGameController().setCurrentPlayer(false);//zorgt ervoor dat je game een
+			// keer update als je aan de beurt bent
 			mc.getGameController().updateDiceOffer();
 		}
 	}
@@ -178,7 +172,7 @@ public class MenuController {
 
 	// milan
 	public void newGame(ArrayList<String> playerList) {
-		colors = getColors(); 
+		colors = getColors();
 		int gameid = getGameid() + 1;
 
 		dbGameCollector.pushGame(gameid);
@@ -215,7 +209,7 @@ public class MenuController {
 	}
 
 	private void generateOffer(int size, int gameid) {
-		mc.getGameController().updateFirstDice(size, gameid);		
+		mc.getGameController().updateFirstDice(size, gameid);
 	}
 
 	private ArrayList<String> getColors() {
@@ -341,18 +335,17 @@ public class MenuController {
 	public MenuModel getMenuModel() {
 		return menuModel;
 	}
-	
+
 	public void updatePlayerlist() {
 		menuPlayersPane.updatePlayerlist();
 	}
-	
+
 	public void opened(boolean opened) {
 		this.opened = opened;
 	}
-	
+
 	public boolean getOpened() {
 		return this.opened;
 	}
 
-	
 }

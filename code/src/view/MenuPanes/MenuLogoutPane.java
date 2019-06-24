@@ -15,7 +15,6 @@ public class MenuLogoutPane extends FlowPane{
 	public MenuLogoutPane(LoginController controller, MyScene myScene) {
 		logincontroller = controller;
 		myscene = myScene;
-//		setPaneSize();
 		setAlignment(Pos.TOP_LEFT);
 		button = new Button("Log out");
 		button.setMaxSize(100, 50);

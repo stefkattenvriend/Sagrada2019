@@ -18,7 +18,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import model.GameModel;
-import model.PlayerModel;
 import view.MyScene;
 
 public class GamePane extends StackPane {

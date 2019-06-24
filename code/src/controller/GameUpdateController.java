@@ -18,13 +18,11 @@ public class GameUpdateController {
 	private GameModel gm;
 	private DiceHolderController dhc;
 	private DbDieCollector ddc;
-	private boolean gameUpdate;
 
 	public GameUpdateController(GameController gmc) {
 		this.gmc = gmc;
 		this.ddc = gmc.getDbDieCollector();
 		this.dhc = gmc.getDiceHolderController();
-		this.gameUpdate = false;
 	}
 
 	public void testRun() {
@@ -199,7 +197,7 @@ public class GameUpdateController {
 						count++;
 						gmc.setUpdateDice(true);
 						break;
-						
+
 					}
 				}
 			}
