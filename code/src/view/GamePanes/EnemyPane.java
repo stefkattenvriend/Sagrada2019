@@ -4,7 +4,6 @@ import controller.GameController;
 import helpers.DiceHolderType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.paint.Color;
 
 public class EnemyPane extends BorderPane {
 

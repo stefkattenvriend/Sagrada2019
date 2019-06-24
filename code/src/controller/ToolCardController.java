@@ -1,11 +1,9 @@
 package controller;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import databeest.DbToolCardCollector;
 import helpers.DiceHolderType;
-import model.DiceModel;
 import view.GamePanes.CardPane;
 
 // gemaakt door TESS!!!!!!!!!! overgenomen door jami

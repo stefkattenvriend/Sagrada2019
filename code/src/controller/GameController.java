@@ -16,7 +16,6 @@ import helpers.DiceHolderType;
 import model.GameModel;
 import model.PlayerModel;
 import model.PlayerPayStoneModel;
-import view.MyScene;
 import view.GamePanes.CardPane;
 import view.GamePanes.ChatPane;
 import view.GamePanes.GamePane;

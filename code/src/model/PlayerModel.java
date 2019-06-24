@@ -1,7 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-
 import controller.GameController;
 import controller.ToolCardController;
 import databeest.DbPlayerCollector;
