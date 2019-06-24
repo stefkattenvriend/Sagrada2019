@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import databeest.DbDieCollector;
-import helpers.DiceHolderType;
 import model.DiceModel;
 import view.GamePanes.DicePane;
 
