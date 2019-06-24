@@ -357,10 +357,7 @@ public class TurnController {
 	
 			default: 
 			}
-		}
-		
-
-		
+		}		
 	}
 
 	
