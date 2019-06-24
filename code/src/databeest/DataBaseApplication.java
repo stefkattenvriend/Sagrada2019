@@ -1596,4 +1596,17 @@ public class DataBaseApplication {
 		
 	}
 
+	public void updateDiceColor(int gameId, int dienr, String color, int eyes) {
+		String query = "UPDATE gamedie SET eyes = " + eyes + " WHERE idgame = " + gameId + " AND dienumber = " + dienr + " AND diecolor LIKE '" + color + "'";
+		Statement stmt = null;
+		try {
+			stmt = m_Conn.createStatement();
+			int rs = stmt.executeUpdate(query);
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		
+	}
+
 }

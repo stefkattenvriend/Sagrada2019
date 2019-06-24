@@ -25,6 +25,7 @@ public class DiceHolderController {
 	private DiceController dc;
 	private PatterncardController pcc;
 	private ToolCardController tcc;
+	private GameController gc;
 	private boolean checkColor = true;
 	private boolean checkEyes = true;
 	private boolean checkNextTo = true;
@@ -32,9 +33,11 @@ public class DiceHolderController {
 	private int gameid;
 	private GameModel gm;
 	private DbDieUpdater dieUpdator;
+	private Color t12;
 
 	public DiceHolderController(PatterncardController pcc, DbDieCollector ddc, int gameid, GameModel gm,
-			DbDieUpdater dieUpdator) {
+			DbDieUpdater dieUpdator, GameController gc) {
+		this.gc = gc;
 		this.dieUpdator = dieUpdator;
 		this.gm = gm;
 		this.pcc = pcc;
@@ -130,8 +133,6 @@ public class DiceHolderController {
 
 					} else if (selectedModel.getDie() == null && dhmodels.get(i).getDie() != null) {// switch een
 						System.out.println("check"); // dobbelsteen verplaatsen
-						System.out.println(
-								"moves 2: " + gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getMovesAllowed2());
 						System.out.println("turn: " + gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getTurn());
 						if (checkDiceMovement(selectedModel, dhmodels.get(i).getDie()) == true) {
 							if (dhmodels.get(i).getDie() != IllegalDice) {
@@ -251,6 +252,13 @@ public class DiceHolderController {
 							return check;
 						}
 					}
+				}
+			}
+			
+			if(t12 != null) {
+				if(t12 != die.getDieColor()) {
+					check = false;
+					return check;
 				}
 			}
 
@@ -443,7 +451,6 @@ public class DiceHolderController {
 				if (gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getTurn() == 1) {
 					if (gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getMovesAllowed1() != 0) {
 						gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).doMove1();
-
 					} else {
 						check = false;
 						return check;
@@ -451,7 +458,6 @@ public class DiceHolderController {
 				} else if (gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getTurn() == 2) {
 					if (gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getMovesAllowed2() != 0) {
 						gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).doMove2();
-
 					} else {
 						check = false;
 						return check;
@@ -469,7 +475,8 @@ public class DiceHolderController {
 		/*
 		 * if(check) { tcc.addAmountOfMoves(); }
 		 */
-
+		System.out.println("moves1: " + gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getMovesAllowed1());
+		System.out.println("moves2: " + gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getMovesAllowed2());
 		return check;
 	}
 
@@ -581,7 +588,14 @@ public class DiceHolderController {
 	public void setEyes(int eyes, DiceModel die) {
 		die.setEyes(eyes);
 		dieUpdator.updateDieEyes(eyes, gameid, die);
-
+		gc.forcedUpdateDice();
+		}
+	
+	public void setColor(Color color, DiceModel die) {
+		die.setDieColor(color);
+		dieUpdator.updateDieColor(color, gameid, die.getDieNumber(), die.getEyes());
+		reloadDiceHolderPanes();
+		gc.forcedUpdateDice();
 	}
 
 	public void changeDieEyes(int nr, DiceHolderModel dh) {
@@ -618,7 +632,11 @@ public class DiceHolderController {
 	}
 
 	public int getMoves() {
-		return gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getMovesAllowed1();
+		if (gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getTurn() == 1) {
+			return gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getMovesAllowed1();
+		} else {
+			return gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getMovesAllowed2();
+		}
 	}
 
 	public void clearDiceOffer() {
@@ -640,20 +658,24 @@ public class DiceHolderController {
 		GetSelectedDicePane().addPlusAndMinus(dienr);
 	}
 
-	public void higherClicked() {
+	public void higherClicked(boolean test) {
 		System.out.println("die eyes: " + this.GetSelectedDiceHolder().getDie().getEyes());
 		int nr = this.GetSelectedDiceHolder().getDie().getEyes() + 1;
 		System.out.println("new die eyes" + nr);
 		this.setEyes(nr, this.GetSelectedDiceHolder().getDie());
-		tcc.returnToNormal();
+		if(test) {
+			tcc.returnToNormal();
+		}
 	}
 
-	public void lowerClicked() {
+	public void lowerClicked(boolean test) {
 		System.out.println("die eyes: " + this.GetSelectedDiceHolder().getDie().getEyes());
 		int nr = this.GetSelectedDiceHolder().getDie().getEyes() - 1;
 		System.out.println("new die eyes" + nr);
 		this.setEyes(nr, this.GetSelectedDiceHolder().getDie());
-		tcc.returnToNormal();
+		if (test) {
+			tcc.returnToNormal();
+		}
 	}
 
 	public void solveTC11(ToolCardController tcc) {
@@ -665,37 +687,57 @@ public class DiceHolderController {
 	}
 
 	public void higherClicked1() {
-		System.out.println("die eyes: " + this.GetSelectedDiceHolder().getDie().getEyes());
-		int nr = this.GetSelectedDiceHolder().getDie().getEyes() + 1;
-		System.out.println("new die eyes" + nr);
-		this.setEyes(nr, this.GetSelectedDiceHolder().getDie());
-		tcc.returnToNormal();
+		System.out.println("die color: " + this.GetSelectedDiceHolder().getDie().getEyes());
+		Color color = this.GetSelectedDiceHolder().getDie().getDieColor();
+		
+		switch (color.toString()) {
+		case "red":
+			color = Color.BLUE;
+			break;
+		case "blue": 
+			color = Color.GREEN;
+			break;
+		case "green":
+			color = Color.YELLOW;
+			break;
+		case "yellow":
+			color = Color.PURPLE;
+			break;
+		case "purple":
+			color = Color.RED;
+			break;
+		}
+		
+		this.setColor(color , this.GetSelectedDiceHolder().getDie());
 	}
 
 	public void lowerClicked1() {
-		System.out.println("die eyes: " + this.GetSelectedDiceHolder().getDie().getEyes());
-		int nr = this.GetSelectedDiceHolder().getDie().getEyes() - 1;
-		System.out.println("new die eyes" + nr);
-		this.setEyes(nr, this.GetSelectedDiceHolder().getDie());
+		System.out.println("die color: " + this.GetSelectedDiceHolder().getDie().getEyes());
+		Color color = this.GetSelectedDiceHolder().getDie().getDieColor();
+		
+		switch (color.toString()) {
+		case "red":
+			color = Color.PURPLE;
+			break;
+		case "blue": 
+			color = Color.RED;
+			break;
+		case "green":
+			color = Color.BLUE;
+			break;
+		case "yellow":
+			color = Color.GREEN;
+			break;
+		case "purple":
+			color = Color.YELLOW;
+			break;
+		}
+		
+		this.setColor(color , this.GetSelectedDiceHolder().getDie());
+	}
+
+	public void confirm() {
 		tcc.returnToNormal();
-	}
-
-	public void higherClicked2() {
-		System.out.println("die eyes: " + this.GetSelectedDiceHolder().getDie().getEyes());
-		int nr = this.GetSelectedDiceHolder().getDie().getEyes() + 1;
-		System.out.println("new die eyes" + nr);
-		this.setEyes(nr, this.GetSelectedDiceHolder().getDie());
-	}
-
-	public void lowerClicked2() {
-		System.out.println("die eyes: " + this.GetSelectedDiceHolder().getDie().getEyes());
-		int nr = this.GetSelectedDiceHolder().getDie().getEyes() - 1;
-		System.out.println("new die eyes" + nr);
-		this.setEyes(nr, this.GetSelectedDiceHolder().getDie());
-	}
-
-	public void set() {
-
 	}
 
 	public void reloadInteractability() {
@@ -706,6 +748,10 @@ public class DiceHolderController {
 			}
 		}
 
+	}
+
+	public void handleTwelve(Color dieColor) {
+		Color t12 = dieColor;
 	}
 
 	/*public void putDieOnRoundTrack() {
