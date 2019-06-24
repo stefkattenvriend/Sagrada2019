@@ -87,10 +87,14 @@ public class TurnController {
 		if (amountOfPlayers == 4) {
 			for (int i = 0; i < players.length; i++) {
 				int x = players[i].getSeqnr();
-				if (x < seqnr) {
-					seqnr = x; // pakt de laagste seqnr, deze is van de huidige speler die op pass drukt.
-					currentplayer = players[i]; // slaat op welke speler uit players[] de huidige speler is
+				
+				if (players[i].getDht() == DiceHolderType.PLAYERWINDOW) {
+					seqnr = players[i].getSeqnr();
+					
+					currentplayer = players[i];
 				}
+					
+				
 			}
 			gController.getPointsController().allowCounting(currentplayer);	//TODO om te testen, weet niet hoe vaak dit moet gebeuren ¬ Milan
 			switch (seqnr) {
@@ -200,15 +204,19 @@ public class TurnController {
 		if (amountOfPlayers == 3) {
 			for (int i = 0; i < players.length; i++) {
 				int x = players[i].getSeqnr();
-				if (x < seqnr) {
-					seqnr = x; // pakt de laagste seqnr, deze is van de huidige speler die op pass drukt.
-					currentplayer = players[i]; // slaat op welke speler uit players[] de huidige speler is
+				
+				if (players[i].getDht() == DiceHolderType.PLAYERWINDOW) {
+					seqnr = players[i].getSeqnr();
+					
+					currentplayer = players[i];
 				}
+					
+				
 			}
 			gController.getPointsController().allowCounting(currentplayer);	//TODO om te testen, weet niet hoe vaak dit moet gebeuren ¬ Milan
 			switch (seqnr) {
 			case 1:
-				currentplayer.setSeqnr(7);
+				currentplayer.setSeqnr(6);
 				currentplayer.setCurrentPlayer(false);
 				for (int i = 0; i < players.length; i++) {
 					if (players[i].getSeqnr() == 2) {
@@ -217,7 +225,7 @@ public class TurnController {
 				}
 				break;
 			case 2:
-				currentplayer.setSeqnr(6);
+				currentplayer.setSeqnr(5);
 				currentplayer.setCurrentPlayer(false);
 				for (int i = 0; i < players.length; i++) {
 					if (players[i].getSeqnr() == 3) {
@@ -226,7 +234,7 @@ public class TurnController {
 				}
 				break;
 			case 3: 
-				currentplayer.setSeqnr(5);
+				currentplayer.setSeqnr(4);
 				currentplayer.setCurrentPlayer(false);
 				for (int i = 0; i < players.length; i++) {
 					if (players[i].getSeqnr() == 4) {
@@ -234,8 +242,8 @@ public class TurnController {
 					} 
 				}
 				break;
-			case 5:
-				currentplayer.setSeqnr(9);
+			case 4:
+				currentplayer.setSeqnr(2);
 				currentplayer.setCurrentPlayer(false);
 				for (int i = 0; i < players.length; i++) {
 					if (players[i].getSeqnr() == 5) {
@@ -243,8 +251,8 @@ public class TurnController {
 					} 
 				}
 				break;
-			case 6:
-				currentplayer.setSeqnr(9);
+			case 5:
+				currentplayer.setSeqnr(1);
 				currentplayer.setCurrentPlayer(false);
 				for (int i = 0; i < players.length; i++) {
 					if (players[i].getSeqnr() == 6) {
@@ -252,7 +260,7 @@ public class TurnController {
 					} 
 				}
 				break;
-			case 7:
+			case 6:
 				tcc.setAllowed(true);
 				currentplayer.setCurrentPlayer(false);
 				gController.forcedUpdateDice();
@@ -284,13 +292,14 @@ public class TurnController {
 			
 			for (int i = 0; i < players.length; i++) {
 				int x = players[i].getSeqnr();
+				
+				if (players[i].getDht() == DiceHolderType.PLAYERWINDOW) {
+					seqnr = players[i].getSeqnr();
 					
-				if (x < seqnr) {
-					seqnr = x; 
-						
-					currentplayer = players[i]; 
-
+					currentplayer = players[i];
 				}
+					
+				
 			}
 			gController.getPointsController().allowCounting(currentplayer);	//TODO om te testen, weet niet hoe vaak dit moet gebeuren ¬ Milan
 			switch (seqnr) {
@@ -313,7 +322,7 @@ public class TurnController {
 				}
 				break;
 			case 3: 
-				currentplayer.setSeqnr(9);
+				currentplayer.setSeqnr(1);
 				currentplayer.setCurrentPlayer(false);
 				for (int i = 0; i < players.length; i++) {
 					if (players[i].getSeqnr() == 4) {
