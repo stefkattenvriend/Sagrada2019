@@ -126,7 +126,7 @@ public class PointsController {
 	public String getTotalPoints() {
 		String scoreString = (new StringBuilder()).append("").toString();
 		for(int i = 0; i < pma.length; i++) {
-		scoreString = scoreString + (new StringBuilder()).append((pma[i].getUsername() + ": " + pma[i].getTotalPoints() + "\n").toString());
+		scoreString = scoreString + (new StringBuilder()).append((pma[i].getUsername() + ": " + pma[i].getPublicPoints() + "\n").toString());
 		}
 		return scoreString;
 	}
