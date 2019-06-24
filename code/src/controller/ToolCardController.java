@@ -182,7 +182,7 @@ public class ToolCardController {
 									if(dhc.GetSelectedDiceHolder().getType() == DiceHolderType.OFFER) {		//if it has a die, then check if its in offer pane											
 
 										exception = true;							
-										dhc.GetSelectedDiceHolder().getDie().setEyes(7 - dhc.GetSelectedDiceHolder().getDie().getEyes());
+										dhc.setEyes(7 - dhc.GetSelectedDiceHolder().getDie().getEyes(), dhc.GetSelectedDiceHolder().getDie());
 										selectedToolcard = 10;
 										psc.pay(cardpane.getCardNr(), tcc.getPrice(cardpane.getCardNr(), gameid));												//pay
 									}
