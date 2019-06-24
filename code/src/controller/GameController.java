@@ -378,6 +378,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		if (gameRunning) {
 			if (allPatternCards) {
 				gm.updateRound(this);
+				
 			}
 		}
 	}
