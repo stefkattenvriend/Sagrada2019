@@ -1,12 +1,7 @@
 package view.GamePanes;
 import controller.PointsController;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import view.MenuPanes.MenuPane;
@@ -47,7 +42,6 @@ public class PointsPane extends VBox {
 		
 		//TODO het weergeven van de points
 		textAmount.setText(pc.getTotalPoints(this)); //moet worden gelinkt aan points berekening
-//		System.out.println(pc.getTotalPoints());
 		
 		
 		textAmount.setFont(Font.font ("Verdana", FontWeight.BOLD, 15));

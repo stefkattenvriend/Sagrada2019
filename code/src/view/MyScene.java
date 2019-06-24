@@ -3,8 +3,6 @@ import controller.GameController;
 import controller.LoginController;
 import controller.MasterController;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import model.GameModel;
 import view.GamePanes.EndPane;

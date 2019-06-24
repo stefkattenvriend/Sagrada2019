@@ -59,8 +59,6 @@ public class GameModel {
 	}
 
 	public void addPlayer(int i, int playerID, String username) {
-		// System.out.println("i=" + i);
-		// System.out.println("playerId" + playerID);
 		pma[i] = new PlayerModel(dpc, this, tcc, gc);
 		pma[i].setGameid(gameid);
 		pma[i].setPlayerId(playerID);
@@ -78,7 +76,6 @@ public class GameModel {
 		} else if (enemies == 3) {
 			pma[i].setDht(DiceHolderType.ENEMY3);
 		} else {
-			System.out.println("kan niet meer dan ");
 		}
 	}
 

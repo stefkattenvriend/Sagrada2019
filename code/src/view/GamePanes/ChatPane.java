@@ -148,7 +148,6 @@ public class ChatPane extends BorderPane {
 				}
 				chat_OLD = chat;
 			} catch (Exception e) {
-				System.out.println("Something went wrong with the chat.");
 			}
 
 		}

@@ -21,7 +21,6 @@ public class MenuWelcomePane extends FlowPane{
 		this.loginController = loginController;
 		setPaneSize();
 		setLabels();
-//		setBackground(new Background(new BackgroundFill(Color.BLACK, null, null))); //tijdelijk
 	}
 	
 	private void setLabels() {

@@ -1,7 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-
 import controller.GameController;
 import controller.ToolCardController;
 import databeest.DbPlayerCollector;
@@ -76,7 +74,6 @@ public class PlayerModel {
 			}
 		}
 		else {
-			System.out.println("huh??");
 			color = Color.WHITE;
 		}
 	}
@@ -139,7 +136,6 @@ public class PlayerModel {
 		int i = 0;
 		if (isCurrentPlayer) {
 			i = 1;
-			System.out.println("Player: " + username + " is now current player of game: " + gameid);
 			dpc.setGameTurn(gameid, playerid);
 		} else {
 			i = 0;
@@ -214,7 +210,6 @@ public class PlayerModel {
 	}
 	
 	public int getTurn() {
-		System.out.println("isCurrentPlayer: " + isCurrentPlayer);
 		if(seqnr <= gm.getPma().length) {
 			return 1;
 		} else {

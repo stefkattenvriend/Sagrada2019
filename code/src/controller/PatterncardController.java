@@ -17,7 +17,6 @@ public class PatterncardController {
 
 	private ArrayList<PatterncardModel> pcmodels = new ArrayList<PatterncardModel>();
 	private ArrayList<PatterncardModel> pcChoiceModels = new ArrayList<PatterncardModel>();
-	private int Patternnumber = 0;//wordt alleen in eerste keer dat een pc wordt gekozen gebruikt
 	private GameModel gModel;
 	private DbPatternCardInfoCollector DatabasePTCCollector;
 
@@ -34,7 +33,7 @@ public class PatterncardController {
 	}
 
 	private void setup(GameModel gm) {
-		//getPcModels(gm);
+		// getPcModels(gm);
 	}
 
 	public int getGameid() {
@@ -72,8 +71,6 @@ public class PatterncardController {
 			}
 		}
 	}
-
-	
 
 	public PatterncardModel getPcModel(int i) {
 
@@ -141,16 +138,16 @@ public class PatterncardController {
 	}
 
 	public void givePatternCardToPlayer(int rdInt, int idplayer) {
-		String query = "UPDATE `player` SET `patterncard_idpatterncard` = '" + rdInt
-				+ "' WHERE (`idplayer` = '" + idplayer + "');";
+		String query = "UPDATE `player` SET `patterncard_idpatterncard` = '" + rdInt + "' WHERE (`idplayer` = '"
+				+ idplayer + "');";
 		DatabasePTCCollector.givePatternCardToPlayer(query);
 	}
-	
-	public void insertChoice(String query) {
-        DatabasePTCCollector.insertChoice(query);
 
-    }
-	
+	public void insertChoice(String query) {
+		DatabasePTCCollector.insertChoice(query);
+
+	}
+
 	public void updatePCa(int pcChosen, PatterncardType pct) {
 		if (pct == PatterncardType.PLAYER) {
 			for (int j = pcChoiceModels.size() - 1; j >= 0; j--) {
@@ -163,11 +160,10 @@ public class PatterncardController {
 		}
 	}
 
-
 	public int getDifficulty(int rdInt) {
 		int diff = DatabasePTCCollector.getDifficulty(rdInt);
 		return diff;
-		
+
 	}
 
 	public Color getColor(int playerid) {
@@ -192,23 +188,21 @@ public class PatterncardController {
 				color = Color.PURPLE;
 				break;
 			}
-		}
-		else {
+		} else {
 
 			color = Color.WHITE;
 		}
 		return color;
 	}
-	
+
 	public boolean checkAllPatternCards() {
 		ArrayList<Integer> allPlayersPC = new ArrayList<Integer>();
 		int totalPCright = 0;
-		
+
 		for (int i = 0; i < gModel.getAmountOfPlayers(); i++) {
 			allPlayersPC.add(i);
 		}
-		
-		
+
 		for (int i = 0; i < gModel.getAmountOfPlayers(); i++) {
 			for (int j = 0; j < pcmodels.size(); j++) {
 				if (pcmodels.get(j).getPatterncardNumber() == gModel.getPcID(i) && gModel.getPcID(i) != 0) {
@@ -216,17 +210,17 @@ public class PatterncardController {
 					break;
 				}
 			}
-			
+
 		}
-		
+
 		if (totalPCright == gModel.getAmountOfPlayers()) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
-		
+
 	}
-	
+
 	public void updateCardType(int playerPCid) {
 		for (int i = 0; i < pcmodels.size(); i++) {
 			if (pcmodels.get(i).getPatterncardNumber() == playerPCid) {

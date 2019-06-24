@@ -42,7 +42,7 @@ public class DiceHolderController {
 		this.gm = gm;
 		this.pcc = pcc;
 		this.gameid = gameid;
-		dc = new DiceController(ddc, gameid, this);
+		dc = new DiceController(ddc, gameid);
 	}
 
 	public void setCard4(boolean set) {
@@ -132,7 +132,7 @@ public class DiceHolderController {
 						return;
 
 					} else if (selectedModel.getDie() == null && dhmodels.get(i).getDie() != null) {// switch een
-					
+
 						if (checkDiceMovement(selectedModel, dhmodels.get(i).getDie()) == true) {
 							if (dhmodels.get(i).getDie() != IllegalDice) {
 								selectedModel.setDie(dhmodels.get(i).getDie());// wiselt de models
@@ -253,9 +253,9 @@ public class DiceHolderController {
 					}
 				}
 			}
-			
-			if(t12 != null) {
-				if(t12 != die.getDieColor()) {
+
+			if (t12 != null) {
+				if (t12 != die.getDieColor()) {
 					check = false;
 					return check;
 				}
@@ -406,17 +406,16 @@ public class DiceHolderController {
 			}
 
 			// aan randen plaatsen bij eerste ronde xxx Tess
-			
+
 			boolean first = true;
 			for (int i = 0; i < dhmodels.size(); i++) {
-				if(dhmodels.get(i).getDie() != null) {
-					if(dhmodels.get(i).getType() == DiceHolderType.PLAYERWINDOW) {
+				if (dhmodels.get(i).getDie() != null) {
+					if (dhmodels.get(i).getType() == DiceHolderType.PLAYERWINDOW) {
 						first = false;
 					}
 				}
 			}
-			
-			
+
 			if (first) {
 				/*
 				 * if((location.getX()!=1 && location.getX() != 5) || (location.getY() != 1 &&
@@ -463,7 +462,6 @@ public class DiceHolderController {
 			}
 		}
 
-		
 		return check;
 	}
 
@@ -574,8 +572,8 @@ public class DiceHolderController {
 		die.setEyes(eyes);
 		dieUpdator.updateDieEyes(eyes, gameid, die);
 		gc.forcedUpdateDice();
-		}
-	
+	}
+
 	public void setColor(Color color, DiceModel die) {
 		die.setDieColor(color);
 		dieUpdator.updateDieColor(color, gameid, die.getDieNumber(), die.getEyes());
@@ -645,7 +643,7 @@ public class DiceHolderController {
 	public void higherClicked(boolean test) {
 		int nr = this.GetSelectedDiceHolder().getDie().getEyes() + 1;
 		this.setEyes(nr, this.GetSelectedDiceHolder().getDie());
-		if(test) {
+		if (test) {
 			tcc.returnToNormal();
 		}
 	}
@@ -668,12 +666,12 @@ public class DiceHolderController {
 
 	public void higherClicked1() {
 		Color color = this.GetSelectedDiceHolder().getDie().getDieColor();
-		
+
 		switch (color.toString()) {
 		case "red":
 			color = Color.BLUE;
 			break;
-		case "blue": 
+		case "blue":
 			color = Color.GREEN;
 			break;
 		case "green":
@@ -686,18 +684,18 @@ public class DiceHolderController {
 			color = Color.RED;
 			break;
 		}
-		
-		this.setColor(color , this.GetSelectedDiceHolder().getDie());
+
+		this.setColor(color, this.GetSelectedDiceHolder().getDie());
 	}
 
 	public void lowerClicked1() {
 		Color color = this.GetSelectedDiceHolder().getDie().getDieColor();
-		
+
 		switch (color.toString()) {
 		case "red":
 			color = Color.PURPLE;
 			break;
-		case "blue": 
+		case "blue":
 			color = Color.RED;
 			break;
 		case "green":
@@ -710,8 +708,8 @@ public class DiceHolderController {
 			color = Color.YELLOW;
 			break;
 		}
-		
-		this.setColor(color , this.GetSelectedDiceHolder().getDie());
+
+		this.setColor(color, this.GetSelectedDiceHolder().getDie());
 	}
 
 	public void confirm() {
@@ -732,7 +730,7 @@ public class DiceHolderController {
 	}
 
 	public void handleTwelve(Color dieColor) {
-		Color t12 = dieColor;
+		t12 = dieColor;
 	}
 
 }
