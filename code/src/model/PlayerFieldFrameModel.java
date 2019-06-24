@@ -2,7 +2,7 @@ package model;
 
 import javafx.scene.paint.Color;
 
-public class PlayerFieldFrameModel {//wordt alleen gebruikt om te kijken of er iet is geupdate in een playerWindow
+public class PlayerFieldFrameModel {
 	private int playerid;
 	private int x;
 	private int y;

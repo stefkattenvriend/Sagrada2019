@@ -1,13 +1,11 @@
 package controller;
 
-
 import databeest.DbDieUpdater;
 import databeest.DbTurnCollector;
 import helpers.DiceHolderType;
 import model.DiceHolderModel;
 import model.GameModel;
 import model.PlayerModel;
-import view.MyScene;
 import view.GamePanes.PlayerPane;
 
 public class TurnController {
@@ -24,10 +22,9 @@ public class TurnController {
 	private GameController gController;
 	private DiceController diceController;
 	private ToolCardController tcc;
-	private MyScene myScene;
 
-	
-	public TurnController(GameController gc, DiceHolderController dhc, DbDieUpdater ddu, GameModel gm, DbTurnCollector dtc, String username, int gameId, ToolCardController tcc) {
+	public TurnController(GameController gc, DiceHolderController dhc, DbDieUpdater ddu, GameModel gm,
+			DbTurnCollector dtc, String username, int gameId, ToolCardController tcc) {
 		this.tcc = tcc;
 		this.gameId = gameId;
 		this.username = username;
@@ -36,26 +33,23 @@ public class TurnController {
 		this.ddu = ddu;
 		this.gm = gm;
 		this.gController = gc;
-		this.myScene = myScene;
 		diceController = dhc.getDiceController();
 	}
-	
+
 	public void givePane(PlayerPane pane) {
 		this.pp = pane;
 	}
-	
-	
-	
+
 	public void updateChat() {
 		gController.updateChatPane();
 	}
 
 	public void updatePass() {// update na pas knop
-		
+
 		gController.setCurrentPlayer(false);
 		tac.setMyTurn(false);
 		dhc.switchTurnInteractable(false);
-		
+
 		DiceHolderModel dm = null;
 
 		for (int i = 0; i < dhc.getMovedDice().size(); i++) {
@@ -76,24 +70,22 @@ public class TurnController {
 
 		}
 	}
-	
-	//milan
+
+	// milan
 	public void updateSeqnrAndTurn() {
-		
+
 		PlayerModel[] players = gm.getPma();
 		int amountOfPlayers = players.length;
 		int seqnr = 10;
 		if (amountOfPlayers == 4) {
 			for (int i = 0; i < players.length; i++) {
-				int x = players[i].getSeqnr();
-				
+
 				if (players[i].getDht() == DiceHolderType.PLAYERWINDOW) {
 					seqnr = players[i].getSeqnr();
-					
+
 					currentplayer = players[i];
 				}
-					
-				
+
 			}
 			gController.getPointsController().allowCounting(currentplayer);	
 			switch (seqnr) {
@@ -103,10 +95,10 @@ public class TurnController {
 				for (int i = 0; i < players.length; i++) {
 					if (players[i].getSeqnr() == 2) {
 						players[i].setCurrentPlayer(true);
-					} 
-					
+					}
+
 				}
-				
+
 				break;
 			case 2:
 				currentplayer.setSeqnr(7);
@@ -114,17 +106,17 @@ public class TurnController {
 				for (int i = 0; i < players.length; i++) {
 					if (players[i].getSeqnr() == 3) {
 						players[i].setCurrentPlayer(true);
-					} 
-					
+					}
+
 				}
 				break;
-			case 3: 
+			case 3:
 				currentplayer.setSeqnr(6);
 				currentplayer.setCurrentPlayer(false);
 				for (int i = 0; i < players.length; i++) {
 					if (players[i].getSeqnr() == 4) {
 						players[i].setCurrentPlayer(true);
-					} 
+					}
 				}
 				break;
 			case 4:
@@ -133,7 +125,7 @@ public class TurnController {
 				for (int i = 0; i < players.length; i++) {
 					if (players[i].getSeqnr() == 5) {
 						players[i].setCurrentPlayer(true);
-					} 
+					}
 				}
 				break;
 			case 5:
@@ -142,7 +134,7 @@ public class TurnController {
 				for (int i = 0; i < players.length; i++) {
 					if (players[i].getSeqnr() == 6) {
 						players[i].setCurrentPlayer(true);
-					} 
+					}
 				}
 				break;
 			case 6:
@@ -151,7 +143,7 @@ public class TurnController {
 				for (int i = 0; i < players.length; i++) {
 					if (players[i].getSeqnr() == 7) {
 						players[i].setCurrentPlayer(true);
-					} 
+					}
 				}
 				break;
 			case 7:
@@ -160,7 +152,7 @@ public class TurnController {
 				for (int i = 0; i < players.length; i++) {
 					if (players[i].getSeqnr() == 8) {
 						players[i].setCurrentPlayer(true);
-					} 
+					}
 				}
 				break;
 			case 8:
@@ -170,8 +162,8 @@ public class TurnController {
 				gController.putDieOnRoundTrack();
 				diceController.generateOffer(amountOfPlayers, gameId);
 				gController.updateDiceOffer();
-				
-				if (currentplayer == players[0]) { 
+
+				if (currentplayer == players[0]) {
 					players[0].setSeqnr(4);
 					players[1].setSeqnr(1);
 					players[1].setCurrentPlayer(true);
@@ -195,22 +187,20 @@ public class TurnController {
 					players[1].setSeqnr(2);
 					players[2].setSeqnr(3);
 					players[3].setSeqnr(4);
-				} 
+				}
 				break;
-			default: 
+			default:
 			}
 		}
 		if (amountOfPlayers == 3) {
 			for (int i = 0; i < players.length; i++) {
-				int x = players[i].getSeqnr();
-				
+
 				if (players[i].getDht() == DiceHolderType.PLAYERWINDOW) {
 					seqnr = players[i].getSeqnr();
-					
+
 					currentplayer = players[i];
 				}
-					
-				
+
 			}
 			gController.getPointsController().allowCounting(currentplayer);	
 			switch (seqnr) {
@@ -220,7 +210,7 @@ public class TurnController {
 				for (int i = 0; i < players.length; i++) {
 					if (players[i].getSeqnr() == 2) {
 						players[i].setCurrentPlayer(true);
-					} 
+					}
 				}
 				break;
 			case 2:
@@ -229,16 +219,16 @@ public class TurnController {
 				for (int i = 0; i < players.length; i++) {
 					if (players[i].getSeqnr() == 3) {
 						players[i].setCurrentPlayer(true);
-					} 
+					}
 				}
 				break;
-			case 3: 
+			case 3:
 				currentplayer.setSeqnr(4);
 				currentplayer.setCurrentPlayer(false);
 				for (int i = 0; i < players.length; i++) {
 					if (players[i].getSeqnr() == 4) {
 						players[i].setCurrentPlayer(true);
-					} 
+					}
 				}
 				break;
 			case 4:
@@ -247,7 +237,7 @@ public class TurnController {
 				for (int i = 0; i < players.length; i++) {
 					if (players[i].getSeqnr() == 5) {
 						players[i].setCurrentPlayer(true);
-					} 
+					}
 				}
 				break;
 			case 5:
@@ -256,7 +246,7 @@ public class TurnController {
 				for (int i = 0; i < players.length; i++) {
 					if (players[i].getSeqnr() == 6) {
 						players[i].setCurrentPlayer(true);
-					} 
+					}
 				}
 				break;
 			case 6:
@@ -284,21 +274,19 @@ public class TurnController {
 					players[2].setSeqnr(3);
 				}
 				break;
-			default: 
+			default:
 			}
 		}
 		if (amountOfPlayers == 2) {
-			
+
 			for (int i = 0; i < players.length; i++) {
-				int x = players[i].getSeqnr();
-				
+
 				if (players[i].getDht() == DiceHolderType.PLAYERWINDOW) {
 					seqnr = players[i].getSeqnr();
-					
+
 					currentplayer = players[i];
 				}
-					
-				
+
 			}
 			gController.getPointsController().allowCounting(currentplayer);
 			switch (seqnr) {
@@ -308,7 +296,7 @@ public class TurnController {
 				for (int i = 0; i < players.length; i++) {
 					if (players[i].getSeqnr() == 2) {
 						players[i].setCurrentPlayer(true);
-					} 
+					}
 				}
 				break;
 			case 2:
@@ -317,16 +305,16 @@ public class TurnController {
 				for (int i = 0; i < players.length; i++) {
 					if (players[i].getSeqnr() == 3) {
 						players[i].setCurrentPlayer(true);
-					} 
+					}
 				}
 				break;
-			case 3: 
+			case 3:
 				currentplayer.setSeqnr(1);
 				currentplayer.setCurrentPlayer(false);
 				for (int i = 0; i < players.length; i++) {
 					if (players[i].getSeqnr() == 4) {
 						players[i].setCurrentPlayer(true);
-					} 
+					}
 				}
 				break;
 			case 4:
@@ -334,7 +322,7 @@ public class TurnController {
 				currentplayer.setCurrentPlayer(false);
 				gController.forcedUpdateDice();
 				gController.putDieOnRoundTrack();
-			
+
 				if (currentplayer == players[0]) {
 					players[0].setSeqnr(2);
 					players[1].setSeqnr(1);
@@ -344,41 +332,35 @@ public class TurnController {
 					players[0].setSeqnr(1);
 					players[1].setSeqnr(2);
 					players[0].setCurrentPlayer(true);
-					
-					
+
 				} else {
-					
+
 				}
 				int round = diceController.getRound(gameId);
-				
-				
-				if(round == 11) {
+
+				if (round == 11) {
 					gController.getMasterController().getMyScene().setEndPane();
-					
-					
+
 					break;
 				} else {
-				diceController.generateOffer(amountOfPlayers, gameId);
-				gController.updateDiceOffer();
+					diceController.generateOffer(amountOfPlayers, gameId);
+					gController.updateDiceOffer();
 				}
-				
+
 				break;
-	
-			default: 
+
+			default:
 			}
-		}		
+		}
 	}
 
-	
 	public void TurnAdmissionGiving() {
 		tac = new TurnAdmissionChecker(dtc, username, gameId, dhc, pp, this, tcc, gController);
 
-			Thread t1 = new Thread(tac);
-			t1.start();
+		Thread t1 = new Thread(tac);
+		t1.start();
 	}
-	
-	
-	
+
 	public PlayerModel getCurrentplayer() {
 		return currentplayer;
 	}
@@ -386,10 +368,9 @@ public class TurnController {
 	public void startThread() {
 		tac.start();
 	}
-	
+
 	public void stopThread() {
 		tac.stop();
 	}
-
 
 }

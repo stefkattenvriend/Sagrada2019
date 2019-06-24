@@ -15,7 +15,6 @@ public class TurnAdmissionChecker implements Runnable {
 	private TurnController tc;
 	private ToolCardController tcc;
 	private GameController gc;
-	private boolean allInteractible;
 	private int round;
 	// private ChatPane chatPane;
 
@@ -35,7 +34,7 @@ public class TurnAdmissionChecker implements Runnable {
 
 	public void run() {
 		while (playing) {
-				checkMyTurn();
+			checkMyTurn();
 			round = dtc.getRoundNumber(gameId);
 			tc.updateChat(); // update chat automatisch hoop ik
 		}
@@ -48,8 +47,8 @@ public class TurnAdmissionChecker implements Runnable {
 					dhc.switchTurnInteractable(true);
 					gc.setCurrentPlayer(true);
 					pp.yourTurn();
-					if(round == 11) {
-					pp.showEndPane();
+					if (round == 11) {
+						pp.showEndPane();
 					}
 					myTurn = true;
 				}
@@ -59,13 +58,12 @@ public class TurnAdmissionChecker implements Runnable {
 					e.printStackTrace();
 				}
 			} else {
-				
+
 				dhc.switchTurnInteractable(false);
 				gc.setCurrentPlayer(false);
-				if(round == 11) {
+				if (round == 11) {
 					pp.showEndPane();
-					}
-				allInteractible = false;
+				}
 
 				try {
 					Thread.sleep(3000);
@@ -87,8 +85,7 @@ public class TurnAdmissionChecker implements Runnable {
 
 	public void setMyTurn(boolean b) {
 		this.myTurn = b;
-		
+
 	}
-	
 
 }

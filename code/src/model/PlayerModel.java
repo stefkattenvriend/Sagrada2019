@@ -12,12 +12,12 @@ public class PlayerModel {
 
 	private int playerid;
 	private String username;
-	private int seqnr; // dit is later voor de volgorde van de beurtenprivate String username;
+	private int seqnr; 
 	private int gameid;
 	private String status;
 	private boolean isCurrentPlayer;
-	private int payStones;// moeten wss paystone models worden ~ Rens
-	private int patid; // patterncard_idpatterncard
+	private int payStones;
+	private int patid;
 	private String stringcolor;
 	private Color color;
 	private int score;
@@ -30,7 +30,7 @@ public class PlayerModel {
 	private int totalPoints;
 	
 	
-	private DiceHolderType dht;// welke diceholder er bij deze speler hoort dus welke speler is het ~ Rens
+	private DiceHolderType dht;
 	private DbPlayerCollector dpc;
 	private ToolCardController tcc;
 	private GameController gc;
@@ -46,7 +46,6 @@ public class PlayerModel {
 	}
 
 	public void getDatabaseInfo(DbPlayerCollector dpc) {
-//		playerid = dpc.getPlayerID(username, gameid);
 		username = dpc.getUsername(playerid);
 		seqnr = dpc.getSeqnr(playerid);
 		status = dpc.getStatus(playerid);
@@ -96,12 +95,12 @@ public class PlayerModel {
 		movesAllowed2 = 1;
 	}
 	
-	public void doMove1() {		//roep deze aan nadat je een actie hebt uitgevoerd
+	public void doMove1() {		
 		movesAllowed1 = movesAllowed1 -1;
 		tcc.doMove();
 	}
 	
-	public void giveMove1() {		//roep deze aan als je een move mag doen
+	public void giveMove1() {		
 		movesAllowed1 = movesAllowed1 +1;
 	}
 	
@@ -109,12 +108,12 @@ public class PlayerModel {
 		return movesAllowed2;
 	}
 	
-	public void doMove2() {		//roep deze aan nadat je een actie hebt uitgevoerd
+	public void doMove2() {		
 		movesAllowed2 = movesAllowed2 -1;
 		tcc.doMove();
 	}
 	
-	public void giveMove2() {		//roep deze aan als je een move mag doen
+	public void giveMove2() {		
 		movesAllowed2 = movesAllowed2 +1;
 	}
 	
@@ -132,9 +131,6 @@ public class PlayerModel {
 		return isCurrentPlayer;
 	}
 	
-	//milan
-	//updates the database with current player
-	
 	public void setCurrentPlayer(boolean isCurrentPlayer) {
 		this.isCurrentPlayer = isCurrentPlayer;
 		int i = 0;
@@ -148,7 +144,6 @@ public class PlayerModel {
 		dpc.setCurrentPlayer(playerid, i);
 	}
 
-	//Deze blijft loopen, zet uit aub
 	public Color getObjectiveColor() {
 		return color;
 	}

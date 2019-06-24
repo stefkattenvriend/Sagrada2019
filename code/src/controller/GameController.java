@@ -20,7 +20,6 @@ import view.GamePanes.CardPane;
 import view.GamePanes.ChatPane;
 import view.GamePanes.GamePane;
 import view.GamePanes.PersonalAttributes;
-import view.GamePanes.PlayerPane;
 
 public class GameController {// deze classe wordt aangemaakt in de masterController en maakt uiteindelijk ook
 								// de andere controllers aan ~Rens
@@ -62,13 +61,13 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 
 	private PlayerController pc;
 	private ChatPane chatPane;
-	private PlayerPane pp;
 	private PersonalAttributes pa;
 	private MasterController master;
 
 	public GameController(DbPatternCardInfoCollector DatabasePTCCollector, DbGameCollector dbGamecollector,
 			LoginController lc, DbChatCollector dbChat, DbCardCollector dbCardCollector, DbPlayerCollector dpc,
-			DbDieCollector ddc, DbDieUpdater ddu, DbTurnCollector dtc, DbPayStoneRuler psr, DbToolCardCollector tcc, MasterController masterController) {
+			DbDieCollector ddc, DbDieUpdater ddu, DbTurnCollector dtc, DbPayStoneRuler psr, DbToolCardCollector tcc,
+			MasterController masterController) {
 		this.DatabasePTCCollector = DatabasePTCCollector;
 		this.dpc = dpc;
 		this.lc = lc;
@@ -92,7 +91,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		this.currentPlayer = false;
 		this.updateDice = false;
 		this.forceUpdate = false;
-	
+
 	}
 
 	public CardsController getCardsController() {
@@ -122,7 +121,6 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	public ChatController getChatController() {
 		return cc;
 	}
-
 
 
 	public LoginController getLoginController() {
@@ -273,19 +271,19 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 				if (currentPlayer == false || forceUpdate == true) {
 					if (dhc.getDhmodels().size() == 99) {
 						guc.checkDiceMovementPlayerFields();// update de dice models
-						
-							dhc.reloadDiceHolderPanes();// reload de panes van dice en diceholder die izjn opgeslagen
-							gamepane.redrawDice();
-							setUpdateDice(false);
-							dhc.reloadInteractability(); // zorgt ervoor dat niet alle panes met dobbelstenen erin enzo
-															// interactable zijn
+
+						dhc.reloadDiceHolderPanes();// reload de panes van dice en diceholder die izjn opgeslagen
+						gamepane.redrawDice();
+						setUpdateDice(false);
+						dhc.reloadInteractability(); // zorgt ervoor dat niet alle panes met dobbelstenen erin enzo
+														// interactable zijn
 						if (forceUpdate) {
 							forceUpdate = false;
 							forcedUpdateDice();
 						}
-						
+
 					} else {
-						
+
 					}
 				}
 			}
@@ -295,7 +293,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	public int getGameId() {
 		return gm.getGameId();
 	}
-	
+
 	public boolean isCurrentPlayer() {
 		return currentPlayer;
 	}
@@ -316,16 +314,15 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 	public void setUpdateDice(boolean b) {
 		this.updateDice = b;
 	}
-	
 
 	public ToolCardController getToolCardController() {
 		return tcc;
 	}
-	
+
 	public MasterController getMasterController() {
 		return master;
 	}
-	
+
 	public void updateDiceOffer() {
 		if (gameRunning) {
 			if (allPatternCards) {
@@ -338,7 +335,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 						forcedUpdateDice();
 					}
 				} else {
-					
+
 				}
 			}
 		}
@@ -349,7 +346,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		if (gameRunning) {
 			if (allPatternCards) {
 				if (dhc.getDhmodels().size() == 99) {
-					
+
 					guc.checkDiceMovementPlayerFields();
 					guc.reloadRoundTrack();
 					if (updateDice) {
@@ -372,7 +369,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 		if (gameRunning) {
 			if (allPatternCards) {
 				gm.updateRound(this);
-				
+
 			}
 		}
 	}
@@ -416,9 +413,7 @@ public class GameController {// deze classe wordt aangemaakt in de masterControl
 
 	public void putDieOnRoundTrack() {
 		dbDieUpdater.putDieOnRoundtrack(gm.getGameRound(), gm.getGameId(), dhc.getDiceController().getDMAL());
-		
+
 	}
-	
-	
 
 }

@@ -6,15 +6,14 @@ public class MasterRunnable implements Runnable {
 
 	private MenuController menuController;
 	private GameController gameController;
-	
+
 	public MasterRunnable(MenuController menuController, GameController gameController) {
 		this.menuController = menuController;
 		this.gameController = gameController;
 	}
-	
-	
+
 	@Override
-    public void run() {
+	public void run() {
 		boolean test = true;
         Runnable updater = new Runnable() {
 
