@@ -8,7 +8,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import model.CardBackgroundModel;
 import model.DiceHolderModel;
-import model.DiceModel;
 import view.GamePanes.CardPane;
 
 public class CardsController {
