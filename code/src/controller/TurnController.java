@@ -134,7 +134,7 @@ public class TurnController {
 				}
 				break;
 			case 5:
-				currentplayer.setSeqnr(9);
+				currentplayer.setSeqnr(3);
 				currentplayer.setCurrentPlayer(false);
 				for (int i = 0; i < players.length; i++) {
 					if (players[i].getSeqnr() == 6) {
@@ -143,7 +143,7 @@ public class TurnController {
 				}
 				break;
 			case 6:
-				currentplayer.setSeqnr(9);
+				currentplayer.setSeqnr(2);
 				currentplayer.setCurrentPlayer(false);
 				for (int i = 0; i < players.length; i++) {
 					if (players[i].getSeqnr() == 7) {
@@ -152,7 +152,7 @@ public class TurnController {
 				}
 				break;
 			case 7:
-				currentplayer.setSeqnr(9);
+				currentplayer.setSeqnr(1);
 				currentplayer.setCurrentPlayer(false);
 				for (int i = 0; i < players.length; i++) {
 					if (players[i].getSeqnr() == 8) {
