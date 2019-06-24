@@ -406,8 +406,18 @@ public class DiceHolderController {
 			}
 
 			// aan randen plaatsen bij eerste ronde xxx Tess
-
-			if (gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getTurn() == 1 && gm.getGameRound() == 1) {
+			
+			boolean first = true;
+			for (int i = 0; i < dhmodels.size(); i++) {
+				if(dhmodels.get(i).getDie() != null) {
+					if(dhmodels.get(i).getType() == DiceHolderType.PLAYERWINDOW) {
+						first = false;
+					}
+				}
+			}
+			
+			
+			if (first) {
 				/*
 				 * if((location.getX()!=1 && location.getX() != 5) || (location.getY() != 1 &&
 				 * location.getY() != 4)) { check = false; return check; }
@@ -419,7 +429,7 @@ public class DiceHolderController {
 			}
 
 			if (checkNextTo) {
-				if (gm.getPlayerModel(DiceHolderType.PLAYERWINDOW).getTurn() != 1 && gm.getGameRound() != 1) {
+				if (!first) {
 					if (!nextTo) {
 						check = false;
 						return check;
@@ -585,7 +595,7 @@ public class DiceHolderController {
 		checkEyes = i;
 	}
 
-	public void setCheckNextTo(boolean i) {f
+	public void setCheckNextTo(boolean i) {
 		checkNextTo = i;
 	}
 
