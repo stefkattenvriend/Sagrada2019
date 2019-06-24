@@ -28,8 +28,8 @@ public class PlayerModel {
 	private int turnPlace;
 	private GameModel gm;
 	private int amountOfDiceOnFrame;
-	private int publicPoints = 0;
-	private int totalPoints = 0;
+	private int publicPoints;
+	private int totalPoints;
 	
 	
 	private DiceHolderType dht;// welke diceholder er bij deze speler hoort dus welke speler is het ~ Rens
@@ -43,6 +43,8 @@ public class PlayerModel {
 		this.gc = gc;
 		this.gm = gm;
 		this.dpc = dpc;
+		publicPoints = -20;
+		totalPoints = -20;
 	}
 
 	public void getDatabaseInfo(DbPlayerCollector dpc) {

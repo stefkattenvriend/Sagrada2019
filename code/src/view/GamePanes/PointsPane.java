@@ -16,6 +16,7 @@ public class PointsPane extends VBox {
 	
 	private double personalAttributesHeight = 75;
 	private PointsController pc;
+	private Label textAmount;
 	
 	public PointsPane(PointsController pc) {
 		this.pc = pc;
@@ -42,15 +43,19 @@ public class PointsPane extends VBox {
 		text.setFont(Font.font ("Verdana", FontWeight.BOLD, 15));
 		text.setMinWidth(MenuPane.paneWidth / 3);
 		
-		Label textAmount = new Label();
+		textAmount = new Label();
 		
 		//TODO het weergeven van de points
-		textAmount.setText(pc.getTotalPoints()); //moet worden gelinkt aan points berekening
+		textAmount.setText(pc.getTotalPoints(this)); //moet worden gelinkt aan points berekening
 //		System.out.println(pc.getTotalPoints());
 		
 		
 		textAmount.setFont(Font.font ("Verdana", FontWeight.BOLD, 15));
 		textAmount.setMinWidth(MenuPane.paneWidth / 3);
 		getChildren().addAll(text, textAmount);
+	}
+	
+	public void setTextAmount() {
+		textAmount.setText(pc.getTotalPoints(this));
 	}
 }
