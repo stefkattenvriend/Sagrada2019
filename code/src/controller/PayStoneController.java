@@ -14,6 +14,7 @@ public class PayStoneController {
 	}
 	
 	public void pay(int toolcardId, int cost) {
+		
 		psr.setStoneToCard(gameId, playerId, toolcardId, cost);
 	}
 	

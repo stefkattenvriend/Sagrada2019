@@ -21,11 +21,8 @@ public class DataBaseApplication {
 
 	public boolean loadDataBaseDriver(String driverName) {
 		try {
-			// Load the JDBC driver
 			Class.forName(driverName);
 		} catch (ClassNotFoundException e) {
-			// Could not find the database driver
-			System.out.println("ClassNotFoundException : " + e.getMessage());
 			return false;
 		}
 		return true;
@@ -34,31 +31,18 @@ public class DataBaseApplication {
 	public boolean makeConnection() {
 		try {
 			m_Conn = DriverManager
-					.getConnection("jdbc:mysql://databases.aii.avans.nl/mwmastbe_db2?user=rcaasper&password=Ab12345"); // TODO
-																														// hier
-																														// moet
-																														// de
-																														// uiteindelijke
-																														// inloggegevens
-																														// komen
-																														// voor
-																														// de
-																														// database
-																														// van
-																														// school
-			System.out.println("So far, so good...");
+
+//					.getConnection("jdbc:mysql://databases.aii.avans.nl/mwmastbe_db2?user=rcaasper&password=Ab12345");
+
+					.getConnection("jdbc:mysql://databases.aii.avans.nl/2019_soprj4_sagrada_her?user=42IN04SOn&password=normalisatie");																									// de
+																													
 		} catch (SQLException ex) {
 			// handle any errors
-			System.out.println("Houston, we've had a problem...");
-			System.out.println("SQLException: " + ex.getMessage());
-			System.out.println("SQLState: " + ex.getSQLState());
-			System.out.println("VendorError: " + ex.getErrorCode());
 			return false;
 		}
 		return true;
 	}
 
-	// Stef
 	// voor een insert Query
 	public void insertQuery(String query) {
 		Statement stmt = null;
@@ -67,15 +51,12 @@ public class DataBaseApplication {
 			stmt = m_Conn.createStatement();
 
 			int rs = stmt.executeUpdate(query);
-			// System.out.println(rs);// Deze maakt de 1 in de console :D
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 	}
 
 	// Alle read query's
-
 	public String readPassword(String username) {
 		String password = null;
 		String query;
@@ -85,13 +66,12 @@ public class DataBaseApplication {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
-			// return string in console
+
 			while (rs.next()) {
 				password = rs.getString(2).toLowerCase();
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return password;
 	}
@@ -111,7 +91,6 @@ public class DataBaseApplication {
 
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 
 		if (dbUsername != null) {
@@ -142,7 +121,6 @@ public class DataBaseApplication {
 			}
 
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 			return false;
 		}
 	}
@@ -155,14 +133,13 @@ public class DataBaseApplication {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
-			// return string in console
+
 			while (rs.next()) {
 				gameid = rs.getInt(1);
 
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return gameid;
 	}
@@ -182,7 +159,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return players;
 	}
@@ -205,7 +181,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 		}
 
 		return challengers;
@@ -229,7 +204,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 		}
 
 		return inviteGameID;
@@ -253,7 +227,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 		}
 		return currentPlayerStatus;
 	}
@@ -274,34 +247,11 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 		}
 		return statusAccepted;
 	}
 
-	public ArrayList<String> getWaitingGames(String currentAccount) { // alle afwachtend op reactie games van de
-																		// ingelogde speler #joery
-		Statement stmt = null;
-		ArrayList<String> waitingGames = new ArrayList<>();
-		String query = "SELECT p1.game_idgame as gameid, p1.playstatus_playstatus From player p1 where p1.username = '"
-				+ currentAccount + "' Order by p1.game_idgame;";
-		try {
-			stmt = m_Conn.createStatement();
-			ResultSet rs = stmt.executeQuery(query);
-
-			while (rs.next()) {
-
-				waitingGames.add(rs.getString(1));
-
-			}
-			stmt.close();
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-		return waitingGames;
-	}
-
-	public ArrayList<String> getPlayersInGame(String gameID, String currentAccount) { 
+	public ArrayList<String> getPlayersInGame(int gameID, String currentAccount) { 
 		
 		Statement stmt = null;
 		ArrayList<String> playersInGame = new ArrayList<>();
@@ -318,12 +268,11 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 		}
 		return playersInGame;
 	}
 
-	public ArrayList<String> getPlayerStatus(String gameID, String currentAccount) { 
+	public ArrayList<String> getPlayerStatus(String gameID, String currentAccount) {
 		Statement stmt = null;
 		ArrayList<String> playerStatus = new ArrayList<>();
 		String query = "SELECT playstatus_playstatus FROM player WHERE game_idgame = '" + gameID + "' AND username != '"
@@ -339,7 +288,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 		}
 		return playerStatus;
 	}
@@ -361,7 +309,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 		}
 		return playerID;
 	}
@@ -374,7 +321,7 @@ public class DataBaseApplication {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
-			// return string in console
+
 			while (rs.next()) {
 
 				colors.add(rs.getString(1));
@@ -382,7 +329,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return colors;
 	}
@@ -395,13 +341,12 @@ public class DataBaseApplication {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
-			// return string in console
+
 			while (rs.next()) {
 				idToolCards.add(rs.getInt(1));
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return idToolCards;
 	}
@@ -414,13 +359,12 @@ public class DataBaseApplication {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
-			// return string in console
+
 			while (rs.next()) {
 				idToolCards.add(rs.getInt(1));
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return idToolCards;
 	}
@@ -428,7 +372,7 @@ public class DataBaseApplication {
 	// Stef
 	public int getPlayerPayStones(int playerId) {
 		Statement stmt = null;
-		String query = "SELECT COUNT(idfavortoken) FROM mwmastbe_db2.gamefavortoken WHERE idplayer = " + playerId + ";";
+		String query = "SELECT COUNT(idfavortoken) FROM gamefavortoken WHERE idplayer = " + playerId + ";";
 		int paystones = 0;
 		try {
 			stmt = m_Conn.createStatement();
@@ -439,7 +383,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return paystones;
 	}
@@ -452,7 +395,6 @@ public class DataBaseApplication {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
-			// return string in console
 			while (rs.next()) {
 
 				chat.add(rs.getString(3));
@@ -460,7 +402,7 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+	
 		}
 		return chat;
 	}
@@ -473,7 +415,6 @@ public class DataBaseApplication {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
-			// return string in console
 			while (rs.next()) {
 
 				chatPlayers.add(rs.getInt(1));
@@ -481,11 +422,10 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return chatPlayers;
 	}
-	
+
 	public ArrayList<String> getChatDate(String query) {
 		Statement stmt = null;
 		ArrayList<String> chat = new ArrayList<>();
@@ -494,7 +434,7 @@ public class DataBaseApplication {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
-			// return string in console
+			
 			while (rs.next()) {
 
 				chat.add(rs.getString(1));
@@ -502,7 +442,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return chat;
 	}
@@ -518,7 +457,7 @@ public class DataBaseApplication {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
-			// return string in console voor test
+
 			while (rs.next()) {
 				int highscoredb = rs.getInt(1);
 				if (highscoredb != 0) {
@@ -527,7 +466,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return highscore;
 	}
@@ -546,7 +484,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return round;
 	}
@@ -566,7 +503,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return PlayerID;
 	}
@@ -585,7 +521,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return seqnr;
 	}
@@ -604,7 +539,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return status;
 	}
@@ -623,7 +557,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return icp;
 	}
@@ -675,7 +608,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 			return value;
 		}
 		return value;
@@ -695,14 +627,13 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return score;
 	}
 
 	public int getAmountOfPlayers(int gameID) {
 		Statement stmt = null;
-		String query = "SELECT COUNT(idplayer) FROM mwmastbe_db2.player WHERE game_idgame = " + gameID + ";";
+		String query = "SELECT COUNT(idplayer) FROM player WHERE game_idgame = " + gameID + ";";
 		int amount = 0;
 		try {
 			stmt = m_Conn.createStatement();
@@ -713,7 +644,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return amount;
 	}
@@ -721,19 +651,18 @@ public class DataBaseApplication {
 	public int[] GetPlayerIDs(int gameID) {
 		Statement stmt = null;
 		int[] playerIDs = new int[this.getAmountOfPlayers(gameID)];
-		String query = "SELECT idplayer FROM mwmastbe_db2.player WHERE game_idgame = " + gameID + ";";
+		String query = "SELECT idplayer FROM player WHERE game_idgame = " + gameID + ";";
 		try {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			int i = 0;
-			// return string in console
+			
 			while (rs.next()) {
 				playerIDs[i] = rs.getInt(1);
 				i++;
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return playerIDs;
 	}
@@ -752,7 +681,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return pcid;
 	}
@@ -772,7 +700,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return color;
 
@@ -792,7 +719,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 
 		return username;
@@ -836,7 +762,48 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+		}
+		return diceList;
+	}
+	
+	public ArrayList<DiceModel> getDiceFromRound(int gameid, int round) {
+		Statement stmt = null;
+		String query = "SELECT * FROM gamedie WHERE idgame = " + gameid + " AND ROUND = " + round + ";";
+		ArrayList<DiceModel> diceList = new ArrayList<DiceModel>();
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+
+				Color dieColor = Color.BLACK;
+
+				switch (rs.getString(3)) {
+				case "geel":
+					dieColor = Color.YELLOW;
+					break;
+				case "groen":
+					dieColor = Color.GREEN;
+					break;
+
+				case "rood":
+					dieColor = Color.RED;
+					break;
+
+				case "blauw":
+					dieColor = Color.BLUE;
+					break;
+
+				case "paars":
+					dieColor = Color.PURPLE;
+					break;
+				}
+
+				diceList.add(new DiceModel(rs.getInt(2), dieColor, rs.getInt(4)));
+
+			}
+			stmt.close();
+		} catch (SQLException e) {
 		}
 		return diceList;
 	}
@@ -849,7 +816,7 @@ public class DataBaseApplication {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
-			// return string in console
+			
 			while (rs.next()) {
 
 				chatID.add(rs.getInt(1));
@@ -857,7 +824,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return chatID;
 	}
@@ -873,7 +839,6 @@ public class DataBaseApplication {
 			int rs = stmt.executeUpdate(query);
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 	}
 
@@ -895,7 +860,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 
 		return startedGames;
@@ -906,7 +870,8 @@ public class DataBaseApplication {
 
 		Statement stmt = null;
 		ArrayList<Integer> waitedGames = new ArrayList<>();
-		String query = "SELECT game_idgame AS idgame1, (SELECT game_idgame FROM player WHERE username = '"+ username+"' AND game_idgame = idgame1) AS personalgames, COUNT(idplayer) AS geaccepteerd, (SELECT COUNT(idplayer) FROM player WHERE game_idgame = idgame1) AS totaal_spelers, (SELECT COUNT(idplayer) FROM player WHERE game_idgame = idgame1 AND playstatus_playstatus = 'geweigerd') AS magniet FROM player WHERE (playstatus_playstatus = 'geaccepteerd' OR playstatus_playstatus = 'uitdager') GROUP BY game_idgame;";
+		String query = "SELECT game_idgame AS idgame1, (SELECT game_idgame FROM player WHERE username = '" + username
+				+ "' AND game_idgame = idgame1) AS personalgames, COUNT(idplayer) AS geaccepteerd, (SELECT COUNT(idplayer) FROM player WHERE game_idgame = idgame1) AS totaal_spelers, (SELECT COUNT(idplayer) FROM player WHERE game_idgame = idgame1 AND playstatus_playstatus = 'geweigerd') AS magniet FROM player WHERE (playstatus_playstatus = 'geaccepteerd' OR playstatus_playstatus = 'uitdager') GROUP BY game_idgame;";
 		try {
 			stmt = m_Conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
@@ -918,7 +883,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 
 		return waitedGames;
@@ -942,10 +906,31 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return PlayerFieldFrameList;
 
+	}
+	
+	public ArrayList<Integer> getFinishedGames(String username) {
+
+		Statement stmt = null;
+		ArrayList<Integer> finishedGames = new ArrayList<>();
+		String query = "SELECT game_idgame AS idgame1, (SELECT game_idgame FROM player WHERE username = '" + username
+				+ "' AND game_idgame = idgame1) AS personalgames, COUNT(idplayer) AS geaccepteerd, (SELECT COUNT(idplayer) FROM player WHERE game_idgame = idgame1) AS totaal_spelers FROM player WHERE (playstatus_playstatus = 'uitgespeeld') GROUP BY game_idgame; ";
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+				if (rs.getInt(1) == rs.getInt(2) && rs.getInt(3) == rs.getInt(4)) {
+					finishedGames.add(rs.getInt(1));
+				}
+			}
+			stmt.close();
+		} catch (SQLException e) {
+		}
+
+		return finishedGames;
 	}
 
 	public int numberOfPatternCards() {
@@ -962,7 +947,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return pcnumber;
 	}
@@ -974,11 +958,8 @@ public class DataBaseApplication {
 		try {
 			stmt = m_Conn.createStatement();
 			int rs = stmt.executeUpdate(query);
-			System.out.println("should have executed the query by now");
-//			System.out.println(rs);
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 	}
 
@@ -991,30 +972,21 @@ public class DataBaseApplication {
 			try {
 				stmt = m_Conn.createStatement();
 				int rs = stmt.executeUpdate(query);
-//				System.out.println("idfavortoken: " + idfavortoken + "  -gameId: " + gameId);
 				stmt.close();
 				idfavortoken++;
-//				System.out.println("favortoken++: " + idfavortoken);
 			} catch (SQLException e) {
-				System.out.println(e.getMessage());
 			}
 		}
 	}
 
 	public void addStonesToPlayer(int gameId, int playerId, int amount) {
-//		System.out.println("gameId: " + gameId);
-//		System.out.println("amount: " + amount);
-//		System.out.println("playerId:" + playerId);
 		Statement stmt = null;
 		String query = "UPDATE gamefavortoken SET idplayer = " + playerId + " WHERE idgame = " + gameId
 				+ " AND idplayer IS NULL LIMIT " + amount;
 		try {
 			stmt = m_Conn.createStatement();
-			int rs = stmt.executeUpdate(query);
-//			System.out.println(rs);
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 	}
 
@@ -1029,11 +1001,9 @@ public class DataBaseApplication {
 
 			while (rs.next()) {
 				amount = rs.getInt(1);
-//				System.out.println("database says you should have: " + rs.getInt(1));
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return amount;
 	}
@@ -1052,7 +1022,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 
 		if (amount < 1) {
@@ -1074,13 +1043,11 @@ public class DataBaseApplication {
 
 			while (rs.next()) {
 				pcIds[i] = rs.getInt(1);
-//				System.out.println(pcIds[i]);
 				i++;
 
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return pcIds;
 	}
@@ -1098,14 +1065,14 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return diff;
 	}
 
 	public int getStonesOnCard(int cardId, int gameId) {
 		Statement stmt = null;
-		String query = "SELECT count(idfavortoken) FROM gamefavortoken WHERE gametoolcard = '" + cardId + "' AND idgame = '" + gameId + "';";
+		String query = "SELECT count(idfavortoken) FROM gamefavortoken WHERE gametoolcard = '" + cardId
+				+ "' AND idgame = '" + gameId + "';";
 		int amount = 0;
 		try {
 			stmt = m_Conn.createStatement();
@@ -1117,7 +1084,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return amount;
 	}
@@ -1136,7 +1102,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return amount;
 	}
@@ -1164,11 +1129,10 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return dieColors;
 	}
-		
+
 	public ArrayList<Integer> getDieNumbers(int gameid, int round) {
 		Statement stmt = null;
 		String query = "";
@@ -1178,8 +1142,7 @@ public class DataBaseApplication {
 		} else {
 			query = "SELECT dienumber FROM gamedie WHERE idgame = '" + gameid + "' AND round = " + round + ";";
 		}
-		
-		
+
 		ArrayList<Integer> dieNumbers = new ArrayList<>();
 
 		try {
@@ -1193,13 +1156,14 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return dieNumbers;
 	}
 
 	public void addDieToRound(int eyes, int round, int gameid, int dienumber, String string) {
-		String query = "UPDATE `mwmastbe_db2`.`gamedie` SET `eyes` = " + eyes + ", `round` = " + round + " WHERE (`idgame` = " + gameid + ") and (`dienumber` = " + dienumber + ") and (`diecolor` = '" + string + "');";
+		String query = "UPDATE `gamedie` SET `eyes` = " + eyes + ", `round` = " + round
+				+ " WHERE (`idgame` = " + gameid + ") and (`dienumber` = " + dienumber + ") and (`diecolor` = '"
+				+ string + "');";
 		Statement stmt = null;
 
 		try {
@@ -1208,10 +1172,9 @@ public class DataBaseApplication {
 			int rs = stmt.executeUpdate(query);
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 	}
-	
+
 	public ArrayList<Integer> getNormalPatterncards() {
 		Statement stmt = null;
 		String query = "SELECT idpatterncard FROM patterncard WHERE standard = 1";
@@ -1228,13 +1191,13 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return idpatterncards;
 	}
 
 	public void addDieToRoundTrack(int round, int gameid, Integer integer, String string) {
-		String query = "UPDATE `mwmastbe_db2`.`gamedie` SET `roundtrack` = " + round + " WHERE (`idgame` = " + gameid + ") and (`dienumber` = " + integer + ") and (`diecolor` = '" + string + "');";
+		String query = "UPDATE `gamedie` SET `roundtrack` = " + round + " WHERE (`idgame` = " + gameid
+				+ ") and (`dienumber` = " + integer + ") and (`diecolor` = '" + string + "');";
 		Statement stmt = null;
 
 		try {
@@ -1242,12 +1205,12 @@ public class DataBaseApplication {
 			int rs = stmt.executeUpdate(query);
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 	}
 
 	public void giveCard(int cardId, int playerId) {
-		String query = "INSERT INTO patterncardoption (patterncard_idpatterncard, player_idplayer) VALUES ("+ cardId +", "+ playerId +")";
+		String query = "INSERT INTO patterncardoption (patterncard_idpatterncard, player_idplayer) VALUES (" + cardId
+				+ ", " + playerId + ")";
 		Statement stmt = null;
 
 		try {
@@ -1255,7 +1218,6 @@ public class DataBaseApplication {
 			int rs = stmt.executeUpdate(query);
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 	}
 
@@ -1275,7 +1237,6 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return idpatterncards;
 	}
@@ -1296,14 +1257,14 @@ public class DataBaseApplication {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		return idpatterncards;
 	}
 
 	public int getOffer(int gameID) {
 		Statement stmt = null;
-		String query = "SELECT COUNT(idgame) FROM mwmastbe_db2.gamedie WHERE idgame = " + gameID + " AND eyes is not null;";
+		String query = "SELECT COUNT(idgame) FROM gamedie WHERE idgame = " + gameID
+				+ " AND eyes is not null;";
 		int idpatterncards = 0;
 
 		try {
@@ -1316,12 +1277,235 @@ public class DataBaseApplication {
 
 			}
 			stmt.close();
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+		} catch (SQLException e) { 
 		}
 		return idpatterncards;
 	}
-	
 
+	public int getDiceAmountOnFrame(int playerid) {
+		Statement stmt = null;
+		String query = "SELECT COUNT(dienumber) FROM playerframefield where player_idplayer = " + playerid + " AND dienumber IS NOT NULL;";
+		int amount = 0;
+
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+
+				amount = rs.getInt(1);
+
+			}
+			stmt.close();
+		} catch (SQLException e) {         
+		}
+		return amount;
+	}
+
+	public ArrayList<DiceModel> getDiceOffer(int idgame, int round) {
+		Statement stmt = null;
+		String query = "SELECT * FROM gamedie WHERE idgame = " + idgame + " AND round = " + round + ";";
+		ArrayList<DiceModel> offer = new ArrayList<DiceModel>();
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+
+				String colorstring = rs.getString(3);
+				Color dcolor = Color.WHITE;
+
+				if (colorstring != null) {
+
+					switch (colorstring) {
+					case "geel":
+						dcolor = Color.YELLOW;
+						break;
+					case "groen":
+						dcolor = Color.GREEN;
+						break;
+
+					case "rood":
+						dcolor = Color.RED;
+						break;
+
+					case "blauw":
+						dcolor = Color.BLUE;
+						break;
+
+					case "paars":
+						dcolor = Color.PURPLE;
+						break;
+					}
+
+					if (rs.getInt(2) != 0 && rs.getString(3) != null && rs.getInt(4) != 0) {
+						offer.add(new DiceModel(rs.getInt(2), dcolor, rs.getInt(4)));
+					}
+				}
+			}
+			stmt.close();
+		} catch (SQLException e) {
+		}
+		return offer;
+
+	}
 	
+	public String getWinner(int gameID){
+		String winner = "";
+		Statement stmt = null;
+		String query = "select score, username from player where game_idgame = '" + gameID + "' AND playstatus_playstatus = 'uitgespeeld' order by score desc limit 1;";
+		
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+
+				winner = rs.getString(2);
+
+			}
+			stmt.close();
+		} catch (SQLException e) {
+		}
+		return winner;
+	}
+
+	public ArrayList<DiceModel> getRoundTrack(int gameID) {
+		Statement stmt = null;
+		String query = "SELECT * FROM gamedie WHERE idgame = " + gameID + " AND roundtrack <= (SELECT MAX(roundtrack) FROM gamedie WHERE idgame = " + gameID + ");";
+		ArrayList<DiceModel> roundtrack = new ArrayList<DiceModel>();
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			int i = 0;
+			
+			while (rs.next()) {
+
+				String colorstring = rs.getString(3);
+				Color dcolor = Color.WHITE;
+
+				if (colorstring != null) {
+
+					switch (colorstring) {
+					case "geel":
+						dcolor = Color.YELLOW;
+						break;
+					case "groen":
+						dcolor = Color.GREEN;
+						break;
+
+					case "rood":
+						dcolor = Color.RED;
+						break;
+
+					case "blauw":
+						dcolor = Color.BLUE;
+						break;
+
+					case "paars":
+						dcolor = Color.PURPLE;
+						break;
+					}
+
+					if (rs.getInt(2) != 0 && rs.getString(3) != null && rs.getInt(4) != 0 && rs.getInt(6) != 0) {
+						roundtrack.add(new DiceModel(rs.getInt(2), dcolor, rs.getInt(4)));
+						roundtrack.get(i).setRoundtrack(rs.getInt(6));
+						i++;
+					}
+				}
+			}
+			stmt.close();
+		} catch (SQLException e) {
+		}
+		return roundtrack;
+	}
+
+	public int getEyes(int dienumber, int idgame, String color) {
+		String query = "SELECT eyes FROM gamedie WHERE dienumber = " + dienumber + " AND diecolor = '" + color + "' AND idgame = "+idgame+";";
+		Statement stmt = null;
+
+		int eyes = 0;
+
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+
+				eyes = rs.getInt(1);
+
+			}
+			stmt.close();
+		} catch (SQLException e) {
+		}
+		return eyes;
+	}
+
+	public int getDieNumberinos(int playerid, int x, int y) {
+		String query = "SELECT dienumber FROM playerframefield WHERE player_idplayer = " + playerid + " AND position_x = " + x + " AND position_y =  " + y + ";";
+		Statement stmt = null;
+
+		int dienumber = 0;
+
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+
+				dienumber = rs.getInt(1);
+
+			}
+			stmt.close();
+		} catch (SQLException e) {
+		}
+		return dienumber;
+	}
+
+	public String getDieColorinos(int playerid, int x, int y) {
+		String query = "SELECT diecolor FROM playerframefield WHERE player_idplayer = " + playerid + " AND position_x = " + x + " AND position_y =  " + y + ";";
+		Statement stmt = null;
+
+		String diecolor = "";
+
+		try {
+			stmt = m_Conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+
+				diecolor = rs.getString(1);
+
+			}
+			stmt.close();
+		} catch (SQLException e) {
+		}
+		return diecolor;
+	}
+	
+	public void updateDiceEyes(int eyes, int gameId, int dieNumber, String dieColor) {
+		String query = "UPDATE gamedie SET eyes = " + eyes + " WHERE idgame = " + gameId + " AND dienumber = " + dieNumber + " AND diecolor LIKE '" + dieColor + "'";
+		Statement stmt = null;
+		try {
+			stmt = m_Conn.createStatement();
+			int rs = stmt.executeUpdate(query);
+			stmt.close();
+		} catch (SQLException e) {
+		}
+		
+	}
+
+	public void updateDiceColor(int gameId, int dienr, String color, int eyes) {
+		String query = "UPDATE gamedie SET eyes = " + eyes + " WHERE idgame = " + gameId + " AND dienumber = " + dienr + " AND diecolor LIKE '" + color + "'";
+		Statement stmt = null;
+		try {
+			stmt = m_Conn.createStatement();
+			int rs = stmt.executeUpdate(query);
+			stmt.close();
+		} catch (SQLException e) {
+		}
+		
+	}
+
 }

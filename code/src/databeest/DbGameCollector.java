@@ -14,7 +14,7 @@ public class DbGameCollector {
 	public void pushGame(int gameid) {
 		// maak game aan en zet in database en haal gameid op
 		
-		String query = "INSERT INTO `mwmastbe_db2`.`game` (`idgame`, `creationdate`) VALUES ('" + gameid + "', NOW());";
+		String query = "INSERT INTO `game` (`idgame`, `creationdate`) VALUES ('" + gameid + "', NOW());";
 		dataBaseApplication.insertQuery(query);
 	
 	}
@@ -22,23 +22,22 @@ public class DbGameCollector {
 	public int getRound(int gameid) {
 		int round = 0;
 		round = dataBaseApplication.getRoundNumber(gameid);
-//		System.out.println("dit is het ronde nummer" + round);   // syso om rondenummer te checken 
 		return round;
 	}
 	
 	public void updateStatusAccept(int idplayer) {
-		String query = "UPDATE `mwmastbe_db2`.`player` SET `playstatus_playstatus` = 'geaccepteerd' WHERE (`idplayer` = '" + idplayer + "');";
+		String query = "UPDATE `player` SET `playstatus_playstatus` = 'geaccepteerd' WHERE (`idplayer` = '" + idplayer + "');";
 		dataBaseApplication.insertQuery(query);
 	}
 	
 	public void updateStatusIgnore(int idplayer) {
-		String query = "UPDATE `mwmastbe_db2`.`player` SET `playstatus_playstatus` = 'geweigerd' WHERE (`idplayer` = '" + idplayer + "');";
+		String query = "UPDATE `player` SET `playstatus_playstatus` = 'geweigerd' WHERE (`idplayer` = '" + idplayer + "');";
 		dataBaseApplication.insertQuery(query);
 	}
 
 	public void pushFirstPlayer(String username, String color, int gameid) {
 		// voeg user toe aan game
-		String query = "INSERT INTO `mwmastbe_db2`.`player` (`username`, `game_idgame`, `playstatus_playstatus`, `seqnr`, `isCurrentPlayer`, `private_objectivecard_color`) VALUES ('"
+		String query = "INSERT INTO `player` (`username`, `game_idgame`, `playstatus_playstatus`, `seqnr`, `isCurrentPlayer`, `private_objectivecard_color`) VALUES ('"
 				+ username + "', '" + gameid + "', 'uitdager', '1', '1', '" + color + "');";
 		dataBaseApplication.insertQuery(query);
 
@@ -46,8 +45,8 @@ public class DbGameCollector {
 
 	// voegt player toe aan een game
 	public void addPlayer(String username, int idgame, String color, int seq) {
-		int gameid = getHighestGameID();// idgame
-		String query = "INSERT INTO `mwmastbe_db2`.`player` (`username`, `game_idgame`, `playstatus_playstatus`, `seqnr`, `isCurrentPlayer`, `private_objectivecard_color`) VALUES ('"
+		int gameid = getHighestGameID();
+		String query = "INSERT INTO `player` (`username`, `game_idgame`, `playstatus_playstatus`, `seqnr`, `isCurrentPlayer`, `private_objectivecard_color`) VALUES ('"
 				+ username + "', '" + gameid + "', 'uitgedaagde', " + seq + ", '0', '" + color + "');";
 		dataBaseApplication.insertQuery(query);
 	}
@@ -75,7 +74,7 @@ public class DbGameCollector {
 		ArrayList<String> colors = getColors();
 		for (String color : colors) { // loop door de 5 kleuren
 			for (int dienumber = 1; dienumber < 19; dienumber++) { // for loop om 18 nummers te maken per color
-				String query = "INSERT INTO `mwmastbe_db2`.`gamedie` (`idgame`, `dienumber`, `diecolor`) VALUES ('"
+				String query = "INSERT INTO `gamedie` (`idgame`, `dienumber`, `diecolor`) VALUES ('"
 						+ gameid + "', '" + dienumber + "', '" + color + "');";
 				dataBaseApplication.insertQuery(query);
 			}
@@ -84,13 +83,13 @@ public class DbGameCollector {
 	}
 
 	public void insertPublicObjectiveCards(int x, int gameid) {
-		String query = "INSERT INTO `mwmastbe_db2`.`sharedpublic_objectivecard` (`idgame`, `idpublic_objectivecard`) VALUES ('"
+		String query = "INSERT INTO `sharedpublic_objectivecard` (`idgame`, `idpublic_objectivecard`) VALUES ('"
 				+ gameid + "', '" + x + "');";
 		dataBaseApplication.insertQuery(query);
 	}
 
 	public void insertToolCards(int x, int gameid) {
-		String query = "INSERT INTO `mwmastbe_db2`.`gametoolcard` (`idtoolcard`, `idgame`) VALUES ('" + x + "', '"
+		String query = "INSERT INTO `gametoolcard` (`idtoolcard`, `idgame`) VALUES ('" + x + "', '"
 				+ gameid + "');";
 		dataBaseApplication.insertQuery(query);
 
@@ -118,14 +117,6 @@ public class DbGameCollector {
 		return dataBaseApplication.GetPlayerIDs(gameID);
 	}
 	
-	public ArrayList<Integer> startedGames(String username) {
-		return dataBaseApplication.getStartedGames(username);
-	}
-	
-	public ArrayList<Integer> waitedGames(String username) {
-
-		return dataBaseApplication.getWaitedGames(username);
-	}
 	
 	public String getUsername(int playerid) {
 		String username = dataBaseApplication.getplayerUsername(playerid);

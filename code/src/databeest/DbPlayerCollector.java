@@ -1,21 +1,24 @@
 package databeest;
 
+import java.util.ArrayList;
+
 //Stef
 public class DbPlayerCollector {
-	
-	//instance variables
-	private DataBaseApplication dbApplication;
 
-	public DbPlayerCollector(DataBaseApplication dbApplication)
-	{
+	// instance variables
+	private DataBaseApplication dbApplication;
+	int amount;
+	int counter = 0;
+	int counter2;
+
+	public DbPlayerCollector(DataBaseApplication dbApplication) {
 		this.dbApplication = dbApplication;
 	}
-	
-	public int amountOfPaystones(int playerId)
-	{
+
+	public int amountOfPaystones(int playerId) {
 		int amount = 0;
 		amount = dbApplication.getPlayerPayStones(playerId);
-		
+
 		return amount;
 	}
 
@@ -32,13 +35,13 @@ public class DbPlayerCollector {
 	public String getStatus(int playerID) {
 		String status = dbApplication.getStatus(playerID);
 		return status;
-		
+
 	}
 
 	public boolean getIfCurrentPlayer(int playerID) {
 		boolean isCurrentPlayer = false;
 		int getCurrentPlayer = dbApplication.getIsCurrentPlayer(playerID);
-		if(getCurrentPlayer == 1) {
+		if (getCurrentPlayer == 1) {
 			isCurrentPlayer = true;
 		}
 		return isCurrentPlayer;
@@ -65,19 +68,35 @@ public class DbPlayerCollector {
 	}
 
 	public void setSeqnr(int playerid, int seqnr) {
-//		System.out.println("Updating database so " + playerid + "'s seqnr becomes: " + seqnr);
-		String query = "UPDATE `mwmastbe_db2`.`player` SET `seqnr` = '" + seqnr + "' WHERE (`idplayer` = '" + playerid + "');";
+		String query = "UPDATE `player` SET `seqnr` = '" + seqnr + "' WHERE (`idplayer` = '" + playerid + "');";
 		dbApplication.insertQuery(query);
 	}
 
 	public void setCurrentPlayer(int playerid, int i) {
-		String query = "UPDATE `mwmastbe_db2`.`player` SET `isCurrentPlayer` = '" + i + "' WHERE (`idplayer` = '" + playerid + "');";
+		String query = "UPDATE `player` SET `isCurrentPlayer` = '" + i + "' WHERE (`idplayer` = '" + playerid + "');";
 		dbApplication.insertQuery(query);
 	}
 
 	public void setGameTurn(int gameid, int playerid) {
-		String query = "UPDATE `mwmastbe_db2`.`game` SET `turn_idplayer` = '" + playerid + "' WHERE (`idgame` = '" + gameid + "');";
+		String query = "UPDATE `game` SET `turn_idplayer` = '" + playerid + "' WHERE (`idgame` = '" + gameid + "');";
 		dbApplication.insertQuery(query);
 	}
+
+	public int getDiceAmountOnFrame(int playerid) {
+		int amount = dbApplication.getDiceAmountOnFrame(playerid);
+		return amount;
+	}
+
+	public void setScore(int playerid, int score) {
+		String query = "UPDATE `player` SET `score` = '" + score + "' WHERE (`idplayer` = '" + playerid + "');";
+		dbApplication.insertQuery(query);
+	}
+
 	
+
+	public int getEyes(int dienumber, int idgame, String color) {
+		int i = dbApplication.getEyes(dienumber, idgame, color);
+		return i;
+	}
+
 }

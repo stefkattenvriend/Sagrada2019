@@ -35,7 +35,6 @@ public class CardPane extends StackPane{
 	}
 	public void addPlayerPayStone(FlowPane ppsh) {
 		 if(toolCard) {
-			System.out.println("added a paystone");
 			PlayerPayStone pps = new PlayerPayStone(this);
 			ppsh.getChildren().addAll(pps);
 		 }
@@ -46,7 +45,6 @@ public class CardPane extends StackPane{
 	}
 	
 	public void refresh(int amount) {
-		System.out.println("refresh amount: " + amount);
 		stonesAmount = amount;
 		this.getChildren().clear();
 		this.getChildren().add(background);

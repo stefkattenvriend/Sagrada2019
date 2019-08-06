@@ -40,12 +40,12 @@ public class MenuInvitePane extends FlowPane {
 		this.invitedGameIDs = menuController.getInvitedGamesID();
 
 		setPaneSize();
-		createActiveGamesList();
+		createInvitesList();
 
 		setBackground(new Background(new BackgroundFill(Color.rgb(254, 255, 209, 0.8), null, null))); // tijdelijk
 	}
 
-	public void createActiveGamesList() {
+	public void createInvitesList() {
 		title = new Label();
 		title.setText("Uitnodigingen");
 		title.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
@@ -67,7 +67,7 @@ public class MenuInvitePane extends FlowPane {
 		for (int i = 0; i < invitedGameIDs.size(); i++) {
 			games.add(new MenuDropdown(menuController, false,
 					"Uitnodiging voor Sagrada " + invitedGameIDs.get(i) + " door " + challengers.get(i), false, null,
-					false, true, null, lc, this, null));
+					false, true, null, lc, this, null, false));
 		}
 
 		for (int x = 0; x < games.size(); x++) { // voegt alle knoppen toe aan de lijst
@@ -93,16 +93,14 @@ public class MenuInvitePane extends FlowPane {
 	}
 
 	public void updateInvitePane() {
-		System.out.println("schoonmaken..");
 		getChildren().clear();
 		list.getChildren().clear();
 		games.clear();
-		System.out.println("indelen..");
 
 		for (int i = 0; i < invitedGameIDs.size(); i++) {
 			games.add(new MenuDropdown(menuController, false,
 					"Uitnodiging voor Sagrada " + invitedGameIDs.get(i) + " door " + challengers.get(i), false, null,
-					false, true, menuWaitingPane, lc, this, null));
+					false, true, menuWaitingPane, lc, this, null, false));
 		}
 
 		for (int x = 0; x < games.size(); x++) { // voegt alle knoppen toe aan de lijst

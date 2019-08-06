@@ -2,52 +2,57 @@ package controller;
 
 import databeest.DbPlayerCollector;
 import javafx.scene.paint.Color;
+import model.GameModel;
 import model.PlayerModel;
 
 public class PlayerController {
-	
-	//instance variables
+
+	// instance variables
 	private PlayerModel playerModel;
 	private DbPlayerCollector dbPlayerCollector;
-	
-	public PlayerController(DbPlayerCollector dbPlayerCollector)
-	{
-		playerModel = new PlayerModel(dbPlayerCollector);
-		this.dbPlayerCollector = dbPlayerCollector;
+	private ToolCardController tcc;
+
+	public PlayerController(DbPlayerCollector dpc, GameModel gm, ToolCardController tcc, GameController gc) {
+		this.tcc = tcc;
+		playerModel = new PlayerModel(dbPlayerCollector, gm, this.tcc, gc);
+		this.dbPlayerCollector = dpc;
 	}
-	
-	public void setPlayerId(int playerid)
-	{
+
+	public void setPlayerId(int playerid) {
 		playerModel.setPlayerId(playerid);
 	}
-	
-	public void setCurrentPlayer(Boolean current)
-	{
+
+	public void setCurrentPlayer(Boolean current) {
 		playerModel.setCurrentPlayer(current);
 	}
 
-	public boolean isCurrentPlayer()
-	{
+	public boolean isCurrentPlayer() {
 		return playerModel.isCurrentPlayer();
 	}
-	
-	public Color getPersonalObjective()
-	{
-//		System.out.println("colorje = " + playerModel.getObjectiveColor());
+
+	public Color getPersonalObjective() {
 		return playerModel.getObjectiveColor();
 	}
-	
-	public int getPayStones()
-	{
+
+	public int getPayStones() {
 		playerModel.setPayStones(dbPlayerCollector.amountOfPaystones(playerModel.getPlayerId()));
 		return playerModel.getPayStones();
 	}
-	
+
 	public int getPlayerID() {
 		return playerModel.getPlayerId();
 	}
-	
+
 	public String getPlayerName() {
 		return playerModel.getUsername();
 	}
+
+	public void setScore(int playerid) {
+		dbPlayerCollector.setScore(playerid, playerModel.getTotalPoints());
+	}
+
+	public PlayerModel getPM() {
+		return playerModel;
+	}
+
 }

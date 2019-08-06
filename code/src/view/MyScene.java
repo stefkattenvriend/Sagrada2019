@@ -2,14 +2,14 @@ package view;
 import controller.GameController;
 import controller.LoginController;
 import controller.MasterController;
-import controller.PlayerController;
-//joery
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import model.GameModel;
+import view.GamePanes.EndPane;
 import view.GamePanes.GamePane;
 import view.MenuPanes.MenuPane;
 
+//joery
 public class MyScene extends Scene{
 	
 	private MasterController mc;
@@ -27,7 +27,6 @@ public class MyScene extends Scene{
 		this.mc = mc;
 		this.gameModel = gameModel;
 //		this.stage = stage;
-		this.
 		lc = mc.getLoginController();
 		gc = mc.getGameController();
 		
@@ -40,6 +39,7 @@ public class MyScene extends Scene{
 		// daarna is pas de menupane te zien. Er wordt geswitched met de method: setNewRoot.
 		// via de constructor worden de aangemaakte classes doorgegeven.
 		
+		mc.getStage().setTitle("Sagrada");
 		setRoot(root);
 		setNewRoot(loginPane);
 		
@@ -95,6 +95,18 @@ public class MyScene extends Scene{
 			mc.getStage().centerOnScreen();
 		}
 
+	}
+	
+	public void setEndPane()
+	{
+		setNewRoot(new EndPane(this, gc));
+		mc.getStage().setHeight(gamePane.windowMaxHeight);
+		mc.getStage().setWidth(gamePane.windowMaxWidth);
+		mc.getStage().centerOnScreen();
+	}
+
+	public void reloadGame() {
+		setGamePane();
 		
 	}
 }

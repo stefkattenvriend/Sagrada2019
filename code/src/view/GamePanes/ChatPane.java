@@ -69,11 +69,11 @@ public class ChatPane extends BorderPane {
 		scrollPane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null)));
 		textArea.setMinHeight(textareasize);
 		textField = new TextField();
-		textField.setPromptText("Type here to chat...");
+		textField.setPromptText("Typ hier om te chatten...");
 		textArea.setDisable(true);
-		textArea.setText("Welcome to Sagrada! \n");
+		textArea.setText("Welkom bij Sagrada! \n");
 		buttonBar = new HBox();
-		submitbutton = new Button("Submit");
+		submitbutton = new Button("Stuur");
 		submitbutton.setMinWidth(buttonwidth);
 
 		getchatbutton = new Button("update");
@@ -118,28 +118,38 @@ public class ChatPane extends BorderPane {
 				amountOfPlayers = amountOfPlayers + 1;
 			}
 		}
-		int playerid1 = players[0];
-		int playerid2 = players[1];
+		int playerid1 = 0;
+		int playerid2 = 0;
 		int playerid3 = 0;
 		int playerid4 = 0;
-		if (amountOfPlayers == 3) {
-			playerid3 = players[2];
+		
+		if (players != null) {
+			
+			playerid1 = players[0];
+			playerid2 = players[1];
+			
+			if (amountOfPlayers == 3) {
+				playerid3 = players[2];
+			}
+			if (amountOfPlayers == 4) {
+				playerid4 = players[3];
+			}
 		}
-		if (amountOfPlayers == 4) {
-			playerid4 = players[3];
-		}
-
 		chat = cc.getchat(amountOfPlayers, playerid1, playerid2, playerid3, playerid4);
 		chatdate = cc.getchatDate(amountOfPlayers, playerid1, playerid2, playerid3, playerid4);
 		chatnames = cc.getPlayers(amountOfPlayers, playerid1, playerid2, playerid3, playerid4);
 		if (chat.size() != chat_OLD.size()) {
 			textArea.clear();
-			for (int x = 0; x < chat.size(); x++) {
-				String name = cc.getUsername(chatnames.get(x));
-				textArea.appendText("(" + chatdate.get(x) + ") " + name + ": ");
-				textArea.appendText(chat.get(x) + "\n");
+			try {
+				for (int x = 0; x < chat.size(); x++) {
+					String name = cc.getUsername(chatnames.get(x));
+					textArea.appendText("(" + chatdate.get(x) + ") " + name + ": ");
+					textArea.appendText(chat.get(x) + "\n");
+				}
+				chat_OLD = chat;
+			} catch (Exception e) {
 			}
-			chat_OLD = chat;
+
 		}
 	}
 

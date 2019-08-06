@@ -17,6 +17,7 @@ public class MenuModel {
 	private ArrayList<String> invitedGameIDs;
 	private ArrayList<Integer> activePlayerGames;
 	private ArrayList<Integer> waitedPlayerGames;
+	private ArrayList<String> players;
 	
 	public MenuModel(MasterController masterController) {
 		this.menuCollector = masterController.getDbMenuCollecter();
@@ -26,10 +27,11 @@ public class MenuModel {
 		setChallengers();
 		setActiveGames();
 		setWaitedGames();
+		setPlayers();
 		
 	}
 
-	public void setInvitedGameIDs() {
+	private void setInvitedGameIDs() {
 		this.invitedGameIDs = menuCollector.getInviteGameID(currentAccount);
 	}
 
@@ -37,7 +39,7 @@ public class MenuModel {
 		return invitedGameIDs;
 	}
 
-	public void setChallengers() {
+	private void setChallengers() {
 		this.challengers = menuCollector.getChallanger(currentAccount);
 	}
 
@@ -58,26 +60,26 @@ public class MenuModel {
 	}
 	
 	public ArrayList<Integer> getActiveGamesUpdate(){
-		return gameCollector.startedGames(currentAccount);
+		return menuCollector.startedGames(currentAccount);
 	}
 	
 	public ArrayList<Integer> getWaitedGamesUpdate(){
-		return gameCollector.waitedGames(currentAccount);
+		return menuCollector.waitedGames(currentAccount);
 	}
 	
 	// END UPDATE METHODS
 
 	
-	public void setActiveGames(){
-		this.activePlayerGames = gameCollector.startedGames(currentAccount);
+	private void setActiveGames(){
+		this.activePlayerGames = menuCollector.startedGames(currentAccount);
 	}
 	
 	public ArrayList<Integer> getActiveGames(){
 		return activePlayerGames;
 	}
 	
-	public void setWaitedGames(){
-		this.waitedPlayerGames = gameCollector.waitedGames(currentAccount);
+	private void setWaitedGames(){
+		this.waitedPlayerGames = menuCollector.waitedGames(currentAccount);
 	}
 	
 	public ArrayList<Integer> getWaitedGames(){
@@ -88,12 +90,32 @@ public class MenuModel {
 		return menuCollector.getPlayerStatus(gameID, currentAccount);
 	}
 	
-	public ArrayList<String> getPlayersInGame(String gameID){
+	public ArrayList<String> getPlayersInGame(int gameID){
 		return menuCollector.getPlayersInGame(gameID, currentAccount);
 	}
 	
 	public int getPlayerID(String gameID) {
 		return menuCollector.getPlayerID(gameID, currentAccount);
+	}
+	
+	private void setPlayers(){
+		this.players = menuCollector.getPlayers();
+	}
+	
+	public ArrayList<String> getPlayers(){
+		return players;
+	}
+	
+	public String getWinner(int gameID) {
+		return menuCollector.getWinner(gameID);
+	} 
+	
+	public ArrayList<Integer> getFinishedGames(String username){
+		return menuCollector.getFinishedGames(username);
+	}
+	
+	public String getCurrentUsername() {
+		return currentAccount;
 	}
 
 }

@@ -2,7 +2,6 @@ package databeest;
 
 import java.util.ArrayList;
 
-import javafx.scene.paint.Color;
 import model.PatterncardModel;
 
 public class DbPatternCardInfoCollector {

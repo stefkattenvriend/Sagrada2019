@@ -14,17 +14,24 @@ public class CardBackgroundModel {
 	private int TargetCard1;
 	private int TargetCard2;
 	private int TargetCard3;
+	private int[] targetCards = new int[3];
 	
 	public CardBackgroundModel(DbCardCollector dbCardCollector, int gameId) {
 		this.dbCardCollector = dbCardCollector;
-//		System.out.println("toolcards: " + this.dbCardCollector.getToolcards(gameId).get(0));
-		ToolCard1 = 2;
-		ToolCard2 = 1;
+		ToolCard1 = this.dbCardCollector.getToolcards(gameId).get(0);
+		ToolCard2 = this.dbCardCollector.getToolcards(gameId).get(1);
 		ToolCard3 = this.dbCardCollector.getToolcards(gameId).get(2);
-		
+	
 		TargetCard1 = this.dbCardCollector.getObjectivecards(gameId).get(0);
+		targetCards[0] = this.dbCardCollector.getObjectivecards(gameId).get(0);
 		TargetCard2 = this.dbCardCollector.getObjectivecards(gameId).get(1);
+		targetCards[1] = this.dbCardCollector.getObjectivecards(gameId).get(1);
 		TargetCard3 = this.dbCardCollector.getObjectivecards(gameId).get(2);
+		targetCards[2] = this.dbCardCollector.getObjectivecards(gameId).get(2);
+	}
+	
+	public int[] getTargetCards() {
+		return targetCards;
 	}
 	
 	public int getToolCard1() {
@@ -92,7 +99,6 @@ public class CardBackgroundModel {
 			ImageView iv12 = new ImageView(new Image("/toolcards/12.png"));
 			return iv12;
 		default:
-			System.out.println("There is no picture");
 			ImageView iv13 = new ImageView(new Image("/toolcards/1.png"));
 			return iv13;
 		}
@@ -131,7 +137,6 @@ public class CardBackgroundModel {
 			ImageView iv10 = new ImageView(new Image("/objectivecards/10.png"));
 			return iv10;
 		default:
-			System.out.println("There is no picture");
 			ImageView iv13 = new ImageView(new Image("toolcards/1.png"));
 			return iv13;
 		}

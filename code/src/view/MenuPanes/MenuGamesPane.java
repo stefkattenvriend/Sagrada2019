@@ -66,7 +66,7 @@ public class MenuGamesPane extends FlowPane {
 
 		for (int i = 0; i < gameIDs.size(); i++) {// vult verzameling met alle knoppen
 			games.add(new MenuDropdown(menuController, true, "Sagrada " + gameIDs.get(i), false, null, false, false,
-					null, loginController, null, this));
+					null, loginController, null, this, false));
 
 		}
 
@@ -82,20 +82,17 @@ public class MenuGamesPane extends FlowPane {
 	public void newActiveGames(ArrayList<Integer> newGameIDs) {
 		gameIDs.clear();
 		gameIDs = newGameIDs;
-		updateGamePane();
+		updateActiveGamesPane();
 	}
 
-	public void updateGamePane() {
-		System.out.println("actieve games opruimen..");
+	public void updateActiveGamesPane() {
 		getChildren().clear();
 		list.getChildren().clear();
 		games.clear();
-		System.out.println("actieve games indelen..");
 
 		for (int i = 0; i < gameIDs.size(); i++) {// vult verzameling met alle knoppen
 			games.add(new MenuDropdown(menuController, true, "Sagrada " + gameIDs.get(i), false, null, false, false,
-					null, loginController, null, this));
-
+					null, loginController, null, this, false));
 		}
 
 		for (int x = 0; x < games.size(); x++) { // voegt alle knoppen toe aan de lijst

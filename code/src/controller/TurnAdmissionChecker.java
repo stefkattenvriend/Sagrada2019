@@ -1,9 +1,6 @@
 package controller;
 
-
 import databeest.DbTurnCollector;
-import model.GameModel;
-import view.GamePanes.ChatPane;
 import view.GamePanes.PlayerPane;
 
 public class TurnAdmissionChecker implements Runnable {
@@ -18,10 +15,11 @@ public class TurnAdmissionChecker implements Runnable {
 	private TurnController tc;
 	private ToolCardController tcc;
 	private GameController gc;
-	private boolean allInteractible;
-//	private ChatPane chatPane;
-	
-	public TurnAdmissionChecker(DbTurnCollector dtc, String username, int gameId, DiceHolderController dhc, PlayerPane pp, TurnController tc, ToolCardController tcc, GameController gc) {
+	private int round;
+	// private ChatPane chatPane;
+
+	public TurnAdmissionChecker(DbTurnCollector dtc, String username, int gameId, DiceHolderController dhc,
+			PlayerPane pp, TurnController tc, ToolCardController tcc, GameController gc) {
 		this.tcc = tcc;
 		this.username = username;
 		this.gameId = gameId;
@@ -30,57 +28,46 @@ public class TurnAdmissionChecker implements Runnable {
 		this.pp = pp;
 		this.tc = tc;
 		this.gc = gc;
-		
+		this.myTurn = false;
+
 	}
-	
+
 	public void run() {
-		while(playing) {
+		while (playing) {
 			checkMyTurn();
-//			tc.updatePass(); //hoeft niet automatisch toch? aldus milan.
-//			if(myTurn) {
-////				pp.setLabel("Aan de beurt: ja");
-//				tcc.setTurn(true);
-//			}
-//			if(!myTurn) {
-////				pp.setLabel("Aan de beurt: nee");
-//				tcc.setTurn(false);
-//			}
-			
-			tc.updateChat(); //update chat automatisch hoop ik
+			round = dtc.getRoundNumber(gameId);
+			tc.updateChat(); // update chat automatisch hoop ik
 		}
 	}
-	
+
 	private void checkMyTurn() {
 		if (!tcc.exception()) {
 			if (dtc.myTurn(username, gameId)) {
-				dhc.switchTurnInteractable(true);
-				
-				if (myTurn) {
-					gc.setCurrentPlayer(true);	//zou ervoor moeten zorgen dat zodra het jouw turn is de game nog 1 keer update voor laatste gegevens
+				if (!myTurn) {
+					dhc.switchTurnInteractable(true);
+					gc.setCurrentPlayer(true);
+					pp.yourTurn();
+					if (round == 11) {
+						pp.showEndPane();
+					}
+					myTurn = true;
 				}
-				myTurn = true;
-				
-				
-				pp.yourTurn();
-				
 				try {
 					Thread.sleep(3000);
 				} catch (InterruptedException e) {
-					System.out.println("TurnAdmissionController checkMyTurn sleep error");
 					e.printStackTrace();
 				}
 			} else {
-				//dont allow something
-	//			System.out.println("not my turn");
+
 				dhc.switchTurnInteractable(false);
-				myTurn = false;
 				gc.setCurrentPlayer(false);
-				allInteractible = false;
-				
+				if (round == 11) {
+					pp.showEndPane();
+				}
+
 				try {
 					Thread.sleep(3000);
 				} catch (InterruptedException e) {
-					System.out.println("TurnAdmissionController checkMyTurn sleep error");
 					e.printStackTrace();
 				}
 			}
@@ -90,13 +77,15 @@ public class TurnAdmissionChecker implements Runnable {
 	public void start() {
 		playing = true;
 	}
-	
-	
+
 	public void stop() {
 		playing = false;
-		
+
 	}
-	
-	
+
+	public void setMyTurn(boolean b) {
+		this.myTurn = b;
+
+	}
 
 }
